@@ -1,2 +1,2 @@
 # 3SemesterProjekt
-Norlys' workshop
+Velkommen til Norlys' personalewebshop!
