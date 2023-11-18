@@ -14,7 +14,7 @@ namespace WebshopDataTest
         private readonly ITestOutputHelper _extraOutput;
 
         readonly private IPersonAccess _personAccess;
-        readonly string _connectionString = "Server=hildur.ucn.dk; Integrated Security=true; Database=DMA-CSD-S221_10463673; User Id=DMA-CSD-S221_10463673; password=Password1!";
+        readonly string _connectionString = "Server=hildur.ucn.dk; Database=DMA-CSD-S221_10463673; User Id=DMA-CSD-S221_10463673; password=Password1!";
 
         public TestPersonDataAccess(ITestOutputHelper output)
         {

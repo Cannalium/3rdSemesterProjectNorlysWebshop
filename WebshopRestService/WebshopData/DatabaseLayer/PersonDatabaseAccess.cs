@@ -22,7 +22,7 @@ namespace WebshopData.DatabaseLayer
         {
             int insertedId = -1;
             //
-            string insertString = "insert into Person(firstName, lastName, email) OUTPUT INSERTED.ID values(@FirstName, @LastName, @Email)";
+            string insertString = "insert into Person(personId, fName, lName, phoneNo, email, personType) OUTPUT INSERTED.ID values(@FirstName, @LastName, @Email)";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand CreateCommand = new SqlCommand(insertString, con))
             {
@@ -31,8 +31,13 @@ namespace WebshopData.DatabaseLayer
                 CreateCommand.Parameters.Add(fNameParam);
                 SqlParameter lNameParam = new("@LastName", aPerson.LastName);
                 CreateCommand.Parameters.Add(lNameParam);
+                SqlParameter phoneNoParam = new("@PhoneNo", aPerson.PhoneNo);
+                CreateCommand.Parameters.Add(phoneNoParam);
                 SqlParameter emailParam = new("@Email", aPerson.Email);
                 CreateCommand.Parameters.Add(emailParam);
+                SqlParameter personTypeParam = new("@PersonType", aPerson.PersonType);
+                CreateCommand.Parameters.Add(personTypeParam);
+
                 //
                 con.Open();
                 // Execute save and read generated key (ID)
@@ -53,7 +58,7 @@ namespace WebshopData.DatabaseLayer
             List<Person> foundPersons; 
             Person readPerson; 
             //
-            string queryString = "select id, firstName, lastName, phoneNo, email, personType from Person"; 
+            string queryString = "select personId, fName, lName, phoneNo, email, personType from Person"; 
             using (SqlConnection con = new SqlConnection(_connectionString)) 
             using (SqlCommand readCommand = new SqlCommand(queryString, con)) 
             { con.Open(); 
@@ -110,15 +115,19 @@ namespace WebshopData.DatabaseLayer
             int tempId;
             bool isNotNull;     // Test for null value in mobilePhone
             string? tempMobilePhone;
+            string? tempEmail;
             string tempFirstName, tempLastName;
+            string tempPersonType;
             // Fetch values
-            tempId = personReader.GetInt32(personReader.GetOrdinal("id"));
-            tempFirstName = personReader.GetString(personReader.GetOrdinal("firstName"));
-            tempLastName = personReader.GetString(personReader.GetOrdinal("lastName"));
-            isNotNull = !personReader.IsDBNull(personReader.GetOrdinal("mobilePhone"));
-            tempMobilePhone = isNotNull ? personReader.GetString(personReader.GetOrdinal("mobilePhone")) : null;
+            tempId = personReader.GetInt32(personReader.GetOrdinal("personId"));
+            tempFirstName = personReader.GetString(personReader.GetOrdinal("fName"));
+            tempLastName = personReader.GetString(personReader.GetOrdinal("lName"));
+            isNotNull = !personReader.IsDBNull(personReader.GetOrdinal("phoneNo"));
+            tempMobilePhone = isNotNull ? personReader.GetString(personReader.GetOrdinal("phoneNo")) : null;
+            tempEmail = personReader.GetString(personReader.GetOrdinal("email"));
+            tempPersonType = personReader.GetString(personReader.GetOrdinal("personType"));
             // Create object
-            foundPerson = new Person(tempId, tempFirstName, tempLastName, tempMobilePhone);
+            foundPerson = new Person(tempId, tempFirstName, tempLastName, tempMobilePhone, tempEmail, tempPersonType);
             return foundPerson;
         }
 
