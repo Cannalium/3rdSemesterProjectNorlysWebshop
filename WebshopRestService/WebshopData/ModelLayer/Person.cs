@@ -10,13 +10,14 @@ namespace WebshopData.ModelLayer
     {
         public Person() { }
 
-        public Person(string? firstName, string? lastName, string? email) 
+        public Person(int personId, string? firstName, string? lastName, string? email) 
         {
+            PersonId = personId;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
         }
-
+        public int PersonId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }

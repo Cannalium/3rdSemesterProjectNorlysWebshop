@@ -9,9 +9,10 @@ namespace WebshopData.DatabaseLayer
 {
     public interface IPersonAccess
     {
-        List<Person> GetPersons();
+        List<Person> GetPersonAll();
         int CreatePerson(Person personAdd);
         bool UpdatePerson(Person personUpdate);
+        Person GetPersonById(int id);
         bool DeletePerson();
 
     }
