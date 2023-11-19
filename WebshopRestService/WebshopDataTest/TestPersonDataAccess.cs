@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using WebshopData.DatabaseLayer;
-using WebshopData.ModelLayer;
-using WebshopData.DatabaseLayer;
+using WebshopModel.ModelLayer;
 using Xunit;
 using Xunit.Abstractions;
 
