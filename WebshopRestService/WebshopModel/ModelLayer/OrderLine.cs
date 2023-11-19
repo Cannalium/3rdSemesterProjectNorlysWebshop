@@ -7,12 +7,15 @@ using System.Threading.Tasks;
 namespace WebshopModel.ModelLayer {
     public class OrderLine {
 
-        public OrderLine(int orderLineProdQuantity) {
+        public OrderLine() { }
+        public OrderLine(int orderLineId, int orderLineProdQuantity) {
 
-            OrderLineProdQuantity = orderLineProdQuantity;    
-
+            OrderLineId = orderLineId;
+            OrderLineProdQuantity = orderLineProdQuantity;
+            
         }
 
+        public int OrderLineId { get; set; }
         public int OrderLineProdQuantity { get; set; }
     }
 }
