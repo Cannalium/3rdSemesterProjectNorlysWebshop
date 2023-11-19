@@ -132,7 +132,7 @@ namespace WebshopData.DatabaseLayer
                 updateCommand.Parameters.Add(firstNameParam);
 
                 SqlParameter lastNameParam = new SqlParameter("@LastName", personUpdate.LastName);
-                updateCommand.Parameters.Add(personIdParam);
+                updateCommand.Parameters.Add(lastNameParam);
 
                 SqlParameter phoneNoParam = new SqlParameter("@PhoneNo", personUpdate.PhoneNo);
                 updateCommand.Parameters.Add(phoneNoParam);
