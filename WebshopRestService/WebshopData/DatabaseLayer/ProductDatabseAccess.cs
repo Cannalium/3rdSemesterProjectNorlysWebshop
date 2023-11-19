@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
-
 {
     public class ProductDatabaseAccess : IProductAccess
     {
@@ -32,7 +31,7 @@ namespace WebshopData.DatabaseLayer
                 CreateCommand.Parameters.Add(prodDescriptionParam);
                 SqlParameter prodPriceParam = new("@ProdPrice", aProduct.ProdPrice);
                 CreateCommand.Parameters.Add(prodPriceParam);
-                SqlParameter prodQuantityParam = new("@Email", aProduct.ProdQuantity);
+                SqlParameter prodQuantityParam = new("@ProdQuantity", aProduct.ProdQuantity);
                 CreateCommand.Parameters.Add(prodQuantityParam);
 
                 con.Open();

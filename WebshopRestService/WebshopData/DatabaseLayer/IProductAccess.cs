@@ -10,7 +10,7 @@ namespace WebshopData.DatabaseLayer
     internal interface IProductAccess
     {
         List<Product> GetProductAll();
-        int CreateProduct(Product product);
+        int CreateProduct(Product aProduct);
         bool UpdateProduct(Product productUpdate);
         Product GetProductById(int id);
         bool DeleteProduct(int prodId);
