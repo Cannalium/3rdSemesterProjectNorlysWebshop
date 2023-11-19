@@ -1,36 +1,32 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebshopData.ModelLayer;
+using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
 {
     public class PersonDatabaseAccess : IPersonAccess
     {
-        readonly string? _connectionString;    
-        public PersonDatabaseAccess(IConfiguration configuration) {
-            _connectionString = configuration.GetConnectionString("CompanyConnection"); 
+        readonly string? _connectionString;
+        public PersonDatabaseAccess(IConfiguration configuration)
+        {
+            _connectionString = configuration.GetConnectionString("WebshopConnection");
         }
         // For test
         public PersonDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
 
-        public int CreatePerson(Person aPerson)
+        public int CreatePerson(Person aPerson) 
         {
             int insertedId = -1;
-            //
-            string insertString = "insert into Person(personId, fName, lName, phoneNo, email, personType) OUTPUT INSERTED.ID values(@FirstName, @LastName, @Email)";
+            string insertString = "insert into Person(firstName, lastName, phoneNo, email, personType) OUTPUT INSERTED.ID values(@FirstName, @LastName, @PhoneNo, @Email, @PersonType)";
+            
             using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand CreateCommand = new SqlCommand(insertString, con))
+            using (SqlCommand CreateCommand = new SqlCommand(insertString, con)) 
             {
-                // Prepace SQL
-                SqlParameter fNameParam = new("@FirstName", aPerson.FirstName);
-                CreateCommand.Parameters.Add(fNameParam);
-                SqlParameter lNameParam = new("@LastName", aPerson.LastName);
-                CreateCommand.Parameters.Add(lNameParam);
+                // Prepare SQL
+                SqlParameter firstNameParam = new("@FirstName", aPerson.FirstName);
+                CreateCommand.Parameters.Add(firstNameParam);
+                SqlParameter lastNameParam = new("@LastName", aPerson.LastName);
+                CreateCommand.Parameters.Add(lastNameParam);
                 SqlParameter phoneNoParam = new("@PhoneNo", aPerson.PhoneNo);
                 CreateCommand.Parameters.Add(phoneNoParam);
                 SqlParameter emailParam = new("@Email", aPerson.Email);
@@ -38,8 +34,8 @@ namespace WebshopData.DatabaseLayer
                 SqlParameter personTypeParam = new("@PersonType", aPerson.PersonType);
                 CreateCommand.Parameters.Add(personTypeParam);
 
-                //
                 con.Open();
+
                 // Execute save and read generated key (ID)
                 insertedId = (int)CreateCommand.ExecuteScalar();
             }
@@ -52,45 +48,41 @@ namespace WebshopData.DatabaseLayer
             throw new NotImplementedException();
         }
 
-        /* Three possible returns: * A List<Person> with content * A List<Person> with no content (no rows found in table) * Null - Some error occurred */
         public List<Person> GetPersonAll()
         {
-            List<Person> foundPersons; 
-            Person readPerson; 
-            //
-            string queryString = "select personId, fName, lName, phoneNo, email, personType from Person"; 
-            using (SqlConnection con = new SqlConnection(_connectionString)) 
-            using (SqlCommand readCommand = new SqlCommand(queryString, con)) 
-            { con.Open(); 
-                // Execute read
-                SqlDataReader personReader = readCommand.ExecuteReader(); 
-                // Collect data
-                foundPersons = new List<Person>(); 
-                while (personReader.Read()) {
-                    readPerson = GetPersonFromReader(personReader); 
-                    foundPersons.Add(readPerson);
-                }
-            } 
-            return foundPersons; 
-        }
-
-        /* Three possible returns:
-         * A Person object
-         * An empty Person object (no match on id)
-         * Null - Some error occurred
-        */
-        public Person GetPersonById(int findId)
-        {
-            Person foundPerson;
-            //
-            string queryString = "select id, firstName, lastName, mobilePhone from Person where id = @Id";
+            List<Person> foundPersons;
+            Person readPerson;
+            
+            string queryString = "select personId, firstName, lastName, phoneNo, email, personType from Person";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
-                // Prepace SQL
-                SqlParameter idParam = new SqlParameter("@Id", findId);
-                readCommand.Parameters.Add(idParam);
-                //
+                con.Open();
+                // Execute read
+                SqlDataReader personReader = readCommand.ExecuteReader();
+                // Collect data
+                foundPersons = new List<Person>();
+                while (personReader.Read())
+                {
+                    readPerson = GetPersonFromReader(personReader);
+                    foundPersons.Add(readPerson);
+                }
+            }
+            return foundPersons;
+        }
+
+        public Person GetPersonById(int findPersonId)
+        {
+            Person foundPerson;
+            
+            string queryString = "select personId, firstName, lastName, phoneNo, email, personType from Person where personId = @PersonId";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                // Prepare SQL
+                SqlParameter personIdParam = new SqlParameter("@PersonId", findPersonId);
+                readCommand.Parameters.Add(personIdParam);
+                
                 con.Open();
                 // Execute read
                 SqlDataReader personReader = readCommand.ExecuteReader();
@@ -112,22 +104,20 @@ namespace WebshopData.DatabaseLayer
         private Person GetPersonFromReader(SqlDataReader personReader)
         {
             Person foundPerson;
-            int tempId;
-            bool isNotNull;     // Test for null value in mobilePhone
-            string? tempMobilePhone;
-            string? tempEmail;
+            int tempPersonId;
             string tempFirstName, tempLastName;
+            string tempPhoneNo;
+            string tempEmail;
             string tempPersonType;
             // Fetch values
-            tempId = personReader.GetInt32(personReader.GetOrdinal("personId"));
-            tempFirstName = personReader.GetString(personReader.GetOrdinal("fName"));
-            tempLastName = personReader.GetString(personReader.GetOrdinal("lName"));
-            isNotNull = !personReader.IsDBNull(personReader.GetOrdinal("phoneNo"));
-            tempMobilePhone = isNotNull ? personReader.GetString(personReader.GetOrdinal("phoneNo")) : null;
+            tempPersonId = personReader.GetInt32(personReader.GetOrdinal("personId"));
+            tempFirstName = personReader.GetString(personReader.GetOrdinal("firstName"));
+            tempLastName = personReader.GetString(personReader.GetOrdinal("lastName"));
+            tempPhoneNo = personReader.GetString(personReader.GetOrdinal("phoneNo"));
             tempEmail = personReader.GetString(personReader.GetOrdinal("email"));
             tempPersonType = personReader.GetString(personReader.GetOrdinal("personType"));
             // Create object
-            foundPerson = new Person(tempId, tempFirstName, tempLastName, tempMobilePhone, tempEmail, tempPersonType);
+            foundPerson = new Person(tempPersonId, tempFirstName, tempLastName, tempPhoneNo, tempEmail, tempPersonType);
             return foundPerson;
         }
 

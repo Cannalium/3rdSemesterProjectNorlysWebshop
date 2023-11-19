@@ -18,7 +18,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="DTOs\" />
     <Folder Include="ModelConversion\" />
-    <Folder Include="ServiceBusinessLayer\" />
+    <Folder Include="BusinessLogicLayer\" />
   </ItemGroup>
 
 </Project>
