@@ -4,9 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebshopModel.ModelLayer
-{
-    internal class OrderLine
-    {
+namespace WebshopModel.ModelLayer {
+    public class OrderLine {
+
+        public OrderLine(int orderLineProdQuantity) {
+
+            OrderLineProdQuantity = orderLineProdQuantity;    
+
+        }
+
+        public int OrderLineProdQuantity { get; set; }
     }
 }
+
