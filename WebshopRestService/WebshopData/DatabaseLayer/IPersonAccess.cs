@@ -12,8 +12,8 @@ namespace WebshopData.DatabaseLayer
         List<Person> GetPersonAll();
         int CreatePerson(Person personAdd);
         bool UpdatePerson(Person personUpdate);
-        Person GetPersonById(int id);
-        bool DeletePerson();
+        Person GetPersonById(int personId);
+        bool DeletePerson(int personId);
 
     }
 }

@@ -43,9 +43,28 @@ namespace WebshopData.DatabaseLayer
         }
 
 
-        public bool DeletePerson()
-        {
-            throw new NotImplementedException();
+        public bool DeletePerson(int personId) {
+            bool personDeleted = false;
+            string queryString = "DELETE FROM Person WHERE personId = @PersonId";
+
+            using(SqlConnection connection = new SqlConnection(_connectionString))
+            using(SqlCommand deleteCommand = new SqlCommand(queryString, connection))
+            {
+                //Prepare SQL
+                SqlParameter personIdParam = new SqlParameter("@PersonId", personId);
+                deleteCommand.Parameters.Add(personIdParam);
+
+                connection.Open();
+
+                //Execute delete
+                int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                //Check if the delete operation was succesful
+                personDeleted = rowsAffected > 0;
+
+            }
+
+            return personDeleted;
         }
 
         public List<Person> GetPersonAll()
@@ -98,7 +117,42 @@ namespace WebshopData.DatabaseLayer
 
         public bool UpdatePerson(Person personUpdate)
         {
-            throw new NotImplementedException();
+            bool personUpdated = false;
+            string queryString = "UPDATE Person SET firstName = @FirstName, lastName = @LastName, " +
+                                 "phoneNo = @PhoneNo, email = @Email, personType = @PersonType " +
+                                 "WHERE personId = @PersonId";
+            using (SqlConnection connection = new SqlConnection(_connectionString)) 
+            using (SqlCommand updateCommand  = new SqlCommand(queryString, connection)) 
+            {
+                //Prepare SQL
+                SqlParameter personIdParam = new SqlParameter("@PersonId", personUpdate.PersonId);
+                updateCommand.Parameters.Add(personIdParam);
+
+                SqlParameter firstNameParam = new SqlParameter("@FirstName", personUpdate.FirstName);
+                updateCommand.Parameters.Add(firstNameParam);
+
+                SqlParameter lastNameParam = new SqlParameter("@LastName", personUpdate.LastName);
+                updateCommand.Parameters.Add(personIdParam);
+
+                SqlParameter phoneNoParam = new SqlParameter("@PhoneNo", personUpdate.PhoneNo);
+                updateCommand.Parameters.Add(phoneNoParam);
+
+                SqlParameter emailParam = new SqlParameter("@Email", personUpdate.Email);
+                updateCommand.Parameters.Add(emailParam);
+
+                SqlParameter personTypeParam = new SqlParameter("@PersonType", personUpdate.PersonType);
+                updateCommand.Parameters.Add(personTypeParam);
+
+                connection.Open();
+
+                //Execute update
+                int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                //Check if the update operation was succesful
+                personUpdated = rowsAffected > 0;
+            }
+
+            return personUpdated;
         }
 
         private Person GetPersonFromReader(SqlDataReader personReader)
