@@ -6,45 +6,45 @@ namespace WebshopRestService.ModelConversion
     public class ProductDTOConversion
     {
         // Convert from Product objects to ProductDTO objects
-        public static List<PersonDTO>? FromPersonCollection(List<Person> inPersons)
+        public static List<ProductDTO>? FromPersonCollection(List<Product> inProducts)
         {
-            List<PersonDTO>? aPersonReadDTOList = null;
-            if (inPersons != null)
+            List<ProductDTO>? aProductReadDTOList = null;
+            if (inProducts != null)
             {
-                aPersonReadDTOList = new List<PersonDTO>();
-                PersonDTO? tempDTO;
-                foreach (Person aPerson in inPersons)
+                aProductReadDTOList = new List<ProductDTO>();
+                ProductDTO? tempDTO;
+                foreach (Product aProduct in inProducts)
                 {
-                    if (aPerson != null)
+                    if (aProduct != null)
                     {
-                        tempDTO = FromPerson(aPerson);
-                        aPersonReadDTOList.Add(tempDTO);
+                        tempDTO = FromProduct(aProduct);
+                        aProductReadDTOList.Add(tempDTO);
                     }
                 }
             }
-            return aPersonReadDTOList;
+            return aProductReadDTOList;
         }
 
         // Convert from Person object to PersonDTO object
-        public static PersonDTO? FromPerson(Person inPerson)
+        public static ProductDTO? FromProduct(Product inProduct)
         {
-            PersonDTO? aPersonReadDTO = null;
-            if (inPerson != null)
+            ProductDTO? aProductReadDTO = null;
+            if (inProduct != null)
             {
-                aPersonReadDTO = new PersonDTO(inPerson.FirstName, inPerson.LastName, inPerson.PhoneNo, inPerson.Email, inPerson.PersonType);
+                aProductReadDTO = new ProductDTO(inProduct.ProdName, inProduct.ProdDescription, inProduct.ProdPrice, inProduct.ProdQuantity, inProduct.ProdType);
             }
-            return aPersonReadDTO;
+            return aProductReadDTO;
         }
 
         // Convert from PersonDTO object to Person object
-        public static Person? ToPerson(PersonDTO inDTO)
+        public static Product? ToProduct(ProductDTO inDTO)
         {
-            Person? aPerson = null;
+            Product? aProduct = null;
             if (inDTO != null)
             {
-                aPerson = new Person(inDTO.FirstName, inDTO.LastName, inDTO.PhoneNo, inDTO.Email, inDTO.PersonType);
+                aProduct = new Product(inDTO.ProdName, inDTO.ProdDescription, inDTO.ProdPrice, inDTO.ProdQuantity, inDTO.ProdType);
             }
-            return aPerson;
+            return aProduct;
         }
     }
 }

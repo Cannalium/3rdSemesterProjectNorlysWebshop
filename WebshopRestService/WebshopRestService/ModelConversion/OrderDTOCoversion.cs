@@ -25,26 +25,26 @@ namespace WebshopRestService.ModelConversion
             return anOrderReadDTOList;
         }
 
-        // Convert from Person object to PersonDTO object
+        // Convert from Order object to OrderDTO object
         public static OrderDTO? FromOrder(Order inOrder)
         {
             OrderDTO? anOrderReadDTO = null;
             if (inOrder != null)
             {
-                anOrderReadDTO = new OrderDTO(inOrder.OrderId, inOrder.OrderDate, inOrder.FirstName, inOrder.LastName, inOrder.ProdName);
+                anOrderReadDTO = new OrderDTO(inOrder.OrderId, inOrder.OrderDate);
             }
             return anOrderReadDTO;
         }
 
-        // Convert from PersonDTO object to Person object
-        public static Person? ToPerson(PersonDTO inDTO)
+        // Convert from OrderDTO object to Order object
+        public static Order? ToOrder(OrderDTO inDTO)
         {
-            Person? aPerson = null;
+            Order? anOrder = null;
             if (inDTO != null)
             {
-                aPerson = new Person(inDTO.FirstName, inDTO.LastName, inDTO.PhoneNo, inDTO.Email, inDTO.PersonType);
+                anOrder = new Order(inDTO.OrderId, inDTO.OrderDate);
             }
-            return aPerson;
+            return anOrder;
         }
     }
 }

@@ -8,6 +8,9 @@ namespace WebshopModel.ModelLayer {
     public class OrderLine {
 
         public OrderLine() { }
+
+        public OrderLine(int orderLineProdQuantity) { }
+
         public OrderLine(int orderLineId, int orderLineProdQuantity) {
 
             OrderLineId = orderLineId;
