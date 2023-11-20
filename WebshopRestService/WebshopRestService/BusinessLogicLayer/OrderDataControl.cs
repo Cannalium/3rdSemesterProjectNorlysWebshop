@@ -1,10 +1,35 @@
-﻿namespace WebshopRestService.BusinessLogicLayer
+﻿using WebshopData.DatabaseLayer;
+using WebshopModel.ModelLayer;
+
+namespace WebshopRestService.BusinessLogicLayer
 {
     public class OrderDataControl : IOrderData
     {
+        private readonly IOrderAccess _orderAccess;
+
+        public OrderDataControl(IOrderAccess inOrderAccess)
+        {
+            _orderAccess = inOrderAccess;
+
+        }
+
         public int Add(OrderDTO orderToAdd)
         {
-            throw new NotImplementedException();
+            int insertedId = 0;
+            try
+            {
+                Order? foundOrder = ModelConversion.OrderDtoConvert.ToOrder(newOrder);
+                if (foundOrder != null)
+                {
+                    insertedId = _orderAccess.CreateOrder(foundOrder);
+                }
+            }
+            catch
+            {
+                insertedId = -1;
+            }
+            return insertedId;
+
         }
 
         public bool Delete(int id)
@@ -14,12 +39,32 @@
 
         public OrderDTO? Get(int id)
         {
-            throw new NotImplementedException();
+            OrderDTO? foundOrderDto;
+            try
+            {
+                Order? foundOrder = _orderAccess.GetOrderById(idToMatch);
+                foundOrderDto = ModelConversion.OrderDtoConvert.FromOrder(foundOrder);
+            }
+            catch
+            {
+                foundOrderDto = null;
+            }
+            return foundOrderDto;
         }
 
         public List<OrderDTO>? Get()
         {
-            throw new NotImplementedException();
+            List<OrderDTO>? foundDtos;
+            try
+            {
+                List<Order>? foundOrders = _orderAccess.GetOrderAll();
+                foundDtos = ModelConversion.OrderDtoConvert.FromOrderCollection(foundOrders);
+            }
+            catch
+            {
+                foundDtos = null;
+            }
+            return foundDtos;
         }
 
         public bool Put(OrderDTO orderToUpdate)

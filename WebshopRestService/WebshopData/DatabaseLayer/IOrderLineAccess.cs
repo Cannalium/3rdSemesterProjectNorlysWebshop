@@ -7,7 +7,7 @@ using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
 {
-    internal interface IOrderLineAccess
+    public interface IOrderLineAccess
     {
         List<OrderLine> GetOrderLineAll();
         int CreateOrderLine(OrderLine anOrderLine);
