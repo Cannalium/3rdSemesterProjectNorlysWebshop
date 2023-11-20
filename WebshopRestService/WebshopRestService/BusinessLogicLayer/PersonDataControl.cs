@@ -33,7 +33,16 @@ namespace WebshopRestService.BusinessLogicLayer
 
         public bool Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                bool deletionSuccessful = _personAccess.DeletePerson(id);
+
+                return deletionSuccessful;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public PersonDTO? Get(int id)
