@@ -77,7 +77,24 @@ namespace WebshopRestService.BusinessLogicLayer
 
         public bool Put(ProductDTO productToUpdate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Product? updatedProduct = ModelConversion.ProductDtoConvert.ToProduct(productToUpdate);
+
+                if (updatedProduct != null)
+                {
+                    bool updateSuccessful = _productAccess.UpdateProduct(updatedProduct);
+
+                    return updateSuccessful;
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

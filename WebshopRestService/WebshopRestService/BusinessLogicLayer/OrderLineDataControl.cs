@@ -79,7 +79,24 @@ namespace WebshopRestService.BusinessLogicLayer
 
         public bool Put(OrderLineDTO orderLineToUpdate)
         {
-            throw new NotImplementedException();
+            try
+            {
+                OrderLine? updatedOrderLine = ModelConversion.OrderLineDtoConvert.ToOrderLine(orderLineToUpdate);
+
+                if (updatedOrderLine != null)
+                {
+                    bool updateSuccessful = _orderLineAccess.UpdateOrderLine(updatedOrderLine);
+
+                    return updateSuccessful;
+                }
+
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }
