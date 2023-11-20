@@ -20,7 +20,7 @@ namespace WebshopData.DatabaseLayer
         public int CreateOrder(Order anOrder)
         {
             int insertedId = -1;
-            string insertString = "insert into Order(orderDate, orderPrice) OUTPUT INSERTED.ID values(@OrderDate, @OrderPrice)";
+            string insertString = "insert into Order(orderDate) OUTPUT INSERTED.ID values(@OrderDate)";
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand CreateCommand = new SqlCommand(insertString, con))
@@ -28,9 +28,6 @@ namespace WebshopData.DatabaseLayer
                 // Prepare SQL
                 SqlParameter orderDateParam = new SqlParameter("@OrderDate", anOrder.OrderDate);
                 CreateCommand.Parameters.Add(orderDateParam);
-
-                SqlParameter orderPriceParam = new SqlParameter("@OrderPrice", anOrder.OrderPrice);
-                CreateCommand.Parameters.Add(orderPriceParam);
 
                 con.Open();
 
@@ -91,7 +88,7 @@ namespace WebshopData.DatabaseLayer
         {
             Order foundOrder;
 
-            string queryString = "select orderId, orderDate, orderPrice from Order where orderId = @OrderId";
+            string queryString = "select orderId, orderDate from Order where orderId = @OrderId";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -114,7 +111,7 @@ namespace WebshopData.DatabaseLayer
         public bool UpdateOrder(Order orderUpdate)
         {
             bool orderUpdated = false;
-            string queryString = "UPDATE Order SET orderDate = @OrderDate, orderPrice = @OrderPrice " +
+            string queryString = "UPDATE Order SET orderDate = @OrderDate" +
                                  "WHERE orderId = @OrderId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
@@ -125,9 +122,6 @@ namespace WebshopData.DatabaseLayer
 
                 SqlParameter orderDateParam = new SqlParameter("@OrderDate", orderUpdate.OrderDate);
                 updateCommand.Parameters.Add(orderDateParam);
-
-                SqlParameter orderPriceParam = new SqlParameter("@OrderPrice", orderUpdate.OrderPrice);
-                updateCommand.Parameters.Add(orderPriceParam);
 
                 connection.Open();
 
@@ -151,10 +145,9 @@ namespace WebshopData.DatabaseLayer
             // Fetch values
             tempOrderId = orderReader.GetInt32(orderReader.GetOrdinal("orderId"));
             tempOrderDate = orderReader.GetDateTime(orderReader.GetOrdinal("orderDate"));
-            tempOrderPrice = orderReader.GetDecimal(orderReader.GetOrdinal("orderPrice"));
 
             // Create object
-            foundOrder = new Order(tempOrderId, tempOrderDate, tempOrderPrice);
+            foundOrder = new Order(tempOrderId, tempOrderDate);
             return foundOrder;
         }
     }

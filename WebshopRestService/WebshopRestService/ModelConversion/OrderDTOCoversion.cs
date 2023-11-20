@@ -28,12 +28,12 @@ namespace WebshopRestService.ModelConversion
         // Convert from Person object to PersonDTO object
         public static OrderDTO? FromOrder(Order inOrder)
         {
-            PersonDTO? aPersonReadDTO = null;
-            if (inPerson != null)
+            OrderDTO? anOrderReadDTO = null;
+            if (inOrder != null)
             {
-                aPersonReadDTO = new PersonDTO(inPerson.FirstName, inPerson.LastName, inPerson.PhoneNo, inPerson.Email, inPerson.PersonType);
+                anOrderReadDTO = new OrderDTO(inOrder.OrderId, inOrder.OrderDate, inOrder.FirstName, inOrder.LastName, inOrder.ProdName);
             }
-            return aPersonReadDTO;
+            return anOrderReadDTO;
         }
 
         // Convert from PersonDTO object to Person object

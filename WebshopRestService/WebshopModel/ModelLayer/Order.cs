@@ -9,16 +9,14 @@ namespace WebshopModel.ModelLayer {
 
         public Order() { }
 
-        public Order(int orderId, DateTime orderDate, decimal orderPrice) {
+        public Order(int orderId, DateTime orderDate) {
 
             OrderId = orderId;
             OrderDate = orderDate;
-            OrderPrice = orderPrice;
             
         }
 
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
-        public decimal OrderPrice { get; set; }
     }
 }

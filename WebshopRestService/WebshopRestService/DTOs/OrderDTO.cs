@@ -5,11 +5,10 @@
         public OrderDTO(){
         }
 
-        public OrderDTO(int orderId, DateTime orderDate, decimal orderPrice, string? firstName, string? lastName, string? prodName) {
+        public OrderDTO(int orderId, DateTime orderDate, string? firstName, string? lastName, string? prodName) {
 
             OrderId = orderId;
             OrderDate = orderDate;
-            OrderPrice = orderPrice;
             FirstName = firstName;
             LastName = lastName;
             ProdName = prodName;
@@ -17,7 +16,6 @@
 
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
-        public decimal OrderPrice { get; set; }
 
  
         public string? FirstName { get; set; }
