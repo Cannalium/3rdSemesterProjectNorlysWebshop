@@ -1,5 +1,6 @@
 ﻿using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
+using WebshopRestService.DTO;
 
 namespace WebshopRestService.BusinessLogicLayer
 {
@@ -10,7 +11,6 @@ namespace WebshopRestService.BusinessLogicLayer
         public OrderDataControl(IOrderAccess inOrderAccess)
         {
             _orderAccess = inOrderAccess;
-
         }
 
         public int Add(OrderDTO orderToAdd)
@@ -18,7 +18,7 @@ namespace WebshopRestService.BusinessLogicLayer
             int insertedId = 0;
             try
             {
-                Order? foundOrder = ModelConversion.OrderDtoConvert.ToOrder(newOrder);
+                Order? foundOrder = ModelConversion.OrderDTOConvert.ToOrder(orderToAdd);
                 if (foundOrder != null)
                 {
                     insertedId = _orderAccess.CreateOrder(foundOrder);
@@ -29,15 +29,13 @@ namespace WebshopRestService.BusinessLogicLayer
                 insertedId = -1;
             }
             return insertedId;
-
         }
 
-        public bool Delete(int id)
+        public bool Delete(int orderId)
         {
             try
             {
-                bool deletionSuccessful = _orderAccess.DeleteOrder(id);
-
+                bool deletionSuccessful = _orderAccess.DeleteOrder(orderId);
                 return deletionSuccessful;
             }
             catch
@@ -46,19 +44,19 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public OrderDTO? Get(int id)
+        public OrderDTO? Get(int orderId)
         {
-            OrderDTO? foundOrderDto;
+            OrderDTO? foundOrderDTO;
             try
             {
-                Order? foundOrder = _orderAccess.GetOrderById(idToMatch);
-                foundOrderDto = ModelConversion.OrderDtoConvert.FromOrder(foundOrder);
+                Order? foundOrder = _orderAccess.GetOrderById(orderId);
+                foundOrderDTO = ModelConversion.OrderDTOConvert.FromOrder(foundOrder);
             }
             catch
             {
-                foundOrderDto = null;
+                foundOrderDTO = null;
             }
-            return foundOrderDto;
+            return foundOrderDTO;
         }
 
         public List<OrderDTO>? Get()
@@ -67,7 +65,7 @@ namespace WebshopRestService.BusinessLogicLayer
             try
             {
                 List<Order>? foundOrders = _orderAccess.GetOrderAll();
-                foundDtos = ModelConversion.OrderDtoConvert.FromOrderCollection(foundOrders);
+                foundDtos = ModelConversion.OrderDTOConvert.FromOrderCollection(foundOrders);
             }
             catch
             {
@@ -80,12 +78,11 @@ namespace WebshopRestService.BusinessLogicLayer
         {
             try
             {
-                Order? updatedOrder = ModelConversion.OrderDtoConvert.ToOrder(orderToUpdate);
+                Order? updatedOrder = ModelConversion.OrderDTOConvert.ToOrder(orderToUpdate);
 
                 if (updatedOrder != null)
                 {
                     bool updateSuccessful = _orderAccess.UpdateOrder(updatedOrder);
-
                     return updateSuccessful;
                 }
 
@@ -95,7 +92,7 @@ namespace WebshopRestService.BusinessLogicLayer
             {
                 return false;
             }
-
         }
     }
+
 }

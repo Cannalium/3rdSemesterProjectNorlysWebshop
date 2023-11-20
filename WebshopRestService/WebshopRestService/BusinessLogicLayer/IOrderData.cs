@@ -2,11 +2,11 @@
 {
     public interface IOrderData
     {
-        OrderDTO? Get(int id);
+        OrderDTO? Get(int ordedrId);
         List<OrderDTO>? Get();
         int Add(OrderDTO orderToAdd);
         bool Put(OrderDTO orderToUpdate);
-        bool Delete(int id);
+        bool Delete(int orderId);
 
     }
 }

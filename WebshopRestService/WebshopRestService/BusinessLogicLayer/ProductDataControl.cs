@@ -1,5 +1,6 @@
 ﻿using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
+using WebshopRestService.DTOs;
 
 namespace WebshopRestService.BusinessLogicLayer
 {
@@ -10,14 +11,14 @@ namespace WebshopRestService.BusinessLogicLayer
         public ProductDataControl(IProductAccess inProductAccess)
         {
             _productAccess = inProductAccess;
-
         }
+
         public int Add(ProductDTO productToAdd)
         {
             int insertedId = 0;
             try
             {
-                Product? foundProduct = ModelConversion.ProductDtoConvert.ToProduct(newProduct);
+                Product? foundProduct = ModelConversion.ProductDTOConvert.ToProduct(productToAdd);
                 if (foundProduct != null)
                 {
                     insertedId = _productAccess.CreateProduct(foundProduct);
@@ -30,12 +31,11 @@ namespace WebshopRestService.BusinessLogicLayer
             return insertedId;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int prodId)
         {
             try
             {
-                bool deletionSuccessful = _productAccess.DeleteProduct(id);
-
+                bool deletionSuccessful = _productAccess.DeleteProduct(prodId);
                 return deletionSuccessful;
             }
             catch
@@ -44,47 +44,45 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public ProductDTO? Get(int id)
+        public ProductDTO? Get(int prodId)
         {
-            ProductDTO? foundProductDto;
+            ProductDTO? foundProductDTO;
             try
             {
-                Product? foundProduct = _productAccess.GetProductById(idToMatch);
-                foundProductDto = ModelConversion.ProductDtoConvert.FromProduct(foundProduct);
+                Product? foundProduct = _productAccess.GetProductById(prodId);
+                foundProductDTO = ModelConversion.ProductDTOConvert.FromProduct(foundProduct);
             }
             catch
             {
-                foundProductDto = null;
+                foundProductDTO = null;
             }
-            return foundProductDto;
+            return foundProductDTO;
         }
 
         public List<ProductDTO>? Get()
         {
-            List<ProductDTO>? foundDtos;
+            List<ProductDTO>? foundDTOs;
             try
             {
                 List<Product>? foundProducts = _productAccess.GetProductAll();
-                foundDtos = ModelConversion.ProductDtoConvert.FromProductCollection(foundProducts);
+                foundDTOs = ModelConversion.ProductDTOConvert.FromProductCollection(foundProducts);
             }
             catch
             {
-                foundDtos = null;
+                foundDTOs = null;
             }
-            return foundDtos;
-
+            return foundDTOs;
         }
 
         public bool Put(ProductDTO productToUpdate)
         {
             try
             {
-                Product? updatedProduct = ModelConversion.ProductDtoConvert.ToProduct(productToUpdate);
+                Product? updatedProduct = ModelConversion.ProductDTOConvert.ToProduct(productToUpdate);
 
                 if (updatedProduct != null)
                 {
                     bool updateSuccessful = _productAccess.UpdateProduct(updatedProduct);
-
                     return updateSuccessful;
                 }
 
@@ -94,7 +92,7 @@ namespace WebshopRestService.BusinessLogicLayer
             {
                 return false;
             }
-
         }
     }
+
 }

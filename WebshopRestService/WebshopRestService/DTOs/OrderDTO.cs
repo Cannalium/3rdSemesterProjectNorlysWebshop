@@ -1,4 +1,4 @@
-﻿namespace WebshopRestService.DTO
+﻿namespace WebshopRestService.DTOs
 {
     public class OrderDTO {
 

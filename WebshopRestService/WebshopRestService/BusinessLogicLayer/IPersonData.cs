@@ -1,10 +1,10 @@
 ﻿namespace WebshopRestService.BusinessLogicLayer {
     public interface IPersonData {
-        PersonDTO? Get(int id);
+        PersonDTO? Get(int personId);
         List<PersonDTO>? Get();
         int Add(PersonDTO personToAdd);
         bool Put(PersonDTO personToUpdate);
-        bool Delete(int id);
+        bool Delete(int personId);
 
     }
 }

@@ -2,11 +2,11 @@
 {
     public interface IProductData
     {
-        ProductDTO? Get(int id);
+        ProductDTO? Get(int prodId);
         List<ProductDTO>? Get();
         int Add(ProductDTO productToAdd);
         bool Put(ProductDTO productToUpdate);
-        bool Delete(int id);
+        bool Delete(int prodId);
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
+using WebshopRestService.DTO;
 
 namespace WebshopRestService.BusinessLogicLayer
 {
@@ -10,14 +11,14 @@ namespace WebshopRestService.BusinessLogicLayer
         public OrderLineDataControl(IOrderLineAccess inOrderLineAccess)
         {
             _orderLineAccess = inOrderLineAccess;
-
         }
+
         public int Add(OrderLineDTO orderLineToAdd)
         {
             int insertedId = 0;
             try
             {
-                OrderLine? foundOrderLine = ModelConversion.OrderLineDtoConvert.ToOrderLine(newOrderLine);
+                OrderLine? foundOrderLine = ModelConversion.OrderLineDTOConvert.ToOrderLine(orderLineToAdd);
                 if (foundOrderLine != null)
                 {
                     insertedId = _orderLineAccess.CreateOrderLine(foundOrderLine);
@@ -28,15 +29,13 @@ namespace WebshopRestService.BusinessLogicLayer
                 insertedId = -1;
             }
             return insertedId;
-
         }
 
-        public bool Delete(int id)
+        public bool Delete(int orderLineId)
         {
             try
             {
-                bool deletionSuccessful = _orderLineAccess.DeleteOrderLine(id);
-
+                bool deletionSuccessful = _orderLineAccess.DeleteOrderLine(orderLineId);
                 return deletionSuccessful;
             }
             catch
@@ -45,48 +44,45 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public OrderLineDTO? Get(int id)
+        public OrderLineDTO? Get(int orderLineId)
         {
-            OrderLineDTO? foundOrderLineDto;
+            OrderLineDTO? foundOrderLineDTO;
             try
             {
-                OrderLine? foundOrderLine = _orderLineAccess.GetOrderLineById(idToMatch);
-                foundOrderLineDto = ModelConversion.OrderLineDtoConvert.FromOrderLine(foundOrderLine);
+                OrderLine? foundOrderLine = _orderLineAccess.GetOrderLineById(orderLineId);
+                foundOrderLineDTO = ModelConversion.OrderLineDTOConvert.FromOrderLine(foundOrderLine);
             }
             catch
             {
-                foundOrderLineDto = null;
+                foundOrderLineDTO = null;
             }
-            return foundOrderLineDto;
-
+            return foundOrderLineDTO;
         }
 
         public List<OrderLineDTO>? Get()
         {
-            List<OrderLineDTO>? foundDtos;
+            List<OrderLineDTO>? foundDTOs;
             try
             {
                 List<OrderLine>? foundOrderLines = _orderLineAccess.GetOrderLineAll();
-                foundDtos = ModelConversion.OrderLineDtoConvert.FromOrderLineCollection(foundOrderLines);
+                foundDTOs = ModelConversion.OrderLineDTOConvert.FromOrderLineCollection(foundOrderLines);
             }
             catch
             {
-                foundDtos = null;
+                foundDTOs = null;
             }
-            return foundDtos;
-
+            return foundDTOs;
         }
 
         public bool Put(OrderLineDTO orderLineToUpdate)
         {
             try
             {
-                OrderLine? updatedOrderLine = ModelConversion.OrderLineDtoConvert.ToOrderLine(orderLineToUpdate);
+                OrderLine? updatedOrderLine = ModelConversion.OrderLineDTOConvert.ToOrderLine(orderLineToUpdate);
 
                 if (updatedOrderLine != null)
                 {
                     bool updateSuccessful = _orderLineAccess.UpdateOrderLine(updatedOrderLine);
-
                     return updateSuccessful;
                 }
 
@@ -96,7 +92,7 @@ namespace WebshopRestService.BusinessLogicLayer
             {
                 return false;
             }
-
         }
     }
+
 }

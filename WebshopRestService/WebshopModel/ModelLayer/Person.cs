@@ -11,6 +11,8 @@ namespace WebshopModel.ModelLayer
     {
         public Person() { }
 
+        public Person(string? firstName, string? lastName, string? phoneNo, string? email, string? personType) { }
+
         public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, string? personType) 
         {
             PersonId = personId;

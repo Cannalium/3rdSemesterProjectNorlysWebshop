@@ -1,5 +1,6 @@
 ﻿using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
+using WebshopRestService.DTOs;
 
 namespace WebshopRestService.BusinessLogicLayer
 {
@@ -10,14 +11,14 @@ namespace WebshopRestService.BusinessLogicLayer
         public PersonDataControl(IPersonAccess inPersonAccess)
         {
             _personAccess = inPersonAccess;
-
         }
+
         public int Add(PersonDTO personToAdd)
         {
             int insertedId = 0;
             try
             {
-                Person? foundPerson = ModelConversion.PersonDtoConvert.ToPerson(newPerson);
+                Person? foundPerson = ModelConversion.PersonDTOConvert.ToPerson(personToAdd);
                 if (foundPerson != null)
                 {
                     insertedId = _personAccess.CreatePerson(foundPerson);
@@ -28,15 +29,13 @@ namespace WebshopRestService.BusinessLogicLayer
                 insertedId = -1;
             }
             return insertedId;
-
         }
 
-        public bool Delete(int id)
+        public bool Delete(int personId)
         {
             try
             {
-                bool deletionSuccessful = _personAccess.DeletePerson(id);
-
+                bool deletionSuccessful = _personAccess.DeletePerson(personId);
                 return deletionSuccessful;
             }
             catch
@@ -45,48 +44,45 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public PersonDTO? Get(int id)
+        public PersonDTO? Get(int personId)
         {
-            PersonDTO? foundPersonDto;
+            PersonDTO? foundPersonDTO;
             try
             {
-                Person? foundPerson = _personAccess.GetPersonById(idToMatch);
-                foundPersonDto = ModelConversion.PersonDtoConvert.FromPerson(foundPerson);
+                Person? foundPerson = _personAccess.GetPersonById(personId);
+                foundPersonDTO = ModelConversion.PersonDTOConvert.FromPerson(foundPerson);
             }
             catch
             {
-                foundPersonDto = null;
+                foundPersonDTO = null;
             }
-            return foundPersonDto;
-
+            return foundPersonDTO;
         }
 
         public List<PersonDTO>? Get()
         {
-            List<PersonDTO>? foundDtos;
+            List<PersonDTO>? foundDTOs;
             try
             {
                 List<Person>? foundPersons = _personAccess.GetPersonAll();
-                foundDtos = ModelConversion.PersonDtoConvert.FromPersonCollection(foundPersons);
+                foundDTOs = ModelConversion.PersonDTOConvert.FromPersonCollection(foundPersons);
             }
             catch
             {
-                foundDtos = null;
+                foundDTOs = null;
             }
-            return foundDtos;
-
+            return foundDTOs;
         }
 
         public bool Put(PersonDTO personToUpdate)
         {
             try
             {
-                Person? updatedPerson = ModelConversion.PersonDtoConvert.ToPerson(personToUpdate);
+                Person? updatedPerson = ModelConversion.PersonDTOConvert.ToPerson(personToUpdate);
 
                 if (updatedPerson != null)
                 {
                     bool updateSuccessful = _personAccess.UpdatePerson(updatedPerson);
-
                     return updateSuccessful;
                 }
 
@@ -98,4 +94,5 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
     }
+
 }
