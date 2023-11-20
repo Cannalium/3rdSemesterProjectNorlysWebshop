@@ -1,4 +1,6 @@
-﻿namespace WebshopRestService.BusinessLogicLayer
+﻿using WebshopRestService.DTOs;
+
+namespace WebshopRestService.BusinessLogicLayer
 {
     public interface IOrderData
     {
@@ -7,6 +9,5 @@
         int Add(OrderDTO orderToAdd);
         bool Put(OrderDTO orderToUpdate);
         bool Delete(int orderId);
-
     }
 }

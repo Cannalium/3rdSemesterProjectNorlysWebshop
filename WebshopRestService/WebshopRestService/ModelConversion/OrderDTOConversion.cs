@@ -3,7 +3,7 @@ using WebshopRestService.DTOs;
 
 namespace WebshopRestService.ModelConversion
 {
-    public class OrderDTOCoversion
+    public class OrderDTOConversion
     {
         // Convert from Order objects to OrderDTO objects
         public static List<OrderDTO>? FromOrderCollection(List<Order> inOrders)
@@ -48,4 +48,4 @@ namespace WebshopRestService.ModelConversion
         }
     }
 }
-}
+

@@ -11,11 +11,10 @@ namespace WebshopModel.ModelLayer {
 
         public OrderLine(int orderLineProdQuantity) { }
 
-        public OrderLine(int orderLineId, int orderLineProdQuantity) {
-
+        public OrderLine(int orderLineId, int orderLineProdQuantity) 
+        {
             OrderLineId = orderLineId;
             OrderLineProdQuantity = orderLineProdQuantity;
-            
         }
 
         public int OrderLineId { get; set; }

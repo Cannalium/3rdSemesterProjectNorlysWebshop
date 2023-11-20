@@ -1,6 +1,6 @@
 ﻿using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
-using WebshopRestService.DTO;
+using WebshopRestService.DTOs;
 
 namespace WebshopRestService.BusinessLogicLayer
 {
@@ -18,7 +18,7 @@ namespace WebshopRestService.BusinessLogicLayer
             int insertedId = 0;
             try
             {
-                Order? foundOrder = ModelConversion.OrderDTOConvert.ToOrder(orderToAdd);
+                Order? foundOrder = ModelConversion.OrderDTOConversion.ToOrder(orderToAdd);
                 if (foundOrder != null)
                 {
                     insertedId = _orderAccess.CreateOrder(foundOrder);
@@ -50,7 +50,7 @@ namespace WebshopRestService.BusinessLogicLayer
             try
             {
                 Order? foundOrder = _orderAccess.GetOrderById(orderId);
-                foundOrderDTO = ModelConversion.OrderDTOConvert.FromOrder(foundOrder);
+                foundOrderDTO = ModelConversion.OrderDTOConversion.FromOrder(foundOrder);
             }
             catch
             {
@@ -65,7 +65,7 @@ namespace WebshopRestService.BusinessLogicLayer
             try
             {
                 List<Order>? foundOrders = _orderAccess.GetOrderAll();
-                foundDtos = ModelConversion.OrderDTOConvert.FromOrderCollection(foundOrders);
+                foundDtos = ModelConversion.OrderDTOConversion.FromOrderCollection(foundOrders);
             }
             catch
             {
@@ -78,7 +78,7 @@ namespace WebshopRestService.BusinessLogicLayer
         {
             try
             {
-                Order? updatedOrder = ModelConversion.OrderDTOConvert.ToOrder(orderToUpdate);
+                Order? updatedOrder = ModelConversion.OrderDTOConversion.ToOrder(orderToUpdate);
 
                 if (updatedOrder != null)
                 {
@@ -94,5 +94,4 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
     }
-
 }

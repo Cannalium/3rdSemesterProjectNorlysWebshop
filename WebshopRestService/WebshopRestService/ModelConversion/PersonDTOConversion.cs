@@ -47,6 +47,5 @@ namespace WebshopRestService.ModelConversion
             return aPerson;
         }
     }
+}
 
-}
-}

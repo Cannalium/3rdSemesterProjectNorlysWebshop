@@ -17,6 +17,9 @@ namespace WebshopData.DatabaseLayer
             _connectionString = configuration.GetConnectionString("WebshopConnection");
         }
 
+        // For test
+        public OrderDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
+
         public int CreateOrder(Order anOrder)
         {
             int insertedId = -1;
@@ -57,7 +60,6 @@ namespace WebshopData.DatabaseLayer
                 // Check if the delete operation was successful
                 orderDeleted = rowsAffected > 0;
             }
-
             return orderDeleted;
         }
 
@@ -131,7 +133,6 @@ namespace WebshopData.DatabaseLayer
                 // Check if the update operation was successful
                 orderUpdated = rowsAffected > 0;
             }
-
             return orderUpdated;
         }
 
@@ -140,7 +141,6 @@ namespace WebshopData.DatabaseLayer
             Order foundOrder;
             int tempOrderId;
             DateTime tempOrderDate;
-            decimal tempOrderPrice;
 
             // Fetch values
             tempOrderId = orderReader.GetInt32(orderReader.GetOrdinal("orderId"));
@@ -151,5 +151,4 @@ namespace WebshopData.DatabaseLayer
             return foundOrder;
         }
     }
-
 }

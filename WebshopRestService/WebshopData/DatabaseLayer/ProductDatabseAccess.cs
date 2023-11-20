@@ -16,10 +16,14 @@ namespace WebshopData.DatabaseLayer
         {
             _connectionString = configuration.GetConnectionString("WebshopConnection");
         }
+
+        // For test
+        public ProductDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
+        
         public int CreateProduct(Product aProduct)
         {
             int insertedId = -1;
-            string insertString = "insert into Product(prodName, prodDescription, prodPrice, prodQuantity) OUTPUT INSERTED.ID values(@ProdName, @ProdDescription, @ProdPrice, @ProdQuantity)";
+            string insertString = "insert into Product(prodName, prodDescription, prodPrice, prodQuantity, prodType) OUTPUT INSERTED.ID values(@ProdName, @ProdDescription, @ProdPrice, @ProdQuantity, @ProdType)";
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand CreateCommand = new SqlCommand(insertString, con))
@@ -33,6 +37,8 @@ namespace WebshopData.DatabaseLayer
                 CreateCommand.Parameters.Add(prodPriceParam);
                 SqlParameter prodQuantityParam = new("@ProdQuantity", aProduct.ProdQuantity);
                 CreateCommand.Parameters.Add(prodQuantityParam);
+                SqlParameter prodTypeParam = new("@ProdType", aProduct.ProdType);
+                CreateCommand.Parameters.Add(prodTypeParam);
 
                 con.Open();
 
@@ -61,9 +67,7 @@ namespace WebshopData.DatabaseLayer
 
                 //Check if the delete operation was succesful
                 productDeleted = rowsAffected > 0;
-
             }
-
             return productDeleted;
         }
 
@@ -72,7 +76,7 @@ namespace WebshopData.DatabaseLayer
             List<Product> foundProducts;
             Product readProd;
 
-            string queryString = "select prodId, prodName, prodDescription, prodQuantity from Product";
+            string queryString = "select prodId, prodName, prodDescription, prodQuantity, prodType from Product";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -94,7 +98,7 @@ namespace WebshopData.DatabaseLayer
         {
             Product foundProd;
 
-            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity from Product where prod = @ProdId";
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prod = @ProdId";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -118,7 +122,7 @@ namespace WebshopData.DatabaseLayer
         {
             bool prodUpdated = false;
             string queryString = "UPDATE Producct SET prodName = @ProdName, prodDescription = @ProdDescription, " +
-                                 "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity" +
+                                 "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity, prodType = @ProdType" +
                                  "WHERE prodId = @ProdId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
@@ -139,6 +143,9 @@ namespace WebshopData.DatabaseLayer
                 SqlParameter prodQuantityParam = new SqlParameter("@ProdQuantity", prodUpdate.ProdQuantity);
                 updateCommand.Parameters.Add(prodQuantityParam);
 
+                SqlParameter prodTypeParam = new SqlParameter("@ProdType", prodUpdate.ProdType);
+                updateCommand.Parameters.Add(prodTypeParam);
+
                 connection.Open();
 
                 //Execute update
@@ -147,7 +154,6 @@ namespace WebshopData.DatabaseLayer
                 //Check if the update operation was succesful
                 prodUpdated = rowsAffected > 0;
             }
-
             return prodUpdated;
         }
 
@@ -159,16 +165,19 @@ namespace WebshopData.DatabaseLayer
             string tempProdDescription;
             decimal tempProdPrice;
             int tempProdQuantity;
+            string tempProdType;
+
             // Fetch values
             tempProdId = prodReader.GetInt32(prodReader.GetOrdinal("prodId"));
             tempProdName = prodReader.GetString(prodReader.GetOrdinal("prodName"));
             tempProdDescription = prodReader.GetString(prodReader.GetOrdinal("prodDescription"));
             tempProdPrice = prodReader.GetDecimal(prodReader.GetOrdinal("prodPrice"));
             tempProdQuantity = prodReader.GetInt32(prodReader.GetOrdinal("prodQuantity"));
+            tempProdType = prodReader.GetString(prodReader.GetOrdinal("prodType"));
+
             // Create object
-            foundProd = new Product(tempProdId, tempProdName, tempProdDescription, tempProdPrice, tempProdQuantity);
+            foundProd = new Product(tempProdId, tempProdName, tempProdDescription, tempProdPrice, tempProdQuantity, tempProdType);
             return foundProd;
         }
     }
-
 }

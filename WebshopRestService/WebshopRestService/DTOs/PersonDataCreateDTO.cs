@@ -1,10 +1,7 @@
 ﻿namespace WebshopRestService.DTOs {
     public class PersonDataCreateDTO 
     {
-
-        public PersonDataCreateDTO() 
-        {
-        }
+        public PersonDataCreateDTO() { }
 
         public PersonDataCreateDTO(string? firstName, string? lastName, string? phoneNo, string? email, string? personType)
         {

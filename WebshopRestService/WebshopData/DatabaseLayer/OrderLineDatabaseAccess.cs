@@ -18,6 +18,9 @@ namespace WebshopData.DatabaseLayer
             _connectionString = configuration.GetConnectionString("WebshopConnection");
         }
 
+        // For test
+        public OrderLineDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
+
         public int CreateOrderLine(OrderLine anOrderLine)
         {
             int insertedId = -1;
@@ -58,7 +61,6 @@ namespace WebshopData.DatabaseLayer
                 // Check if the delete operation was successful
                 orderLineDeleted = rowsAffected > 0;
             }
-
             return orderLineDeleted;
         }
 
@@ -132,7 +134,6 @@ namespace WebshopData.DatabaseLayer
                 // Check if the update operation was successful
                 orderLineUpdated = rowsAffected > 0;
             }
-
             return orderLineUpdated;
         }
 
@@ -151,5 +152,4 @@ namespace WebshopData.DatabaseLayer
             return foundOrderLine;
         }
     }
-
 }

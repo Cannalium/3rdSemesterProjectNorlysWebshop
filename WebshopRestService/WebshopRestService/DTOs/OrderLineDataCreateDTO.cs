@@ -1,9 +1,9 @@
 ﻿namespace WebshopRestService.DTOs
 {
-    public class OrderLineDataCreateDTO {
+    public class OrderLineDataCreateDTO 
+    {
 
-        public OrderLineDataCreateDTO() {
-        }
+        public OrderLineDataCreateDTO() { }
 
         public OrderLineDataCreateDTO(int orderLineProdQuantity)
         { 
@@ -11,7 +11,6 @@
         }
 
         public int OrderLineProdQuantity { get; set; }
-
     }
 }
 

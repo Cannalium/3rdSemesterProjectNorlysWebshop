@@ -1,6 +1,6 @@
 ﻿using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
-using WebshopRestService.DTO;
+using WebshopRestService.DTOs;
 
 namespace WebshopRestService.BusinessLogicLayer
 {
@@ -18,7 +18,7 @@ namespace WebshopRestService.BusinessLogicLayer
             int insertedId = 0;
             try
             {
-                OrderLine? foundOrderLine = ModelConversion.OrderLineDTOConvert.ToOrderLine(orderLineToAdd);
+                OrderLine? foundOrderLine = ModelConversion.OrderLineDTOConversion.ToOrderLine(orderLineToAdd);
                 if (foundOrderLine != null)
                 {
                     insertedId = _orderLineAccess.CreateOrderLine(foundOrderLine);
@@ -50,7 +50,7 @@ namespace WebshopRestService.BusinessLogicLayer
             try
             {
                 OrderLine? foundOrderLine = _orderLineAccess.GetOrderLineById(orderLineId);
-                foundOrderLineDTO = ModelConversion.OrderLineDTOConvert.FromOrderLine(foundOrderLine);
+                foundOrderLineDTO = ModelConversion.OrderLineDTOConversion.FromOrderLine(foundOrderLine);
             }
             catch
             {
@@ -65,7 +65,7 @@ namespace WebshopRestService.BusinessLogicLayer
             try
             {
                 List<OrderLine>? foundOrderLines = _orderLineAccess.GetOrderLineAll();
-                foundDTOs = ModelConversion.OrderLineDTOConvert.FromOrderLineCollection(foundOrderLines);
+                foundDTOs = ModelConversion.OrderLineDTOConversion.FromOrderLineCollection(foundOrderLines);
             }
             catch
             {
@@ -78,7 +78,7 @@ namespace WebshopRestService.BusinessLogicLayer
         {
             try
             {
-                OrderLine? updatedOrderLine = ModelConversion.OrderLineDTOConvert.ToOrderLine(orderLineToUpdate);
+                OrderLine? updatedOrderLine = ModelConversion.OrderLineDTOConversion.ToOrderLine(orderLineToUpdate);
 
                 if (updatedOrderLine != null)
                 {
@@ -94,5 +94,4 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
     }
-
 }

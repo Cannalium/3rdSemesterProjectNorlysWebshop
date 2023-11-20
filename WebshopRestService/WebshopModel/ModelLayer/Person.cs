@@ -11,22 +11,23 @@ namespace WebshopModel.ModelLayer
     {
         public Person() { }
 
-        public Person(string? firstName, string? lastName, string? phoneNo, string? email, string? personType) { }
+        public Person(string? firstName, string? lastName, string? phoneNo, string? email, bool? isAdmin) { }
 
-        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, string? personType) 
+        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool? isAdmin) 
         {
             PersonId = personId;
             FirstName = firstName;
             LastName = lastName;
             PhoneNo = phoneNo;
             Email = email;
-            PersonType = personType;
+            IsAdmin = isAdmin;
         }
+
         public int PersonId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
-        public string? PersonType { get; set; }
+        public bool? IsAdmin { get; }
     }
 }

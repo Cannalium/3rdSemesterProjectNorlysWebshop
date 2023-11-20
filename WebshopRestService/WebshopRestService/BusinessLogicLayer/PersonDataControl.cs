@@ -18,7 +18,7 @@ namespace WebshopRestService.BusinessLogicLayer
             int insertedId = 0;
             try
             {
-                Person? foundPerson = ModelConversion.PersonDTOConvert.ToPerson(personToAdd);
+                Person? foundPerson = ModelConversion.PersonDTOConversion.ToPerson(personToAdd);
                 if (foundPerson != null)
                 {
                     insertedId = _personAccess.CreatePerson(foundPerson);
@@ -50,7 +50,7 @@ namespace WebshopRestService.BusinessLogicLayer
             try
             {
                 Person? foundPerson = _personAccess.GetPersonById(personId);
-                foundPersonDTO = ModelConversion.PersonDTOConvert.FromPerson(foundPerson);
+                foundPersonDTO = ModelConversion.PersonDTOConversion.FromPerson(foundPerson);
             }
             catch
             {
@@ -65,7 +65,7 @@ namespace WebshopRestService.BusinessLogicLayer
             try
             {
                 List<Person>? foundPersons = _personAccess.GetPersonAll();
-                foundDTOs = ModelConversion.PersonDTOConvert.FromPersonCollection(foundPersons);
+                foundDTOs = ModelConversion.PersonDTOConversion.FromPersonCollection(foundPersons);
             }
             catch
             {
@@ -78,14 +78,13 @@ namespace WebshopRestService.BusinessLogicLayer
         {
             try
             {
-                Person? updatedPerson = ModelConversion.PersonDTOConvert.ToPerson(personToUpdate);
+                Person? updatedPerson = ModelConversion.PersonDTOConversion.ToPerson(personToUpdate);
 
                 if (updatedPerson != null)
                 {
                     bool updateSuccessful = _personAccess.UpdatePerson(updatedPerson);
                     return updateSuccessful;
                 }
-
                 return false;
             }
             catch
@@ -94,5 +93,4 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
     }
-
 }

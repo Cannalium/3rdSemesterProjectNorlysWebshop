@@ -6,7 +6,7 @@ namespace WebshopRestService.ModelConversion
     public class ProductDTOConversion
     {
         // Convert from Product objects to ProductDTO objects
-        public static List<ProductDTO>? FromPersonCollection(List<Product> inProducts)
+        public static List<ProductDTO>? FromProductCollection(List<Product> inProducts)
         {
             List<ProductDTO>? aProductReadDTOList = null;
             if (inProducts != null)
@@ -47,5 +47,4 @@ namespace WebshopRestService.ModelConversion
             return aProduct;
         }
     }
-}
 }
