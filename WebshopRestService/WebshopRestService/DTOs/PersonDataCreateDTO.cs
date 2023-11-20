@@ -6,8 +6,8 @@
         {
         }
 
-        public PersonDataCreateDTO(string? firstName, string? lastName, string? phoneNo, string? email, string? personType) {
-            
+        public PersonDataCreateDTO(string? firstName, string? lastName, string? phoneNo, string? email, string? personType)
+        {
             FirstName = firstName;
             LastName = lastName;
             PhoneNo = phoneNo;

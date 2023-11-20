@@ -5,14 +5,12 @@
         public OrderLineDataCreateDTO() {
         }
 
-        public OrderLineDataCreateDTO(int orderLineProdQuantity, decimal orderLinePrice) {
+        public OrderLineDataCreateDTO(int orderLineProdQuantity)
+        { 
             OrderLineProdQuantity = orderLineProdQuantity;
-            OrderLinePrice = orderLinePrice;
-  
         }
 
         public int OrderLineProdQuantity { get; set; }
-        public decimal OrderLinePrice { get; set; }
 
     }
 }

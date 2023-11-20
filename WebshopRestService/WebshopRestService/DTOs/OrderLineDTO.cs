@@ -4,15 +4,13 @@
         public OrderLineDTO() {
         }
 
-        public OrderLineDTO(int orderLineId, int orderLineProdQuantity, decimal orderLinePrice, string? prodName) {
+        public OrderLineDTO(int orderLineId, int orderLineProdQuantity) {
             OrderLineId = orderLineId;
             OrderLineProdQuantity = orderLineProdQuantity;
-            OrderLinePrice = orderLinePrice;
         }
 
         public int OrderLineId { get; set; }
         public int OrderLineProdQuantity { get; set; }
-        public decimal OrderLinePrice { get; set; }
     }
 }
 
