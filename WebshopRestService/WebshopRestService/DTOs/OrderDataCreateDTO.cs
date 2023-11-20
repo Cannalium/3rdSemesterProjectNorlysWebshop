@@ -4,18 +4,13 @@
 
         public OrderDataCreateDTO() {
         }
-            public OrderDataCreateDTO(DateTime orderDate, string? firstName, string? lastName, string? prodName)
+            public OrderDataCreateDTO(DateTime orderDate)
             {
                 OrderDate = orderDate;
-                FirstName = firstName;
-                LastName = lastName;
-                ProdName = prodName;
+                 
             }
 
             public DateTime OrderDate { get; set; }
-            public decimal OrderPrice { get; set; }
-            public string? FirstName { get; set; }
-            public string? LastName { get; set; }
-            public string? ProdName { get; set; }
+            
         }
     }

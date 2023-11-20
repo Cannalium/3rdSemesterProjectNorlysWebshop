@@ -1,6 +1,6 @@
 ﻿namespace WebshopRestService.DTOs {
     public class ProductCreateDataDTO {
-        public ProductCreateDataDTO()
+        public ProductCreateDataDTO() 
         {
         }
 

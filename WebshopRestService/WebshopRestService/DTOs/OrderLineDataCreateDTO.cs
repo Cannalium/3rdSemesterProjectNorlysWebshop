@@ -2,21 +2,18 @@
 {
     public class OrderLineDataCreateDTO {
 
-        public OrderLineDataCreateDTO()
-        {
+        public OrderLineDataCreateDTO() {
         }
 
-        public OrderLineDataCreateDTO(int orderLineProdQuantity, decimal orderLinePrice, string? prodName)
-        {
+        public OrderLineDataCreateDTO(int orderLineProdQuantity, decimal orderLinePrice) {
             OrderLineProdQuantity = orderLineProdQuantity;
             OrderLinePrice = orderLinePrice;
-            ProdName = prodName;
+  
         }
 
         public int OrderLineProdQuantity { get; set; }
         public decimal OrderLinePrice { get; set; }
 
-        public string? ProdName { get; set; }
     }
 }
 
