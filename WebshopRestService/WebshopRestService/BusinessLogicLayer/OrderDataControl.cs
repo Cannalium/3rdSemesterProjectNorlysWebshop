@@ -1,8 +1,8 @@
 ﻿namespace WebshopRestService.BusinessLogicLayer
 {
-    public class PersonDataControl : IPersonData
+    public class OrderDataControl : IOrderData
     {
-        public int Add(PersonDTO personToAdd)
+        public int Add(OrderDTO orderToAdd)
         {
             throw new NotImplementedException();
         }
@@ -12,17 +12,17 @@
             throw new NotImplementedException();
         }
 
-        public PersonDTO? Get(int id)
+        public OrderDTO? Get(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<PersonDTO>? Get()
+        public List<OrderDTO>? Get()
         {
             throw new NotImplementedException();
         }
 
-        public bool Put(PersonDTO personToUpdate)
+        public bool Put(OrderDTO orderToUpdate)
         {
             throw new NotImplementedException();
         }
