@@ -7,7 +7,7 @@ using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
 {
-    internal interface IProductAccess
+    public interface IProductAccess
     {
         List<Product> GetProductAll();
         int CreateProduct(Product aProduct);
