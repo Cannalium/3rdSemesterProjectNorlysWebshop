@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebshopData", "WebshopData\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebshopDataTest", "WebshopDataTest\WebshopDataTest.csproj", "{A8003693-0D6C-4960-84F8-17C490A7D730}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebshopModel", "WebshopModel\WebshopModel.csproj", "{3BA54BD8-EDA2-4BF9-A831-8E3362E7AD8A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebshopModel", "WebshopModel\WebshopModel.csproj", "{3BA54BD8-EDA2-4BF9-A831-8E3362E7AD8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -31,7 +31,7 @@ namespace WebshopRestService.ModelConversion
             PersonDTO? aPersonReadDTO = null;
             if (inPerson != null)
             {
-                aPersonReadDTO = new PersonDTO(inPerson.FirstName, inPerson.LastName, inPerson.PhoneNo, inPerson.Email, inPerson.PersonType);
+                aPersonReadDTO = new PersonDTO(inPerson.FirstName, inPerson.LastName, inPerson.PhoneNo, inPerson.Email, inPerson.IsAdmin);
             }
             return aPersonReadDTO;
         }
@@ -42,7 +42,7 @@ namespace WebshopRestService.ModelConversion
             Person? aPerson = null;
             if (inDTO != null)
             {
-                aPerson = new Person(inDTO.FirstName, inDTO.LastName, inDTO.PhoneNo, inDTO.Email, inDTO.PersonType);
+                aPerson = new Person(inDTO.FirstName, inDTO.LastName, inDTO.PhoneNo, inDTO.Email, inDTO.IsAdmin);
             }
             return aPerson;
         }

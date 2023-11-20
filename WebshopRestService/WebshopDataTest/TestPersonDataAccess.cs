@@ -45,7 +45,7 @@ namespace WebshopDataTest
               LastName = "Dittmer",
               PhoneNo = "53535173",
               Email = "kiradittmer@ucn.dk",
-              PersonType = "Admin"
+              //PersonType = "Admin"
             };
 
             int insertedId = _personAccess.CreatePerson(testPerson);
@@ -66,7 +66,7 @@ namespace WebshopDataTest
                 LastName = "Dittmer",
                 PhoneNo = "53535173",
                 Email = "kiradittmer@ucn.dk",
-                PersonType = "Admin"
+                //PersonType = "Admin"
             };
 
             int insertedId = (_personAccess.CreatePerson(testPerson));
@@ -74,7 +74,7 @@ namespace WebshopDataTest
             //Modify details
             testPerson.PersonId = insertedId;
             testPerson.FirstName = "Ida";
-            testPerson.PersonType = "Employee";
+            //testPerson.PersonType = "Employee";
 
             //Act
             bool updateResult = _personAccess.UpdatePerson(testPerson);
