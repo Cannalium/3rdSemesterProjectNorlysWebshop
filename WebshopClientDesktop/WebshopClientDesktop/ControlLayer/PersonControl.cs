@@ -24,10 +24,10 @@ namespace PersonServiceClientDesktop.ControlLayer
         //    return foundPersons;
         //}
 
-        //public async Task<int> SavePerson(string fName, string lName, string mPhone)
+        //public async Task<int> CreatePerson(string fName, string lName, string mPhone)
         //{
         //    Person newPerson = new(fName, lName, mPhone);
-        //    int insertedId = await _pAccess.SavePerson(newPerson);
+        //    int insertedId = await _pAccess.CreatePerson(newPerson);
         //    return insertedId;
         //}
     }
