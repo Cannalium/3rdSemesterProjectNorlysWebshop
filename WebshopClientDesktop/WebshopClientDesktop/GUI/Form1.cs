@@ -6,5 +6,25 @@ namespace WebshopClientDesktop
         {
             InitializeComponent();
         }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void EventLbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MerchLbl_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void NorlysHomeBtn_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
