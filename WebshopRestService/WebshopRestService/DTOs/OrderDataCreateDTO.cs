@@ -1,7 +1,6 @@
-﻿namespace WebshopRestService.DTOs
-{
-    public class OrderDataCreateDTO
-    {
+﻿namespace WebshopRestService.DTOs {
+
+    public class OrderDataCreateDTO {
 
         public OrderDataCreateDTO() {
         }
@@ -14,6 +13,7 @@
             }
 
             public DateTime OrderDate { get; set; }
+            public decimal OrderPrice { get; set; }
             public string? FirstName { get; set; }
             public string? LastName { get; set; }
             public string? ProdName { get; set; }
