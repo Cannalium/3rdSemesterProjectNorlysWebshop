@@ -29,33 +29,33 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            NavBarHome = new GroupBox();
+            navBarHome = new GroupBox();
             groupBox1 = new GroupBox();
-            NorlysButton = new Button();
-            CategoryGroupBox = new GroupBox();
-            EventsLbl = new Label();
-            MerchLbl = new Label();
-            label1 = new Label();
-            WelcomeLbl = new Label();
-            SloganLbl = new Label();
-            NorlysImgLbl = new Label();
-            NorlysImg = new PictureBox();
-            NavBarHome.SuspendLayout();
-            CategoryGroupBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)NorlysImg).BeginInit();
+            norlysButton = new Button();
+            categoryGroupBox = new GroupBox();
+            eventsLbl = new Label();
+            merchLbl = new Label();
+            kategoriLbl = new Label();
+            welcomeLbl = new Label();
+            sloganLbl = new Label();
+            norlysImgLbl = new Label();
+            norlysImg = new PictureBox();
+            navBarHome.SuspendLayout();
+            categoryGroupBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)norlysImg).BeginInit();
             SuspendLayout();
             // 
-            // NavBarHome
+            // navBarHome
             // 
-            NavBarHome.BackColor = SystemColors.Window;
-            NavBarHome.Controls.Add(groupBox1);
-            NavBarHome.Controls.Add(NorlysButton);
-            NavBarHome.Location = new Point(0, 0);
-            NavBarHome.Name = "NavBarHome";
-            NavBarHome.Size = new Size(1161, 86);
-            NavBarHome.TabIndex = 0;
-            NavBarHome.TabStop = false;
-            NavBarHome.Enter += groupBox1_Enter;
+            navBarHome.BackColor = SystemColors.Window;
+            navBarHome.Controls.Add(groupBox1);
+            navBarHome.Controls.Add(norlysButton);
+            navBarHome.Location = new Point(0, 3);
+            navBarHome.Name = "navBarHome";
+            navBarHome.Size = new Size(1161, 86);
+            navBarHome.TabIndex = 0;
+            navBarHome.TabStop = false;
+            navBarHome.Enter += groupBox1_Enter;
             // 
             // groupBox1
             // 
@@ -66,98 +66,98 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "groupBox1";
             // 
-            // NorlysButton
+            // norlysButton
             // 
-            NorlysButton.Image = Properties.Resources.Norlyslogo;
-            NorlysButton.Location = new Point(22, 12);
-            NorlysButton.Name = "NorlysButton";
-            NorlysButton.Size = new Size(161, 68);
-            NorlysButton.TabIndex = 0;
-            NorlysButton.UseVisualStyleBackColor = true;
-            NorlysButton.Click += NorlysHomeBtn_Click;
+            norlysButton.Image = Properties.Resources.Norlyslogo;
+            norlysButton.Location = new Point(22, 12);
+            norlysButton.Name = "norlysButton";
+            norlysButton.Size = new Size(161, 68);
+            norlysButton.TabIndex = 0;
+            norlysButton.UseVisualStyleBackColor = true;
+            norlysButton.Click += NorlysHomeBtn_Click;
             // 
-            // CategoryGroupBox
+            // categoryGroupBox
             // 
-            CategoryGroupBox.BackColor = SystemColors.Window;
-            CategoryGroupBox.Controls.Add(EventsLbl);
-            CategoryGroupBox.Controls.Add(MerchLbl);
-            CategoryGroupBox.Controls.Add(label1);
-            CategoryGroupBox.Location = new Point(0, 86);
-            CategoryGroupBox.Name = "CategoryGroupBox";
-            CategoryGroupBox.Size = new Size(235, 576);
-            CategoryGroupBox.TabIndex = 1;
-            CategoryGroupBox.TabStop = false;
+            categoryGroupBox.BackColor = SystemColors.Window;
+            categoryGroupBox.Controls.Add(eventsLbl);
+            categoryGroupBox.Controls.Add(merchLbl);
+            categoryGroupBox.Controls.Add(kategoriLbl);
+            categoryGroupBox.Location = new Point(0, 86);
+            categoryGroupBox.Name = "categoryGroupBox";
+            categoryGroupBox.Size = new Size(235, 576);
+            categoryGroupBox.TabIndex = 1;
+            categoryGroupBox.TabStop = false;
             // 
-            // EventsLbl
+            // eventsLbl
             // 
-            EventsLbl.AutoSize = true;
-            EventsLbl.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
-            EventsLbl.Location = new Point(61, 88);
-            EventsLbl.Name = "EventsLbl";
-            EventsLbl.Size = new Size(108, 44);
-            EventsLbl.TabIndex = 3;
-            EventsLbl.Text = "Events";
-            EventsLbl.Click += EventLbl_Click;
+            eventsLbl.AutoSize = true;
+            eventsLbl.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
+            eventsLbl.Location = new Point(61, 88);
+            eventsLbl.Name = "eventsLbl";
+            eventsLbl.Size = new Size(108, 44);
+            eventsLbl.TabIndex = 3;
+            eventsLbl.Text = "Events";
+            eventsLbl.Click += EventLbl_Click;
             // 
-            // MerchLbl
+            // merchLbl
             // 
-            MerchLbl.AutoSize = true;
-            MerchLbl.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
-            MerchLbl.Location = new Point(61, 132);
-            MerchLbl.Name = "MerchLbl";
-            MerchLbl.Size = new Size(100, 44);
-            MerchLbl.TabIndex = 2;
-            MerchLbl.Text = "Merch";
-            MerchLbl.Click += MerchLbl_Click;
+            merchLbl.AutoSize = true;
+            merchLbl.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
+            merchLbl.Location = new Point(61, 132);
+            merchLbl.Name = "merchLbl";
+            merchLbl.Size = new Size(100, 44);
+            merchLbl.TabIndex = 2;
+            merchLbl.Text = "Merch";
+            merchLbl.Click += MerchLbl_Click;
             // 
-            // label1
+            // kategoriLbl
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location = new Point(22, 23);
-            label1.Name = "label1";
-            label1.Size = new Size(179, 49);
-            label1.TabIndex = 0;
-            label1.Text = "Kategorier";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            kategoriLbl.AutoSize = true;
+            kategoriLbl.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Bold, GraphicsUnit.Point);
+            kategoriLbl.Location = new Point(22, 23);
+            kategoriLbl.Name = "kategoriLbl";
+            kategoriLbl.Size = new Size(179, 49);
+            kategoriLbl.TabIndex = 0;
+            kategoriLbl.Text = "Kategorier";
+            kategoriLbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // WelcomeLbl
+            // welcomeLbl
             // 
-            WelcomeLbl.AutoSize = true;
-            WelcomeLbl.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            WelcomeLbl.Location = new Point(302, 109);
-            WelcomeLbl.Name = "WelcomeLbl";
-            WelcomeLbl.Size = new Size(736, 56);
-            WelcomeLbl.TabIndex = 2;
-            WelcomeLbl.Text = "Velkommen til Norlys' personale webshop";
+            welcomeLbl.AutoSize = true;
+            welcomeLbl.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            welcomeLbl.Location = new Point(302, 109);
+            welcomeLbl.Name = "welcomeLbl";
+            welcomeLbl.Size = new Size(736, 56);
+            welcomeLbl.TabIndex = 2;
+            welcomeLbl.Text = "Velkommen til Norlys' personale webshop";
             // 
-            // SloganLbl
+            // sloganLbl
             // 
-            SloganLbl.AutoSize = true;
-            SloganLbl.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
-            SloganLbl.Location = new Point(452, 165);
-            SloganLbl.Name = "SloganLbl";
-            SloganLbl.Size = new Size(395, 44);
-            SloganLbl.TabIndex = 3;
-            SloganLbl.Text = "Alt det der bringer os sammen";
+            sloganLbl.AutoSize = true;
+            sloganLbl.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
+            sloganLbl.Location = new Point(452, 165);
+            sloganLbl.Name = "sloganLbl";
+            sloganLbl.Size = new Size(395, 44);
+            sloganLbl.TabIndex = 3;
+            sloganLbl.Text = "Alt det der bringer os sammen";
             // 
-            // NorlysImgLbl
+            // norlysImgLbl
             // 
-            NorlysImgLbl.AutoSize = true;
-            NorlysImgLbl.Image = Properties.Resources.NorlysCom;
-            NorlysImgLbl.Location = new Point(531, 407);
-            NorlysImgLbl.Name = "NorlysImgLbl";
-            NorlysImgLbl.Size = new Size(0, 20);
-            NorlysImgLbl.TabIndex = 4;
+            norlysImgLbl.AutoSize = true;
+            norlysImgLbl.Image = Properties.Resources.NorlysCom;
+            norlysImgLbl.Location = new Point(531, 407);
+            norlysImgLbl.Name = "norlysImgLbl";
+            norlysImgLbl.Size = new Size(0, 20);
+            norlysImgLbl.TabIndex = 4;
             // 
-            // NorlysImg
+            // norlysImg
             // 
-            NorlysImg.Image = Properties.Resources.NorlysCom;
-            NorlysImg.Location = new Point(462, 232);
-            NorlysImg.Name = "NorlysImg";
-            NorlysImg.Size = new Size(366, 319);
-            NorlysImg.TabIndex = 5;
-            NorlysImg.TabStop = false;
+            norlysImg.Image = Properties.Resources.NorlysCom;
+            norlysImg.Location = new Point(462, 232);
+            norlysImg.Name = "norlysImg";
+            norlysImg.Size = new Size(366, 319);
+            norlysImg.TabIndex = 5;
+            norlysImg.TabStop = false;
             // 
             // Form1
             // 
@@ -165,36 +165,36 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(1161, 662);
-            Controls.Add(NorlysImg);
-            Controls.Add(NorlysImgLbl);
-            Controls.Add(SloganLbl);
-            Controls.Add(WelcomeLbl);
-            Controls.Add(CategoryGroupBox);
-            Controls.Add(NavBarHome);
+            Controls.Add(norlysImg);
+            Controls.Add(norlysImgLbl);
+            Controls.Add(sloganLbl);
+            Controls.Add(welcomeLbl);
+            Controls.Add(categoryGroupBox);
+            Controls.Add(navBarHome);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Norlys' personale webshop";
             Load += Form1_Load;
-            NavBarHome.ResumeLayout(false);
-            CategoryGroupBox.ResumeLayout(false);
-            CategoryGroupBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)NorlysImg).EndInit();
+            navBarHome.ResumeLayout(false);
+            categoryGroupBox.ResumeLayout(false);
+            categoryGroupBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)norlysImg).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private GroupBox NavBarHome;
-        private Button NorlysButton;
+        private GroupBox navBarHome;
+        private Button norlysButton;
         private GroupBox groupBox1;
-        private GroupBox CategoryGroupBox;
-        private Label label1;
-        private Label MerchLbl;
-        private Label EventsLbl;
-        private Label WelcomeLbl;
-        private Label SloganLbl;
-        private Label NorlysImgLbl;
-        private PictureBox NorlysImg;
+        private GroupBox categoryGroupBox;
+        private Label kategoriLbl;
+        private Label merchLbl;
+        private Label eventsLbl;
+        private Label welcomeLbl;
+        private Label sloganLbl;
+        private Label norlysImgLbl;
+        private PictureBox norlysImg;
     }
 }

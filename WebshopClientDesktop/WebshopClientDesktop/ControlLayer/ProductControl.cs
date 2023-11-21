@@ -27,7 +27,7 @@ namespace WebshopClientDesktop.ControlLayer
          *  return foundProducts;
          * }
          * 
-         * public async Task<int> CreateProduct(string prodName, string prodDescription, decimal prodPrice, int prodQuantity)
+         * public async Task<int> CreateProduct(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity)
         //{
         //    Product newProduct = new(prodName, prodDescription, prodPrice, prodQuantity);
         //    int insertedId = await _pAccess.CreateProduct(newProduct);

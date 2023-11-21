@@ -24,9 +24,9 @@ namespace PersonServiceClientDesktop.ControlLayer
         //    return foundPersons;
         //}
 
-        //public async Task<int> CreatePerson(string fName, string lName, string mPhone)
+        //public async Task<int> CreatePerson(string? firstName, string? lastName, string? phoneNo, string? email)
         //{
-        //    Person newPerson = new(fName, lName, mPhone);
+        //    Person newPerson = new(firstName, lastName, phoneNo, email);
         //    int insertedId = await _pAccess.CreatePerson(newPerson);
         //    return insertedId;
         //}
