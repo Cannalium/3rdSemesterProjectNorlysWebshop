@@ -9,9 +9,9 @@ namespace WebshopModel.ModelLayer {
     
         public Product() { }
 
-        public Product(string prodName, string prodDescription, decimal prodPrice, int prodQuantity, string prodType) { }
+        public Product(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) { }
 
-        public Product(int prodId, string prodName, string prodDescription, decimal prodPrice, int prodQuantity, string prodType) 
+        public Product(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) 
         {
             ProdId = prodId;
             ProdName = prodName;
@@ -22,11 +22,11 @@ namespace WebshopModel.ModelLayer {
         }
 
         public int ProdId { get; set; }
-        public string ProdName { get; set; }
-        public string ProdDescription { get; set; }
+        public string? ProdName { get; set; }
+        public string? ProdDescription { get; set; }
         public decimal ProdPrice { get; set; }
         public int ProdQuantity { get; set; }
-        public string ProdType { get; }
+        public string? ProdType { get; }
     }
 }
 

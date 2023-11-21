@@ -11,9 +11,9 @@ namespace WebshopModel.ModelLayer
     {
         public Person() { }
 
-        public Person(string? firstName, string? lastName, string? phoneNo, string? email, bool? isAdmin) { }
+        public Person(string?firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) { }
 
-        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool? isAdmin) 
+        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) 
         {
             PersonId = personId;
             FirstName = firstName;
@@ -28,6 +28,6 @@ namespace WebshopModel.ModelLayer
         public string? LastName { get; set; }
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
-        public bool? IsAdmin { get; }
+        public bool IsAdmin { get; }
     }
 }
