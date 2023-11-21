@@ -11,7 +11,7 @@ namespace WebshopClientDesktop
             InitializeComponent();
 
             //Relates to EventLbl_Click method
-            eventForm = new EventForm(this);
+            eventForm = new EventForm(this, merchForm);
             eventsLbl.Click += EventLbl_Click;
 
             //Relates to MerchLbl_Click method

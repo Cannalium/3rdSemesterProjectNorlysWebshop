@@ -71,6 +71,7 @@
             merchLbl.Size = new Size(100, 44);
             merchLbl.TabIndex = 2;
             merchLbl.Text = "Merch";
+            merchLbl.Click += MerchLbl_Click;
             // 
             // categoryLbl
             // 
