@@ -153,7 +153,7 @@
             // NorlysImg
             // 
             NorlysImg.Image = Properties.Resources.NorlysCom;
-            NorlysImg.Location = new Point(481, 280);
+            NorlysImg.Location = new Point(462, 232);
             NorlysImg.Name = "NorlysImg";
             NorlysImg.Size = new Size(366, 319);
             NorlysImg.TabIndex = 5;
@@ -174,6 +174,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Norlys' personale webshop";
+            Load += Form1_Load;
             NavBarHome.ResumeLayout(false);
             CategoryGroupBox.ResumeLayout(false);
             CategoryGroupBox.PerformLayout();
