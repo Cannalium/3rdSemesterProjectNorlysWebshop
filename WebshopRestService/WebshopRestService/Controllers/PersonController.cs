@@ -95,7 +95,54 @@ namespace WebshopRestService.Controllers
             }
             return foundReturn;
         }
+
+
+
+
+        //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
+
+        [HttpDelete]
+        public ActionResult Delete(int personId) 
+        {
+            ActionResult foundReturn;
+            bool wasOk = _personDataController.Delete(personId);
+            if (wasOk)
+            {
+                foundReturn = Ok();
+            }
+            else
+            {
+                foundReturn = new StatusCodeResult(500);    // Internal server error
+            }
+            return foundReturn;
+        }
+
+        [HttpPut]
+        public ActionResult<bool> Put(PersonDTO personDTO)
+        {
+            ActionResult foundReturn;
+            
+            WebshopModel.ModelLayer.Person? person = ModelConversion.PersonDTOConversion.ToPerson(personDTO);
+           
+            if (personDTO != null)
+            {
+                bool wasOk = _personDataController.Put(personDTO);
+
+                if (wasOk)
+                {
+                    foundReturn = Ok();
+                }
+                else
+                {
+                    foundReturn = new StatusCodeResult(500);
+                }
+            }
+            else
+            {
+                foundReturn = BadRequest();
+            }
+
+            return foundReturn;
+        }
     }
 }
-
-
