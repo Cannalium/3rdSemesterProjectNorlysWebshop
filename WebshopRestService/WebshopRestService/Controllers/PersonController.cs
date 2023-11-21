@@ -2,42 +2,100 @@
 using WebshopRestService.BusinessLogicLayer;
 using WebshopRestService.DTOs;
 
-
 namespace WebshopRestService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonData _businessLogicCtrl;
+        private readonly IPersonData _personDataController;
 
         // Constructor with Dependency Injection
-        public PersonController(IPersonData businessLogicCtrl)
+        public PersonController(IPersonData personDataController)
         {
-            _businessLogicCtrl = businessLogicCtrl;
+            _personDataController = personDataController;
         }
 
         // URL: api/persons
         [HttpGet]
-        public ActionResult<List<PersonDTO>> Get()
+        public ActionResult<List<PersonDTO>>? Get()
         {
-            return null;
+            ActionResult<List<PersonDTO>> foundReturn;
+            //Retrieve data converted to DTO
+            List<PersonDTO>? foundPersons = _personDataController.Get();
+            //evaluate
+            if (foundPersons != null)
+            {
+                if (foundPersons.Count > 0)
+                {
+                    foundReturn = Ok(foundPersons); //OK found list statuscode 200
+                }
+                else
+                {
+                    foundReturn = new StatusCodeResult(204); //OK found list but no content 204
+                }
+            }
+            else
+            {
+                foundReturn = new StatusCodeResult(500); //Internal server error   
+            }
+            return foundReturn; //send return to client
         }
 
+
         // URL: api/persons/{id}
-        [HttpGet, Route("{id}")]
-        public ActionResult<PersonDTO> Get(int id)
+        [HttpGet, Route("{personId}")]
+        public ActionResult<PersonDTO> Get(int personId)
         {
-            return null;
+            ActionResult<PersonDTO> foundReturn;
+            try
+            {
+                //Retieve data converted to DTO
+                PersonDTO? foundPersonsById = _personDataController.Get(personId);
+
+                //Evaluate
+                if (foundPersonsById != null)
+                {
+                    foundReturn = Ok(foundPersonsById); //OK found person by ID statuscode 200
+                }
+                else
+                {
+                    foundReturn = new StatusCodeResult(204); // OK not found, no content statuscode 204
+                }
+            }
+            catch
+            {
+                foundReturn = new StatusCodeResult(500); // Internal server error   
+            }
+            return foundReturn; // Send return to client
         }
 
         // URL: api/persons
         [HttpPost]
-        public ActionResult PostNewPerson(PersonDTO inPerson)
+        public ActionResult<int> PostNewPerson(PersonDTO personDTO)
         {
-            return null;
+            ActionResult<int> foundReturn;
+            int insertedId = -1;
+            if (personDTO != null)
+            {
+                insertedId = _personDataController.Add(personDTO);
+            }
+            // Evaluate
+            if (insertedId > 0)
+            {
+                foundReturn = Ok(insertedId);
+            }
+            else if (insertedId == 0)
+            {
+                foundReturn = BadRequest();     // missing input
+            }
+            else
+            {
+                foundReturn = new StatusCodeResult(500);    // Internal server error
+            }
+            return foundReturn;
         }
-
-
     }
 }
+
+
