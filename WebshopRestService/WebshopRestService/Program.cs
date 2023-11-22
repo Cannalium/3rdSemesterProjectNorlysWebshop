@@ -3,15 +3,32 @@ using WebshopData.DatabaseLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container - prepare DI
+// Add services
 
 builder.Services.AddControllers();
-builder.Services.AddSingleton<IPersonData, PersonDataControl>();
+
+//Add services to the container:
+
+//Order
+
+builder.Services.AddSingleton<IOrderAccess, OrderDatabaseAccess>();
+builder.Services.AddSingleton<IOrderData, OrderDataControl>();
+
+//OrderLine
+
+builder.Services.AddSingleton<IOrderLineAccess, OrderLineDatabaseAccess>(); 
+builder.Services.AddSingleton<IOrderLineData,  OrderLineDataControl>();
+
+//Person
+
 builder.Services.AddSingleton<IPersonAccess, PersonDatabaseAccess>();
+builder.Services.AddSingleton<IPersonData, PersonDataControl>();
 
-// Add services to the container
+//Product
 
-builder.Services.AddControllers();
+builder.Services.AddSingleton<IProductAccess, ProductDatabaseAccess>(); 
+builder.Services.AddSingleton<IProductData, ProductDataControl>();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
