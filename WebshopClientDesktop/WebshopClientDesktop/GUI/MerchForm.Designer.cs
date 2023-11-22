@@ -61,7 +61,6 @@
             eventsLbl.Size = new Size(108, 44);
             eventsLbl.TabIndex = 3;
             eventsLbl.Text = "Events";
-            eventsLbl.Click += EventLbl_Click;
             // 
             // merchLbl
             // 
@@ -112,7 +111,6 @@
             norlysButton.Size = new Size(161, 68);
             norlysButton.TabIndex = 0;
             norlysButton.UseVisualStyleBackColor = true;
-            norlysButton.Click += NorlysButton_Click;
             // 
             // MerchForm
             // 
