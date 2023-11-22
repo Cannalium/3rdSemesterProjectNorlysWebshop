@@ -1,6 +1,6 @@
 ﻿namespace WebshopClientDesktop.GUI
 {
-    partial class MerchForm
+    partial class AdminPageForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
+            label1 = new Label();
+            SuspendLayout();
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(137, 224);
+            label1.Name = "label1";
+            label1.Size = new Size(943, 159);
+            label1.TabIndex = 0;
+            label1.Text = "Hej jeg er admin";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            label1.Click += label1_Click;
+            // 
+            // AdminPageForm
+            // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1180, 670);
+            Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "MerchForm";
-            ShowInTaskbar = false;
-            StartPosition = FormStartPosition.CenterScreen;
-            Text = "MerchForm";
+            Name = "AdminPageForm";
+            Text = "AdminPageForm";
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
+
+        private Label label1;
     }
 }

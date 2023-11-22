@@ -33,5 +33,37 @@ namespace WebshopClientDesktop
         {
             Load_form(new MerchForm());
         }
+
+        //Slettes
+        private void lblCategory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //Slettes
+        private void panelMain_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void AdminLogo_Click(object sender, EventArgs e)
+        {
+            Load_form(new AdminPageForm());
+        }
+
+        private void lblWelcome_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
