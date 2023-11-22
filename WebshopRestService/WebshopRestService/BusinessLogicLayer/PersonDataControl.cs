@@ -8,9 +8,9 @@ namespace WebshopRestService.BusinessLogicLayer
     {
         private readonly IPersonAccess _personAccess;
 
-        public PersonDataControl(IPersonAccess inPersonAccess)
+        public PersonDataControl(IPersonAccess PersonAccess)
         {
-            _personAccess = inPersonAccess;
+            _personAccess = PersonAccess;
         }
 
         public int Add(PersonDTO personToAdd)

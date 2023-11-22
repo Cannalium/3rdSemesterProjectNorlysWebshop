@@ -96,9 +96,6 @@ namespace WebshopRestService.Controllers
             return foundReturn;
         }
 
-
-
-
         //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
 
         [HttpDelete]
