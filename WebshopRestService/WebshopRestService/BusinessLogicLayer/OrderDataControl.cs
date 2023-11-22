@@ -8,9 +8,9 @@ namespace WebshopRestService.BusinessLogicLayer
     {
         private readonly IOrderAccess _orderAccess;
 
-        public OrderDataControl(IOrderAccess inOrderAccess)
+        public OrderDataControl(IOrderAccess OrderAccess)
         {
-            _orderAccess = inOrderAccess;
+            _orderAccess = OrderAccess;
         }
 
         public int Add(OrderDTO orderToAdd)
