@@ -8,12 +8,12 @@ namespace WebshopRestService.BusinessLogicLayer
     {
         private readonly IPersonAccess _personAccess;
 
-        public PersonDataControl(IPersonAccess PersonAccess)
+        public PersonDataControl(IConfiguration configuration)
         {
-            _personAccess = PersonAccess;
+            _personAccess = new PersonDatabaseAccess(configuration);
         }
 
-        public int Add(PersonDTO personToAdd)
+            public int Add(PersonDTO personToAdd)
         {
             int insertedId = 0;
             try

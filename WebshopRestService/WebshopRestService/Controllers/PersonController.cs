@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using WebshopRestService.BusinessLogicLayer;
 using WebshopRestService.DTOs;
 
@@ -9,11 +10,13 @@ namespace WebshopRestService.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonData _personDataController;
+        private readonly IConfiguration _configuration;
 
-        // Constructor with Dependency Injection
-        public PersonController(IPersonData personDataController)
+        //Constructor with Dependency Injection
+        public PersonController(IConfiguration configuration)
         {
-            _personDataController = personDataController;
+            _configuration = configuration;
+            _personDataController = new PersonDataControl(_configuration);
         }
 
         // URL: api/persons

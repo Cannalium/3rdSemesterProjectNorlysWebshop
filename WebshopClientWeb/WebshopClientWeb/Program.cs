@@ -4,12 +4,13 @@ using WebshopClientWeb.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
+//Identity configuration
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
@@ -18,7 +19,6 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
     options.User.RequireUniqueEmail = true;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>(); ;
-
 
 var app = builder.Build();
 
