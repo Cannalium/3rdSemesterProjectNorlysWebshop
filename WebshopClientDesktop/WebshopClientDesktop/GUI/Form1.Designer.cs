@@ -36,15 +36,14 @@
             picBoxAdminLogo = new PictureBox();
             picBoxNorlysLogo = new PictureBox();
             panelMain = new Panel();
-            pictureBox1 = new PictureBox();
-            label1 = new Label();
-            lblWelcome = new Label();
+            merchuc1 = new GUI.MerchUC();
+            eventuc1 = new GUI.EventUC();
+            adminPageuc1 = new GUI.AdminPageUC();
             panelLeft.SuspendLayout();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).BeginInit();
             panelMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panelLeft
@@ -135,9 +134,9 @@
             // panelMain
             // 
             panelMain.BackColor = SystemColors.Window;
-            panelMain.Controls.Add(pictureBox1);
-            panelMain.Controls.Add(label1);
-            panelMain.Controls.Add(lblWelcome);
+            panelMain.Controls.Add(adminPageuc1);
+            panelMain.Controls.Add(merchuc1);
+            panelMain.Controls.Add(eventuc1);
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(170, 87);
             panelMain.Name = "panelMain";
@@ -145,37 +144,30 @@
             panelMain.TabIndex = 2;
             panelMain.Paint += panelMain_Paint;
             // 
-            // pictureBox1
+            // merchuc1
             // 
-            pictureBox1.Image = Properties.Resources.NorlysCom;
-            pictureBox1.Location = new Point(378, 264);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(395, 291);
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            merchuc1.Dock = DockStyle.Fill;
+            merchuc1.Location = new Point(0, 0);
+            merchuc1.Name = "merchuc1";
+            merchuc1.Size = new Size(1178, 650);
+            merchuc1.TabIndex = 2;
+            merchuc1.Load += merchuc1_Load;
             // 
-            // label1
+            // eventuc1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(378, 128);
-            label1.Name = "label1";
-            label1.Size = new Size(395, 44);
-            label1.TabIndex = 1;
-            label1.Text = "Alt det der bringer os sammen";
-            label1.Click += label1_Click;
+            eventuc1.Location = new Point(-12, 6);
+            eventuc1.Name = "eventuc1";
+            eventuc1.Size = new Size(1178, 650);
+            eventuc1.TabIndex = 0;
             // 
-            // lblWelcome
+            // adminPageuc1
             // 
-            lblWelcome.AutoSize = true;
-            lblWelcome.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblWelcome.Location = new Point(212, 72);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(743, 56);
-            lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "Velkommen til Norlys' personale webshop!";
-            lblWelcome.Click += lblWelcome_Click;
+            adminPageuc1.Dock = DockStyle.Fill;
+            adminPageuc1.Location = new Point(0, 0);
+            adminPageuc1.Name = "adminPageuc1";
+            adminPageuc1.Size = new Size(1178, 650);
+            adminPageuc1.TabIndex = 2;
+            adminPageuc1.Load += adminPageuc1_Load;
             // 
             // Form1
             // 
@@ -190,14 +182,13 @@
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            Load += Form1_Load;
             panelLeft.ResumeLayout(false);
             panelLeft.PerformLayout();
             panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).EndInit();
             panelMain.ResumeLayout(false);
-            panelMain.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -211,8 +202,8 @@
         private Panel panelMain;
         private PictureBox picBoxNorlysLogo;
         private PictureBox picBoxAdminLogo;
-        private Label lblWelcome;
-        private Label label1;
-        private PictureBox pictureBox1;
+        private GUI.EventUC eventuc1;
+        private GUI.MerchUC merchuc1;
+        private GUI.AdminPageUC adminPageuc1;
     }
 }
