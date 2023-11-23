@@ -31,9 +31,9 @@ namespace WebshopClientDesktop.ControlLayer
 
         }
 
-        public async Task<int> CreateProduct(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity)
+        public async Task<int> CreateProduct(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
         {
-            Product newProduct = new(prodName, prodDescription, prodPrice, prodQuantity);
+            Product newProduct = new(prodName, prodDescription, prodPrice, prodQuantity, prodType);
             int insertedId = await _productAccess.CreateProduct(newProduct);
             return insertedId;
         }

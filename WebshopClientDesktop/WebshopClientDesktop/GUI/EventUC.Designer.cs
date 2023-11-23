@@ -30,16 +30,20 @@
         {
             label1 = new Label();
             tbl_EventProd = new TableLayoutPanel();
+            button1 = new Button();
+            button2 = new Button();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(548, 22);
+            label1.Font = new Font("Sans Serif Collection", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
+            label1.Location = new Point(496, 22);
             label1.Name = "label1";
-            label1.Size = new Size(82, 20);
+            label1.Size = new Size(186, 68);
             label1.TabIndex = 0;
-            label1.Text = "Events side";
+            label1.Text = "Events";
+            label1.Click += label1_Click;
             // 
             // tbl_EventProd
             // 
@@ -55,13 +59,33 @@
             tbl_EventProd.RowStyles.Add(new RowStyle(SizeType.Percent, 50.37037F));
             tbl_EventProd.RowStyles.Add(new RowStyle(SizeType.Absolute, 134F));
             tbl_EventProd.RowStyles.Add(new RowStyle(SizeType.Absolute, 113F));
-            tbl_EventProd.Size = new Size(1107, 518);
+            tbl_EventProd.Size = new Size(904, 518);
             tbl_EventProd.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(956, 93);
+            button1.Name = "button1";
+            button1.Size = new Size(132, 29);
+            button1.TabIndex = 2;
+            button1.Text = "Rediger produkt";
+            button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(956, 128);
+            button2.Name = "button2";
+            button2.Size = new Size(101, 29);
+            button2.TabIndex = 3;
+            button2.Text = "Slet produkt";
+            button2.UseVisualStyleBackColor = true;
             // 
             // EventUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(tbl_EventProd);
             Controls.Add(label1);
             Name = "EventUC";
@@ -74,5 +98,7 @@
 
         private Label label1;
         private TableLayoutPanel tbl_EventProd;
+        private Button button1;
+        private Button button2;
     }
 }

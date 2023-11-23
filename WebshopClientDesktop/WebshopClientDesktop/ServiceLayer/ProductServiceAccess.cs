@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebshopClientDesktop.ModelLayer;
+using static System.Net.WebRequestMethods;
 
 namespace WebshopClientDesktop.ServiceLayer
 {
@@ -13,7 +14,7 @@ namespace WebshopClientDesktop.ServiceLayer
         readonly ServiceConnection _productService;
 
         //Mangler url samt port number - sat til null for nu.
-        readonly String _serviceBaseUrl = null;
+        readonly String _serviceBaseUrl = "https://localhost:7173/api/products/";
 
         public ProductServiceAccess()
         {
