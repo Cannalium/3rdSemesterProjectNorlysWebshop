@@ -9,14 +9,14 @@ namespace WebshopRestService.Controllers
     [ApiController]
     public class PersonController : ControllerBase
     {
-        private readonly IPersonData _personDataController;
+        private readonly IPersonData _personDataControl;
         private readonly IConfiguration _configuration;
 
         //Constructor with Dependency Injection
         public PersonController(IConfiguration configuration)
         {
             _configuration = configuration;
-            _personDataController = new PersonDataControl(_configuration);
+            _personDataControl = new PersonDataControl(_configuration);
         }
 
         // URL: api/persons
@@ -25,7 +25,7 @@ namespace WebshopRestService.Controllers
         {
             ActionResult<List<PersonDTO>> foundReturn;
             //Retrieve data converted to DTO
-            List<PersonDTO>? foundPersons = _personDataController.Get();
+            List<PersonDTO>? foundPersons = _personDataControl.Get();
             //evaluate
             if (foundPersons != null)
             {
@@ -54,7 +54,7 @@ namespace WebshopRestService.Controllers
             try
             {
                 //Retieve data converted to DTO
-                PersonDTO? foundPersonsById = _personDataController.Get(personId);
+                PersonDTO? foundPersonsById = _personDataControl.Get(personId);
 
                 //Evaluate
                 if (foundPersonsById != null)
@@ -81,7 +81,7 @@ namespace WebshopRestService.Controllers
             int insertedId = -1;
             if (personDTO != null)
             {
-                insertedId = _personDataController.Add(personDTO);
+                insertedId = _personDataControl.Add(personDTO);
             }
             // Evaluate
             if (insertedId > 0)
@@ -105,7 +105,7 @@ namespace WebshopRestService.Controllers
         public ActionResult Delete(int personId) 
         {
             ActionResult foundReturn;
-            bool wasOk = _personDataController.Delete(personId);
+            bool wasOk = _personDataControl.Delete(personId);
             if (wasOk)
             {
                 foundReturn = Ok();
@@ -126,7 +126,7 @@ namespace WebshopRestService.Controllers
            
             if (personDTO != null)
             {
-                bool wasOk = _personDataController.Put(personDTO);
+                bool wasOk = _personDataControl.Put(personDTO);
 
                 if (wasOk)
                 {
