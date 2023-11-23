@@ -7,6 +7,14 @@ namespace WebshopClientDesktop
         public Form1()
         {
             InitializeComponent();
+
+            btnEvent.Click += EventButton_Click;
+            btnMerch.Click += MerchButton_Click;
+        }
+
+        private void BtnMerch_Click(object? sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public void Load_form(object form)
@@ -24,6 +32,7 @@ namespace WebshopClientDesktop
                 f1.Show();
             }
         }
+
         private void EventButton_Click(object sender, EventArgs e)
         {
             Load_form(new EventForm());
