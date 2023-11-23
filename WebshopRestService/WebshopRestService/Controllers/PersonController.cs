@@ -48,13 +48,13 @@ namespace WebshopRestService.Controllers
 
         // URL: api/persons/{id}
         [HttpGet, Route("{personId}")]
-        public ActionResult<PersonDTO> Get(int personId)
+        public ActionResult<PersonDTO> GetPersonById(int personId)
         {
             ActionResult<PersonDTO> foundReturn;
             try
             {
                 //Retieve data converted to DTO
-                PersonDTO? foundPersonsById = _personDataControl.Get(personId);
+                PersonDTO? foundPersonsById = _personDataControl.GetPersonById(personId);
 
                 //Evaluate
                 if (foundPersonsById != null)
@@ -102,7 +102,7 @@ namespace WebshopRestService.Controllers
         //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
 
         [HttpDelete]
-        public ActionResult Delete(int personId) 
+        public ActionResult Delete(int personId)
         {
             ActionResult foundReturn;
             bool wasOk = _personDataControl.Delete(personId);
@@ -121,9 +121,9 @@ namespace WebshopRestService.Controllers
         public ActionResult<bool> Put(PersonDTO personDTO)
         {
             ActionResult foundReturn;
-            
+
             WebshopModel.ModelLayer.Person? person = ModelConversion.PersonDTOConversion.ToPerson(personDTO);
-           
+
             if (personDTO != null)
             {
                 bool wasOk = _personDataControl.Put(personDTO);
@@ -144,5 +144,37 @@ namespace WebshopRestService.Controllers
 
             return foundReturn;
         }
+
+        // URL: api/customers/{userId}
+        [HttpGet, Route("{userId}")]
+        public ActionResult<PersonDTO?> GetPersonByUserId(string userId)
+        {
+            ActionResult<PersonDTO?> foundReturn;
+
+            // Retrieve and convert data
+            PersonDTO? foundPerson = _personDataControl.GetPersonByUserId(userId);
+
+            // Evaluate
+            if (foundPerson != null)
+            {
+                if (!String.IsNullOrEmpty(foundPerson.UserId))
+                {
+                    foundReturn = Ok(foundPerson);                 // Found - Statuscode 200
+                }
+                else
+                {
+                    foundReturn = new StatusCodeResult(204);    // Ok, but no content - Statuscode 204
+                }
+            }
+            else
+            {
+                foundReturn = new StatusCodeResult(500);        // Internal server error - Statuscode 500
+            }
+
+            // send response back to client
+            return foundReturn;
+        }
+
     }
+
 }

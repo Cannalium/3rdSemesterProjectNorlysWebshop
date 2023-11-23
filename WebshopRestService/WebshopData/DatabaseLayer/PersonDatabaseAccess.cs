@@ -18,7 +18,7 @@ namespace WebshopData.DatabaseLayer
         public int CreatePerson(Person aPerson) 
         {
             int insertedId = -1;
-            string insertString = "insert into Person(firstName, lastName, phoneNo, email, isAdmin) OUTPUT INSERTED.ID values(@FirstName, @LastName, @PhoneNo, @Email, @isAdmin)";
+            string insertString = "insert into Person(firstName, lastName, phoneNo, email, isAdmin, userId) OUTPUT INSERTED.ID values(@FirstName, @LastName, @PhoneNo, @Email, @isAdmin, @userId)";
             
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand CreateCommand = new SqlCommand(insertString, con)) 
@@ -34,6 +34,8 @@ namespace WebshopData.DatabaseLayer
                 CreateCommand.Parameters.Add(emailParam);
                 SqlParameter isAdminParam = new("@IsAdmin", aPerson.IsAdmin);
                 CreateCommand.Parameters.Add(isAdminParam);
+                SqlParameter userIdParam = new("@UserId", aPerson.UserId);
+                CreateCommand.Parameters.Add(userIdParam);
 
                 con.Open();
 
@@ -71,7 +73,7 @@ namespace WebshopData.DatabaseLayer
             List<Person> foundPersons;
             Person readPerson;
             
-            string queryString = "select personId, firstName, lastName, phoneNo, email, isAdmin from Person";
+            string queryString = "select personId, firstName, lastName, phoneNo, email, isAdmin, userId from Person";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -93,7 +95,7 @@ namespace WebshopData.DatabaseLayer
         {
             Person foundPerson;
             
-            string queryString = "select personId, firstName, lastName, phoneNo, email, isAdmin from Person where personId = @PersonId";
+            string queryString = "select personId, firstName, lastName, phoneNo, email, isAdmin, userId from Person where personId = @PersonId";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -118,7 +120,7 @@ namespace WebshopData.DatabaseLayer
         {
             bool personUpdated = false;
             string queryString = "UPDATE Person SET firstName = @FirstName, lastName = @LastName, " +
-                                 "phoneNo = @PhoneNo, email = @Email, isAdmin = @IsAdmin " +
+                                 "phoneNo = @PhoneNo, email = @Email, isAdmin = @IsAdmin, userId = @UserId " +
                                  "WHERE personId = @PersonId";
             using (SqlConnection connection = new SqlConnection(_connectionString)) 
             using (SqlCommand updateCommand  = new SqlCommand(queryString, connection)) 
@@ -142,6 +144,9 @@ namespace WebshopData.DatabaseLayer
                 SqlParameter isAdminParam = new SqlParameter("@IsAdmin", personUpdate.IsAdmin);
                 updateCommand.Parameters.Add(isAdminParam);
 
+                SqlParameter userIdParam = new SqlParameter("@UserId", personUpdate.UserId);
+                updateCommand.Parameters.Add(userIdParam);
+
                 connection.Open();
 
                 //Execute update
@@ -161,6 +166,7 @@ namespace WebshopData.DatabaseLayer
             string tempPhoneNo;
             string tempEmail;
             bool tempIsAdmin;
+            string tempUserId;
 
             // Fetch values
             tempPersonId = personReader.GetInt32(personReader.GetOrdinal("personId"));
@@ -169,9 +175,10 @@ namespace WebshopData.DatabaseLayer
             tempPhoneNo = personReader.GetString(personReader.GetOrdinal("phoneNo"));
             tempEmail = personReader.GetString(personReader.GetOrdinal("email"));
             tempIsAdmin = personReader.GetBoolean(personReader.GetOrdinal("personType"));
+            tempUserId = personReader.GetString(personReader.GetOrdinal("userId"));
 
             // Create object
-            foundPerson = new Person(tempPersonId, tempFirstName, tempLastName, tempPhoneNo, tempEmail, tempIsAdmin);
+            foundPerson = new Person(tempPersonId, tempFirstName, tempLastName, tempPhoneNo, tempEmail, tempIsAdmin, tempUserId);
             return foundPerson;
         }
     }

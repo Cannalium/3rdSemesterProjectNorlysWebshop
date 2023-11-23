@@ -3,7 +3,8 @@
 namespace WebshopRestService.BusinessLogicLayer 
 {
     public interface IPersonData {
-        PersonDTO? Get(int personId);
+        PersonDTO? GetPersonById(int personId);
+        PersonDTO? GetPersonByUserId(string userId);
         List<PersonDTO>? Get();
         int Add(PersonDTO personToAdd);
         bool Put(PersonDTO personToUpdate);

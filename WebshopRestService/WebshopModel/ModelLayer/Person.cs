@@ -11,15 +11,18 @@ namespace WebshopModel.ModelLayer
     {
         public Person() { }
 
-        public Person(string? firstName, string? lastName, string? phoneNo, string? email) { }
-
-        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) 
+        public Person(string? firstName, string? lastName, string? phoneNo, string? email, string? userId) 
         {
-            PersonId = personId;
             FirstName = firstName;
             LastName = lastName;
             PhoneNo = phoneNo;
             Email = email;
+            UserId = userId;
+        }
+
+        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin, string? userId) : this (firstName, lastName, phoneNo, email, userId)
+        {
+            PersonId = personId;
             IsAdmin = isAdmin;
         }
 
@@ -29,5 +32,6 @@ namespace WebshopModel.ModelLayer
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
         public bool IsAdmin { get; }
+        public string? UserId { get; set; }
     }
 }

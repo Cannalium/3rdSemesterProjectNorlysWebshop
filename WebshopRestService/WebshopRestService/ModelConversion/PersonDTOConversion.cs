@@ -26,23 +26,23 @@ namespace WebshopRestService.ModelConversion
         }
 
         // Convert from Person object to PersonDTO object
-        public static PersonDTO? FromPerson(Person inPerson)
+        public static PersonDTO? FromPerson(Person Person)
         {
             PersonDTO? aPersonReadDTO = null;
-            if (inPerson != null)
+            if (Person != null)
             {
-                aPersonReadDTO = new PersonDTO(inPerson.FirstName, inPerson.LastName, inPerson.PhoneNo, inPerson.Email);
+                aPersonReadDTO = new PersonDTO(Person.FirstName, Person.LastName, Person.PhoneNo, Person.Email, Person.UserId); //usikker på om userId skal være her, fordi det er, når man laver DTO'en, og userId er ikke en del af personDataCreatDTO
             }
             return aPersonReadDTO;
         }
 
         // Convert from PersonDTO object to Person object
-        public static Person? ToPerson(PersonDTO inDTO)
+        public static Person? ToPerson(PersonDTO DTO)
         {
             Person? aPerson = null;
-            if (inDTO != null)
+            if (DTO != null)
             {
-                aPerson = new Person(inDTO.FirstName, inDTO.LastName, inDTO.PhoneNo, inDTO.Email);
+                aPerson = new Person(DTO.FirstName,DTO.LastName, DTO.PhoneNo, DTO.Email, DTO.UserId);
             }
             return aPerson;
         }

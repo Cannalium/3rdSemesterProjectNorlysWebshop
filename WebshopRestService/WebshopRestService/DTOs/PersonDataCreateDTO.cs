@@ -8,14 +8,12 @@
             FirstName = firstName;
             LastName = lastName;
             PhoneNo = phoneNo;
-            Email = email;
-            
+            Email = email;   
         }
 
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? PhoneNo { get; private set; }
-        public string? Email { get; private set; }
-      
+        public string? PhoneNo { get; set; }
+        public string? Email { get; set; }
     }
 }
