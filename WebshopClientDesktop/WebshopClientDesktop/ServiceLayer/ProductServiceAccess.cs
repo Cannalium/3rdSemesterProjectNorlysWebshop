@@ -27,8 +27,8 @@ namespace WebshopClientDesktop.ServiceLayer
             if (_productService != null)
             {
                 _productService.UseUrl = _productService.BaseUrl;
-                bool onePersonById = (id > 0);
-                if (onePersonById)
+                bool oneProductById = (id > 0);
+                if (oneProductById)
                 {
                     _productService.UseUrl += id;
                 }
