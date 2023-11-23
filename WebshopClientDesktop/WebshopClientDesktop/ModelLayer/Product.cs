@@ -10,16 +10,24 @@ namespace WebshopClientDesktop.ModelLayer
     {
 
         public Product() { }
+
+        public Product(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity) 
+        { 
+            ProdName = prodName;
+            ProdDescription = prodDescription;
+            ProdPrice = prodPrice;
+            ProdQuantity = prodQuantity;
+        }
+
         public Product(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity)
         {
-
             ProdId = prodId;
             ProdName = prodName;
             ProdDescription = prodDescription;
             ProdPrice = prodPrice;
             ProdQuantity = prodQuantity;
-
         }
+
         public int ProdId { get; set; }
         public string? ProdName { get; private set; }
         public string? ProdDescription { get; private set; }

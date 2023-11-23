@@ -10,6 +10,14 @@ namespace WebshopClientDesktop.ModelLayer
     {
         public Person() { }
 
+        public Person(string? firstName, string? lastName, string? phoneNo, string? email) 
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            PhoneNo = phoneNo;
+            Email = email;
+        }
+
         public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, string? personType)
         {
             PersonId = personId;
