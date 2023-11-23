@@ -36,9 +36,9 @@
             picBoxAdminLogo = new PictureBox();
             picBoxNorlysLogo = new PictureBox();
             panelMain = new Panel();
-            lblWelcome = new Label();
-            label1 = new Label();
             pictureBox1 = new PictureBox();
+            label1 = new Label();
+            lblWelcome = new Label();
             panelLeft.SuspendLayout();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).BeginInit();
@@ -123,12 +123,14 @@
             // 
             // picBoxNorlysLogo
             // 
+            picBoxNorlysLogo.Cursor = Cursors.Hand;
             picBoxNorlysLogo.Image = Properties.Resources.Norlyslogo;
             picBoxNorlysLogo.Location = new Point(21, 24);
             picBoxNorlysLogo.Name = "picBoxNorlysLogo";
             picBoxNorlysLogo.Size = new Size(125, 38);
             picBoxNorlysLogo.TabIndex = 0;
             picBoxNorlysLogo.TabStop = false;
+            picBoxNorlysLogo.Click += picBoxNorlysLogo_Click;
             // 
             // panelMain
             // 
@@ -143,16 +145,15 @@
             panelMain.TabIndex = 2;
             panelMain.Paint += panelMain_Paint;
             // 
-            // lblWelcome
+            // pictureBox1
             // 
-            lblWelcome.AutoSize = true;
-            lblWelcome.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            lblWelcome.Location = new Point(212, 72);
-            lblWelcome.Name = "lblWelcome";
-            lblWelcome.Size = new Size(743, 56);
-            lblWelcome.TabIndex = 0;
-            lblWelcome.Text = "Velkommen til Norlys' personale webshop!";
-            lblWelcome.Click += lblWelcome_Click;
+            pictureBox1.Image = Properties.Resources.NorlysCom;
+            pictureBox1.Location = new Point(378, 264);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(395, 291);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
+            pictureBox1.Click += pictureBox1_Click;
             // 
             // label1
             // 
@@ -165,15 +166,16 @@
             label1.Text = "Alt det der bringer os sammen";
             label1.Click += label1_Click;
             // 
-            // pictureBox1
+            // lblWelcome
             // 
-            pictureBox1.Image = Properties.Resources.NorlysCom;
-            pictureBox1.Location = new Point(378, 264);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(395, 291);
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            lblWelcome.AutoSize = true;
+            lblWelcome.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
+            lblWelcome.Location = new Point(212, 72);
+            lblWelcome.Name = "lblWelcome";
+            lblWelcome.Size = new Size(743, 56);
+            lblWelcome.TabIndex = 0;
+            lblWelcome.Text = "Velkommen til Norlys' personale webshop!";
+            lblWelcome.Click += lblWelcome_Click;
             // 
             // Form1
             // 

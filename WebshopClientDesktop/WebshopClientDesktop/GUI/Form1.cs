@@ -8,13 +8,6 @@ namespace WebshopClientDesktop
         {
             InitializeComponent();
 
-            btnEvent.Click += EventButton_Click;
-            btnMerch.Click += MerchButton_Click;
-        }
-
-        private void BtnMerch_Click(object? sender, EventArgs e)
-        {
-            throw new NotImplementedException();
         }
 
         public void Load_form(object form)
@@ -60,19 +53,33 @@ namespace WebshopClientDesktop
             Load_form(new AdminPageForm());
         }
 
+        //Slettes
         private void lblWelcome_Click(object sender, EventArgs e)
         {
 
         }
 
+        //Slettes
         private void label1_Click(object sender, EventArgs e)
         {
 
         }
 
+        //Slettes
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        //Skal rettes til
+        private void picBoxNorlysLogo_Click(object sender, EventArgs e)
+        {
+            Form1 form1 = new Form1();
+            form1.FormBorderStyle = FormBorderStyle.None; // Remove the border
+            form1.panelHeader.Visible = false; // Assuming panelHeader is the name of your header panel
+            form1.panelLeft.Visible = false; // Assuming panelLeft is the name of your left panel
+
+            Load_form(form1);
         }
     }
 }
