@@ -59,6 +59,21 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundProductDTO;
         }
 
+        public ProductDTO? Get(string prodType)
+        {
+            ProductDTO? foundProductDTO;
+            try
+            {
+                Product? foundProduct = _productAccess.GetProductByType(prodType);
+                foundProductDTO = ModelConversion.ProductDTOConversion.FromProduct(foundProduct);
+            }
+            catch
+            {
+                foundProductDTO = null;
+            }
+            return foundProductDTO;
+        }
+
         public List<ProductDTO>? Get()
         {
             List<ProductDTO>? foundDTOs;

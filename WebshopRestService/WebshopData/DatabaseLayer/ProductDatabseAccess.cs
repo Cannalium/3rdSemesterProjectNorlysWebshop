@@ -94,6 +94,31 @@ namespace WebshopData.DatabaseLayer
             return foundProducts;
         }
 
+        public Product GetProductByType(string findProdType)
+        {
+            Product foundProd;
+
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prod = @ProdType";
+            using(SqlConnection con = new SqlConnection(_connectionString))
+            using(SqlCommand readCommand = new SqlCommand( queryString, con))
+            {
+                //Prepare SQL
+                SqlParameter prodTypeParam = new SqlParameter("@ProdType", findProdType);
+                readCommand.Parameters.Add(prodTypeParam);
+
+                con.Open();
+
+                //Execute read
+                SqlDataReader prodReader = readCommand.ExecuteReader();
+                foundProd = new Product(); 
+                while (prodReader.Read())
+                {
+                    foundProd = GetProductFromReader(prodReader);
+                }
+                return foundProd;
+            }
+        }
+
         public Product GetProductById(int findProdId)
         {
             Product foundProd;

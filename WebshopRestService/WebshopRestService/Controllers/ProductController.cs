@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebshopModel.ModelLayer;
 using WebshopRestService.BusinessLogicLayer;
 using WebshopRestService.DTOs;
 
@@ -58,6 +59,33 @@ namespace WebshopRestService.Controllers
                 if (foundProductsById != null)
                 {
                     foundReturn = Ok(foundProductsById); //OK found product by ID statuscode 200
+                }
+                else
+                {
+                    foundReturn = new StatusCodeResult(204); // OK not found, no content statuscode 204
+                }
+            }
+            catch
+            {
+                foundReturn = new StatusCodeResult(500); // Internal server error   
+            }
+            return foundReturn; // Send return to client
+        }
+
+        // URL: api/products/{type}
+        [HttpGet, Route("{prodType}")]
+        public ActionResult<ProductDTO> Get(string prodType)
+        {
+            ActionResult<ProductDTO> foundReturn;
+            try
+            {
+                //Retieve data converted to DTO
+                ProductDTO? foundProductsByType = _productDataController.Get(prodType);
+
+                //Evaluate
+                if (foundProductsByType != null)
+                {
+                    foundReturn = Ok(foundProductsByType); //OK found product by ID statuscode 200
                 }
                 else
                 {
