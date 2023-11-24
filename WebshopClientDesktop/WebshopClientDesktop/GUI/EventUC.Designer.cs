@@ -28,88 +28,134 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tbl_EventProd = new TableLayoutPanel();
-            button1 = new Button();
-            button2 = new Button();
+            btnEditEventProducts = new Button();
+            btnDeleteProduct = new Button();
             merchLbl = new Label();
-            createProdBtn = new Button();
+            btnCreateProduct = new Button();
+            groupListBox = new GroupBox();
+            lblProcessText = new Label();
+            btnGetEventProducts = new Button();
+            listBoxEventProducts = new ListBox();
+            groupBoxCreateProduct = new GroupBox();
+            groupListBox.SuspendLayout();
+            groupBoxCreateProduct.SuspendLayout();
             SuspendLayout();
             // 
-            // tbl_EventProd
+            // btnEditEventProducts
             // 
-            tbl_EventProd.AutoScroll = true;
-            tbl_EventProd.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
-            tbl_EventProd.ColumnCount = 2;
-            tbl_EventProd.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.2601624F));
-            tbl_EventProd.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 83.73984F));
-            tbl_EventProd.Location = new Point(34, 128);
-            tbl_EventProd.Name = "tbl_EventProd";
-            tbl_EventProd.RowCount = 4;
-            tbl_EventProd.RowStyles.Add(new RowStyle(SizeType.Percent, 49.62963F));
-            tbl_EventProd.RowStyles.Add(new RowStyle(SizeType.Percent, 50.37037F));
-            tbl_EventProd.RowStyles.Add(new RowStyle(SizeType.Absolute, 134F));
-            tbl_EventProd.RowStyles.Add(new RowStyle(SizeType.Absolute, 113F));
-            tbl_EventProd.Size = new Size(904, 518);
-            tbl_EventProd.TabIndex = 1;
+            btnEditEventProducts.Location = new Point(412, 42);
+            btnEditEventProducts.Name = "btnEditEventProducts";
+            btnEditEventProducts.Size = new Size(132, 29);
+            btnEditEventProducts.TabIndex = 2;
+            btnEditEventProducts.Text = "Rediger produkt";
+            btnEditEventProducts.UseVisualStyleBackColor = true;
+            btnEditEventProducts.Click += button1_Click;
             // 
-            // button1
+            // btnDeleteProduct
             // 
-            button1.Location = new Point(956, 128);
-            button1.Name = "button1";
-            button1.Size = new Size(132, 29);
-            button1.TabIndex = 2;
-            button1.Text = "Rediger produkt";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(956, 167);
-            button2.Name = "button2";
-            button2.Size = new Size(101, 29);
-            button2.TabIndex = 3;
-            button2.Text = "Slet produkt";
-            button2.UseVisualStyleBackColor = true;
+            btnDeleteProduct.Location = new Point(412, 77);
+            btnDeleteProduct.Name = "btnDeleteProduct";
+            btnDeleteProduct.Size = new Size(101, 29);
+            btnDeleteProduct.TabIndex = 3;
+            btnDeleteProduct.Text = "Slet produkt";
+            btnDeleteProduct.UseVisualStyleBackColor = true;
             // 
             // merchLbl
             // 
             merchLbl.AutoSize = true;
             merchLbl.Font = new Font("Sans Serif Collection", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
-            merchLbl.Location = new Point(418, 36);
+            merchLbl.Location = new Point(496, 36);
             merchLbl.Name = "merchLbl";
             merchLbl.Size = new Size(186, 68);
             merchLbl.TabIndex = 4;
             merchLbl.Text = "Events";
             // 
-            // createProdBtn
+            // btnCreateProduct
             // 
-            createProdBtn.Location = new Point(956, 60);
-            createProdBtn.Name = "createProdBtn";
-            createProdBtn.Size = new Size(118, 29);
-            createProdBtn.TabIndex = 6;
-            createProdBtn.Text = "Opret produkt";
-            createProdBtn.UseVisualStyleBackColor = true;
+            btnCreateProduct.Location = new Point(15, 457);
+            btnCreateProduct.Name = "btnCreateProduct";
+            btnCreateProduct.Size = new Size(118, 29);
+            btnCreateProduct.TabIndex = 6;
+            btnCreateProduct.Text = "Opret produkt";
+            btnCreateProduct.UseVisualStyleBackColor = true;
+            // 
+            // groupListBox
+            // 
+            groupListBox.Controls.Add(lblProcessText);
+            groupListBox.Controls.Add(btnGetEventProducts);
+            groupListBox.Controls.Add(listBoxEventProducts);
+            groupListBox.Controls.Add(btnEditEventProducts);
+            groupListBox.Controls.Add(btnDeleteProduct);
+            groupListBox.Location = new Point(36, 107);
+            groupListBox.Name = "groupListBox";
+            groupListBox.Size = new Size(550, 514);
+            groupListBox.TabIndex = 7;
+            groupListBox.TabStop = false;
+            groupListBox.Text = "Produkter";
+            // 
+            // lblProcessText
+            // 
+            lblProcessText.AutoSize = true;
+            lblProcessText.Location = new Point(23, 489);
+            lblProcessText.Name = "lblProcessText";
+            lblProcessText.Size = new Size(15, 20);
+            lblProcessText.TabIndex = 6;
+            lblProcessText.Text = "..";
+            // 
+            // btnGetEventProducts
+            // 
+            btnGetEventProducts.Location = new Point(412, 457);
+            btnGetEventProducts.Name = "btnGetEventProducts";
+            btnGetEventProducts.Size = new Size(114, 29);
+            btnGetEventProducts.TabIndex = 5;
+            btnGetEventProducts.Text = "Se produkter";
+            btnGetEventProducts.UseVisualStyleBackColor = true;
+            btnGetEventProducts.Click += BtnGetEventProducts_Click;
+            // 
+            // listBoxEventProducts
+            // 
+            listBoxEventProducts.FormattingEnabled = true;
+            listBoxEventProducts.ItemHeight = 20;
+            listBoxEventProducts.Location = new Point(23, 42);
+            listBoxEventProducts.Name = "listBoxEventProducts";
+            listBoxEventProducts.Size = new Size(383, 444);
+            listBoxEventProducts.TabIndex = 4;
+            // 
+            // groupBoxCreateProduct
+            // 
+            groupBoxCreateProduct.Controls.Add(btnCreateProduct);
+            groupBoxCreateProduct.Location = new Point(592, 107);
+            groupBoxCreateProduct.Name = "groupBoxCreateProduct";
+            groupBoxCreateProduct.Size = new Size(534, 514);
+            groupBoxCreateProduct.TabIndex = 8;
+            groupBoxCreateProduct.TabStop = false;
+            groupBoxCreateProduct.Text = "Opret produkt";
             // 
             // EventUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(createProdBtn);
+            Controls.Add(groupBoxCreateProduct);
+            Controls.Add(groupListBox);
             Controls.Add(merchLbl);
-            Controls.Add(button2);
-            Controls.Add(button1);
-            Controls.Add(tbl_EventProd);
             Name = "EventUC";
             Size = new Size(1178, 650);
+            groupListBox.ResumeLayout(false);
+            groupListBox.PerformLayout();
+            groupBoxCreateProduct.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private TableLayoutPanel tbl_EventProd;
-        private Button button1;
-        private Button button2;
+        private Button btnEditEventProducts;
+        private Button btnDeleteProduct;
         private Label merchLbl;
-        private Button createProdBtn;
+        private Button btnCreateProduct;
+        private GroupBox groupListBox;
+        private ListBox listBoxEventProducts;
+        private GroupBox groupBoxCreateProduct;
+        private Button btnGetEventProducts;
+        private Label lblProcessText;
     }
 }
