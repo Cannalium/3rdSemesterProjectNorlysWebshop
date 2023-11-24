@@ -54,7 +54,7 @@ namespace WebshopRestService.Controllers
             try
             {
                 //Retieve data converted to DTO
-                PersonDTO? foundPersonsById = _personDataControl.GetPersonById(personId);
+                PersonDTO? foundPersonsById = _personDataControl.Get(personId);
 
                 //Evaluate
                 if (foundPersonsById != null)

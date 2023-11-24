@@ -92,10 +92,5 @@ namespace WebshopRestService.BusinessLogicLayer
                 return false;
             }
         }
-
-        public PersonDTO? GetPersonByUserId(string userId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
