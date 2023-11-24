@@ -123,7 +123,7 @@ namespace WebshopData.DatabaseLayer
         {
             Product foundProd;
 
-            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prod = @ProdId";
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodId = @ProdId";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -146,7 +146,7 @@ namespace WebshopData.DatabaseLayer
         public bool UpdateProduct(Product prodUpdate)
         {
             bool prodUpdated = false;
-            string queryString = "UPDATE Producct SET prodName = @ProdName, prodDescription = @ProdDescription, " +
+            string queryString = "UPDATE Product SET prodName = @ProdName, prodDescription = @ProdDescription, " +
                                  "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity, prodType = @ProdType" +
                                  "WHERE prodId = @ProdId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
