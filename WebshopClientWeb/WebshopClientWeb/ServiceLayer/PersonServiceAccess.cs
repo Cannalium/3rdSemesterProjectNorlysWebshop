@@ -8,7 +8,7 @@ namespace WebshopClientWeb.ServiceLayer
     public class PersonServiceAccess : IPersonServiceAccess
     {
         readonly IServiceConnection _personService;
-        readonly String _serviceBaseUrl = "https://localhost:7249/api/persons/";
+        readonly String _serviceBaseUrl = "https://localhost:7249/";
 
         public HttpStatusCode CurrentHttpStatusCode { get; set; }
 
