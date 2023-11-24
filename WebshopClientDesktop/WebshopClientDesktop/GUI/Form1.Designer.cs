@@ -29,20 +29,18 @@
         private void InitializeComponent()
         {
             panelLeft = new Panel();
-            lblCategory = new Label();
             btnMerch = new Button();
             btnEvent = new Button();
             panelHeader = new Panel();
             picBoxAdminLogo = new PictureBox();
             picBoxNorlysLogo = new PictureBox();
             panelMain = new Panel();
+            pictureBox1 = new PictureBox();
+            label1 = new Label();
             lbl_Welcome = new Label();
             adminPageuc1 = new GUI.AdminPageUC();
             merchuc1 = new GUI.MerchUC();
             eventuc1 = new GUI.EventUC();
-            label1 = new Label();
-            pictureBox1 = new PictureBox();
-            panelLeft.SuspendLayout();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).BeginInit();
@@ -53,37 +51,25 @@
             // panelLeft
             // 
             panelLeft.AccessibleRole = AccessibleRole.None;
-            panelLeft.BackColor = Color.MistyRose;
-            panelLeft.Controls.Add(lblCategory);
-            panelLeft.Controls.Add(btnMerch);
-            panelLeft.Controls.Add(btnEvent);
+            panelLeft.BackColor = Color.White;
             panelLeft.Dock = DockStyle.Left;
             panelLeft.Location = new Point(0, 87);
             panelLeft.Name = "panelLeft";
             panelLeft.Size = new Size(170, 650);
             panelLeft.TabIndex = 0;
             // 
-            // lblCategory
-            // 
-            lblCategory.AutoSize = true;
-            lblCategory.Font = new Font("Sans Serif Collection", 10.7999992F, FontStyle.Bold, GraphicsUnit.Point);
-            lblCategory.Location = new Point(5, 15);
-            lblCategory.Name = "lblCategory";
-            lblCategory.Size = new Size(163, 44);
-            lblCategory.TabIndex = 2;
-            lblCategory.Text = "Kategorier";
-            // 
             // btnMerch
             // 
             btnMerch.Cursor = Cursors.Hand;
             btnMerch.FlatAppearance.BorderSize = 0;
             btnMerch.FlatStyle = FlatStyle.Flat;
-            btnMerch.Font = new Font("Sans Serif Collection", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point);
-            btnMerch.Location = new Point(12, 117);
+            btnMerch.Font = new Font("Sans Serif Collection", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            btnMerch.Location = new Point(281, 28);
             btnMerch.Name = "btnMerch";
-            btnMerch.Size = new Size(147, 39);
+            btnMerch.Size = new Size(111, 34);
             btnMerch.TabIndex = 1;
             btnMerch.Text = "Merch";
+            btnMerch.TextAlign = ContentAlignment.MiddleLeft;
             btnMerch.UseVisualStyleBackColor = true;
             btnMerch.Click += MerchButton_Click;
             // 
@@ -92,12 +78,13 @@
             btnEvent.Cursor = Cursors.Hand;
             btnEvent.FlatAppearance.BorderSize = 0;
             btnEvent.FlatStyle = FlatStyle.Flat;
-            btnEvent.Font = new Font("Sans Serif Collection", 10.1999989F, FontStyle.Regular, GraphicsUnit.Point);
-            btnEvent.Location = new Point(12, 72);
+            btnEvent.Font = new Font("Sans Serif Collection", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            btnEvent.Location = new Point(194, 28);
             btnEvent.Name = "btnEvent";
-            btnEvent.Size = new Size(147, 39);
+            btnEvent.Size = new Size(93, 34);
             btnEvent.TabIndex = 0;
             btnEvent.Text = "Events";
+            btnEvent.TextAlign = ContentAlignment.MiddleLeft;
             btnEvent.UseVisualStyleBackColor = true;
             btnEvent.Click += EventButton_Click;
             // 
@@ -105,7 +92,9 @@
             // 
             panelHeader.BackColor = SystemColors.Window;
             panelHeader.Controls.Add(picBoxAdminLogo);
+            panelHeader.Controls.Add(btnMerch);
             panelHeader.Controls.Add(picBoxNorlysLogo);
+            panelHeader.Controls.Add(btnEvent);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
@@ -149,6 +138,25 @@
             panelMain.Size = new Size(1178, 650);
             panelMain.TabIndex = 2;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = Properties.Resources.NorlysCom;
+            pictureBox1.Location = new Point(403, 216);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(372, 337);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(373, 105);
+            label1.Name = "label1";
+            label1.Size = new Size(432, 49);
+            label1.TabIndex = 4;
+            label1.Text = "Alt det der bringer os sammen";
+            // 
             // lbl_Welcome
             // 
             lbl_Welcome.AutoSize = true;
@@ -182,25 +190,6 @@
             eventuc1.Size = new Size(1178, 650);
             eventuc1.TabIndex = 0;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(373, 105);
-            label1.Name = "label1";
-            label1.Size = new Size(432, 49);
-            label1.TabIndex = 4;
-            label1.Text = "Alt det der bringer os sammen";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = Properties.Resources.NorlysCom;
-            pictureBox1.Location = new Point(403, 216);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(372, 337);
-            pictureBox1.TabIndex = 2;
-            pictureBox1.TabStop = false;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -215,8 +204,6 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Form1_Load;
-            panelLeft.ResumeLayout(false);
-            panelLeft.PerformLayout();
             panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).EndInit();
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).EndInit();
@@ -231,7 +218,6 @@
         private Panel panelLeft;
         private Button btnEvent;
         private Button btnMerch;
-        private Label lblCategory;
         private Panel panelHeader;
         private Panel panelMain;
         private PictureBox picBoxNorlysLogo;
