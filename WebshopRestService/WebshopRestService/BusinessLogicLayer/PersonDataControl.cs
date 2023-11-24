@@ -44,7 +44,7 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public PersonDTO? Get(int personId)
+        public PersonDTO? GetPersonById(int personId)
         {
             PersonDTO? foundPersonDTO;
             try
