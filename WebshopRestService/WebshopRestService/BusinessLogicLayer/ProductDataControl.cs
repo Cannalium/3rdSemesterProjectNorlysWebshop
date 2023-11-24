@@ -59,7 +59,7 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundProductDTO;
         }
 
-        public ProductDTO? Get(string prodType)
+        public ProductDTO? GetProductByType(string prodType)
         {
             ProductDTO? foundProductDTO;
             try

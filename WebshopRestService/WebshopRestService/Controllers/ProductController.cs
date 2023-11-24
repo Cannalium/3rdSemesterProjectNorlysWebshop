@@ -72,15 +72,15 @@ namespace WebshopRestService.Controllers
             return foundReturn; // Send return to client
         }
 
-        // URL: api/products/{type}
-        [HttpGet, Route("{prodType}")]
-        public ActionResult<ProductDTO> Get(string prodType)
+        // URL: api/products/type/{prodType}
+        [HttpGet, Route("type/{prodType}")]
+        public ActionResult<ProductDTO> GetProductByType(string prodType)
         {
             ActionResult<ProductDTO> foundReturn;
             try
             {
                 //Retieve data converted to DTO
-                ProductDTO? foundProductsByType = _productDataController.Get(prodType);
+                ProductDTO? foundProductsByType = _productDataController.GetProductByType(prodType);
 
                 //Evaluate
                 if (foundProductsByType != null)
