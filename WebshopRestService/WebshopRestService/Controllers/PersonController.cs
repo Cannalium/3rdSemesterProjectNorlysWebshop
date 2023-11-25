@@ -19,7 +19,7 @@ namespace WebshopRestService.Controllers
             _personDataControl = new PersonDataControl(_configuration);
         }
 
-        // URL: api/persons
+        // URL: api/person
         [HttpGet]
         public ActionResult<List<PersonDTO>>? Get()
         {
@@ -45,8 +45,7 @@ namespace WebshopRestService.Controllers
             return foundReturn; //send return to client
         }
 
-
-        // URL: api/persons/{id}
+        // URL: api/person/{id}
         [HttpGet, Route("{personId}")]
         public ActionResult<PersonDTO> GetPersonById(int personId)
         {
@@ -73,7 +72,7 @@ namespace WebshopRestService.Controllers
             return foundReturn; // Send return to client
         }
 
-        // URL: api/persons
+        // URL: api/person
         [HttpPost]
         public ActionResult<int> PostNewPerson(PersonDTO personDTO)
         {
@@ -145,7 +144,7 @@ namespace WebshopRestService.Controllers
             return foundReturn;
         }
 
-        // URL: api/customers/{userId}
+        // URL: api/person/{userId}
         [HttpGet, Route("{userId}")]
         public ActionResult<PersonDTO?> GetPersonByUserId(string userId)
         {
