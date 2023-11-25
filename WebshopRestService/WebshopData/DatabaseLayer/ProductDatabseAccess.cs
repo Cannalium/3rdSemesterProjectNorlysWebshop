@@ -76,7 +76,7 @@ namespace WebshopData.DatabaseLayer
             List<Product> foundProducts;
             Product readProd;
 
-            string queryString = "select prodId, prodName, prodDescription, prodQuantity, prodType from Product";
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -94,11 +94,11 @@ namespace WebshopData.DatabaseLayer
             return foundProducts;
         }
 
-        public Product GetProductByType(string findProdType)
+        public List<Product> GetProductByType(string findProdType)
         {
-            Product foundProd;
+            List<Product> foundProducts;
 
-            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prod = @ProdType";
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodType = @ProdType";
             using(SqlConnection con = new SqlConnection(_connectionString))
             using(SqlCommand readCommand = new SqlCommand( queryString, con))
             {
@@ -110,12 +110,12 @@ namespace WebshopData.DatabaseLayer
 
                 //Execute read
                 SqlDataReader prodReader = readCommand.ExecuteReader();
-                foundProd = new Product(); 
+                foundProducts = new List<Product>(); 
                 while (prodReader.Read())
                 {
-                    foundProd = GetProductFromReader(prodReader);
+                    foundProducts.Add(GetProductFromReader(prodReader));
                 }
-                return foundProd;
+                return foundProducts;
             }
         }
 

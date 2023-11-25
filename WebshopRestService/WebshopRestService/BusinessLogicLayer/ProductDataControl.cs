@@ -1,6 +1,7 @@
 ﻿using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
 using WebshopRestService.DTOs;
+using WebshopRestService.Logging;
 
 namespace WebshopRestService.BusinessLogicLayer
 {
@@ -52,39 +53,43 @@ namespace WebshopRestService.BusinessLogicLayer
                 Product? foundProduct = _productAccess.GetProductById(prodId);
                 foundProductDTO = ModelConversion.ProductDTOConversion.FromProduct(foundProduct);
             }
-            catch
+            catch(Exception ex)
             {
                 foundProductDTO = null;
+                Logger.LogError(ex);
             }
             return foundProductDTO;
         }
 
-        public ProductDTO? GetProductByType(string prodType)
+        public List<ProductDTO> GetProductByType(string prodType)
         {
-            ProductDTO? foundProductDTO;
+            List<ProductDTO> foundProductsDTO;
             try
             {
-                Product? foundProduct = _productAccess.GetProductByType(prodType);
-                foundProductDTO = ModelConversion.ProductDTOConversion.FromProduct(foundProduct);
+                List<Product> foundProducts = _productAccess.GetProductByType(prodType);
+                foundProductsDTO = ModelConversion.ProductDTOConversion.FromProductCollection(foundProducts);
             }
-            catch
+            catch(Exception ex)
             {
-                foundProductDTO = null;
+                //Instead of null - create a new empty list
+                foundProductsDTO = new List<ProductDTO>();
+                Logger.LogError(ex);
             }
-            return foundProductDTO;
+            return foundProductsDTO;
         }
 
-        public List<ProductDTO>? Get()
+        public List<ProductDTO> Get()
         {
-            List<ProductDTO>? foundDTOs;
+            List<ProductDTO> foundDTOs;
             try
             {
-                List<Product>? foundProducts = _productAccess.GetProductAll();
+                List<Product> foundProducts = _productAccess.GetProductAll();
                 foundDTOs = ModelConversion.ProductDTOConversion.FromProductCollection(foundProducts);
             }
-            catch
+            catch (Exception ex)
             {
-                foundDTOs = null;
+                foundDTOs = new List<ProductDTO>();
+                Logger.LogError(ex);
             }
             return foundDTOs;
         }
@@ -93,7 +98,7 @@ namespace WebshopRestService.BusinessLogicLayer
         {
             try
             {
-                Product? updatedProduct = ModelConversion.ProductDTOConversion.ToProduct(productToUpdate);
+                Product updatedProduct = ModelConversion.ProductDTOConversion.ToProduct(productToUpdate);
 
                 if (updatedProduct != null)
                 {

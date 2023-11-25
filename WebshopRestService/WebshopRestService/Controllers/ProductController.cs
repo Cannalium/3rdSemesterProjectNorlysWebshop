@@ -74,13 +74,13 @@ namespace WebshopRestService.Controllers
 
         // URL: api/products/type/{prodType}
         [HttpGet, Route("type/{prodType}")]
-        public ActionResult<ProductDTO> GetProductByType(string prodType)
+        public ActionResult<List<ProductDTO>> GetProductByType(string prodType)
         {
-            ActionResult<ProductDTO> foundReturn;
+            ActionResult<List<ProductDTO>> foundReturn;
             try
             {
                 //Retieve data converted to DTO
-                ProductDTO? foundProductsByType = _productDataController.GetProductByType(prodType);
+                List<ProductDTO> foundProductsByType = _productDataController.GetProductByType(prodType);
 
                 //Evaluate
                 if (foundProductsByType != null)
