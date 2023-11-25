@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebshopClientDesktop.Logging;
 using WebshopClientDesktop.ModelLayer;
 using WebshopClientDesktop.ServiceLayer;
 
@@ -21,6 +22,7 @@ namespace WebshopClientDesktop.ControlLayer
 
         private async Task<List<Product>> GetAllProductsByType(string type)
         {
+            Logger.LogInfo($"Getting all products by type. Type: {type}");
             return await _productAccess.GetAllProductsByType(type);
 
         }

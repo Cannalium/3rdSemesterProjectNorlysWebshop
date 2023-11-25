@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WebshopClientDesktop.ControlLayer;
+using WebshopClientDesktop.Logging;
 using WebshopClientDesktop.ModelLayer;
 
 namespace WebshopClientDesktop.GUI
@@ -35,8 +36,10 @@ namespace WebshopClientDesktop.GUI
 
         private async void BtnGetEventProducts_Click(object sender, EventArgs e)
         {
+            Logger.LogInfo("Button getEvents clicked");
             string processText = "OK";
-            List<Product>? fetchedProducts = await _productControl.GetAllProductsByEventType();
+            List<Product> fetchedProducts = await _productControl.GetAllProductsByEventType();
+
             if (fetchedProducts != null)
             {
                 if (fetchedProducts.Count >= 1)
