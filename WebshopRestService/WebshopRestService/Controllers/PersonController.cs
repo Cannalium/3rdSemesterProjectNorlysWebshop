@@ -19,8 +19,7 @@ namespace WebshopRestService.Controllers
             _personDataControl = new PersonDataControl(_configuration);
         }
 
-        // URL: api/person
-        [HttpGet]
+        [HttpGet, Route("api/person")]
         public ActionResult<List<PersonDTO>>? Get()
         {
             ActionResult<List<PersonDTO>> foundReturn;
@@ -45,8 +44,7 @@ namespace WebshopRestService.Controllers
             return foundReturn; //send return to client
         }
 
-        // URL: api/person/{id}
-        [HttpGet, Route("{personId}")]
+        [HttpGet, Route("api/person/{personId}")]
         public ActionResult<PersonDTO> GetPersonById(int personId)
         {
             ActionResult<PersonDTO> foundReturn;
@@ -73,7 +71,7 @@ namespace WebshopRestService.Controllers
         }
 
         // URL: api/person
-        [HttpPost]
+        [HttpPost, Route("api/person")]
         public ActionResult<int> PostNewPerson(PersonDTO personDTO)
         {
             ActionResult<int> foundReturn;
@@ -100,7 +98,7 @@ namespace WebshopRestService.Controllers
 
         //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
 
-        [HttpDelete]
+        [HttpDelete, Route("api/person")]
         public ActionResult Delete(int personId)
         {
             ActionResult foundReturn;
@@ -116,7 +114,7 @@ namespace WebshopRestService.Controllers
             return foundReturn;
         }
 
-        [HttpPut]
+        [HttpPut, Route("api/person")]
         public ActionResult<bool> Put(PersonDTO personDTO)
         {
             ActionResult foundReturn;
@@ -143,9 +141,8 @@ namespace WebshopRestService.Controllers
 
             return foundReturn;
         }
-
-        // URL: api/person/{userId}
-        [HttpGet, Route("{userId}")]
+    
+        [HttpGet, Route("api/person/{userId")]
         public ActionResult<PersonDTO?> GetPersonByUserId(string userId)
         {
             ActionResult<PersonDTO?> foundReturn;
