@@ -142,7 +142,7 @@ namespace WebshopRestService.Controllers
             return foundReturn;
         }
     
-        [HttpGet, Route("api/person/{userId")]
+        [HttpGet, Route("api/person/{userId}")]
         public ActionResult<PersonDTO?> GetPersonByUserId(string userId)
         {
             ActionResult<PersonDTO?> foundReturn;
