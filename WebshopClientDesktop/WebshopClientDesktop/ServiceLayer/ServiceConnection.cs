@@ -21,14 +21,11 @@ namespace WebshopClientDesktop.ServiceLayer
         public string? UseUrl { get; set; }
 
 
-        public async Task<HttpResponseMessage?> CallServiceGet()
+        public async Task<HttpResponseMessage> CallServiceGet()
         {
-            HttpResponseMessage? hrm = null;
-            if (UseUrl != null)
-            {
-                hrm = await HttpEnabler.GetAsync(UseUrl);
-            }
-            return hrm;
+
+            return await HttpEnabler.GetAsync(UseUrl);
+
         }
 
         public async Task<HttpResponseMessage?> CallServicePost(StringContent postJson)

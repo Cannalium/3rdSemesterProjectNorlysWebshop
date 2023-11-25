@@ -19,16 +19,20 @@ namespace WebshopClientDesktop.ControlLayer
 
         }
 
-        public async Task<List<Product>?> GetAllProducts()
+        private async Task<List<Product>> GetAllProductsByType(string type)
         {
-            List<Product>? foundProducts = null;
-            if (_productAccess != null)
-            {
-                foundProducts = await _productAccess.GetProducts();
+            return await _productAccess.GetAllProductsByType(type);
 
-            }
-            return foundProducts;
+        }
 
+        public async Task<List<Product>> GetAllProductsByEventType()
+        {
+            return await GetAllProductsByType("Event");
+        }
+
+        public async Task<List<Product>> GetAllProductsByMerchType()
+        {
+            return await GetAllProductsByType("Merch");
         }
 
         public async Task<int> CreateProduct(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)

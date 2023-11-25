@@ -9,7 +9,7 @@ namespace WebshopClientDesktop.ServiceLayer
 {
     public interface IProductAccess
     {
-        Task<List<Product>>? GetProducts(int id = -1);
+        Task<List<Product>> GetAllProductsByType(string prodType);
         Task<int> CreateProduct(Product product);
     }
 }

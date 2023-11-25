@@ -14,63 +14,34 @@ namespace WebshopClientDesktop.ServiceLayer
         readonly ServiceConnection _productService;
 
         //Mangler url samt port number - sat til null for nu.
-        readonly String _serviceBaseUrl = "https://localhost:7173/api/products";
+        readonly String _serviceBaseUrl = "https://localhost:7173/api/products/type";
 
         public ProductServiceAccess()
         {
             _productService = new ServiceConnection(_serviceBaseUrl);
         }
 
-        public async Task<List<Product>>? GetProducts(int id = -1)
+        public async Task<List<Product>> GetAllProductsByType(string prodType)
         {
-            List<Product> productsFromService = null;
+            _productService.UseUrl = $"{_productService.BaseUrl}/{prodType}";
 
-            if (_productService != null)
+            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
+
+            if (serviceResponse.IsSuccessStatusCode)
             {
-                _productService.UseUrl = _productService.BaseUrl;
-                bool oneProductById = (id > 0);
-                if (oneProductById)
-                {
-                    _productService.UseUrl += id;
-                }
-                try
-                {
-                    var serviceResponse = await _productService.CallServiceGet();
-                    //If success (200-299)
-                    if (serviceResponse is not null && serviceResponse.IsSuccessStatusCode)
-                    //200 with data returned
-                    {
-                        if (serviceResponse.StatusCode == System.Net.HttpStatusCode.OK)
-                        {
-                            var responseData = await serviceResponse!.Content.ReadAsStringAsync();
-                            //If 1 Product returned - else all Products returned
-                            if (oneProductById)
-                            {
-                                Product foundProduct = JsonConvert.DeserializeObject<Product>(responseData);
-                                if (foundProduct != null)
-                                {
-                                    productsFromService = new List<Product> { foundProduct }; //Must return List
+                string responseData = await serviceResponse.Content.ReadAsStringAsync();
+                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
 
-                                }
-                            }
-                            else
-                            {
-                                productsFromService = JsonConvert.DeserializeObject<List<Product>>(responseData);
-                            }
-                            //204 no data
-                        }
-                        else if (serviceResponse.StatusCode == System.Net.HttpStatusCode.NoContent)
-                        {
-                            productsFromService = new List<Product>();
-                        }
-                    }
-                }
-                catch
+                if (products == null)
                 {
-                    productsFromService = null;
+                    return new List<Product>();
                 }
+                return products;
             }
-            return productsFromService;
+            else
+            {
+                return new List<Product>();
+            }
         }
 
         public Task<int> CreateProduct(Product product)

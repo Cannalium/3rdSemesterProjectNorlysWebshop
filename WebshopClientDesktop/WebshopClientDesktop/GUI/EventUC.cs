@@ -36,7 +36,7 @@ namespace WebshopClientDesktop.GUI
         private async void BtnGetEventProducts_Click(object sender, EventArgs e)
         {
             string processText = "OK";
-            List<Product>? fetchedProducts = await _productControl.GetAllProducts();
+            List<Product>? fetchedProducts = await _productControl.GetAllProductsByEventType();
             if (fetchedProducts != null)
             {
                 if (fetchedProducts.Count >= 1)
