@@ -41,11 +41,11 @@ namespace WebshopDataTest
         {
             //Arange
             Person testPerson = new Person()
-            { FirstName = "Kira",
-              LastName = "Dittmer",
-              PhoneNo = "53535173",
-              Email = "kiradittmer@ucn.dk",
-              //PersonType = "Admin"
+            { FirstName = "fatimaaa",
+              LastName = "fatfataa",
+              PhoneNo = "44444433",
+              Email = "fatimaaa@ucn.dk",
+              IsAdmin = true,
             };
 
             int insertedId = _personAccess.CreatePerson(testPerson);
@@ -62,32 +62,32 @@ namespace WebshopDataTest
         {
             Person testPerson = new Person()
             {
-                FirstName = "Kira",
-                LastName = "Dittmer",
-                PhoneNo = "53535173",
-                Email = "kiradittmer@ucn.dk",
-                //PersonType = "Admin"
+                FirstName = "fatimaaa",
+                LastName = "fatfataa",
+                PhoneNo = "44444433",
+                Email = "fatimaaa@ucn.dk",
+                IsAdmin= true,
             };
 
             int insertedId = (_personAccess.CreatePerson(testPerson));
 
             //Modify details
             testPerson.PersonId = insertedId;
-            testPerson.FirstName = "Ida";
+            testPerson.FirstName = "Oda";
             //testPerson.PersonType = "Employee";
 
             //Act
             bool updateResult = _personAccess.UpdatePerson(testPerson);
 
             //Assert
-            Assert.True(!updateResult);
+            Assert.True(updateResult);
         }
 
         [Fact]
         public void TestGetPersonById()
         {
             //Arrange
-            int personIdToRetrieve = 1;
+            int personIdToRetrieve = 6;
 
             //Act
             Person retrievedPerson = _personAccess.GetPersonById(personIdToRetrieve);   
