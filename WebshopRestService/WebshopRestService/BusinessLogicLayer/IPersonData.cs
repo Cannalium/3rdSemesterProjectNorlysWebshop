@@ -4,7 +4,7 @@ namespace WebshopRestService.BusinessLogicLayer
 {
     public interface IPersonData {
         PersonDTO? GetPersonById(int personId);
-        PersonDTO? GetPersonByUserId(string userId);
+        PersonDTO? GetPersonByEmail(string userId);
         List<PersonDTO>? Get();
         int Add(PersonDTO personToAdd);
         bool Put(PersonDTO personToUpdate);

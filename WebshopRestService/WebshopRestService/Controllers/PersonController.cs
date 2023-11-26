@@ -143,18 +143,18 @@ namespace WebshopRestService.Controllers
             return foundReturn;
         }
     
-       /* [HttpGet, Route("{userId}")]
-        public ActionResult<PersonDTO?> GetPersonByUserId(string userId)
+        [HttpGet, Route("{email}")]
+        public ActionResult<PersonDTO?> GetPersonByEmail(string email)
         {
             ActionResult<PersonDTO?> foundReturn;
 
             // Retrieve and convert data
-            PersonDTO? foundPerson = _personDataControl.GetPersonByUserId(userId);
+            PersonDTO? foundPerson = _personDataControl.GetPersonByEmail(email);
 
             // Evaluate
             if (foundPerson != null)
             {
-                if (!String.IsNullOrEmpty(foundPerson.UserId))
+                if (!String.IsNullOrEmpty(foundPerson.Email))
                 {
                     foundReturn = Ok(foundPerson);                 // Found - Statuscode 200
                 }
@@ -170,7 +170,7 @@ namespace WebshopRestService.Controllers
 
             // send response back to client
             return foundReturn;
-        }*/
+        }
 
     }
 

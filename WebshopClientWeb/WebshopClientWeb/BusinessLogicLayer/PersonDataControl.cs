@@ -15,14 +15,14 @@ namespace WebshopClientWeb.BusinessLogicLayer
             _PersonAccess = new PersonServiceAccess();
         }
 
-        public async Task<Person> GetPersonByUserId(string userId)
+        public async Task<Person> GetPersonByEmail(string? email)
         {
-            Person foundPerson = await _PersonAccess.GetPersonByUserId(userId);
+            Person foundPerson = await _PersonAccess.GetPersonByEmail(email);
 
             return foundPerson;
         }
 
-        public async Task<Person?> CreatePersonFromUserAccount(string userId, string? email)
+        /*public async Task<Person?> CreatePersonFromUserAccount(string userId, string? email)
         {
             Person? createdPerson = null;
 
@@ -32,7 +32,7 @@ namespace WebshopClientWeb.BusinessLogicLayer
                 createdPerson = await _PersonAccess.SavePerson(PersonToSave);
             }
 
-            return createdPerson;
+            return createdPerson; */
         }
     }
-}
+

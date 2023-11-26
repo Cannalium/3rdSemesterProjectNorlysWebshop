@@ -17,12 +17,12 @@ namespace WebshopClientWeb.ServiceLayer
             _personService = new ServiceConnection(_serviceBaseUrl);
         }
 
-        public async Task<Person> GetPersonByUserId(string userId)
+        public async Task<Person> GetPersonByEmail(string email)
         {
             Person? personFromService = null;
 
             _personService.UseUrl = _personService.BaseUrl;
-            _personService.UseUrl += userId;
+            _personService.UseUrl += email;
 
             if (_personService != null)
             {

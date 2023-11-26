@@ -19,15 +19,19 @@ namespace WebshopClientWeb.Controllers
         public async Task<IActionResult> Profile()
         {
             // Get id logged in user
-            string userId = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            // Get customer through service
-            Person? personFromService = await _personDataControl.GetPersonByUserId(userId);
-            // If customer was not found (but call ok)
-            if (personFromService != null && personFromService.UserId == null)
+            string? email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
+            if (string.IsNullOrEmpty(email))
             {
-                string? email = User.Identity is not null ? User.Identity.Name : null;
-                /* Create customer - and get created customer */
-                personFromService = await _personDataControl.CreatePersonFromUserAccount(userId, email);
+                // if email is not available
+                return RedirectToAction("Error", "Home"); // Redirect to an error page or handle accordingly
+            }
+            // Get person through service
+            Person? personFromService = await _personDataControl.GetPersonByEmail(email);
+
+            if (personFromService == null)
+            {
+                // Optionally, you might want to handle the case where the person is not found
+                return RedirectToAction("NotFound","Home"); // Redirect to a not found page or handle accordingly
             }
             return View(personFromService);
         }

@@ -89,7 +89,7 @@ namespace WebshopData.DatabaseLayer
             return foundPersons;
         }
 
-        public Person GetPersonById(int findPersonId)
+        public Person GetPersonById(int personId)
         {
             Person foundPerson;
             
@@ -98,9 +98,33 @@ namespace WebshopData.DatabaseLayer
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
                 // Prepare SQL
-                SqlParameter personIdParam = new SqlParameter("@PersonId", findPersonId);
+                SqlParameter personIdParam = new SqlParameter("@PersonId", personId);
                 readCommand.Parameters.Add(personIdParam);
                 
+                con.Open();
+                // Execute read
+                SqlDataReader personReader = readCommand.ExecuteReader();
+                foundPerson = new Person();
+                while (personReader.Read())
+                {
+                    foundPerson = GetPersonFromReader(personReader);
+                }
+            }
+            return foundPerson;
+        }
+
+        public Person GetPersonByEmail(string email)
+        {
+            Person foundPerson;
+
+            string queryString = "select personId, firstName, lastName, phoneNo, email, isAdmin from Person where email = @Email";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                // Prepare SQL
+                SqlParameter personIdParam = new SqlParameter("@Email", email);
+                readCommand.Parameters.Add(personIdParam);
+
                 con.Open();
                 // Execute read
                 SqlDataReader personReader = readCommand.ExecuteReader();

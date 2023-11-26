@@ -93,9 +93,19 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public PersonDTO? GetPersonByUserId(string userId)
+        public PersonDTO? GetPersonByEmail(string email)
         {
-            throw new NotImplementedException();
+            PersonDTO? foundPersonDTO;
+            try
+            {
+                Person? foundPerson = _personAccess.GetPersonByEmail(email);
+                foundPersonDTO = ModelConversion.PersonDTOConversion.FromPerson(foundPerson);
+            }
+            catch
+            {
+                foundPersonDTO = null;
+            }
+            return foundPersonDTO;
         }
     }
 }

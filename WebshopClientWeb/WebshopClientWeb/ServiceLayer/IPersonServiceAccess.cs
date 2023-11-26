@@ -9,7 +9,8 @@ namespace WebshopClientWeb.ServiceLayer
 
         //Task<List<Customer>?>? GetCustomers();
 
-        Task<Person> GetPersonByUserId(string userId);
+        Task<Person> GetPersonByEmail(string email);
+
         Task<Person?> SavePerson(Person savePerson);
 
     }
