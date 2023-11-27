@@ -58,7 +58,7 @@
             btnEditEventProducts.Name = "btnEditEventProducts";
             btnEditEventProducts.Size = new Size(132, 29);
             btnEditEventProducts.TabIndex = 2;
-            btnEditEventProducts.Text = "Rediger produkt";
+            btnEditEventProducts.Text = "Rediger";
             btnEditEventProducts.UseVisualStyleBackColor = true;
             btnEditEventProducts.Click += BtnEditProduct_Click;
             // 
@@ -68,7 +68,7 @@
             btnDeleteProduct.Name = "btnDeleteProduct";
             btnDeleteProduct.Size = new Size(101, 29);
             btnDeleteProduct.TabIndex = 3;
-            btnDeleteProduct.Text = "Slet produkt";
+            btnDeleteProduct.Text = "Slet";
             btnDeleteProduct.UseVisualStyleBackColor = true;
             btnDeleteProduct.Click += BtnDeleteProduct_Click;
             // 
@@ -88,7 +88,7 @@
             btnCreateProduct.Name = "btnCreateProduct";
             btnCreateProduct.Size = new Size(118, 29);
             btnCreateProduct.TabIndex = 6;
-            btnCreateProduct.Text = "Opret produkt";
+            btnCreateProduct.Text = "Opret event";
             btnCreateProduct.UseVisualStyleBackColor = true;
             btnCreateProduct.Click += BtnCreateProduct_Click;
             // 
@@ -104,7 +104,7 @@
             groupListBox.Size = new Size(550, 514);
             groupListBox.TabIndex = 7;
             groupListBox.TabStop = false;
-            groupListBox.Text = "Produkter";
+            groupListBox.Text = "Events";
             // 
             // lblProcessText
             // 
@@ -121,7 +121,7 @@
             btnGetEventProducts.Name = "btnGetEventProducts";
             btnGetEventProducts.Size = new Size(114, 29);
             btnGetEventProducts.TabIndex = 5;
-            btnGetEventProducts.Text = "Se produkter";
+            btnGetEventProducts.Text = "Se events";
             btnGetEventProducts.UseVisualStyleBackColor = true;
             btnGetEventProducts.Click += BtnGetEventProducts_Click;
             // 
@@ -153,7 +153,7 @@
             groupBoxCreateProduct.Size = new Size(534, 514);
             groupBoxCreateProduct.TabIndex = 8;
             groupBoxCreateProduct.TabStop = false;
-            groupBoxCreateProduct.Text = "Opret produkt";
+            groupBoxCreateProduct.Text = "Opret event";
             // 
             // lblProcessCreate
             // 
@@ -178,7 +178,7 @@
             lblProductType.Name = "lblProductType";
             lblProductType.Size = new Size(92, 20);
             lblProductType.TabIndex = 17;
-            lblProductType.Text = "Produkttype:";
+            lblProductType.Text = "Event type:";
             // 
             // txtBocProductQuantity
             // 
@@ -234,7 +234,7 @@
             lblProductDescription.Name = "lblProductDescription";
             lblProductDescription.Size = new Size(135, 20);
             lblProductDescription.TabIndex = 10;
-            lblProductDescription.Text = "Produktbeskrivelse:";
+            lblProductDescription.Text = "Eventbeskrivelse:";
             // 
             // lblProductName
             // 
@@ -243,7 +243,7 @@
             lblProductName.Name = "lblProductName";
             lblProductName.Size = new Size(94, 20);
             lblProductName.TabIndex = 9;
-            lblProductName.Text = "Produktnavn:";
+            lblProductName.Text = "Eventnavn:";
             // 
             // EventUC
             // 

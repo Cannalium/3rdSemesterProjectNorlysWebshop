@@ -76,7 +76,7 @@ namespace WebshopClientDesktop.GUI
             {
                 //Controllayer is called to save data
                 insertedId = await _productControl.CreateProduct(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity, inputProdType);
-                messageText = (insertedId > 0) ? $"Produt oprettet!" : "Fejl: Der opstod en uventet fejl.";
+                messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
             }
             else
             {
@@ -109,11 +109,11 @@ namespace WebshopClientDesktop.GUI
 
                 bool isDeleted = await _productControl.DeleteProduct(selectedProduct.ProdId);
 
-                lblProcessText.Text = isDeleted ? "Product deleted!" : "Error: An unexpected error occurred.";
+                lblProcessText.Text = isDeleted ? "Event slettet!" : "Error: An unexpected error occurred.";
             }
             else
             {
-                lblProcessText.Text = "Please select a product to delete.";
+                lblProcessText.Text = "Vælg venligst et event for at slette";
             }
         }
 
