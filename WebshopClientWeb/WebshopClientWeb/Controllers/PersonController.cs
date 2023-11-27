@@ -15,7 +15,7 @@ namespace WebshopClientWeb.Controllers
             _personDataControl = new PersonDataControl();
         }
 
-        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> Profile()
         {
             // Get id logged in user
@@ -23,15 +23,15 @@ namespace WebshopClientWeb.Controllers
             if (string.IsNullOrEmpty(email))
             {
                 // if email is not available
-                return RedirectToAction("Error", "Home"); // Redirect to an error page or handle accordingly
+                return RedirectToAction("Error", "Home"); // Redirect to an error page
             }
             // Get person through service
             Person? personFromService = await _personDataControl.GetPersonByEmail(email);
 
             if (personFromService == null)
             {
-                // Optionally, you might want to handle the case where the person is not found
-                return RedirectToAction("NotFound","Home"); // Redirect to a not found page or handle accordingly
+                // Person not found
+                return RedirectToAction("NotFound","Home"); // Redirect to a not found page
             }
             return View(personFromService);
         }
