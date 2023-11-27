@@ -44,16 +44,16 @@ namespace WebshopClientDesktop.GUI
             {
                 if (fetchedProducts.Count >= 1)
                 {
-                    processText = "Ok";
+                    processText = "Produkter hentet.";
                 }
                 else
                 {
-                    processText = "No event products found";
+                    processText = "No event products found.";
                 }
             }
             else
             {
-                processText = "Failure: An error occurred";
+                processText = "Failure: An error occurred.";
             }
             lblProcessText.Text = processText;
             listBoxEventProducts.DataSource = fetchedProducts;
@@ -87,7 +87,7 @@ namespace WebshopClientDesktop.GUI
 
         }
 
-        private bool InputIsOk (string prodName, string prodDescription, decimal prodPrice, int prodQuantity, string prodType)
+        private bool InputIsOk(string prodName, string prodDescription, decimal prodPrice, int prodQuantity, string prodType)
         {
             bool isValidInput = false;
 
@@ -99,6 +99,11 @@ namespace WebshopClientDesktop.GUI
                 }
             }
             return isValidInput;
+        }
+
+        private void BtnDeleteProduct_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

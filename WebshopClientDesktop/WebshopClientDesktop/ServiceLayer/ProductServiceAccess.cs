@@ -74,5 +74,30 @@ namespace WebshopClientDesktop.ServiceLayer
 
             return insertedProdId;
         }
+
+        public async Task<bool> DeleteProduct(int productId)
+        {
+            bool isDeleted = false;
+            _productService.UseUrl = $"{_productService.BaseUrl}/{productId}";
+
+            try
+            {
+                // Call service to delete chosen product
+                var serviceResponse = await _productService.CallServiceDelete();
+
+                // If successful HTTP status code 200-299
+                if (serviceResponse is not null && serviceResponse.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                }
+            }
+            catch
+            {
+                
+                isDeleted = false;
+            }
+
+            return isDeleted;
+        }
     }
 }

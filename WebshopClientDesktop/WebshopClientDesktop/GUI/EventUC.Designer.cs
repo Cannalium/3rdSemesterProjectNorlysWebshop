@@ -37,6 +37,7 @@
             btnGetEventProducts = new Button();
             listBoxEventProducts = new ListBox();
             groupBoxCreateProduct = new GroupBox();
+            lblProcessCreate = new Label();
             txtProductType = new TextBox();
             lblProductType = new Label();
             txtBocProductQuantity = new TextBox();
@@ -47,7 +48,6 @@
             txtBoxProductName = new TextBox();
             lblProductDescription = new Label();
             lblProductName = new Label();
-            lblProcessCreate = new Label();
             groupListBox.SuspendLayout();
             groupBoxCreateProduct.SuspendLayout();
             SuspendLayout();
@@ -70,6 +70,7 @@
             btnDeleteProduct.TabIndex = 3;
             btnDeleteProduct.Text = "Slet produkt";
             btnDeleteProduct.UseVisualStyleBackColor = true;
+            btnDeleteProduct.Click += BtnDeleteProduct_Click;
             // 
             // merchLbl
             // 
@@ -154,6 +155,15 @@
             groupBoxCreateProduct.TabStop = false;
             groupBoxCreateProduct.Text = "Opret produkt";
             // 
+            // lblProcessCreate
+            // 
+            lblProcessCreate.AutoSize = true;
+            lblProcessCreate.Location = new Point(19, 489);
+            lblProcessCreate.Name = "lblProcessCreate";
+            lblProcessCreate.Size = new Size(15, 20);
+            lblProcessCreate.TabIndex = 19;
+            lblProcessCreate.Text = "..";
+            // 
             // txtProductType
             // 
             txtProductType.Location = new Point(19, 395);
@@ -234,15 +244,6 @@
             lblProductName.Size = new Size(94, 20);
             lblProductName.TabIndex = 9;
             lblProductName.Text = "Produktnavn:";
-            // 
-            // lblProcessCreate
-            // 
-            lblProcessCreate.AutoSize = true;
-            lblProcessCreate.Location = new Point(19, 489);
-            lblProcessCreate.Name = "lblProcessCreate";
-            lblProcessCreate.Size = new Size(15, 20);
-            lblProcessCreate.TabIndex = 19;
-            lblProcessCreate.Text = "..";
             // 
             // EventUC
             // 

@@ -19,11 +19,16 @@ namespace WebshopClientDesktop.ModelLayer
             ProdType = prodType;
         }
 
-        public string ProdName { get; private set; }
-        public string ProdDescription { get; private set; }
-        public decimal ProdPrice { get; private set; }
-        public int ProdQuantity { get; private set; }
-        public string ProdType { get; private set; }
+        public string ProdName { get; set; }
+        public string ProdDescription { get; set; }
+        public decimal ProdPrice { get; set; }
+        public int ProdQuantity { get; set; }
+        public string ProdType { get; set; }
+
+        public override string ToString()
+        {
+            return ProdName;
+        }
 
     }
 }
