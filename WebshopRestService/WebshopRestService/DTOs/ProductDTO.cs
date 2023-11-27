@@ -3,8 +3,9 @@
     {
         public ProductDTO() { }
 
-        public ProductDTO(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
-        {  
+        public ProductDTO(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
+        {
+            ProdId = prodId;
             ProdName = prodName;
             ProdDescription = prodDescription;
             ProdPrice = prodPrice;
@@ -12,6 +13,7 @@
             ProdType = prodType;
         }
 
+        public int ProdId { get; set; }
         public string? ProdName { get; set; }
         public string? ProdDescription { get; set; }
         public decimal ProdPrice { get; set; }
