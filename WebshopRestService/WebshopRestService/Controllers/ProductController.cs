@@ -128,7 +128,7 @@ namespace WebshopRestService.Controllers
 
         //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
 
-        [HttpDelete]
+        [HttpDelete, Route("{prodId}")]
         public ActionResult Delete(int prodId)
         {
             ActionResult foundReturn;
