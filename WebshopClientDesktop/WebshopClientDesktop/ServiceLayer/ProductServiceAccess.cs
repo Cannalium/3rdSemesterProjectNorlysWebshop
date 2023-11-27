@@ -78,7 +78,7 @@ namespace WebshopClientDesktop.ServiceLayer
         public async Task<bool> DeleteProduct(int prodId)
         {
             bool isDeleted = false;
-            _productService.UseUrl = $"{_productService.BaseUrl}/{prodId}";
+            _productService.UseUrl = $"{_productService.BaseUrl}{prodId}";
 
             try
             {
