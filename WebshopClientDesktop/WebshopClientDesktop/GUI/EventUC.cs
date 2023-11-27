@@ -116,5 +116,28 @@ namespace WebshopClientDesktop.GUI
                 lblProcessText.Text = "Please select a product to delete.";
             }
         }
+
+        private async void BtnEditProduct_Click(object sender, EventArgs e)
+        {
+            if (listBoxEventProducts.SelectedItem is not null)
+            {
+                // Get the selected product from the list
+                Product selectedProduct = (Product)listBoxEventProducts.SelectedItem;
+
+                // Modify the properties of the product as needed
+                selectedProduct.ProdName = "New Product Name";
+                selectedProduct.ProdDescription = "New Product Description";
+                // ... update other properties as needed ...
+
+                // Call the update method
+                bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
+
+                lblProcessText.Text = isUpdated ? "Product updated!" : "Error: An unexpected error occurred during update.";
+            }
+            else
+            {
+                lblProcessText.Text = "Please select a product to update.";
+            }
+        }
     }
 }

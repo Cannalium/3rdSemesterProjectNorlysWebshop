@@ -6,6 +6,10 @@
         public ProductDTO(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
         {
             ProdId = prodId;
+
+        public ProductDTO(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
+        {
+
             ProdName = prodName;
             ProdDescription = prodDescription;
             ProdPrice = prodPrice;

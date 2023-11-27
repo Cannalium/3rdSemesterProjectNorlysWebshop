@@ -60,7 +60,7 @@
             btnEditEventProducts.TabIndex = 2;
             btnEditEventProducts.Text = "Rediger produkt";
             btnEditEventProducts.UseVisualStyleBackColor = true;
-            btnEditEventProducts.Click += button1_Click;
+            btnEditEventProducts.Click += BtnEditProduct_Click;
             // 
             // btnDeleteProduct
             // 
@@ -75,10 +75,10 @@
             // merchLbl
             // 
             merchLbl.AutoSize = true;
-            merchLbl.Font = new Font("Sans Serif Collection", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
+            merchLbl.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
             merchLbl.Location = new Point(496, 0);
             merchLbl.Name = "merchLbl";
-            merchLbl.Size = new Size(186, 68);
+            merchLbl.Size = new Size(107, 32);
             merchLbl.TabIndex = 4;
             merchLbl.Text = "Events";
             // 
