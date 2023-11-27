@@ -23,7 +23,7 @@ namespace WebshopData.DatabaseLayer
         public int CreateProduct(Product aProduct)
         {
             int insertedId = -1;
-            string insertString = "insert into Product(prodName, prodDescription, prodPrice, prodQuantity, prodType) OUTPUT INSERTED.ID values(@ProdName, @ProdDescription, @ProdPrice, @ProdQuantity, @ProdType)";
+            string insertString = "insert into Product(prodName, prodDescription, prodPrice, prodQuantity, prodType) OUTPUT INSERTED.prodId values(@ProdName, @ProdDescription, @ProdPrice, @ProdQuantity, @ProdType)";
 
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand CreateCommand = new SqlCommand(insertString, con))
