@@ -43,5 +43,11 @@ namespace WebshopClientDesktop.ControlLayer
             int insertedId = await _productAccess.CreateProduct(newProduct);
             return insertedId;
         }
+
+        public async Task<bool> DeleteProduct(int prodId)
+        {
+            bool isDeleted = await _productAccess.DeleteProduct(prodId);
+            return isDeleted;
+        }
     }
 }

@@ -101,9 +101,20 @@ namespace WebshopClientDesktop.GUI
             return isValidInput;
         }
 
-        private void BtnDeleteProduct_Click(object sender, EventArgs e)
+        private async void BtnDeleteProduct_Click(object sender, EventArgs e)
         {
+            if (listBoxEventProducts.SelectedItem is not null)
+            {
+                Product selectedProduct = (Product)listBoxEventProducts.SelectedItem;
 
+                bool isDeleted = await _productControl.DeleteProduct(selectedProduct.ProdId);
+
+                lblProcessText.Text = isDeleted ? "Product deleted!" : "Error: An unexpected error occurred.";
+            }
+            else
+            {
+                lblProcessText.Text = "Please select a product to delete.";
+            }
         }
     }
 }
