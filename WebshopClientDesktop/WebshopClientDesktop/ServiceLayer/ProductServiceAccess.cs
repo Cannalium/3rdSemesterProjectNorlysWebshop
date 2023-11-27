@@ -99,5 +99,36 @@ namespace WebshopClientDesktop.ServiceLayer
 
             return isDeleted;
         }
+
+        public async Task<bool> UpdateProduct(Product updatedProduct)
+        {
+            bool isUpdated = false;
+
+            // URL for the specific product
+            _productService.UseUrl = $"{_productService.BaseUrl}/{updatedProduct.ProdId}";
+
+            try
+            {
+                // Serialize the updated product to JSON
+                var json = JsonConvert.SerializeObject(updatedProduct);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                // Call service to update the chosen product
+                var serviceResponse = await _productService.CallServicePut(content);
+
+                // If successful HTTP status code 200-299
+                if (serviceResponse is not null && serviceResponse.IsSuccessStatusCode)
+                {
+                    isUpdated = true;
+                }
+            }
+            catch
+            {
+                // Handle exceptions or log errors if needed
+                isUpdated = false;
+            }
+
+            return isUpdated;
+        }
     }
 }

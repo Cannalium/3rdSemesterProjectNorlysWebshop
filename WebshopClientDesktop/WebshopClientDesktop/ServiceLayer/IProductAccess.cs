@@ -12,5 +12,6 @@ namespace WebshopClientDesktop.ServiceLayer
         Task<List<Product>> GetAllProductsByType(string prodType);
         Task<int> CreateProduct(Product productToSave);
         Task<bool> DeleteProduct (int prodId);
+        Task<bool> UpdateProduct(Product productToUpdate);
     }
 }

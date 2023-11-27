@@ -49,5 +49,11 @@ namespace WebshopClientDesktop.ControlLayer
             bool isDeleted = await _productAccess.DeleteProduct(prodId);
             return isDeleted;
         }
+
+        public async Task<bool> UpdateProduct(Product updatedProduct)
+        {
+            bool isUpdated = await _productAccess.UpdateProduct(updatedProduct);
+            return isUpdated;
+        }
     }
 }
