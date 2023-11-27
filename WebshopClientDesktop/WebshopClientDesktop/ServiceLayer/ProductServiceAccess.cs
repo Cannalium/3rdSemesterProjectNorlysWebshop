@@ -14,7 +14,7 @@ namespace WebshopClientDesktop.ServiceLayer
         readonly ServiceConnection _productService;
 
         //Mangler url samt port number - sat til null for nu.
-        readonly String _serviceBaseUrl = "https://localhost:7173/api/products/type";
+        readonly String _serviceBaseUrl = "https://localhost:7173/api/products/";
 
         public ProductServiceAccess()
         {
@@ -23,7 +23,7 @@ namespace WebshopClientDesktop.ServiceLayer
 
         public async Task<List<Product>> GetAllProductsByType(string prodType)
         {
-            _productService.UseUrl = $"{_productService.BaseUrl}/{prodType}";
+            _productService.UseUrl = $"{_productService.BaseUrl}type/{prodType}";
 
             HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
 
