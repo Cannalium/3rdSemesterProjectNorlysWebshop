@@ -37,7 +37,7 @@ namespace WebshopClientDesktop.ControlLayer
             return await GetAllProductsByType("Merch");
         }
 
-        public async Task<int> CreateProduct(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
+        public async Task<int> CreateProduct(string prodName, string prodDescription, decimal prodPrice, int prodQuantity, string prodType)
         {
             Product newProduct = new(prodName, prodDescription, prodPrice, prodQuantity, prodType);
             int insertedId = await _productAccess.CreateProduct(newProduct);

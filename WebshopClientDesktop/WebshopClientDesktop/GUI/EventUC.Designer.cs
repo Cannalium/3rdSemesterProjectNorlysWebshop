@@ -37,6 +37,17 @@
             btnGetEventProducts = new Button();
             listBoxEventProducts = new ListBox();
             groupBoxCreateProduct = new GroupBox();
+            txtProductType = new TextBox();
+            lblProductType = new Label();
+            txtBocProductQuantity = new TextBox();
+            lblProductQuantity = new Label();
+            txtBoxPrice = new TextBox();
+            lblPrice = new Label();
+            txtBocProductDescription = new TextBox();
+            txtBoxProductName = new TextBox();
+            lblProductDescription = new Label();
+            lblProductName = new Label();
+            lblProcessCreate = new Label();
             groupListBox.SuspendLayout();
             groupBoxCreateProduct.SuspendLayout();
             SuspendLayout();
@@ -64,7 +75,7 @@
             // 
             merchLbl.AutoSize = true;
             merchLbl.Font = new Font("Sans Serif Collection", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
-            merchLbl.Location = new Point(496, 36);
+            merchLbl.Location = new Point(496, 0);
             merchLbl.Name = "merchLbl";
             merchLbl.Size = new Size(186, 68);
             merchLbl.TabIndex = 4;
@@ -72,12 +83,13 @@
             // 
             // btnCreateProduct
             // 
-            btnCreateProduct.Location = new Point(15, 457);
+            btnCreateProduct.Location = new Point(19, 457);
             btnCreateProduct.Name = "btnCreateProduct";
             btnCreateProduct.Size = new Size(118, 29);
             btnCreateProduct.TabIndex = 6;
             btnCreateProduct.Text = "Opret produkt";
             btnCreateProduct.UseVisualStyleBackColor = true;
+            btnCreateProduct.Click += BtnCreateProduct_Click;
             // 
             // groupListBox
             // 
@@ -86,7 +98,7 @@
             groupListBox.Controls.Add(listBoxEventProducts);
             groupListBox.Controls.Add(btnEditEventProducts);
             groupListBox.Controls.Add(btnDeleteProduct);
-            groupListBox.Location = new Point(36, 107);
+            groupListBox.Location = new Point(44, 71);
             groupListBox.Name = "groupListBox";
             groupListBox.Size = new Size(550, 514);
             groupListBox.TabIndex = 7;
@@ -123,13 +135,114 @@
             // 
             // groupBoxCreateProduct
             // 
+            groupBoxCreateProduct.Controls.Add(lblProcessCreate);
+            groupBoxCreateProduct.Controls.Add(txtProductType);
+            groupBoxCreateProduct.Controls.Add(lblProductType);
+            groupBoxCreateProduct.Controls.Add(txtBocProductQuantity);
+            groupBoxCreateProduct.Controls.Add(lblProductQuantity);
+            groupBoxCreateProduct.Controls.Add(txtBoxPrice);
+            groupBoxCreateProduct.Controls.Add(lblPrice);
+            groupBoxCreateProduct.Controls.Add(txtBocProductDescription);
+            groupBoxCreateProduct.Controls.Add(txtBoxProductName);
+            groupBoxCreateProduct.Controls.Add(lblProductDescription);
+            groupBoxCreateProduct.Controls.Add(lblProductName);
             groupBoxCreateProduct.Controls.Add(btnCreateProduct);
-            groupBoxCreateProduct.Location = new Point(592, 107);
+            groupBoxCreateProduct.Location = new Point(600, 71);
             groupBoxCreateProduct.Name = "groupBoxCreateProduct";
             groupBoxCreateProduct.Size = new Size(534, 514);
             groupBoxCreateProduct.TabIndex = 8;
             groupBoxCreateProduct.TabStop = false;
             groupBoxCreateProduct.Text = "Opret produkt";
+            // 
+            // txtProductType
+            // 
+            txtProductType.Location = new Point(19, 395);
+            txtProductType.Name = "txtProductType";
+            txtProductType.Size = new Size(94, 27);
+            txtProductType.TabIndex = 18;
+            // 
+            // lblProductType
+            // 
+            lblProductType.AutoSize = true;
+            lblProductType.Location = new Point(19, 363);
+            lblProductType.Name = "lblProductType";
+            lblProductType.Size = new Size(92, 20);
+            lblProductType.TabIndex = 17;
+            lblProductType.Text = "Produkttype:";
+            // 
+            // txtBocProductQuantity
+            // 
+            txtBocProductQuantity.Location = new Point(19, 320);
+            txtBocProductQuantity.Name = "txtBocProductQuantity";
+            txtBocProductQuantity.Size = new Size(94, 27);
+            txtBocProductQuantity.TabIndex = 16;
+            // 
+            // lblProductQuantity
+            // 
+            lblProductQuantity.AutoSize = true;
+            lblProductQuantity.Location = new Point(19, 297);
+            lblProductQuantity.Name = "lblProductQuantity";
+            lblProductQuantity.Size = new Size(47, 20);
+            lblProductQuantity.TabIndex = 15;
+            lblProductQuantity.Text = "Antal:";
+            // 
+            // txtBoxPrice
+            // 
+            txtBoxPrice.Location = new Point(19, 258);
+            txtBoxPrice.Name = "txtBoxPrice";
+            txtBoxPrice.Size = new Size(94, 27);
+            txtBoxPrice.TabIndex = 14;
+            // 
+            // lblPrice
+            // 
+            lblPrice.AutoSize = true;
+            lblPrice.Location = new Point(19, 235);
+            lblPrice.Name = "lblPrice";
+            lblPrice.Size = new Size(35, 20);
+            lblPrice.TabIndex = 13;
+            lblPrice.Text = "Pris:";
+            // 
+            // txtBocProductDescription
+            // 
+            txtBocProductDescription.Location = new Point(19, 136);
+            txtBocProductDescription.Multiline = true;
+            txtBocProductDescription.Name = "txtBocProductDescription";
+            txtBocProductDescription.Size = new Size(388, 87);
+            txtBocProductDescription.TabIndex = 12;
+            // 
+            // txtBoxProductName
+            // 
+            txtBoxProductName.Location = new Point(19, 77);
+            txtBoxProductName.Name = "txtBoxProductName";
+            txtBoxProductName.Size = new Size(388, 27);
+            txtBoxProductName.TabIndex = 11;
+            // 
+            // lblProductDescription
+            // 
+            lblProductDescription.AutoSize = true;
+            lblProductDescription.Location = new Point(19, 113);
+            lblProductDescription.Name = "lblProductDescription";
+            lblProductDescription.Size = new Size(135, 20);
+            lblProductDescription.TabIndex = 10;
+            lblProductDescription.Text = "Produktbeskrivelse:";
+            // 
+            // lblProductName
+            // 
+            lblProductName.AutoSize = true;
+            lblProductName.Location = new Point(19, 51);
+            lblProductName.Name = "lblProductName";
+            lblProductName.Size = new Size(94, 20);
+            lblProductName.TabIndex = 9;
+            lblProductName.Text = "Produktnavn:";
+            // 
+            // lblProcessCreate
+            // 
+            lblProcessCreate.AutoSize = true;
+            lblProcessCreate.Location = new Point(19, 489);
+            lblProcessCreate.Name = "lblProcessCreate";
+            lblProcessCreate.Size = new Size(15, 20);
+            lblProcessCreate.TabIndex = 19;
+            lblProcessCreate.Text = "..";
             // 
             // EventUC
             // 
@@ -139,10 +252,11 @@
             Controls.Add(groupListBox);
             Controls.Add(merchLbl);
             Name = "EventUC";
-            Size = new Size(1178, 650);
+            Size = new Size(1173, 613);
             groupListBox.ResumeLayout(false);
             groupListBox.PerformLayout();
             groupBoxCreateProduct.ResumeLayout(false);
+            groupBoxCreateProduct.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -157,5 +271,16 @@
         private GroupBox groupBoxCreateProduct;
         private Button btnGetEventProducts;
         private Label lblProcessText;
+        private Label lblProductName;
+        private TextBox txtBocProductQuantity;
+        private Label lblProductQuantity;
+        private TextBox txtBoxPrice;
+        private Label lblPrice;
+        private TextBox txtBocProductDescription;
+        private TextBox txtBoxProductName;
+        private Label lblProductDescription;
+        private TextBox txtProductType;
+        private Label lblProductType;
+        private Label lblProcessCreate;
     }
 }
