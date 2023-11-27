@@ -45,7 +45,7 @@ namespace WebshopRestService.Controllers
             return foundReturn; //send return to client
         }
 
-        [HttpGet, Route("{Id}")]
+      /*  [HttpGet, Route("{Id}")]
         public ActionResult<PersonDTO> GetPersonById(int personId)
         {
             ActionResult<PersonDTO> foundReturn;
@@ -70,7 +70,7 @@ namespace WebshopRestService.Controllers
             }
             return foundReturn; // Send return to client
         }
-
+      */
         // URL: api/person, Route("api/person")
         [HttpPost]
         public ActionResult<int> PostNewPerson(PersonDTO personDTO)
