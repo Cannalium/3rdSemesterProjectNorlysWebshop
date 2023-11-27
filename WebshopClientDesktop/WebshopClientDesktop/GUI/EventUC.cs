@@ -76,11 +76,11 @@ namespace WebshopClientDesktop.GUI
             {
                 //Controllayer is called to save data
                 insertedId = await _productControl.CreateProduct(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity, inputProdType);
-                messageText = (insertedId > 0) ? $"Produt oprettet uden {insertedId}" : "Fejl: Der opstod en uventet fejl";
+                messageText = (insertedId > 0) ? $"Produt oprettet!" : "Fejl: Der opstod en uventet fejl.";
             }
             else
             {
-                messageText = "Venligst indtast valid information";
+                messageText = "Venligst indtast valid information.";
             }
 
             lblProcessCreate.Text = messageText;

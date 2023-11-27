@@ -44,9 +44,35 @@ namespace WebshopClientDesktop.ServiceLayer
             }
         }
 
-        public Task<int> CreateProduct(Product product)
+        public async Task<int> CreateProduct(Product productToSave)
         {
-            throw new NotImplementedException();
+            int insertedProdId = -1;
+            _productService.UseUrl = _productService.BaseUrl;
+
+            try
+            {
+                string jsonProduct = JsonConvert.SerializeObject(productToSave);
+                var httpContent = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
+
+                //Call service
+                var serviceRespone = await _productService.CallServicePost(httpContent);
+
+                //If succesful 200-299
+                if (serviceRespone is not null && serviceRespone.IsSuccessStatusCode)
+                {
+                    string idString = await serviceRespone.Content.ReadAsStringAsync();
+                    bool numOk = Int32.TryParse(idString, out insertedProdId);
+                    if (!numOk)
+                    {
+                        insertedProdId = -2;
+                    }
+                }
+            } catch
+            {
+                insertedProdId = -2;
+            }
+
+            return insertedProdId;
         }
     }
 }
