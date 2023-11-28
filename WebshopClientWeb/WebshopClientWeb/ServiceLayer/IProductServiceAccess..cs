@@ -12,5 +12,7 @@ namespace WebshopClientWeb.ServiceLayer
         //Task<List<Product>> GetProducts();
 
         Task<List<Product>> GetAllProductsByType(string prodType);
+
+        Task<List<Product>> GetAllProducts();
     }
 }

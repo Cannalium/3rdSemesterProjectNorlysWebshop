@@ -16,19 +16,42 @@ namespace WebshopClientWeb.ServiceLayer
             _productService = new ServiceConnection(_serviceBaseUrl);
         }
 
-       /* public Task<List<Product>> GetProducts()
-        {
-            List<Product>? listFromService = null;
+        /* public Task<List<Product>> GetProducts()
+         {
+             List<Product>? listFromService = null;
 
-            _productService.UseUrl = _productService.BaseUrl;
-            _productService.UseUrl += $"api/product/";
+             _productService.UseUrl = _productService.BaseUrl;
+             _productService.UseUrl += $"api/product/";
 
-        }*/
+         }*/
 
         public async Task<List<Product>> GetAllProductsByType(string prodType)
         {
             _productService.UseUrl = $"{_productService.BaseUrl}api/products/type/{prodType}";
 
+
+            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
+
+            if (serviceResponse.IsSuccessStatusCode)
+            {
+                string responseData = await serviceResponse.Content.ReadAsStringAsync();
+                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
+
+                if (products == null)
+                {
+                    return new List<Product>();
+                }
+                return products;
+            }
+            else
+            {
+                return new List<Product>();
+            }
+        }
+
+        public async Task<List<Product>> GetAllProducts()
+        {
+            _productService.UseUrl = $"{_productService.BaseUrl}api/products";
 
             HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
 

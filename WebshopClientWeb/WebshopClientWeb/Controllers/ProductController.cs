@@ -20,7 +20,7 @@ namespace WebshopClientWeb.Controllers
         public async Task<IActionResult> Product()
         {
             // Get products by type (e.g., "Event")
-            List<Product> products = await GetAllProductsByEventType();
+            List<Product> products = await GetAllProducts();
 
             // Pass the products to the view
             return View(products);
@@ -41,6 +41,11 @@ namespace WebshopClientWeb.Controllers
         public async Task<List<Product>> GetAllProductsByMerchType()
         {
             return await GetAllProductsByType("Merch");
+        }
+
+        public async Task<List<Product>> GetAllProducts()
+        {
+            return await _productDataControl.GetAllProducts();
         }
     }
 }
