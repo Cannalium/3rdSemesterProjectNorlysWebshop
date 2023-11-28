@@ -6,7 +6,7 @@ using WebshopClientWeb.Model;
 
 namespace WebshopClientWeb.Controllers
 {
-    public class PersonController : Controller // er ikke sikker på det der : Controller
+    public class PersonController : Controller 
     {
         private PersonDataControl _personDataControl;
 
