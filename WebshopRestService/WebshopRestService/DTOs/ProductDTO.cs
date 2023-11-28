@@ -1,5 +1,5 @@
 ﻿namespace WebshopRestService.DTOs {
-    public class ProductDTO 
+    public class ProductDTO
     {
         public ProductDTO() { }
 
@@ -7,9 +7,10 @@
         {
             ProdId = prodId;
 
+        }
+
         public ProductDTO(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
         {
-
             ProdName = prodName;
             ProdDescription = prodDescription;
             ProdPrice = prodPrice;
@@ -23,6 +24,7 @@
         public decimal ProdPrice { get; set; }
         public int ProdQuantity { get; set; }
         public string? ProdType { get; set; }
+          
     }
 }
 
