@@ -1,4 +1,6 @@
-﻿namespace WebshopClientWeb.Model
+﻿using WebshopClientWeb.Model;
+
+namespace WebshopClientWeb.Model
 {
     public class OrderLine
     {
@@ -10,6 +12,7 @@
         {
             OrderLineId = orderLineId;
             OrderLineProdQuantity = orderLineProdQuantity;
+
         }
 
         public int OrderLineId { get; set; }

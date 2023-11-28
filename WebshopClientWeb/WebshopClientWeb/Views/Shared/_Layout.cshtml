@@ -22,16 +22,25 @@
                         @if (User.Identity.IsAuthenticated)
                         {
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Profile">Customer profile</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Profile">Kundeprofil</a>
                         </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Product">Products</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Product">Produkter</a>
                             </li>
+                            
                         }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
-                    </ul>
+                        </ul>
+                        @if (User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Order" asp-action="Order">Indkøbskurv</a>
+                            </li>
+                        </ul>
+                    }
                     <partial name="_LoginPartial" />
                 </div>
             </div>

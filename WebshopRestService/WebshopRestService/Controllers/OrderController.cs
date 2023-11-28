@@ -17,7 +17,7 @@ namespace WebshopRestService.Controllers
             _orderDataController = orderDataController;
         }
 
-        // URL: api/orders
+        // URL: api/Order/Order
         [HttpGet]
         public ActionResult<List<OrderDTO>>? Get()
         {
