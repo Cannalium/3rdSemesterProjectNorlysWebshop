@@ -107,7 +107,7 @@ namespace WebshopRestService.BusinessLogicLayer
                 }
                 return false;
             }
-            catch
+            catch (Exception e)
             {
                 return false;
             }

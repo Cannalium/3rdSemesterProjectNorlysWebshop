@@ -144,7 +144,7 @@ namespace WebshopRestService.Controllers
             return foundReturn;
         }
 
-        [HttpPut]
+        [HttpPut, Route("{prodId}")]
         public ActionResult<bool> Put(ProductDTO productDTO)
         {
             ActionResult foundReturn;

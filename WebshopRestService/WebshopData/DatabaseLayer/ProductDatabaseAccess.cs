@@ -147,7 +147,7 @@ namespace WebshopData.DatabaseLayer
         {
             bool prodUpdated = false;
             string queryString = "UPDATE Product SET prodName = @ProdName, prodDescription = @ProdDescription, " +
-                                 "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity, prodType = @ProdType" +
+                                 "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity, prodType = @ProdType " +
                                  "WHERE prodId = @ProdId";
             using (SqlConnection connection = new SqlConnection(_connectionString))
             using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
