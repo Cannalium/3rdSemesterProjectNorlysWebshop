@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel;
 
 namespace WebshopClientWeb.Model
 {
@@ -24,10 +25,18 @@ namespace WebshopClientWeb.Model
             [Key] 
             public int ProdId { get; set; }
 
+            [DisplayName("Titel :")] 
             public string? ProdName { get; set; }
+
+            [DisplayName("Beskrivelse :")]
             public string? ProdDescription { get; set; }
+
+            [DisplayName("Pris :")]
             public decimal ProdPrice { get; set; }
+
+            [DisplayName("Antal :")]
             public int ProdQuantity { get; set; }
+
             public string? ProdType { get; }
         }
     }

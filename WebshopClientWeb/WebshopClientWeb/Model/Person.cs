@@ -26,13 +26,13 @@ namespace WebshopClientWeb.Model
 
         public int PersonId { get; set; }
 
-        [DisplayName("First name :")]
+        [DisplayName("Fornavn :")]
         public string? FirstName { get; set; }
 
-        [DisplayName("Last name :")]
+        [DisplayName("Efternavn :")]
         public string? LastName { get; set; }
 
-        [DisplayName("Phone number :")]
+        [DisplayName("Mobilnummer :")]
         public string? PhoneNo { get; set; }
 
         [DisplayName("Email :")]
