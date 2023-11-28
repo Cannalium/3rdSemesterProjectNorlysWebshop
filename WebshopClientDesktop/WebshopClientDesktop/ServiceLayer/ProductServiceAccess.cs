@@ -105,7 +105,7 @@ namespace WebshopClientDesktop.ServiceLayer
             bool isUpdated = false;
 
             // URL for the specific product
-            _productService.UseUrl = $"{_productService.BaseUrl}/{updatedProduct.ProdId}";
+            _productService.UseUrl = $"{_productService.BaseUrl}{updatedProduct.ProdId}";
 
             try
             {

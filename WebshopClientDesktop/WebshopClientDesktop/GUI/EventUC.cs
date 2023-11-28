@@ -141,9 +141,20 @@ namespace WebshopClientDesktop.GUI
             }
         }
 
-        private void listBoxEventProducts_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListBoxEventProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Get the selected product from the list
+            Product selectedProduct = (Product)listBoxEventProducts.SelectedItem;
 
+            if(selectedProduct != null)
+            {
+                // Display details
+                txtBoxProductName.Text = selectedProduct.ProdName.ToString();
+                txtBocProductDescription.Text = selectedProduct.ProdDescription.ToString();
+                txtBoxPrice.Text = selectedProduct.ProdPrice.ToString();
+                txtBocProductQuantity.Text = selectedProduct.ProdQuantity.ToString();
+                txtProductType.Text = selectedProduct.ProdType.ToString();
+            }
         }
     }
 }

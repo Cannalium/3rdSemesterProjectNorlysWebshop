@@ -54,17 +54,17 @@
             // 
             // btnEditEventProducts
             // 
-            btnEditEventProducts.Location = new Point(412, 42);
+            btnEditEventProducts.Location = new Point(143, 457);
             btnEditEventProducts.Name = "btnEditEventProducts";
             btnEditEventProducts.Size = new Size(132, 29);
             btnEditEventProducts.TabIndex = 2;
-            btnEditEventProducts.Text = "Rediger";
+            btnEditEventProducts.Text = "Opdater";
             btnEditEventProducts.UseVisualStyleBackColor = true;
             btnEditEventProducts.Click += BtnEditProduct_Click;
             // 
             // btnDeleteProduct
             // 
-            btnDeleteProduct.Location = new Point(412, 77);
+            btnDeleteProduct.Location = new Point(412, 457);
             btnDeleteProduct.Name = "btnDeleteProduct";
             btnDeleteProduct.Size = new Size(101, 29);
             btnDeleteProduct.TabIndex = 3;
@@ -97,7 +97,6 @@
             groupListBox.Controls.Add(lblProcessText);
             groupListBox.Controls.Add(btnGetEventProducts);
             groupListBox.Controls.Add(listBoxEventProducts);
-            groupListBox.Controls.Add(btnEditEventProducts);
             groupListBox.Controls.Add(btnDeleteProduct);
             groupListBox.Location = new Point(44, 71);
             groupListBox.Name = "groupListBox";
@@ -117,7 +116,7 @@
             // 
             // btnGetEventProducts
             // 
-            btnGetEventProducts.Location = new Point(412, 457);
+            btnGetEventProducts.Location = new Point(412, 42);
             btnGetEventProducts.Name = "btnGetEventProducts";
             btnGetEventProducts.Size = new Size(114, 29);
             btnGetEventProducts.TabIndex = 5;
@@ -133,13 +132,14 @@
             listBoxEventProducts.Name = "listBoxEventProducts";
             listBoxEventProducts.Size = new Size(383, 444);
             listBoxEventProducts.TabIndex = 4;
-            listBoxEventProducts.SelectedIndexChanged += listBoxEventProducts_SelectedIndexChanged;
+            listBoxEventProducts.SelectedIndexChanged += ListBoxEventProducts_SelectedIndexChanged;
             // 
             // groupBoxCreateProduct
             // 
             groupBoxCreateProduct.Controls.Add(lblProcessCreate);
             groupBoxCreateProduct.Controls.Add(txtProductType);
             groupBoxCreateProduct.Controls.Add(lblProductType);
+            groupBoxCreateProduct.Controls.Add(btnEditEventProducts);
             groupBoxCreateProduct.Controls.Add(txtBocProductQuantity);
             groupBoxCreateProduct.Controls.Add(lblProductQuantity);
             groupBoxCreateProduct.Controls.Add(txtBoxPrice);
@@ -154,7 +154,7 @@
             groupBoxCreateProduct.Size = new Size(534, 514);
             groupBoxCreateProduct.TabIndex = 8;
             groupBoxCreateProduct.TabStop = false;
-            groupBoxCreateProduct.Text = "Opret event";
+            groupBoxCreateProduct.Text = "Detaljer";
             // 
             // lblProcessCreate
             // 
