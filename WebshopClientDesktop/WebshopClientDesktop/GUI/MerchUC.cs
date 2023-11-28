@@ -99,6 +99,8 @@ namespace WebshopClientDesktop.GUI
 
                 bool isDeleted = await _productControl.DeleteProduct(selectedProduct.ProdId);
 
+                ResetUiTexts();
+
                 lblProcessText.Text = isDeleted ? "Event slettet!" : "Error: An unexpected error occurred.";
             }
             else
