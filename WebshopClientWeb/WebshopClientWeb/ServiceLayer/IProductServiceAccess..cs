@@ -1,12 +1,14 @@
-﻿using System.Net;
+﻿
+
+using System.Net;
 using WebshopClientWeb.Model;
 
 namespace WebshopClientWeb.ServiceLayer
 {
-    public class IProductServiceAccess
+    public interface IProductServiceAccess
     {
         HttpStatusCode CurrentHttpStatusCode { get; set; }
 
-        Task<List<Product>> GetProducts;
+        Task<List<Product>> GetProducts();
     }
 }
