@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Net;
+using WebshopClientWeb.Logging;
 using WebshopClientWeb.Model;
 using WebshopClientWeb.ServiceLayer;
 
@@ -16,10 +18,11 @@ namespace WebshopClientWeb.BusinessLogicLayer
             _ProductAccess = new ProductServiceAccess();
         }
 
-        public async Task<List<Product>> GetProducts()
+        public async Task<List<Product>> GetAllProductsByType(string type)
         {
-            List<Product> products = await _ProductAccess.GetProducts();
-            return products;
+            Logger.LogInfo($"Getting all products by type. Type: {type}");
+            return await _ProductAccess.GetAllProductsByType(type);
+
         }
     }
 }

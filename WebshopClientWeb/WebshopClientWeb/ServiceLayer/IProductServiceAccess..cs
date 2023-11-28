@@ -9,6 +9,8 @@ namespace WebshopClientWeb.ServiceLayer
     {
         HttpStatusCode CurrentHttpStatusCode { get; set; }
 
-        Task<List<Product>> GetProducts();
+        //Task<List<Product>> GetProducts();
+
+        Task<List<Product>> GetAllProductsByType(string prodType);
     }
 }

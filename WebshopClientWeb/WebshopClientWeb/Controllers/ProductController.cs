@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebshopClientWeb.BusinessLogicLayer;
+using WebshopClientWeb.Logging;
 using WebshopClientWeb.Model;
+using WebshopClientWeb.ServiceLayer;
 
 namespace WebshopClientWeb.Controllers
 {
 
     public class ProductController : Controller
     {
-       
             private ProductDataControl _productDataControl;
 
             public ProductController()
@@ -21,10 +22,21 @@ namespace WebshopClientWeb.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetProducts()
+        private async Task<List<Product>> GetAllProductsByType(string type)
         {
-            List<Product> products = await _productDataControl.GetProducts();
-            return View(products);
+            Logger.LogInfo($"Getting all products by type. Type: {type}");
+            return await _productDataControl.GetAllProductsByType(type);
+
+        }
+
+        public async Task<List<Product>> GetAllProductsByEventType()
+        {
+            return await GetAllProductsByType("Event");
+        }
+
+        public async Task<List<Product>> GetAllProductsByMerchType()
+        {
+            return await GetAllProductsByType("Merch");
         }
     }
 }

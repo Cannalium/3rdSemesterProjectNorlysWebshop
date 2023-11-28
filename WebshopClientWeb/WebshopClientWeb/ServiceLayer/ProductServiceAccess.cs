@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using Newtonsoft.Json;
+using System.Net;
 using WebshopClientWeb.Model;
 
 namespace WebshopClientWeb.ServiceLayer
@@ -15,14 +16,36 @@ namespace WebshopClientWeb.ServiceLayer
             _productService = new ServiceConnection(_serviceBaseUrl);
         }
 
-        public Task<List<Product>> GetProducts()
+       /* public Task<List<Product>> GetProducts()
         {
             List<Product>? listFromService = null;
 
             _productService.UseUrl = _productService.BaseUrl;
             _productService.UseUrl += $"api/product/";
 
+        }*/
 
+        public async Task<List<Product>> GetAllProductsByType(string prodType)
+        {
+            _productService.UseUrl = $"{_productService.BaseUrl}type/{prodType}";
+
+            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
+
+            if (serviceResponse.IsSuccessStatusCode)
+            {
+                string responseData = await serviceResponse.Content.ReadAsStringAsync();
+                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
+
+                if (products == null)
+                {
+                    return new List<Product>();
+                }
+                return products;
+            }
+            else
+            {
+                return new List<Product>();
+            }
         }
     }
 }
