@@ -56,7 +56,6 @@ namespace WebshopClientDesktop.GUI
                 processText = "Failure: An error occurred.";
             }
             lblProcessText.Text = processText;
-            listBoxEventProducts.Items.Clear();
             listBoxEventProducts.DataSource = fetchedProducts;
         }
 
@@ -122,22 +121,33 @@ namespace WebshopClientDesktop.GUI
         {
             if (listBoxEventProducts.SelectedItem is not null)
             {
+                // Get updated values from your textboxes or other input controls
+                string updatedProdName = txtBoxProductName.Text;
+                string updatedProdDescription = txtBocProductDescription.Text;
+                decimal updatedProdPrice = decimal.Parse(txtBoxPrice.Text);
+                int updatedProdQuantity = int.Parse(txtBocProductQuantity.Text);
+                string updatedProdType = txtProductType.Text;
+
                 // Get the selected product from the list
                 Product selectedProduct = (Product)listBoxEventProducts.SelectedItem;
 
-                // Modify the properties of the product as needed
-                selectedProduct.ProdName = "New Product Name";
-                selectedProduct.ProdDescription = "New Product Description";
-                // ... update other properties as needed ...
+                if (selectedProduct != null)
+                {
+                    selectedProduct.ProdName = updatedProdName;
+                    selectedProduct.ProdDescription = updatedProdDescription;
+                    selectedProduct.ProdPrice = updatedProdPrice;
+                    selectedProduct.ProdQuantity = updatedProdQuantity;
+                    selectedProduct.ProdType = updatedProdType;
+                }
 
-                // Call the update method
+                // Call the update method from the service
                 bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
 
-                lblProcessText.Text = isUpdated ? "Product updated!" : "Error: An unexpected error occurred during update.";
+                lblProcessText.Text = isUpdated ? "Event opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
             }
             else
             {
-                lblProcessText.Text = "Please select a product to update.";
+                lblProcessText.Text = "Vælg venligst et event at opdatere.";
             }
         }
 
@@ -146,7 +156,7 @@ namespace WebshopClientDesktop.GUI
             // Get the selected product from the list
             Product selectedProduct = (Product)listBoxEventProducts.SelectedItem;
 
-            if(selectedProduct != null)
+            if (selectedProduct != null)
             {
                 // Display details
                 txtBoxProductName.Text = selectedProduct.ProdName.ToString();
