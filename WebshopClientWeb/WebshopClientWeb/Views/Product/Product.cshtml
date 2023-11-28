@@ -1,7 +1,16 @@
-﻿@model WebshopClientWeb.Model.Person
+﻿@model List<WebshopClientWeb.Model.Product>
 
 @{
     ViewData["Title"] = "Products";
 }
 
 <h1>Produkter</h1>
+
+@foreach (var product in Model)
+{
+    <div class="product-item">
+        <h3>@product.ProdName</h3>
+        <p>@product.ProdDescription</p>
+        <p>Price: @product.ProdPrice</p>      
+    </div>
+}
