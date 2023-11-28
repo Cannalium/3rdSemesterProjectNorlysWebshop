@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebshopClientWeb.BusinessLogicLayer;
+using WebshopClientWeb.Model;
 
 namespace WebshopClientWeb.Controllers
 {
@@ -18,6 +19,12 @@ namespace WebshopClientWeb.Controllers
         public IActionResult Product()
         {
             return View();
+        }
+
+        public async Task<IActionResult> GetProducts()
+        {
+            List<Product> products = await _productDataControl.GetProducts();
+            return View(products);
         }
     }
 }
