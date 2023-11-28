@@ -17,12 +17,16 @@ namespace WebshopClientWeb.Controllers
             }
 
         [Route("Product")]
-        public IActionResult Product()
+        public async Task<IActionResult> Product()
         {
-            return View();
+            // Get products by type (e.g., "Event")
+            List<Product> products = await GetAllProductsByEventType();
+
+            // Pass the products to the view
+            return View(products);
         }
 
-        private async Task<List<Product>> GetAllProductsByType(string type)
+        public async Task<List<Product>> GetAllProductsByType(string type)
         {
             Logger.LogInfo($"Getting all products by type. Type: {type}");
             return await _productDataControl.GetAllProductsByType(type);

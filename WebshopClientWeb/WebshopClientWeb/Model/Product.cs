@@ -1,4 +1,6 @@
-﻿namespace WebshopClientWeb.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace WebshopClientWeb.Model
 {
     public class Product
     {
@@ -16,9 +18,12 @@
             public Product(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) : this (prodName, prodDescription, prodPrice, prodQuantity, prodType)
             {
                 ProdId = prodId;
-            }
+        }
 
+
+            [Key] 
             public int ProdId { get; set; }
+
             public string? ProdName { get; set; }
             public string? ProdDescription { get; set; }
             public decimal ProdPrice { get; set; }

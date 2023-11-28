@@ -1,16 +1,59 @@
-﻿@model List<WebshopClientWeb.Model.Product>
+﻿@model IEnumerable<WebshopClientWeb.Model.Product>
 
 @{
     ViewData["Title"] = "Products";
 }
 
-<h1>Produkter</h1>
+<h1>Products</h1>
 
-@foreach (var product in Model)
+@if (Model != null)
 {
-    <div class="product-item">
-        <h3>@product.ProdName</h3>
-        <p>@product.ProdDescription</p>
-        <p>Price: @product.ProdPrice</p>      
-    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProdName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProdDescription)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProdPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProdQuantity)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProdQuantity)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProdId">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.ProdId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ProdId">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No products available.</p>
 }
