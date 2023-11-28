@@ -77,6 +77,7 @@ namespace WebshopClientDesktop.GUI
                 //Controllayer is called to save data
                 insertedId = await _productControl.CreateProduct(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity, inputProdType);
                 messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
+                ResetUiTexts();
             }
             else
             {
@@ -143,11 +144,13 @@ namespace WebshopClientDesktop.GUI
                 // Call the update method from the service
                 bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
 
-                lblProcessText.Text = isUpdated ? "Event opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
+                ResetUiTexts();
+
+                lblProcessCreate.Text = isUpdated ? "Event opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
             }
             else
             {
-                lblProcessText.Text = "Vælg venligst et event at opdatere.";
+                lblProcessCreate.Text = "Vælg venligst et event at opdatere.";
             }
         }
 
@@ -164,7 +167,32 @@ namespace WebshopClientDesktop.GUI
                 txtBoxPrice.Text = selectedProduct.ProdPrice.ToString();
                 txtBocProductQuantity.Text = selectedProduct.ProdQuantity.ToString();
                 txtProductType.Text = selectedProduct.ProdType.ToString();
+
+                btnCreateProduct.Enabled = false; // Disable the create button
             }
+            else
+            {
+                // No item is selected
+                btnCreateProduct.Enabled = true; // Enable the create button
+            }
+        }
+
+        public void ResetUiTexts()
+        {
+            lblProcessText.Text = null;
+            lblProcessText.ForeColor = Color.Black;
+            lblProcessCreate.Text = null;
+            lblProcessCreate.ForeColor = Color.Black;
+
+            // Clear text fields
+            txtBoxProductName.Text = "";
+            txtBocProductDescription.Text = "";
+            txtBoxPrice.Text = "";
+            txtBocProductQuantity.Text = "";
+            txtProductType.Text = "";
+
+            //Hopefully clear the listbox of items
+            listBoxEventProducts.DataSource = null;
         }
     }
 }
