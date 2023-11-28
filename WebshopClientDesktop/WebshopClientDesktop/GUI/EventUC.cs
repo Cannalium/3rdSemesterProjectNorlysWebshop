@@ -56,6 +56,7 @@ namespace WebshopClientDesktop.GUI
                 processText = "Failure: An error occurred.";
             }
             lblProcessText.Text = processText;
+            listBoxEventProducts.Items.Clear();
             listBoxEventProducts.DataSource = fetchedProducts;
         }
 
@@ -138,6 +139,11 @@ namespace WebshopClientDesktop.GUI
             {
                 lblProcessText.Text = "Please select a product to update.";
             }
+        }
+
+        private void listBoxEventProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

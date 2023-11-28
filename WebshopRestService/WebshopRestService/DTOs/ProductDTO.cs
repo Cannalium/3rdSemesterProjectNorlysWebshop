@@ -3,7 +3,7 @@
     {
         public ProductDTO() { }
 
-        public ProductDTO(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
+        public ProductDTO(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) : this(prodName, prodDescription, prodPrice, prodQuantity, prodType )
         {
             ProdId = prodId;
 

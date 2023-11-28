@@ -133,6 +133,7 @@
             listBoxEventProducts.Name = "listBoxEventProducts";
             listBoxEventProducts.Size = new Size(383, 444);
             listBoxEventProducts.TabIndex = 4;
+            listBoxEventProducts.SelectedIndexChanged += listBoxEventProducts_SelectedIndexChanged;
             // 
             // groupBoxCreateProduct
             // 
@@ -176,7 +177,7 @@
             lblProductType.AutoSize = true;
             lblProductType.Location = new Point(19, 363);
             lblProductType.Name = "lblProductType";
-            lblProductType.Size = new Size(92, 20);
+            lblProductType.Size = new Size(81, 20);
             lblProductType.TabIndex = 17;
             lblProductType.Text = "Event type:";
             // 
@@ -232,7 +233,7 @@
             lblProductDescription.AutoSize = true;
             lblProductDescription.Location = new Point(19, 113);
             lblProductDescription.Name = "lblProductDescription";
-            lblProductDescription.Size = new Size(135, 20);
+            lblProductDescription.Size = new Size(120, 20);
             lblProductDescription.TabIndex = 10;
             lblProductDescription.Text = "Eventbeskrivelse:";
             // 
@@ -241,7 +242,7 @@
             lblProductName.AutoSize = true;
             lblProductName.Location = new Point(19, 51);
             lblProductName.Name = "lblProductName";
-            lblProductName.Size = new Size(94, 20);
+            lblProductName.Size = new Size(79, 20);
             lblProductName.TabIndex = 9;
             lblProductName.Text = "Eventnavn:";
             // 
