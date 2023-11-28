@@ -17,7 +17,12 @@ namespace WebshopClientWeb.ServiceLayer
 
         public Task<List<Product>> GetProducts()
         {
-            
+            List<Product>? listFromService = null;
+
+            _productService.UseUrl = _productService.BaseUrl;
+            _productService.UseUrl += $"api/product/";
+
+
         }
     }
 }
