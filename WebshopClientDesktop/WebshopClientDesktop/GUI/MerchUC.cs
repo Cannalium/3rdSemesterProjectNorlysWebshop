@@ -206,6 +206,7 @@ namespace WebshopClientDesktop.GUI
             {
                 // No item is selected
                 btnCreateProduct.Enabled = true; // Enable the create button
+                ResetUiTexts(); // Clear fields when no item is selected
             }
         }
 

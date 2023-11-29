@@ -74,6 +74,7 @@ namespace WebshopClientDesktop.GUI
                 messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
                 ResetUiTexts();
                 RefreshListBoxDataSource();
+
             }
             else
             {
@@ -161,6 +162,10 @@ namespace WebshopClientDesktop.GUI
 
         private void ListBoxEventProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Store existing messages
+            string processText = lblProcessText.Text;
+            string createText = lblProcessCreate.Text;
+
             // Get the selected product from the list
             Product selectedProduct = (Product)listBoxEventProducts.SelectedItem;
 
@@ -179,7 +184,12 @@ namespace WebshopClientDesktop.GUI
             {
                 // No item is selected
                 btnCreateProduct.Enabled = true; // Enable the create button
+                ResetUiTexts(); // Clear fields when no item is selected
             }
+
+            // Restore messages
+            lblProcessText.Text = processText;
+            lblProcessCreate.Text = createText;
         }
 
         public void ResetUiTexts()
