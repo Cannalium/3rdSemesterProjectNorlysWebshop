@@ -15,7 +15,7 @@ namespace WebshopDataTest
 
         readonly private IProductAccess _productAccess;
         readonly string _connectionString = "Server=hildur.ucn.dk; Database=DMA-CSD-S221_10463673; User Id=DMA-CSD-S221_10463673; password=Password1!";
-    
+
         public TestProductDataAccess(ITestOutputHelper output)
         {
             _extraOutput = output;
@@ -42,12 +42,12 @@ namespace WebshopDataTest
         {
             //Arrange
             Product testProduct = new Product()
-            { 
-              ProdName = "Kaffekrus",
-              ProdDescription = "Kaffekrus med Norlys logo",
-              ProdPrice = 30,
-              ProdQuantity = 100,
-              ProdType = "Merch",
+            {
+                ProdName = "Kaffekrus",
+                ProdDescription = "Kaffekrus med Norlys logo",
+                ProdPrice = 30,
+                ProdQuantity = 100,
+                ProdType = "Merch",
             };
 
             int insertedId = _productAccess.CreateProduct(testProduct);
@@ -62,10 +62,11 @@ namespace WebshopDataTest
         [Fact]
         public void TestUpdateProduct()
         {
+            // Arrange
             Product testProduct = new Product()
             {
-                ProdName = "Mussemåtte",
-                ProdDescription = "Mussemåtte med Norlys logo",
+                ProdName = "Musemåtte",
+                ProdDescription = "Musemåtte med Norlys logo",
                 ProdPrice = 30,
                 ProdQuantity = 50,
                 ProdType = "Merch",
@@ -74,6 +75,28 @@ namespace WebshopDataTest
             int insertedId = (_productAccess.CreateProduct(testProduct));
 
             // Modify Details
+            testProduct.ProdId = insertedId;
+            testProduct.ProdName = "Musemåtte med logo";
+
+            // Act
+            bool updateResult = _productAccess.UpdateProduct(testProduct);
+
+            // Assert:
+            Assert.True(updateResult);
+        }
+
+        [Fact]
+        public void TestGetProductById()
+        {
+            // Arrange
+            int productIdToRetrieve = 1;
+
+            // Act
+            Product retrievedProduct = _productAccess.GetProductById(productIdToRetrieve);
+
+            // Assert
+            Assert.NotNull(retrievedProduct); // Assures that a product object is retrieved
+            Assert.Equal(productIdToRetrieve, retrievedProduct.ProdId); // Ensure correct product is retrived
         }
     }
 }
