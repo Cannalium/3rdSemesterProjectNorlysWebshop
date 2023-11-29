@@ -37,6 +37,7 @@
             btnGetEventProducts = new Button();
             listBoxEventProducts = new ListBox();
             groupBoxCreateProduct = new GroupBox();
+            btnClearDetails = new Button();
             lblProcessCreate = new Label();
             txtProductType = new TextBox();
             lblProductType = new Label();
@@ -136,6 +137,7 @@
             // 
             // groupBoxCreateProduct
             // 
+            groupBoxCreateProduct.Controls.Add(btnClearDetails);
             groupBoxCreateProduct.Controls.Add(lblProcessCreate);
             groupBoxCreateProduct.Controls.Add(txtProductType);
             groupBoxCreateProduct.Controls.Add(lblProductType);
@@ -155,6 +157,16 @@
             groupBoxCreateProduct.TabIndex = 8;
             groupBoxCreateProduct.TabStop = false;
             groupBoxCreateProduct.Text = "Detaljer";
+            // 
+            // btnClearDetails
+            // 
+            btnClearDetails.Location = new Point(437, 457);
+            btnClearDetails.Name = "btnClearDetails";
+            btnClearDetails.Size = new Size(91, 29);
+            btnClearDetails.TabIndex = 20;
+            btnClearDetails.Text = "Ryd";
+            btnClearDetails.UseVisualStyleBackColor = true;
+            btnClearDetails.Click += BtnClearDetails_Click;
             // 
             // lblProcessCreate
             // 
@@ -284,5 +296,6 @@
         private TextBox txtProductType;
         private Label lblProductType;
         private Label lblProcessCreate;
+        private Button btnClearDetails;
     }
 }

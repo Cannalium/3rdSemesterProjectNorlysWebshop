@@ -23,17 +23,6 @@ namespace WebshopClientDesktop.GUI
             _productControl = new ProductControl();
         }
 
-        //Slettes
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-        //Slettes
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private async void BtnGetEventProducts_Click(object sender, EventArgs e)
         {
             Logger.LogInfo("Button getEvents clicked");
@@ -55,8 +44,14 @@ namespace WebshopClientDesktop.GUI
             {
                 processText = "Failure: An error occurred.";
             }
-            lblProcessText.Text = processText;
+
             listBoxEventProducts.DataSource = fetchedProducts;
+
+            ResetUiTexts();
+
+            listBoxEventProducts.ClearSelected();
+
+            lblProcessText.Text = processText;
         }
 
         private async void BtnCreateProduct_Click(object sender, EventArgs e)
@@ -78,6 +73,7 @@ namespace WebshopClientDesktop.GUI
                 insertedId = await _productControl.CreateProduct(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity, inputProdType);
                 messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
                 ResetUiTexts();
+                RefreshListBoxDataSource();
             }
             else
             {
@@ -156,6 +152,12 @@ namespace WebshopClientDesktop.GUI
             }
         }
 
+        private void BtnClearDetails_Click(object sender, EventArgs e)
+        {
+            ResetUiTexts();
+            btnCreateProduct.Enabled = true;
+        }
+
         private void ListBoxEventProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected product from the list
@@ -194,7 +196,13 @@ namespace WebshopClientDesktop.GUI
             txtProductType.Text = "";
 
             //Hopefully clear the listbox of items
-            listBoxEventProducts.DataSource = null;
+            //listBoxEventProducts.DataSource = null;
+        }
+
+        private async void RefreshListBoxDataSource()
+        {
+            List<Product> allEventProducts = await _productControl.GetAllProductsByEventType();
+            listBoxEventProducts.DataSource = allEventProducts;
         }
     }
 }

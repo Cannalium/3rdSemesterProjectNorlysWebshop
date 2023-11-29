@@ -187,6 +187,9 @@ namespace WebshopClientDesktop.GUI
             listBoxMerchProducts.DataSource = null;
         }
 
-
+        private void btnClearDetails_Click(object sender, EventArgs e)
+        {
+            ResetUiTexts();
+        }
     }
 }

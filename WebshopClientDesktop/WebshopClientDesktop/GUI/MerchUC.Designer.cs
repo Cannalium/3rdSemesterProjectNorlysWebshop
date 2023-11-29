@@ -48,6 +48,7 @@
             lblProductDescription = new Label();
             lblProductName = new Label();
             btnCreateProduct = new Button();
+            btnClearDetails = new Button();
             groupListBox.SuspendLayout();
             groupBoxCreateProduct.SuspendLayout();
             SuspendLayout();
@@ -116,6 +117,7 @@
             // 
             // groupBoxCreateProduct
             // 
+            groupBoxCreateProduct.Controls.Add(btnClearDetails);
             groupBoxCreateProduct.Controls.Add(lblProcessCreate);
             groupBoxCreateProduct.Controls.Add(txtProductType);
             groupBoxCreateProduct.Controls.Add(lblProductType);
@@ -246,6 +248,16 @@
             btnCreateProduct.UseVisualStyleBackColor = true;
             btnCreateProduct.Click += BtnCreateProduct_Click;
             // 
+            // btnClearDetails
+            // 
+            btnClearDetails.Location = new Point(441, 457);
+            btnClearDetails.Name = "btnClearDetails";
+            btnClearDetails.Size = new Size(87, 29);
+            btnClearDetails.TabIndex = 20;
+            btnClearDetails.Text = "Ryd";
+            btnClearDetails.UseVisualStyleBackColor = true;
+            btnClearDetails.Click += btnClearDetails_Click;
+            // 
             // MerchUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -285,5 +297,6 @@
         private Label lblProductDescription;
         private Label lblProductName;
         private Button btnCreateProduct;
+        private Button btnClearDetails;
     }
 }
