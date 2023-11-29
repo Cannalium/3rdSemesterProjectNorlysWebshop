@@ -106,6 +106,7 @@ namespace WebshopClientDesktop.GUI
 
                 bool isDeleted = await _productControl.DeleteProduct(selectedProduct.ProdId);
 
+                RefreshListBoxDataSource();
                 ResetUiTexts();
 
                 lblProcessText.Text = isDeleted ? "Event slettet!" : "Der er sket en uventet fejl.";
@@ -200,6 +201,7 @@ namespace WebshopClientDesktop.GUI
         {
             List<Product> allEventProducts = await _productControl.GetAllProductsByEventType();
             listBoxEventProducts.DataSource = allEventProducts;
+            listBoxEventProducts.ClearSelected();
         }
     }
 }

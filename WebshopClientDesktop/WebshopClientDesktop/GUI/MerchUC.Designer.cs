@@ -35,6 +35,7 @@
             lblProcessText = new Label();
             groupListBox = new GroupBox();
             groupBoxCreateProduct = new GroupBox();
+            btnClearDetails = new Button();
             lblProcessCreate = new Label();
             txtProductType = new TextBox();
             lblProductType = new Label();
@@ -48,7 +49,6 @@
             lblProductDescription = new Label();
             lblProductName = new Label();
             btnCreateProduct = new Button();
-            btnClearDetails = new Button();
             groupListBox.SuspendLayout();
             groupBoxCreateProduct.SuspendLayout();
             SuspendLayout();
@@ -56,10 +56,10 @@
             // merchLbl
             // 
             merchLbl.AutoSize = true;
-            merchLbl.Font = new Font("Sans Serif Collection", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
-            merchLbl.Location = new Point(493, 21);
+            merchLbl.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
+            merchLbl.Location = new Point(526, 0);
             merchLbl.Name = "merchLbl";
-            merchLbl.Size = new Size(170, 68);
+            merchLbl.Size = new Size(128, 56);
             merchLbl.TabIndex = 0;
             merchLbl.Text = "Merch";
             // 
@@ -108,7 +108,7 @@
             groupListBox.Controls.Add(btnGetMerchProducts);
             groupListBox.Controls.Add(listBoxMerchProducts);
             groupListBox.Controls.Add(btnDeleteProduct);
-            groupListBox.Location = new Point(36, 107);
+            groupListBox.Location = new Point(33, 56);
             groupListBox.Name = "groupListBox";
             groupListBox.Size = new Size(550, 514);
             groupListBox.TabIndex = 8;
@@ -131,12 +131,22 @@
             groupBoxCreateProduct.Controls.Add(lblProductDescription);
             groupBoxCreateProduct.Controls.Add(lblProductName);
             groupBoxCreateProduct.Controls.Add(btnCreateProduct);
-            groupBoxCreateProduct.Location = new Point(608, 107);
+            groupBoxCreateProduct.Location = new Point(605, 56);
             groupBoxCreateProduct.Name = "groupBoxCreateProduct";
             groupBoxCreateProduct.Size = new Size(534, 514);
             groupBoxCreateProduct.TabIndex = 9;
             groupBoxCreateProduct.TabStop = false;
             groupBoxCreateProduct.Text = "Detaljer";
+            // 
+            // btnClearDetails
+            // 
+            btnClearDetails.Location = new Point(441, 457);
+            btnClearDetails.Name = "btnClearDetails";
+            btnClearDetails.Size = new Size(87, 29);
+            btnClearDetails.TabIndex = 20;
+            btnClearDetails.Text = "Ryd";
+            btnClearDetails.UseVisualStyleBackColor = true;
+            btnClearDetails.Click += btnClearDetails_Click;
             // 
             // lblProcessCreate
             // 
@@ -151,6 +161,7 @@
             // 
             txtProductType.Location = new Point(19, 395);
             txtProductType.Name = "txtProductType";
+            txtProductType.ReadOnly = true;
             txtProductType.Size = new Size(94, 27);
             txtProductType.TabIndex = 18;
             // 
@@ -248,16 +259,6 @@
             btnCreateProduct.UseVisualStyleBackColor = true;
             btnCreateProduct.Click += BtnCreateProduct_Click;
             // 
-            // btnClearDetails
-            // 
-            btnClearDetails.Location = new Point(441, 457);
-            btnClearDetails.Name = "btnClearDetails";
-            btnClearDetails.Size = new Size(87, 29);
-            btnClearDetails.TabIndex = 20;
-            btnClearDetails.Text = "Ryd";
-            btnClearDetails.UseVisualStyleBackColor = true;
-            btnClearDetails.Click += btnClearDetails_Click;
-            // 
             // MerchUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -266,7 +267,7 @@
             Controls.Add(groupListBox);
             Controls.Add(merchLbl);
             Name = "MerchUC";
-            Size = new Size(1178, 650);
+            Size = new Size(1173, 626);
             groupListBox.ResumeLayout(false);
             groupListBox.PerformLayout();
             groupBoxCreateProduct.ResumeLayout(false);
