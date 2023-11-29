@@ -50,10 +50,10 @@ namespace WebshopDataTest
 
             int insertedId = _personAccess.CreatePerson(testPerson);
 
-            //Act
+            // Act
             bool deleteResult = _personAccess.DeletePerson(insertedId);
 
-            //Assert
+            // Assert
             Assert.True(deleteResult);
         }
 
@@ -71,28 +71,28 @@ namespace WebshopDataTest
 
             int insertedId = (_personAccess.CreatePerson(testPerson));
 
-            //Modify details
+            // Modify details
             testPerson.PersonId = insertedId;
             testPerson.FirstName = "Oda";
-            //testPerson.PersonType = "Employee";
+            // testPerson.PersonType = "Employee";
 
-            //Act
+            // Act
             bool updateResult = _personAccess.UpdatePerson(testPerson);
 
-            //Assert
+            // Assert
             Assert.True(updateResult);
         }
 
         [Fact]
         public void TestGetPersonById()
         {
-            //Arrange
+            // Arrange
             int personIdToRetrieve = 6;
 
-            //Act
+            // Act
             Person retrievedPerson = _personAccess.GetPersonById(personIdToRetrieve);   
 
-            //Assert
+            // Assert
             Assert.NotNull(retrievedPerson); //Assures that a person object is retrieved
             Assert.Equal(personIdToRetrieve, retrievedPerson.PersonId); //Ensure correct person is retrieved
         }

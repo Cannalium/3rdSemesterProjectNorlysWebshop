@@ -31,10 +31,49 @@ namespace WebshopDataTest
             List<Product> readProducts = _productAccess.GetProductAll();
             bool productsWereRead = (readProducts.Count > 0);
             // Print additional output
-            _extraOutput.WriteLine("Number of persons: " + readProducts.Count);
+            _extraOutput.WriteLine("Number of products: " + readProducts.Count);
 
             // Assert
             Assert.True(productsWereRead);
+        }
+
+        [Fact]
+        public void TestDeleteProduct()
+        {
+            //Arrange
+            Product testProduct = new Product()
+            { 
+              ProdName = "Kaffekrus",
+              ProdDescription = "Kaffekrus med Norlys logo",
+              ProdPrice = 30,
+              ProdQuantity = 100,
+              ProdType = "Merch",
+            };
+
+            int insertedId = _productAccess.CreateProduct(testProduct);
+
+            // Acts
+            bool deleteResult = _productAccess.DeleteProduct(insertedId);
+
+            // Assert
+            Assert.True(deleteResult);
+        }
+
+        [Fact]
+        public void TestUpdateProduct()
+        {
+            Product testProduct = new Product()
+            {
+                ProdName = "Mussemåtte",
+                ProdDescription = "Mussemåtte med Norlys logo",
+                ProdPrice = 30,
+                ProdQuantity = 50,
+                ProdType = "Merch",
+            };
+
+            int insertedId = (_productAccess.CreateProduct(testProduct));
+
+            // Modify Details
         }
     }
 }
