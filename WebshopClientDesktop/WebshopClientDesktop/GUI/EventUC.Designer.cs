@@ -77,7 +77,7 @@
             // 
             merchLbl.AutoSize = true;
             merchLbl.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
-            merchLbl.Location = new Point(496, 0);
+            merchLbl.Location = new Point(543, 14);
             merchLbl.Name = "merchLbl";
             merchLbl.Size = new Size(107, 32);
             merchLbl.TabIndex = 4;
@@ -99,7 +99,7 @@
             groupListBox.Controls.Add(btnGetEventProducts);
             groupListBox.Controls.Add(listBoxEventProducts);
             groupListBox.Controls.Add(btnDeleteProduct);
-            groupListBox.Location = new Point(44, 71);
+            groupListBox.Location = new Point(43, 49);
             groupListBox.Name = "groupListBox";
             groupListBox.Size = new Size(550, 514);
             groupListBox.TabIndex = 7;
@@ -151,7 +151,7 @@
             groupBoxCreateProduct.Controls.Add(lblProductDescription);
             groupBoxCreateProduct.Controls.Add(lblProductName);
             groupBoxCreateProduct.Controls.Add(btnCreateProduct);
-            groupBoxCreateProduct.Location = new Point(600, 71);
+            groupBoxCreateProduct.Location = new Point(616, 49);
             groupBoxCreateProduct.Name = "groupBoxCreateProduct";
             groupBoxCreateProduct.Size = new Size(534, 514);
             groupBoxCreateProduct.TabIndex = 8;

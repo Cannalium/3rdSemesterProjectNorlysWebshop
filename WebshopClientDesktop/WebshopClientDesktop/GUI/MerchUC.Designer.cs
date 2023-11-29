@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            merchLbl = new Label();
             btnDeleteProduct = new Button();
             listBoxMerchProducts = new ListBox();
             btnGetMerchProducts = new Button();
@@ -49,19 +48,10 @@
             lblProductDescription = new Label();
             lblProductName = new Label();
             btnCreateProduct = new Button();
+            merchLbl = new Label();
             groupListBox.SuspendLayout();
             groupBoxCreateProduct.SuspendLayout();
             SuspendLayout();
-            // 
-            // merchLbl
-            // 
-            merchLbl.AutoSize = true;
-            merchLbl.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Regular, GraphicsUnit.Point);
-            merchLbl.Location = new Point(526, 0);
-            merchLbl.Name = "merchLbl";
-            merchLbl.Size = new Size(128, 56);
-            merchLbl.TabIndex = 0;
-            merchLbl.Text = "Merch";
             // 
             // btnDeleteProduct
             // 
@@ -259,13 +249,23 @@
             btnCreateProduct.UseVisualStyleBackColor = true;
             btnCreateProduct.Click += BtnCreateProduct_Click;
             // 
+            // merchLbl
+            // 
+            merchLbl.AutoSize = true;
+            merchLbl.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
+            merchLbl.Location = new Point(538, 21);
+            merchLbl.Name = "merchLbl";
+            merchLbl.Size = new Size(97, 32);
+            merchLbl.TabIndex = 10;
+            merchLbl.Text = "Merch";
+            // 
             // MerchUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(merchLbl);
             Controls.Add(groupBoxCreateProduct);
             Controls.Add(groupListBox);
-            Controls.Add(merchLbl);
             Name = "MerchUC";
             Size = new Size(1173, 626);
             groupListBox.ResumeLayout(false);
@@ -277,8 +277,6 @@
         }
 
         #endregion
-
-        private Label merchLbl;
         private Button btnDeleteProduct;
         private ListBox listBoxMerchProducts;
         private Button btnGetMerchProducts;
@@ -299,5 +297,6 @@
         private Label lblProductName;
         private Button btnCreateProduct;
         private Button btnClearDetails;
+        private Label merchLbl;
     }
 }

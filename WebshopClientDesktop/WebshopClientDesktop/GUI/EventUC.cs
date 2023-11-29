@@ -21,6 +21,8 @@ namespace WebshopClientDesktop.GUI
             InitializeComponent();
 
             _productControl = new ProductControl();
+
+            txtProductType.Text = "Event";
         }
 
         private async void BtnGetEventProducts_Click(object sender, EventArgs e)
@@ -145,6 +147,7 @@ namespace WebshopClientDesktop.GUI
                 bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
 
                 ResetUiTexts();
+                RefreshListBoxDataSource();
 
                 lblProcessCreate.Text = isUpdated ? "Event opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
             }
@@ -204,7 +207,6 @@ namespace WebshopClientDesktop.GUI
             txtBocProductDescription.Text = "";
             txtBoxPrice.Text = "";
             txtBocProductQuantity.Text = "";
-            txtProductType.Text = "";
         }
 
         public async void RefreshListBoxDataSource()

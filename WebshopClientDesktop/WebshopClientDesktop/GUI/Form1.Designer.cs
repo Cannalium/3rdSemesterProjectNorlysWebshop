@@ -87,14 +87,14 @@
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1348, 87);
+            panelHeader.Size = new Size(1240, 87);
             panelHeader.TabIndex = 1;
             // 
             // picBoxAdminLogo
             // 
             picBoxAdminLogo.Cursor = Cursors.Hand;
             picBoxAdminLogo.Image = Properties.Resources.userNorlys;
-            picBoxAdminLogo.Location = new Point(1268, 24);
+            picBoxAdminLogo.Location = new Point(1170, 24);
             picBoxAdminLogo.Name = "picBoxAdminLogo";
             picBoxAdminLogo.Size = new Size(55, 46);
             picBoxAdminLogo.TabIndex = 1;
@@ -124,13 +124,13 @@
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 87);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1348, 650);
+            panelMain.Size = new Size(1240, 650);
             panelMain.TabIndex = 2;
             // 
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.NorlysCom;
-            pictureBox1.Location = new Point(488, 216);
+            pictureBox1.Location = new Point(434, 216);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(372, 337);
             pictureBox1.TabIndex = 2;
@@ -140,7 +140,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Sans Serif Collection", 11.999999F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(458, 105);
+            label1.Location = new Point(404, 105);
             label1.Name = "label1";
             label1.Size = new Size(432, 49);
             label1.TabIndex = 4;
@@ -150,7 +150,7 @@
             // 
             lbl_Welcome.AutoSize = true;
             lbl_Welcome.Font = new Font("Sans Serif Collection", 13.8F, FontStyle.Bold, GraphicsUnit.Point);
-            lbl_Welcome.Location = new Point(303, 49);
+            lbl_Welcome.Location = new Point(249, 49);
             lbl_Welcome.Name = "lbl_Welcome";
             lbl_Welcome.Size = new Size(743, 56);
             lbl_Welcome.TabIndex = 3;
@@ -161,7 +161,7 @@
             adminPageuc1.Dock = DockStyle.Fill;
             adminPageuc1.Location = new Point(0, 0);
             adminPageuc1.Name = "adminPageuc1";
-            adminPageuc1.Size = new Size(1348, 650);
+            adminPageuc1.Size = new Size(1240, 650);
             adminPageuc1.TabIndex = 2;
             // 
             // merchuc1
@@ -169,7 +169,7 @@
             merchuc1.Dock = DockStyle.Fill;
             merchuc1.Location = new Point(0, 0);
             merchuc1.Name = "merchuc1";
-            merchuc1.Size = new Size(1348, 650);
+            merchuc1.Size = new Size(1240, 650);
             merchuc1.TabIndex = 2;
             // 
             // eventuc1
@@ -184,7 +184,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1348, 737);
+            ClientSize = new Size(1240, 737);
             Controls.Add(panelMain);
             Controls.Add(panelHeader);
             Name = "Form1";

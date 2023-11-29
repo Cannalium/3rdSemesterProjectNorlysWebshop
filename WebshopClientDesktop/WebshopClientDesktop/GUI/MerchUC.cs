@@ -31,6 +31,7 @@ namespace WebshopClientDesktop.GUI
             Logger.LogInfo("Button getMerch clicked");
             string processText = "OK";
             List<Product> fetchedProducts = await _productControl.GetAllProductsByMerchType();
+
             if (fetchedProducts != null)
             {
                 if (fetchedProducts.Count >= 1)
@@ -99,26 +100,6 @@ namespace WebshopClientDesktop.GUI
             return isValidInput;
         }
 
-        //private async void BtnDeleteProduct_Click(object sender, EventArgs e)
-        //{
-        //    if (listBoxMerchProducts.SelectedItem is not null)
-        //    {
-        //        Product selectedProduct = (Product)listBoxMerchProducts.SelectedItem;
-
-        //        bool isDeleted = await _productControl.DeleteProduct(selectedProduct.ProdId);
-
-        //        ResetUiTexts();
-        //        RefreshListBoxDataSource();
-
-
-        //        lblProcessText.Text = isDeleted ? "Merch slettet!" : "Der er sket en uventet fejl.";
-        //    }
-        //    else
-        //    {
-        //        lblProcessText.Text = "Vælg venligst et event for at slette";
-        //    }
-        //}
-
         private async void BtnDeleteProduct_Click(object sender, EventArgs e)
         {
             if (listBoxMerchProducts.SelectedItem is not null)
@@ -127,23 +108,16 @@ namespace WebshopClientDesktop.GUI
 
                 bool isDeleted = await _productControl.DeleteProduct(selectedProduct.ProdId);
 
-                if (isDeleted)
-                {
-                    ResetUiTexts();
-                    RefreshListBoxDataSource();
-                    lblProcessText.Text = "Merch slettet!";
-                }
-                else
-                {
-                    lblProcessText.Text = "Der er sket en uventet fejl.";
-                }
+                RefreshListBoxDataSource();
+                ResetUiTexts();
+
+                lblProcessText.Text = isDeleted ? "Merch slettet!" : "Der er sket en uventet fejl.";
             }
             else
             {
                 lblProcessText.Text = "Vælg venligst et event for at slette";
             }
         }
-
         private async void BtnEditProduct_Click(object sender, EventArgs e)
         {
             if (listBoxMerchProducts.SelectedItem is not null)
@@ -171,6 +145,7 @@ namespace WebshopClientDesktop.GUI
                 bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
 
                 ResetUiTexts();
+                RefreshListBoxDataSource();
 
                 lblProcessCreate.Text = isUpdated ? "Event opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
             }
@@ -188,6 +163,10 @@ namespace WebshopClientDesktop.GUI
 
         private void ListBoxMerchProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // Store existing messages
+            string processText = lblProcessText.Text;
+            string createText = lblProcessCreate.Text;
+
             // Get the selected product from the list
             Product selectedProduct = (Product)listBoxMerchProducts.SelectedItem;
 
@@ -208,6 +187,10 @@ namespace WebshopClientDesktop.GUI
                 btnCreateProduct.Enabled = true; // Enable the create button
                 ResetUiTexts(); // Clear fields when no item is selected
             }
+
+            // Restore messages
+            lblProcessText.Text = processText;
+            lblProcessCreate.Text = createText;
         }
 
 
@@ -223,14 +206,14 @@ namespace WebshopClientDesktop.GUI
             txtBocProductDescription.Text = "";
             txtBoxPrice.Text = "";
             txtBocProductQuantity.Text = "";
-
-            listBoxMerchProducts.ClearSelected();
         }
 
         public async void RefreshListBoxDataSource()
         {
             List<Product> allMerchProducts = await _productControl.GetAllProductsByMerchType();
             listBoxMerchProducts.DataSource = allMerchProducts;
+            listBoxMerchProducts.ClearSelected();
+
         }
     }
 }
