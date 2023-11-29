@@ -37,12 +37,12 @@ namespace WebshopClientDesktop.GUI
                 }
                 else
                 {
-                    processText = "No event products found.";
+                    processText = "Ingen events fundet.";
                 }
             }
             else
             {
-                processText = "Failure: An error occurred.";
+                processText = "Der er sket en fejl.";
             }
 
             listBoxEventProducts.DataSource = fetchedProducts;
@@ -108,7 +108,7 @@ namespace WebshopClientDesktop.GUI
 
                 ResetUiTexts();
 
-                lblProcessText.Text = isDeleted ? "Event slettet!" : "Error: An unexpected error occurred.";
+                lblProcessText.Text = isDeleted ? "Event slettet!" : "Der er sket en uventet fejl.";
             }
             else
             {
@@ -194,12 +194,9 @@ namespace WebshopClientDesktop.GUI
             txtBoxPrice.Text = "";
             txtBocProductQuantity.Text = "";
             txtProductType.Text = "";
-
-            //Hopefully clear the listbox of items
-            //listBoxEventProducts.DataSource = null;
         }
 
-        private async void RefreshListBoxDataSource()
+        public async void RefreshListBoxDataSource()
         {
             List<Product> allEventProducts = await _productControl.GetAllProductsByEventType();
             listBoxEventProducts.DataSource = allEventProducts;

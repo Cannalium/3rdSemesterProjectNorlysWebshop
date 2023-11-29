@@ -33,19 +33,25 @@ namespace WebshopClientDesktop.GUI
             {
                 if (fetchedProducts.Count >= 1)
                 {
-                    processText = "Ok";
+                    processText = "Produkter hentet.";
                 }
                 else
                 {
-                    processText = "No merch products found";
+                    processText = "Ingen merch fundet";
                 }
             }
             else
             {
-                processText = "Failure: An error occurred";
+                processText = "Der er sket en fejl.";
             }
-            lblProcessText.Text = processText;
+
             listBoxMerchProducts.DataSource = fetchedProducts;
+
+            ResetUiTexts();
+
+            listBoxMerchProducts.ClearSelected();
+
+            lblProcessText.Text = processText;
         }
 
         private async void BtnCreateProduct_Click(object sender, EventArgs e)
@@ -67,6 +73,7 @@ namespace WebshopClientDesktop.GUI
                 insertedId = await _productControl.CreateProduct(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity, inputProdType);
                 messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
                 ResetUiTexts();
+                RefreshListBoxDataSource();
             }
             else
             {
@@ -101,7 +108,7 @@ namespace WebshopClientDesktop.GUI
 
                 ResetUiTexts();
 
-                lblProcessText.Text = isDeleted ? "Event slettet!" : "Error: An unexpected error occurred.";
+                lblProcessText.Text = isDeleted ? "Merch slettet!" : "Der er sket en uventet fejl.";
             }
             else
             {
@@ -145,6 +152,12 @@ namespace WebshopClientDesktop.GUI
             }
         }
 
+        private void btnClearDetails_Click(object sender, EventArgs e)
+        {
+            ResetUiTexts();
+            btnCreateProduct.Enabled = true;
+        }
+
         private void ListBoxMerchProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Get the selected product from the list
@@ -182,14 +195,18 @@ namespace WebshopClientDesktop.GUI
             txtBoxPrice.Text = "";
             txtBocProductQuantity.Text = "";
             txtProductType.Text = "";
-
-            //Hopefully clear the listbox of items
-            listBoxMerchProducts.DataSource = null;
         }
 
-        private void btnClearDetails_Click(object sender, EventArgs e)
+        public async void RefreshListBoxDataSource()
+        {
+            List<Product> allMerchProducts = await _productControl.GetAllProductsByMerchType();
+            listBoxMerchProducts.DataSource = allMerchProducts;
+        }
+        public void ResetUI()
         {
             ResetUiTexts();
+            listBoxMerchProducts.DataSource = null;
+            listBoxMerchProducts.Items.Clear();
         }
     }
 }
