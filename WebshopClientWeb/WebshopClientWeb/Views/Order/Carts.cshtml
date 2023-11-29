@@ -1,0 +1,40 @@
+﻿@model WebshopClientWeb.Model.Order
+
+@{
+    ViewData["Title"] = "Cart";
+}
+
+<h1>Indkøbskurv</h1>
+
+@if (Model != null && Model.OrderLines.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <!-- Add any other relevant columns here -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var orderLine in Model.OrderLines)
+            {
+                <tr>
+                    <!-- Populate columns based on OrderLine properties -->
+                    <td>@orderLine.OrderLineId</td>
+                    <td>@orderLine.OrderLineProdQuantity</td>
+                    <!-- Add any other relevant columns here -->
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <!-- Add a total calculation based on your OrderLine properties -->
+        </tfoot>
+    </table>
+
+    <a asp-action="Checkout" class="btn btn-primary">Proceed to Checkout</a>
+}
+else
+{
+    <p>Din indkøbskurv er tom.</p>
+}
