@@ -28,7 +28,8 @@ namespace WebshopModel.ModelLayer {
         public string? ProdDescription { get; set; }
         public decimal ProdPrice { get; set; }
         public int ProdQuantity { get; set; }
-        public string? ProdType { get; }
+        public string? ProdType { get; set; }
+
     }
 }
 
