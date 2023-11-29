@@ -6,7 +6,7 @@ using WebshopRestService.DTOs;
 
 namespace WebshopRestService.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]s")]
     [ApiController]
     public class ProductController : ControllerBase
     {
