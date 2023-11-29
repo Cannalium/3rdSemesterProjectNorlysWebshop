@@ -130,7 +130,7 @@ namespace WebshopClientDesktop.GUI
                 if (isDeleted)
                 {
                     ResetUiTexts();
-                    await RefreshListBoxDataSource();
+                    RefreshListBoxDataSource();
                     lblProcessText.Text = "Merch slettet!";
                 }
                 else
