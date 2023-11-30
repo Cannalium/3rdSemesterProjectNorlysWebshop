@@ -37,5 +37,10 @@ namespace WebshopClientDesktop
             productPageuc1.Show();
             productPageuc1.BringToFront();
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            productPageuc1.StopUpdateTimer();
+        }
     }
 }

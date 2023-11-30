@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            btnMerch = new Button();
-            btnEvent = new Button();
             panelHeader = new Panel();
             btnProducts = new Button();
             picBoxAdminLogo = new PictureBox();
@@ -47,28 +45,12 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
-            // btnMerch
-            // 
-            btnMerch.Location = new Point(0, 0);
-            btnMerch.Name = "btnMerch";
-            btnMerch.Size = new Size(75, 23);
-            btnMerch.TabIndex = 3;
-            // 
-            // btnEvent
-            // 
-            btnEvent.Location = new Point(0, 0);
-            btnEvent.Name = "btnEvent";
-            btnEvent.Size = new Size(75, 23);
-            btnEvent.TabIndex = 4;
-            // 
             // panelHeader
             // 
             panelHeader.BackColor = SystemColors.Window;
             panelHeader.Controls.Add(btnProducts);
             panelHeader.Controls.Add(picBoxAdminLogo);
-            panelHeader.Controls.Add(btnMerch);
             panelHeader.Controls.Add(picBoxNorlysLogo);
-            panelHeader.Controls.Add(btnEvent);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
@@ -183,6 +165,7 @@
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).EndInit();
@@ -194,8 +177,6 @@
         }
 
         #endregion
-        private Button btnEvent;
-        private Button btnMerch;
         private Panel panelHeader;
         private Panel panelMain;
         private PictureBox picBoxNorlysLogo;
