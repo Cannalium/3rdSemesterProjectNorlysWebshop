@@ -1,4 +1,6 @@
-﻿using WebshopClientWeb.Model;
+﻿using Microsoft.AspNetCore.Mvc;
+using WebshopClientWeb.BusinessLogicLayer;
+using WebshopClientWeb.Model;
 
 namespace WebshopClientWeb.Model
 {
@@ -6,16 +8,19 @@ namespace WebshopClientWeb.Model
     {
         public OrderLine() { }
 
-        public OrderLine(int orderLineProdQuantity) { }
+        public OrderLine(Product product) // husk at tilføje den tilbage som parameter int orderLineProdQuantity
+        {
+            //OrderLineProdQuantity = orderLineProdQuantity;
+            CartProduct = product;
+        }
 
-        public OrderLine(int orderLineId, int orderLineProdQuantity)
+        public OrderLine(int orderLineId, int orderLineProdQuantity, Product product) : this(product) //orderLineProdQuantity
         {
             OrderLineId = orderLineId;
-            OrderLineProdQuantity = orderLineProdQuantity;
-
         }
 
         public int OrderLineId { get; set; }
         public int OrderLineProdQuantity { get; set; }
+        public Product CartProduct { get; set; }
     }
 }

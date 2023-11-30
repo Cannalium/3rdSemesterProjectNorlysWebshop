@@ -7,14 +7,14 @@ namespace WebshopClientWeb.Model
 
         public Person() { }
 
-        public Person(string? email, string? userId)
+        public Person(string? email)
         {
             
             Email = email;
-            UserId = userId;
+            
         }
 
-        public Person(string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin, string? userId) : this(email, userId)
+        public Person(string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) : this(email)
         {
           
             FirstName = firstName;

@@ -13,9 +13,6 @@ namespace WebshopClientWeb.Controllers
             _orderDataControl = new OrderDataControl();
         }
 
-      
-
-        
         }
 
     }
