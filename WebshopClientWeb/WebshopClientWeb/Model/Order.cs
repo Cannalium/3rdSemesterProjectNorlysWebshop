@@ -1,6 +1,4 @@
-﻿using WebshopClientWeb.Model;
-
-namespace WebshopClientWeb.Model
+﻿namespace WebshopClientWeb.Model
 {
     public class Order
     {

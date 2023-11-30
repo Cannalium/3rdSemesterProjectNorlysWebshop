@@ -27,7 +27,7 @@ namespace WebshopClientWeb.ServiceLayer
 
         public async Task<List<Product>> GetAllProductsByType(string prodType)
         {
-            _productService.UseUrl = $"{_productService.BaseUrl}api/products/type/{prodType}";
+            _productService.UseUrl = $"{_productService.BaseUrl}api/product/type/{prodType}";
 
 
             HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
@@ -51,7 +51,7 @@ namespace WebshopClientWeb.ServiceLayer
 
         public async Task<List<Product>> GetAllProducts()
         {
-            _productService.UseUrl = $"{_productService.BaseUrl}api/products";
+            _productService.UseUrl = $"{_productService.BaseUrl}api/product";
 
             HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
 
