@@ -44,7 +44,7 @@
                         @Html.DisplayFor(modelItem => item.ProdQuantity)
                     </td>
                     <td>
-                        <a asp-action="Kurv" asp-route-id="@item.ProdId">Tilføj til kurv</a>
+                        <a asp-action="addToCart" asp-route-id="@item.ProdId">Tilføj til kurv</a>
                         
                     </td>
                 </tr>
