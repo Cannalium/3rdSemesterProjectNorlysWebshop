@@ -30,5 +30,14 @@ namespace WebshopClientWeb.BusinessLogicLayer
             Logger.LogInfo($"Getting all products");
             return await _ProductAccess.GetAllProducts();
         }
+
+        public async Task<Product> GetProdById(int prodId)
+        {
+            Logger.LogInfo($"Getting product by ID");
+            Product foundProduct = await _ProductAccess.GetProdById(prodId);
+            return foundProduct;
+
+        }
+
     }
 }

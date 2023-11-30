@@ -29,7 +29,6 @@ namespace WebshopClientWeb.ServiceLayer
         {
             _productService.UseUrl = $"{_productService.BaseUrl}api/product/type/{prodType}";
 
-
             HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
 
             if (serviceResponse.IsSuccessStatusCode)
@@ -71,5 +70,45 @@ namespace WebshopClientWeb.ServiceLayer
                 return new List<Product>();
             }
         }
+
+        public async Task<Product> GetProdById(int prodId)
+        {
+            Product? productFromService = null;
+
+            try
+            {
+                _productService.UseUrl = $"{_productService.BaseUrl}api/product/{prodId}";
+
+                HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
+
+                if (serviceResponse.IsSuccessStatusCode)
+                {
+                    string responseData = await serviceResponse.Content.ReadAsStringAsync();
+                    productFromService = JsonConvert.DeserializeObject<Product>(responseData);
+                }
+                else
+                {
+                    // Handle other status codes if needed
+                    // Set productFromService to a default Product object
+                    productFromService = new Product();
+                }
+
+                CurrentHttpStatusCode = serviceResponse.StatusCode;
+            }
+            catch (Exception ex)
+            {
+                // Log the exception details (You can use a logging library like Serilog, NLog, etc.)
+                // Example: logger.LogError(ex, "An error occurred while getting a product by ID");
+
+                // Optionally, rethrow the exception if needed
+                throw;
+            }
+
+            return productFromService;
+        }
+
+        // Other methods (GetAllProductsByType, GetAllProducts) remain unchanged
     }
 }
+ 
+

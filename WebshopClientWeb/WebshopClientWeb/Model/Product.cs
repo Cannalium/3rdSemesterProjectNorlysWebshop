@@ -4,7 +4,14 @@ using System.ComponentModel;
 namespace WebshopClientWeb.Model
 {
     public class Product
+
+
     {
+            public Product(int prodId) 
+            {
+                ProdId = prodId;
+            }
+
             public Product() { }
 
             public Product(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)

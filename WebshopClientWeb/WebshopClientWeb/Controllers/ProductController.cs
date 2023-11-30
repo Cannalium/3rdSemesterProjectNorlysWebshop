@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.CodeAnalysis;
 using WebshopClientWeb.BusinessLogicLayer;
 using WebshopClientWeb.Logging;
 using WebshopClientWeb.Model;
@@ -25,6 +27,33 @@ namespace WebshopClientWeb.Controllers
             // Pass the products to the view
             return View(products);
         }
+
+        public IActionResult Cart()
+        {
+            return View();
+        }
+
+        public async Task<ActionResult> AddToCart(int prodId)
+        {
+            bool itemAddedOK = false;
+            if (prodId > 0)
+            {
+                var product = await _productDataControl.GetProdById(prodId);
+                Product cartProdItem = new Product(prodId);
+                if (cartProdItem != null)
+                {
+                    itemAddedOK = CartUtility.UpdateCart(HttpContext, cartProdItem);
+                }
+
+                TempData["ProcessText"] = itemAddedOK ? $"Added {prodId} to cart" : "Error - item was not added!";
+                return Redirect("Cart");
+            }
+
+            TempData["ProcessText"] = "Error - Invalid product ID";
+            return Redirect("Error");
+        }
+
+       
 
         public async Task<List<Product>> GetAllProductsByType(string type)
         {

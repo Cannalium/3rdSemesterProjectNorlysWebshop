@@ -13,10 +13,7 @@ namespace WebshopClientWeb.Controllers
             _orderDataControl = new OrderDataControl();
         }
 
-        public IActionResult Cart()
-        {
-            return View();
-        }
+      
 
         
         }
