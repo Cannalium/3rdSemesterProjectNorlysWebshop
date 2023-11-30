@@ -39,8 +39,6 @@
             label1 = new Label();
             lbl_Welcome = new Label();
             adminPageuc1 = new GUI.AdminPageUC();
-            merchuc1 = new GUI.MerchUC();
-            eventuc1 = new GUI.EventUC();
             productPageuc1 = new GUI.ProductPageUC();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).BeginInit();
@@ -51,33 +49,17 @@
             // 
             // btnMerch
             // 
-            btnMerch.Cursor = Cursors.Hand;
-            btnMerch.FlatAppearance.BorderSize = 0;
-            btnMerch.FlatStyle = FlatStyle.Flat;
-            btnMerch.Font = new Font("Sans Serif Collection", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
-            btnMerch.Location = new Point(281, 28);
+            btnMerch.Location = new Point(0, 0);
             btnMerch.Name = "btnMerch";
-            btnMerch.Size = new Size(111, 34);
-            btnMerch.TabIndex = 1;
-            btnMerch.Text = "Merch";
-            btnMerch.TextAlign = ContentAlignment.MiddleLeft;
-            btnMerch.UseVisualStyleBackColor = true;
-            btnMerch.Click += MerchButton_Click;
+            btnMerch.Size = new Size(75, 23);
+            btnMerch.TabIndex = 3;
             // 
             // btnEvent
             // 
-            btnEvent.Cursor = Cursors.Hand;
-            btnEvent.FlatAppearance.BorderSize = 0;
-            btnEvent.FlatStyle = FlatStyle.Flat;
-            btnEvent.Font = new Font("Sans Serif Collection", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
-            btnEvent.Location = new Point(194, 28);
+            btnEvent.Location = new Point(0, 0);
             btnEvent.Name = "btnEvent";
-            btnEvent.Size = new Size(93, 34);
-            btnEvent.TabIndex = 0;
-            btnEvent.Text = "Events";
-            btnEvent.TextAlign = ContentAlignment.MiddleLeft;
-            btnEvent.UseVisualStyleBackColor = true;
-            btnEvent.Click += EventButton_Click;
+            btnEvent.Size = new Size(75, 23);
+            btnEvent.TabIndex = 4;
             // 
             // panelHeader
             // 
@@ -99,14 +81,14 @@
             btnProducts.FlatAppearance.BorderSize = 0;
             btnProducts.FlatStyle = FlatStyle.Flat;
             btnProducts.Font = new Font("Sans Serif Collection", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
-            btnProducts.Location = new Point(368, 28);
+            btnProducts.Location = new Point(174, 28);
             btnProducts.Name = "btnProducts";
             btnProducts.Size = new Size(115, 34);
             btnProducts.TabIndex = 2;
             btnProducts.Text = "Produkter";
             btnProducts.TextAlign = ContentAlignment.MiddleLeft;
             btnProducts.UseVisualStyleBackColor = true;
-            btnProducts.Click += btnProducts_Click;
+            btnProducts.Click += BtnProducts_Click;
             // 
             // picBoxAdminLogo
             // 
@@ -128,7 +110,7 @@
             picBoxNorlysLogo.Size = new Size(125, 38);
             picBoxNorlysLogo.TabIndex = 0;
             picBoxNorlysLogo.TabStop = false;
-            picBoxNorlysLogo.Click += picBoxNorlysLogo_Click;
+            picBoxNorlysLogo.Click += PicBoxNorlysLogo_Click;
             // 
             // panelMain
             // 
@@ -137,8 +119,6 @@
             panelMain.Controls.Add(label1);
             panelMain.Controls.Add(lbl_Welcome);
             panelMain.Controls.Add(adminPageuc1);
-            panelMain.Controls.Add(merchuc1);
-            panelMain.Controls.Add(eventuc1);
             panelMain.Controls.Add(productPageuc1);
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 87);
@@ -183,21 +163,6 @@
             adminPageuc1.Size = new Size(1240, 650);
             adminPageuc1.TabIndex = 2;
             // 
-            // merchuc1
-            // 
-            merchuc1.Dock = DockStyle.Fill;
-            merchuc1.Location = new Point(0, 0);
-            merchuc1.Name = "merchuc1";
-            merchuc1.Size = new Size(1240, 650);
-            merchuc1.TabIndex = 2;
-            // 
-            // eventuc1
-            // 
-            eventuc1.Location = new Point(-12, 6);
-            eventuc1.Name = "eventuc1";
-            eventuc1.Size = new Size(1178, 650);
-            eventuc1.TabIndex = 0;
-            // 
             // productPageuc1
             // 
             productPageuc1.Dock = DockStyle.Fill;
@@ -235,8 +200,6 @@
         private Panel panelMain;
         private PictureBox picBoxNorlysLogo;
         private PictureBox picBoxAdminLogo;
-        private GUI.EventUC eventuc1;
-        private GUI.MerchUC merchuc1;
         private GUI.AdminPageUC adminPageuc1;
         private GUI.ProductPageUC productPageuc1;
         private Label lbl_Welcome;
