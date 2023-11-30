@@ -16,6 +16,8 @@ namespace WebshopClientDesktop
             eventuc1.Hide();
             merchuc1.Hide();
             adminPageuc1.Hide();
+            productPageuc1.Hide();
+
         }
 
         //Buttons
@@ -25,6 +27,7 @@ namespace WebshopClientDesktop
             //Hide other user controls
             merchuc1.Hide();
             adminPageuc1.Hide();
+            productPageuc1.Hide();
             //Show current user control
             eventuc1.Show();
             eventuc1.BringToFront();
@@ -35,6 +38,7 @@ namespace WebshopClientDesktop
             //Hide other user controls
             eventuc1.Hide();
             adminPageuc1.Hide();
+            productPageuc1.Hide();
             //Show current user control
             merchuc1.Show();
             merchuc1.BringToFront();
@@ -45,6 +49,7 @@ namespace WebshopClientDesktop
             //Hide other user controls
             eventuc1.Hide();
             merchuc1.Hide();
+            productPageuc1.Hide();
             //Show current user control
             adminPageuc1.Show();
             adminPageuc1.BringToFront();
@@ -55,6 +60,13 @@ namespace WebshopClientDesktop
             eventuc1.Hide();
             merchuc1.Hide();
             adminPageuc1.Hide();
+            productPageuc1.Hide();
+        }
+
+        private void btnProducts_Click(object sender, EventArgs e)
+        {
+            productPageuc1.Show();
+            productPageuc1.BringToFront();
         }
     }
 }

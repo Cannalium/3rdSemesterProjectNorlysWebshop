@@ -10,6 +10,7 @@ namespace WebshopClientDesktop.ServiceLayer
     public interface IProductAccess
     {
         Task<List<Product>> GetAllProductsByType(string prodType);
+        Task<List<Product>> GetAllProducts();
         Task<int> CreateProduct(Product productToSave);
         Task<bool> DeleteProduct (int prodId);
         Task<bool> UpdateProduct(Product productToUpdate);

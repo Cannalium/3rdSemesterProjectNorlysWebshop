@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using WebshopClientDesktop.ControlLayer;
+using WebshopClientDesktop.BusinessLogicLayer;
 using WebshopClientDesktop.Logging;
 using WebshopClientDesktop.ModelLayer;
 

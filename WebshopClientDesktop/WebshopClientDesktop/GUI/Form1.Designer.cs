@@ -31,6 +31,7 @@
             btnMerch = new Button();
             btnEvent = new Button();
             panelHeader = new Panel();
+            btnProducts = new Button();
             picBoxAdminLogo = new PictureBox();
             picBoxNorlysLogo = new PictureBox();
             panelMain = new Panel();
@@ -40,6 +41,7 @@
             adminPageuc1 = new GUI.AdminPageUC();
             merchuc1 = new GUI.MerchUC();
             eventuc1 = new GUI.EventUC();
+            productPageuc1 = new GUI.ProductPageUC();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).BeginInit();
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).BeginInit();
@@ -80,6 +82,7 @@
             // panelHeader
             // 
             panelHeader.BackColor = SystemColors.Window;
+            panelHeader.Controls.Add(btnProducts);
             panelHeader.Controls.Add(picBoxAdminLogo);
             panelHeader.Controls.Add(btnMerch);
             panelHeader.Controls.Add(picBoxNorlysLogo);
@@ -89,6 +92,21 @@
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(1240, 87);
             panelHeader.TabIndex = 1;
+            // 
+            // btnProducts
+            // 
+            btnProducts.Cursor = Cursors.Hand;
+            btnProducts.FlatAppearance.BorderSize = 0;
+            btnProducts.FlatStyle = FlatStyle.Flat;
+            btnProducts.Font = new Font("Sans Serif Collection", 7.8F, FontStyle.Regular, GraphicsUnit.Point);
+            btnProducts.Location = new Point(368, 28);
+            btnProducts.Name = "btnProducts";
+            btnProducts.Size = new Size(115, 34);
+            btnProducts.TabIndex = 2;
+            btnProducts.Text = "Produkter";
+            btnProducts.TextAlign = ContentAlignment.MiddleLeft;
+            btnProducts.UseVisualStyleBackColor = true;
+            btnProducts.Click += btnProducts_Click;
             // 
             // picBoxAdminLogo
             // 
@@ -121,6 +139,7 @@
             panelMain.Controls.Add(adminPageuc1);
             panelMain.Controls.Add(merchuc1);
             panelMain.Controls.Add(eventuc1);
+            panelMain.Controls.Add(productPageuc1);
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 87);
             panelMain.Name = "panelMain";
@@ -179,6 +198,14 @@
             eventuc1.Size = new Size(1178, 650);
             eventuc1.TabIndex = 0;
             // 
+            // productPageuc1
+            // 
+            productPageuc1.Dock = DockStyle.Fill;
+            productPageuc1.Location = new Point(0, 0);
+            productPageuc1.Name = "productPageuc1";
+            productPageuc1.Size = new Size(1240, 650);
+            productPageuc1.TabIndex = 2;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -211,8 +238,10 @@
         private GUI.EventUC eventuc1;
         private GUI.MerchUC merchuc1;
         private GUI.AdminPageUC adminPageuc1;
+        private GUI.ProductPageUC productPageuc1;
         private Label lbl_Welcome;
         private Label label1;
         private PictureBox pictureBox1;
+        private Button btnProducts;
     }
 }
