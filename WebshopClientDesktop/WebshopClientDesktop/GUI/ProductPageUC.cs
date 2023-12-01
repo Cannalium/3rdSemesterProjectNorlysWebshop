@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using WebshopClientDesktop.BusinessLogicLayer;
 using WebshopClientDesktop.Logging;
 using WebshopClientDesktop.ModelLayer;
-using Timer = System.Windows.Forms.Timer;
+//using Timer = System.Windows.Forms.Timer;
 
 namespace WebshopClientDesktop.GUI
 {
@@ -18,7 +18,7 @@ namespace WebshopClientDesktop.GUI
     {
         readonly ProductControl _productControl;
         private string selectedProductType;
-        private Timer updateTimer;
+        //private Timer updateTimer;
 
         public ProductPageUC()
         {
@@ -26,11 +26,11 @@ namespace WebshopClientDesktop.GUI
 
             _productControl = new ProductControl();
 
-            //Initiliazes the Timer
-            updateTimer = new Timer();
-            updateTimer.Interval = 5000; // 5 seconds
-            updateTimer.Tick += UpdateTimer_Tick;
-            updateTimer.Start();
+            ////Initiliazes the Timer
+            //updateTimer = new Timer();
+            //updateTimer.Interval = 5000; // 5 seconds
+            //updateTimer.Tick += UpdateTimer_Tick;
+            //updateTimer.Start();
 
         }
 
@@ -212,17 +212,17 @@ namespace WebshopClientDesktop.GUI
             txtBoxProductQuantity.Text = "";
         }
 
-        private async void UpdateTimer_Tick(object sender, EventArgs e)
-        {
-            //Refresh the product list every 3 seconds
-            await RefreshListBoxDataSource();
-        }
+        //private async void UpdateTimer_Tick(object sender, EventArgs e)
+        //{
+        //    //Refresh the product list every 3 seconds
+        //    await RefreshListBoxDataSource();
+        //}
 
-        public void StopUpdateTimer()
-        {
-            updateTimer.Stop();
-            updateTimer.Dispose();
-        }
+        //public void StopUpdateTimer()
+        //{
+        //    updateTimer.Stop();
+        //    updateTimer.Dispose();
+        //}
 
         public async Task RefreshListBoxDataSource()
         {

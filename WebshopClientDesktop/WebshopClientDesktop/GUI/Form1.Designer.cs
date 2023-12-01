@@ -165,7 +165,7 @@
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
-            FormClosed += Form1_FormClosed;
+            //FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picBoxAdminLogo).EndInit();
