@@ -55,16 +55,37 @@ namespace WebshopClientWeb.BusinessLogicLayer
             return cartWasUpdated;
         }
 
+        public static bool RemoveFromCart(HttpContext httpContext, int prodId)
+        {
+            List<OrderLine>? cartItems = ReadCart(httpContext);
+
+            if (cartItems != null)
+            {
+                var cartItemToRemove = cartItems.FirstOrDefault(item => item.CartProduct.ProdId == prodId);
+
+                if (cartItemToRemove != null)
+                {
+                    cartItems.Remove(cartItemToRemove);
+
+                    httpContext.Response.Cookies.Append("cart", JsonConvert.SerializeObject(cartItems));
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
         public static bool EmptyCart(HttpContext httpContext)
         {
-            bool cartWasEmtied = false;
+            bool cartWasEmptied = false;
             if (httpContext.Request.Cookies.ContainsKey("cart"))
             {
                 httpContext.Response.Cookies.Delete("cart");
-                cartWasEmtied = true;
+                cartWasEmptied = true;
             }
-            return cartWasEmtied;
+            return cartWasEmptied;
         }
     } 
 }
