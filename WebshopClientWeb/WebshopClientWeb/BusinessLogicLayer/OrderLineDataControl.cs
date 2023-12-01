@@ -30,21 +30,42 @@ namespace WebshopClientWeb.BusinessLogicLayer
             return foundCartItems;
         }
 
-        public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem) 
+        public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem)
         {
             bool cartWasUpdated = false;
-            // If cart empty - append 'cart' to cookie content
-            if (!httpContext.Request.Cookies.ContainsKey("cart"))
+
+            // Read existing cart items
+            List<OrderLine>? cartItems = ReadCart(httpContext);
+
+            if (cartItems == null)
             {
-                List<OrderLine> cartItems = new List<OrderLine>() { newCartProdItem };
-                if (cartItems != null)
-                {
-                    httpContext.Response.Cookies.Append("cart", JsonConvert.SerializeObject(cartItems));
-                    cartWasUpdated = true;
-                }
+                // If cart is empty, create a new list with the new item
+                cartItems = new List<OrderLine> { newCartProdItem };
             }
-                return cartWasUpdated;
+            else
+            {
+                // Add the new item to the existing cart items
+                cartItems.Add(newCartProdItem);
             }
+
+            // Update the cart cookie
+            httpContext.Response.Cookies.Append("cart", JsonConvert.SerializeObject(cartItems));
+            cartWasUpdated = true;
+
+            return cartWasUpdated;
         }
-    }
+
+
+        public static bool EmptyCart(HttpContext httpContext)
+        {
+            bool cartWasEmtied = false;
+            if (httpContext.Request.Cookies.ContainsKey("cart"))
+            {
+                httpContext.Response.Cookies.Delete("cart");
+                cartWasEmtied = true;
+            }
+            return cartWasEmtied;
+        }
+    } 
+}
 

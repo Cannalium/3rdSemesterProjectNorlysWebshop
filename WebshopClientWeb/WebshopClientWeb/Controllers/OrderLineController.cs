@@ -42,7 +42,12 @@ namespace WebshopClientWeb.Controllers
             return Redirect("Error");
         }
 
-       
+        public ActionResult EmptyCart()
+        {
+            bool wasEmptiedOk = OrderLineDataControl.EmptyCart(HttpContext);
+            TempData["ProcessText"] = wasEmptiedOk ? $"The cart was emptied" : "Error - cart was not emtied!";
+            return Redirect("Cart");
+        }
 
     }     
 }

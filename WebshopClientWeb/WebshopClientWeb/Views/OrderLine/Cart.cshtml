@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebshopClientWeb.Model.Product>
+﻿@model IEnumerable<WebshopClientWeb.Model.OrderLine>
 
 @{
     ViewData["Title"] = "Cart";
@@ -16,40 +16,42 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProdName)
+                    @Html.DisplayNameFor(model => model.CartProduct.ProdName)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProdDescription)
+                    @Html.DisplayNameFor(model => model.CartProduct.ProdDescription)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProdPrice)
+                    @Html.DisplayNameFor(model => model.CartProduct.ProdPrice)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.ProdQuantity)
+                    @Html.DisplayNameFor(model => model.CartProduct.ProdQuantity)
                 </th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var orderLine in Model)
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdName)
+                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdDescription)
+                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdDescription)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdPrice)
+                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdPrice)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdQuantity)
+                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdQuantity)
                     </td>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.ProdId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.ProdId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.ProdId">Delete</a>
+
+
+                        <a asp-controller="OrderLine" asp-action="EmptyCart" asp-route-prodId="@orderLine.CartProduct.ProdId">Empty Cart</a> |
+                        <a asp-action="Details" asp-route-id="@orderLine.CartProduct.ProdId">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@orderLine.CartProduct.ProdId">Delete</a>
 
                     </td>
                 </tr>
