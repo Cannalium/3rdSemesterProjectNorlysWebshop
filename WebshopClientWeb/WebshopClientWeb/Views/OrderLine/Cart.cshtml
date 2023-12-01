@@ -48,7 +48,7 @@
 
                         <a asp-controller="OrderLine" asp-action="EmptyCart" asp-route-prodId="@orderLine.CartProduct.ProdId">Empty Cart</a> |
                         <a asp-action="Details" asp-route-id="@orderLine.CartProduct.ProdId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@orderLine.CartProduct.ProdId">Delete</a>
+                        <a asp-action="RemoveFromCart" asp-route-prodId="@orderLine.CartProduct.ProdId">Fjern produkt</a>
 
                     </td>
                 </tr>

@@ -42,6 +42,22 @@ namespace WebshopClientWeb.Controllers
             return Redirect("Error");
         }
 
+        public ActionResult RemoveFromCart(int prodId)
+        {
+            bool cartItemRemoved = OrderLineDataControl.RemoveFromCart(HttpContext, prodId);
+
+            if (cartItemRemoved)
+            {
+                TempData["ProcessText"] = $"Removed product {prodId} from the cart";
+            }
+            else
+            {
+                TempData["ProcessText"] = $"Error - product {prodId} not found in the cart";
+            }
+
+            return RedirectToAction("Cart");
+        }
+
         public ActionResult EmptyCart()
         {
             bool wasEmptiedOk = OrderLineDataControl.EmptyCart(HttpContext);
