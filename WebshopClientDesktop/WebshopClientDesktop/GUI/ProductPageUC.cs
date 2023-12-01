@@ -271,5 +271,25 @@ namespace WebshopClientDesktop.GUI
             lblProcessText.Text = processText;
             lblProcessCreate.Text = createText;
         }
+
+        private async void RadioBtnEventType_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioBtnEventType.Checked)
+            {
+                List<Product> productsByType = await _productControl.GetAllProductsByEventType();
+                listBoxProducts.DataSource = productsByType;
+                ResetUiTexts();
+            }
+        }
+
+        private async void RadioBtnMerchType_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioBtnMerchType.Checked)
+            {
+                List<Product> productsByType = await _productControl.GetAllProductsByMerchType();
+                listBoxProducts.DataSource = productsByType;
+                ResetUiTexts();
+            }
+        }
     }
 }

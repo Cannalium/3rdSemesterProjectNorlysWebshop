@@ -20,7 +20,7 @@ namespace WebshopClientDesktop.BusinessLogicLayer
 
         }
 
-        public async Task<List<Product>> GetAllProductsByType(string type)
+        private async Task<List<Product>> GetAllProductsByType(string type)
         {
             Logger.LogInfo($"Getting all products by type. Type: {type}");
             return await _productAccess.GetAllProductsByType(type);

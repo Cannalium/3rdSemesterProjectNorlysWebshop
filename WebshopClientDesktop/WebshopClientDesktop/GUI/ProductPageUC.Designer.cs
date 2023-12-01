@@ -30,6 +30,8 @@
         {
             productsLbl = new Label();
             groupListBox = new GroupBox();
+            radioBtnMerchType = new RadioButton();
+            radioBtnEventType = new RadioButton();
             lblProcessText = new Label();
             btnGetProducts = new Button();
             listBoxProducts = new ListBox();
@@ -66,6 +68,8 @@
             // 
             // groupListBox
             // 
+            groupListBox.Controls.Add(radioBtnMerchType);
+            groupListBox.Controls.Add(radioBtnEventType);
             groupListBox.Controls.Add(lblProcessText);
             groupListBox.Controls.Add(btnGetProducts);
             groupListBox.Controls.Add(listBoxProducts);
@@ -76,6 +80,30 @@
             groupListBox.TabIndex = 12;
             groupListBox.TabStop = false;
             groupListBox.Text = "Produkter";
+            // 
+            // radioBtnMerchType
+            // 
+            radioBtnMerchType.AutoSize = true;
+            radioBtnMerchType.Location = new Point(412, 109);
+            radioBtnMerchType.Name = "radioBtnMerchType";
+            radioBtnMerchType.Size = new Size(71, 24);
+            radioBtnMerchType.TabIndex = 23;
+            radioBtnMerchType.TabStop = true;
+            radioBtnMerchType.Text = "Merch";
+            radioBtnMerchType.UseVisualStyleBackColor = true;
+            radioBtnMerchType.CheckedChanged += RadioBtnMerchType_CheckedChanged;
+            // 
+            // radioBtnEventType
+            // 
+            radioBtnEventType.AutoSize = true;
+            radioBtnEventType.Location = new Point(412, 80);
+            radioBtnEventType.Name = "radioBtnEventType";
+            radioBtnEventType.Size = new Size(66, 24);
+            radioBtnEventType.TabIndex = 23;
+            radioBtnEventType.TabStop = true;
+            radioBtnEventType.Text = "Event";
+            radioBtnEventType.UseVisualStyleBackColor = true;
+            radioBtnEventType.CheckedChanged += RadioBtnEventType_CheckedChanged;
             // 
             // lblProcessText
             // 
@@ -318,5 +346,7 @@
         private Button btnCreateProduct;
         private RadioButton radioBtnEvent;
         private RadioButton radioBtnMerch;
+        private RadioButton radioBtnMerchType;
+        private RadioButton radioBtnEventType;
     }
 }
