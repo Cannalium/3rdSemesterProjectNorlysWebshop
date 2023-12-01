@@ -41,7 +41,7 @@ namespace WebshopClientWeb.Model
             [DisplayName("Pris :")]
             public decimal ProdPrice { get; set; }
 
-            [DisplayName("Antal :")]
+            [DisplayName("Status :")]
             public int ProdQuantity { get; set; }
 
             public string? ProdType { get; }

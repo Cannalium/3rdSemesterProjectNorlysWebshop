@@ -41,7 +41,20 @@
                         @Html.DisplayFor(modelItem => item.ProdPrice)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ProdQuantity)
+                        @{
+                            if (item.ProdQuantity > 5)
+                            {
+                                <span class="text-success">På lager</span>
+                            }
+                            else if (item.ProdQuantity <= 5 )
+                            {
+                                <span class="text-warning">Få tilbage!</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">Udsolgt</span>
+                            }
+                        }
                     </td>
                     <td>
                         <a asp-controller="OrderLine" asp-action="AddToCart" asp-route-prodId="@item.ProdId">Tilføj til kurv</a>
