@@ -4,11 +4,8 @@
     ViewData["Title"] = "Cart";
 }
 
-<h1>Cart</h1>
+<h1>Indkøbskurv</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 
 @if (Model != null)
 {
@@ -58,8 +55,14 @@
             }
         </tbody>
     </table>
+
+     <div style="text-align: right; margin-top: 20px;">
+        <p>
+            <a asp-action="Create">Fuldfør køb</a>
+        </p>
+    </div>
 }
 else
 {
-    <p>No data available.</p>
+    <p>Indkøbskurven er tom.</p>
 }
