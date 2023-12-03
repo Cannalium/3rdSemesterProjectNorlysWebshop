@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
@@ -12,15 +13,69 @@ namespace WebshopData.DatabaseLayer
     public class OrderDatabaseAccess : IOrderAccess
     {
         readonly string? _connectionString;
+        private PersonDatabaseAccess _personDatabaseAccess;
         public OrderDatabaseAccess(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("WebshopConnection");
+            _personDatabaseAccess = new PersonDatabaseAccess(_connectionString);    
         }
 
         // For test
         public OrderDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
 
-        public int CreateOrder(Order anOrder)
+        public int CreateOrder(Order entity)
+        {
+            int insertedId = -1;
+
+            TransactionOptions tsOptions = new TransactionOptions();
+            tsOptions.IsolationLevel = IsolationLevel.RepeatableRead;
+
+            using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, tsOptions))
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    conn.Open();
+
+                    // Insert order and fetch its orderId
+                    using (SqlCommand cmdOrder = conn.CreateCommand())
+                    {
+                        cmdOrder.CommandText = "INSERT INTO [Order] (personId_FK, orderDate, orderPrice) OUTPUT INSERTED.OrderId Values(@personId, @orderDate, @orderPrice)";
+                        cmdOrder.Parameters.AddWithValue("personId", entity.Person.PersonId); //tjek om "" skal være fk eller ikke
+                        cmdOrder.Parameters.AddWithValue("orderDate", DateTime.Now);
+                        cmdOrder.Parameters.AddWithValue("orderPrice", entity.OrderPrice); //SPØRG LARS MEGET VIGTIGT
+                        insertedId = (int)cmdOrder.ExecuteScalar(); // Fetch orderId (from OUTPUT INSERTED.OrderId)
+                    }
+
+                    // Insert OrderLines
+                    foreach (OrderLine orderLine in entity.OrderLines)
+                    {
+                        // Insert orderline
+                        using (SqlCommand cmdOl = conn.CreateCommand())
+                        {
+                            cmdOl.CommandText = "INSERT INTO [OrderLine] (prodId_FK, orderId_FK, orderLineProdQuantity) Values(@prodId, @orderId, @orderLineProdQuantity)";
+                            cmdOl.Parameters.AddWithValue("prodId", orderLine.Product.ProdId);
+                            cmdOl.Parameters.AddWithValue("orderId", insertedId);
+                            cmdOl.Parameters.AddWithValue("orderLineProdQuantity", orderLine.OrderLineProdQuantity);
+                            cmdOl.ExecuteNonQuery();
+                        }
+
+                        // decrement stock
+                        using (SqlCommand decrementCmd = conn.CreateCommand())
+                        {
+                            decrementCmd.CommandText = "UPDATE [Product] SET prodQuantity=prodQuantity-@orderLineProdQuantity WHERE prodId=@prodId";
+                            decrementCmd.Parameters.AddWithValue("prodId", orderLine.Product.ProdId);
+                            decrementCmd.Parameters.AddWithValue("orderLineProdQuantity", orderLine.OrderLineProdQuantity);
+                            decrementCmd.ExecuteNonQuery();
+                        }
+                    }
+                }
+                ts.Complete();
+            }
+            return insertedId;
+        }
+
+
+        /*public int CreateOrder(Order anOrder)
         {
             int insertedId = -1;
             string insertString = "insert into Order(orderDate) OUTPUT INSERTED.ID values(@OrderDate)";
@@ -38,7 +93,7 @@ namespace WebshopData.DatabaseLayer
                 insertedId = (int)CreateCommand.ExecuteScalar();
             }
             return insertedId;
-        }
+        }*/
 
         public bool DeleteOrder(int orderId)
         {
@@ -68,7 +123,7 @@ namespace WebshopData.DatabaseLayer
             List<Order> foundOrders;
             Order readOrder;
 
-            string queryString = "select orderId, orderDate, orderPrice from Order";
+            string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order]";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -86,16 +141,16 @@ namespace WebshopData.DatabaseLayer
             return foundOrders;
         }
 
-        public Order GetOrderById(int findOrderId)
+        public Order GetOrderById(int orderId)
         {
             Order foundOrder;
 
-            string queryString = "select orderId, orderDate from Order where orderId = @OrderId";
+            string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order] where orderId = @OrderId";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
                 // Prepare SQL
-                SqlParameter orderIdParam = new SqlParameter("@OrderId", findOrderId);
+                SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
                 readCommand.Parameters.Add(orderIdParam);
 
                 con.Open();
@@ -141,13 +196,19 @@ namespace WebshopData.DatabaseLayer
             Order foundOrder;
             int tempOrderId;
             DateTime tempOrderDate;
+            Decimal tempOrderPrice;
+            int tempPersonId_FK;
 
             // Fetch values
             tempOrderId = orderReader.GetInt32(orderReader.GetOrdinal("orderId"));
             tempOrderDate = orderReader.GetDateTime(orderReader.GetOrdinal("orderDate"));
+            tempOrderPrice = orderReader.GetDecimal(orderReader.GetOrdinal("orderPrice"));
+            tempPersonId_FK = orderReader.GetInt32(orderReader.GetOrdinal("personId_FK"));
 
+            Person relatedPerson = _personDatabaseAccess.GetPersonById(tempPersonId_FK);
+           
             // Create object
-            foundOrder = new Order(tempOrderId, tempOrderDate);
+            foundOrder = new Order(tempOrderId, tempOrderDate, tempOrderPrice, tempPersonId_FK, relatedPerson);
             return foundOrder;
         }
     }

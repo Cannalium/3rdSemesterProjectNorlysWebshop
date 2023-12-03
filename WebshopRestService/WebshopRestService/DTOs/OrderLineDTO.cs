@@ -1,16 +1,18 @@
-﻿namespace WebshopRestService.DTOs 
+﻿using WebshopModel.ModelLayer;
+
+namespace WebshopRestService.DTOs 
 {
     public class OrderLineDTO 
     {
         public OrderLineDTO() { }
 
-        public OrderLineDTO(int orderLineId, int orderLineProdQuantity) 
+        public OrderLineDTO(Product product, int orderLineProdQuantity) 
         {
-            OrderLineId = orderLineId;
+            Product = product;
             OrderLineProdQuantity = orderLineProdQuantity;
         }
 
-        public int OrderLineId { get; set; }
+        public Product Product { get; set; }
         public int OrderLineProdQuantity { get; set; }
     }
 }

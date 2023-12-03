@@ -139,7 +139,9 @@ namespace WebshopData.DatabaseLayer
 
         private OrderLine GetOrderLineFromReader(SqlDataReader orderLineReader)
         {
-            OrderLine foundOrderLine;
+            throw new System.NotImplementedException();
+
+            /*OrderLine foundOrderLine;
             int tempOrderLineId;
             int tempOrderLineProdQuantity;
 
@@ -149,7 +151,7 @@ namespace WebshopData.DatabaseLayer
 
             // Create object
             foundOrderLine = new OrderLine(tempOrderLineId, tempOrderLineProdQuantity);
-            return foundOrderLine;
+            return foundOrderLine;*/
         }
     }
 }

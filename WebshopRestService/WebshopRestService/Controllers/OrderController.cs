@@ -19,11 +19,11 @@ namespace WebshopRestService.Controllers
 
         // URL: api/Order/Order
         [HttpGet]
-        public ActionResult<List<OrderDTO>>? Get()
+        public ActionResult<List<OrderDTORead>>? Get()
         {
-            ActionResult<List<OrderDTO>> foundReturn;
+            ActionResult<List<OrderDTORead>> foundReturn;
             //Retrieve data converted to DTO
-            List<OrderDTO>? foundOrders = _orderDataController.Get();
+            List<OrderDTORead>? foundOrders = _orderDataController.Get();
             //evaluate
             if (foundOrders != null)
             {
@@ -46,13 +46,13 @@ namespace WebshopRestService.Controllers
 
         // URL: api/orders/{id}
         [HttpGet, Route("{orderId}")]
-        public ActionResult<OrderDTO> Get(int orderId)
+        public ActionResult<OrderDTORead> Get(int orderId)
         {
-            ActionResult<OrderDTO> foundReturn;
+            ActionResult<OrderDTORead> foundReturn;
             try
             {
                 //Retieve data converted to DTO
-                OrderDTO? foundOrdersById = _orderDataController.Get(orderId);
+                OrderDTORead? foundOrdersById = _orderDataController.Get(orderId);
 
                 //Evaluate
                 if (foundOrdersById != null)
@@ -71,31 +71,56 @@ namespace WebshopRestService.Controllers
             return foundReturn; // Send return to client
         }
 
-        // URL: api/orders
         [HttpPost]
-        public ActionResult<int> PostNewOrder(OrderDTO orderDTO)
+        public ActionResult<int> PostNewOrder([FromBody] OrderDTOWrite orderDTOWrite)
         {
-            ActionResult<int> foundReturn;
-            int insertedId = -1;
-            if (orderDTO != null)
+            if (orderDTOWrite == null)
             {
-                insertedId = _orderDataController.Add(orderDTO);
+                return BadRequest();
             }
-            // Evaluate
+
+            int insertedId = _orderDataController.Add(orderDTOWrite);
+
             if (insertedId > 0)
             {
-                foundReturn = Ok(insertedId);
+                return Ok(insertedId);
             }
             else if (insertedId == 0)
             {
-                foundReturn = BadRequest();     // missing input
+                return BadRequest(); // missing input
             }
             else
             {
-                foundReturn = new StatusCodeResult(500);    // Internal server error
+                return StatusCode(500); // Internal server error
             }
-            return foundReturn;
         }
+
+
+        // URL: api/orders
+        /* [HttpPost]
+         public ActionResult<int> PostNewOrder(OrderDTOWrite orderDataCreateDTO)
+         {
+             ActionResult<int> foundReturn;
+             int insertedId = -1;
+             if (orderDataCreateDTO != null)
+             {
+                 insertedId = _orderDataController.Add(orderDataCreateDTO);
+             }
+             // Evaluate
+             if (insertedId > 0)
+             {
+                 foundReturn = Ok(insertedId);
+             }
+             else if (insertedId == 0)
+             {
+                 foundReturn = BadRequest();     // missing input
+             }
+             else
+             {
+                 foundReturn = new StatusCodeResult(500);    // Internal server error
+             }
+             return foundReturn;
+         }*/
 
 
         //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
@@ -117,7 +142,7 @@ namespace WebshopRestService.Controllers
         }
 
         [HttpPut]
-        public ActionResult<bool> Put(OrderDTO orderDTO)
+        public ActionResult<bool> Put(OrderDTOWrite orderDTO)
         {
             ActionResult foundReturn;
 
@@ -145,3 +170,4 @@ namespace WebshopRestService.Controllers
         }
     }
 }
+

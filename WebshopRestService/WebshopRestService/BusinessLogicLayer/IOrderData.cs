@@ -4,10 +4,10 @@ namespace WebshopRestService.BusinessLogicLayer
 {
     public interface IOrderData
     {
-        OrderDTO? Get(int ordedrId);
-        List<OrderDTO>? Get();
-        int Add(OrderDTO orderToAdd);
-        bool Put(OrderDTO orderToUpdate);
+        OrderDTORead? Get(int ordedrId);
+        List<OrderDTORead>? Get();
+        int Add(OrderDTOWrite orderToAdd);
+        bool Put(OrderDTOWrite orderToUpdate);
         bool Delete(int orderId);
     }
 }

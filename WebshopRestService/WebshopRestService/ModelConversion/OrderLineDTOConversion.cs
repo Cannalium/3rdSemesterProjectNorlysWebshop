@@ -31,7 +31,7 @@ namespace WebshopRestService.ModelConversion
             OrderLineDTO? anOrderLineReadDTO = null;
             if (inOrderLine != null)
             {
-                anOrderLineReadDTO = new OrderLineDTO(inOrderLine.OrderLineId, inOrderLine.OrderLineProdQuantity);
+                anOrderLineReadDTO = new OrderLineDTO(inOrderLine.Product, inOrderLine.OrderLineProdQuantity);
             }
             return anOrderLineReadDTO;
         }
@@ -42,7 +42,7 @@ namespace WebshopRestService.ModelConversion
             OrderLine? anOrderLine = null;
             if (inDTO != null)
             {
-                anOrderLine = new OrderLine(inDTO.OrderLineId, inDTO.OrderLineProdQuantity);
+                anOrderLine = new OrderLine(inDTO.Product, inDTO.OrderLineProdQuantity);
             }
             return anOrderLine;
         }
