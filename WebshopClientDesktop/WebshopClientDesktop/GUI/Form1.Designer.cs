@@ -353,7 +353,7 @@
             Name = "Form1";
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Norlys";
             panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).EndInit();
             panelMain.ResumeLayout(false);
