@@ -19,11 +19,11 @@ namespace WebshopRestService.Controllers
 
         // URL: api/orderlines
         [HttpGet]
-        public ActionResult<List<OrderLineDTO>>? Get()
+        public ActionResult<List<OrderLineDTORead>>? Get()
         {
-            ActionResult<List<OrderLineDTO>> foundReturn;
+            ActionResult<List<OrderLineDTORead>> foundReturn;
             //Retrieve data converted to DTO
-            List<OrderLineDTO>? foundOrderLines = _orderLineDataController.Get();
+            List<OrderLineDTORead>? foundOrderLines = _orderLineDataController.Get();
             //evaluate
             if (foundOrderLines != null)
             {
@@ -45,13 +45,13 @@ namespace WebshopRestService.Controllers
 
         // URL: api/orderlines/{id}
         [HttpGet, Route("{orderLineId}")]
-        public ActionResult<OrderLineDTO> Get(int orderLineId)
+        public ActionResult<OrderLineDTORead> Get(int orderLineId)
         {
-            ActionResult<OrderLineDTO> foundReturn;
+            ActionResult<OrderLineDTORead> foundReturn;
             try
             {
                 //Retrieve data converted to DTO
-                OrderLineDTO? foundOrderLineById = _orderLineDataController.Get(orderLineId);
+                OrderLineDTORead? foundOrderLineById = _orderLineDataController.Get(orderLineId);
 
                 //Evaluate
                 if (foundOrderLineById != null)
@@ -72,7 +72,7 @@ namespace WebshopRestService.Controllers
 
         // URL: api/orderlines
         [HttpPost]
-        public ActionResult<int> PostNewOrderLine(OrderLineDTO orderLineDTO)
+        public ActionResult<int> PostNewOrderLine(OrderLineDTORead orderLineDTO)
         {
             ActionResult<int> foundReturn;
             int insertedId = -1;
@@ -113,7 +113,7 @@ namespace WebshopRestService.Controllers
         }
 
         [HttpPut]
-        public ActionResult<bool> Put(OrderLineDTO orderLineDTO)
+        public ActionResult<bool> Put(OrderLineDTORead orderLineDTO)
         {
             ActionResult foundReturn;
 

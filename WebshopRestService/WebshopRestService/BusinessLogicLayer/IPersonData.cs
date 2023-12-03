@@ -3,11 +3,11 @@
 namespace WebshopRestService.BusinessLogicLayer 
 {
     public interface IPersonData {
-        PersonDTO? GetPersonById(int personId);
-        PersonDTO? GetPersonByEmail(string userId);
-        List<PersonDTO>? Get();
-        int Add(PersonDTO personToAdd);
-        bool Put(PersonDTO personToUpdate);
+        PersonDTORead? GetPersonById(int personId);
+        PersonDTORead? GetPersonByEmail(string userId);
+        List<PersonDTORead>? Get();
+        int Add(PersonDTORead personToAdd);
+        bool Put(PersonDTORead personToUpdate);
         bool Delete(int personId);
     }
 }

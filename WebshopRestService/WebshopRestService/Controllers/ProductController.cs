@@ -20,11 +20,11 @@ namespace WebshopRestService.Controllers
 
         // URL: api/products
         [HttpGet]
-        public ActionResult<List<ProductDTO>>? Get()
+        public ActionResult<List<ProductDTORead>>? Get()
         {
-            ActionResult<List<ProductDTO>> foundReturn;
+            ActionResult<List<ProductDTORead>> foundReturn;
             //Retrieve data converted to DTO
-            List<ProductDTO>? foundProducts = _productDataController.Get();
+            List<ProductDTORead>? foundProducts = _productDataController.Get();
             //evaluate
             if (foundProducts != null)
             {
@@ -47,13 +47,13 @@ namespace WebshopRestService.Controllers
 
         // URL: api/products/{id}
         [HttpGet, Route("{prodId}")]
-        public ActionResult<ProductDTO> Get(int prodId)
+        public ActionResult<ProductDTORead> Get(int prodId)
         {
-            ActionResult<ProductDTO> foundReturn;
+            ActionResult<ProductDTORead> foundReturn;
             try
             {
                 //Retieve data converted to DTO
-                ProductDTO? foundProductsById = _productDataController.Get(prodId);
+                ProductDTORead? foundProductsById = _productDataController.Get(prodId);
 
                 //Evaluate
                 if (foundProductsById != null)
@@ -74,13 +74,13 @@ namespace WebshopRestService.Controllers
 
         // URL: api/products/type/{prodType}
         [HttpGet, Route("type/{prodType}")]
-        public ActionResult<List<ProductDTO>> GetProductByType(string prodType)
+        public ActionResult<List<ProductDTORead>> GetProductByType(string prodType)
         {
-            ActionResult<List<ProductDTO>> foundReturn;
+            ActionResult<List<ProductDTORead>> foundReturn;
             try
             {
                 //Retieve data converted to DTO
-                List<ProductDTO> foundProductsByType = _productDataController.GetProductByType(prodType);
+                List<ProductDTORead> foundProductsByType = _productDataController.GetProductByType(prodType);
 
                 //Evaluate
                 if (foundProductsByType != null)
@@ -101,7 +101,7 @@ namespace WebshopRestService.Controllers
 
         // URL: api/products
         [HttpPost]
-        public ActionResult<int> PostNewProduct(ProductDTO productDTO)
+        public ActionResult<int> PostNewProduct(ProductDTORead productDTO)
         {
             ActionResult<int> foundReturn;
             int insertedId = -1;
@@ -145,7 +145,7 @@ namespace WebshopRestService.Controllers
         }
 
         [HttpPut, Route("{prodId}")]
-        public ActionResult<bool> Put(ProductDTO productDTO)
+        public ActionResult<bool> Put(ProductDTORead productDTO)
         {
             ActionResult foundReturn;
 

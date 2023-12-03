@@ -6,13 +6,13 @@ namespace WebshopRestService.ModelConversion
     public class PersonDTOConversion
     {
         // Convert from Person objects to PersonDTO objects
-        public static List<PersonDTO>? FromPersonCollection(List<Person> inPersons)
+        public static List<PersonDTORead>? FromPersonCollection(List<Person> inPersons)
         {
-            List<PersonDTO>? aPersonReadDTOList = null;
+            List<PersonDTORead>? aPersonReadDTOList = null;
             if (inPersons != null)
             {
-                aPersonReadDTOList = new List<PersonDTO>();
-                PersonDTO? tempDTO;
+                aPersonReadDTOList = new List<PersonDTORead>();
+                PersonDTORead? tempDTO;
                 foreach (Person aPerson in inPersons)
                 {
                     if (aPerson != null)
@@ -26,18 +26,18 @@ namespace WebshopRestService.ModelConversion
         }
 
         // Convert from Person object to PersonDTO object
-        public static PersonDTO? FromPerson(Person Person)
+        public static PersonDTORead? FromPerson(Person Person)
         {
-            PersonDTO? aPersonReadDTO = null;
+            PersonDTORead? aPersonReadDTO = null;
             if (Person != null)
             {
-                aPersonReadDTO = new PersonDTO(Person.FirstName, Person.LastName, Person.PhoneNo, Person.Email); //usikker på om userId skal være her, fordi det er, når man laver DTO'en, og userId er ikke en del af personDataCreatDTO
+                aPersonReadDTO = new PersonDTORead(Person.FirstName, Person.LastName, Person.PhoneNo, Person.Email); //usikker på om userId skal være her, fordi det er, når man laver DTO'en, og userId er ikke en del af personDataCreatDTO
             }
             return aPersonReadDTO;
         }
 
         // Convert from PersonDTO object to Person object
-        public static Person? ToPerson(PersonDTO DTO)
+        public static Person? ToPerson(PersonDTORead DTO)
         {
             Person? aPerson = null;
             if (DTO != null)

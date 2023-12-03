@@ -14,7 +14,7 @@ namespace WebshopRestService.BusinessLogicLayer
             _productAccess = ProductAccess;
         }
 
-        public int Add(ProductDTO productToAdd)
+        public int Add(ProductDTORead productToAdd)
         {
             int insertedId = 0;
             try
@@ -45,9 +45,9 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public ProductDTO? Get(int prodId)
+        public ProductDTORead? Get(int prodId)
         {
-            ProductDTO? foundProductDTO;
+            ProductDTORead? foundProductDTO;
             try
             {
                 Product? foundProduct = _productAccess.GetProductById(prodId);
@@ -61,9 +61,9 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundProductDTO;
         }
 
-        public List<ProductDTO> GetProductByType(string prodType)
+        public List<ProductDTORead> GetProductByType(string prodType)
         {
-            List<ProductDTO> foundProductsDTO;
+            List<ProductDTORead> foundProductsDTO;
             try
             {
                 List<Product> foundProducts = _productAccess.GetProductByType(prodType);
@@ -72,15 +72,15 @@ namespace WebshopRestService.BusinessLogicLayer
             catch(Exception ex)
             {
                 //Instead of null - create a new empty list
-                foundProductsDTO = new List<ProductDTO>();
+                foundProductsDTO = new List<ProductDTORead>();
                 Logger.LogError(ex);
             }
             return foundProductsDTO;
         }
 
-        public List<ProductDTO> Get()
+        public List<ProductDTORead> Get()
         {
-            List<ProductDTO> foundDTOs;
+            List<ProductDTORead> foundDTOs;
             try
             {
                 List<Product> foundProducts = _productAccess.GetProductAll();
@@ -88,13 +88,13 @@ namespace WebshopRestService.BusinessLogicLayer
             }
             catch (Exception ex)
             {
-                foundDTOs = new List<ProductDTO>();
+                foundDTOs = new List<ProductDTORead>();
                 Logger.LogError(ex);
             }
             return foundDTOs;
         }
 
-        public bool Put(ProductDTO productToUpdate)
+        public bool Put(ProductDTORead productToUpdate)
         {
             try
             {

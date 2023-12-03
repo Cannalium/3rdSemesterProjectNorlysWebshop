@@ -13,7 +13,7 @@ namespace WebshopRestService.BusinessLogicLayer
             _personAccess = new PersonDatabaseAccess(configuration);
         }
 
-            public int Add(PersonDTO personToAdd)
+            public int Add(PersonDTORead personToAdd)
         {
             int insertedId = 0;
             try
@@ -44,9 +44,9 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public PersonDTO? GetPersonById(int personId)
+        public PersonDTORead? GetPersonById(int personId)
         {
-            PersonDTO? foundPersonDTO;
+            PersonDTORead? foundPersonDTO;
             try
             {
                 Person? foundPerson = _personAccess.GetPersonById(personId);
@@ -59,9 +59,9 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundPersonDTO;
         }
 
-        public List<PersonDTO>? Get()
+        public List<PersonDTORead>? Get()
         {
-            List<PersonDTO>? foundDTOs;
+            List<PersonDTORead>? foundDTOs;
             try
             {
                 List<Person>? foundPersons = _personAccess.GetPersonAll();
@@ -74,7 +74,7 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundDTOs;
         }
 
-        public bool Put(PersonDTO personToUpdate)
+        public bool Put(PersonDTORead personToUpdate)
         {
             try
             {
@@ -93,9 +93,9 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public PersonDTO? GetPersonByEmail(string email)
+        public PersonDTORead? GetPersonByEmail(string email)
         {
-            PersonDTO? foundPersonDTO;
+            PersonDTORead? foundPersonDTO;
             try
             {
                 Person? foundPerson = _personAccess.GetPersonByEmail(email);

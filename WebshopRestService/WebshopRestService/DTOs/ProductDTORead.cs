@@ -1,15 +1,15 @@
 ﻿namespace WebshopRestService.DTOs {
-    public class ProductDTO
+    public class ProductDTORead
     {
-        public ProductDTO() { }
+        public ProductDTORead() { }
 
-        public ProductDTO(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) : this(prodName, prodDescription, prodPrice, prodQuantity, prodType )
+        public ProductDTORead(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) : this(prodName, prodDescription, prodPrice, prodQuantity, prodType )
         {
             ProdId = prodId;
 
         }
 
-        public ProductDTO(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
+        public ProductDTORead(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
         {
             ProdName = prodName;
             ProdDescription = prodDescription;

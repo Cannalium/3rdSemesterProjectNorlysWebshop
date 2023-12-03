@@ -13,7 +13,7 @@ namespace WebshopRestService.BusinessLogicLayer
             _orderLineAccess = OrderLineAccess;
         }
 
-        public int Add(OrderLineDTO orderLineToAdd)
+        public int Add(OrderLineDTORead orderLineToAdd)
         {
             int insertedId = 0;
             try
@@ -44,9 +44,9 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public OrderLineDTO? Get(int orderLineId)
+        public OrderLineDTORead? Get(int orderLineId)
         {
-            OrderLineDTO? foundOrderLineDTO;
+            OrderLineDTORead? foundOrderLineDTO;
             try
             {
                 OrderLine? foundOrderLine = _orderLineAccess.GetOrderLineById(orderLineId);
@@ -59,9 +59,9 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundOrderLineDTO;
         }
 
-        public List<OrderLineDTO>? Get()
+        public List<OrderLineDTORead>? Get()
         {
-            List<OrderLineDTO>? foundDTOs;
+            List<OrderLineDTORead>? foundDTOs;
             try
             {
                 List<OrderLine>? foundOrderLines = _orderLineAccess.GetOrderLineAll();
@@ -74,7 +74,7 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundDTOs;
         }
 
-        public bool Put(OrderLineDTO orderLineToUpdate)
+        public bool Put(OrderLineDTORead orderLineToUpdate)
         {
             try
             {

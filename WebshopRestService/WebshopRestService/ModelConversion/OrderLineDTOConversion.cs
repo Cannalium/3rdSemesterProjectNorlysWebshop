@@ -6,13 +6,13 @@ namespace WebshopRestService.ModelConversion
     public class OrderLineDTOConversion
     {
         // Convert from OrderLine objects to OrderLineDTO objects
-        public static List<OrderLineDTO>? FromOrderLineCollection(List<OrderLine> inOrderLines)
+        public static List<OrderLineDTORead>? FromOrderLineCollection(List<OrderLine> inOrderLines)
         {
-            List<OrderLineDTO>? anOrderLineReadDTOList = null;
+            List<OrderLineDTORead>? anOrderLineReadDTOList = null;
             if (inOrderLines != null)
             {
-                anOrderLineReadDTOList = new List<OrderLineDTO>();
-                OrderLineDTO? tempDTO;
+                anOrderLineReadDTOList = new List<OrderLineDTORead>();
+                OrderLineDTORead? tempDTO;
                 foreach (OrderLine anOrderLine in inOrderLines)
                 {
                     if (anOrderLine != null)
@@ -26,18 +26,18 @@ namespace WebshopRestService.ModelConversion
         }
 
         // Convert from OrderLine object to OrderLineDTO object
-        public static OrderLineDTO? FromOrderLine(OrderLine inOrderLine)
+        public static OrderLineDTORead? FromOrderLine(OrderLine inOrderLine)
         {
-            OrderLineDTO? anOrderLineReadDTO = null;
+            OrderLineDTORead? anOrderLineReadDTO = null;
             if (inOrderLine != null)
             {
-                anOrderLineReadDTO = new OrderLineDTO(inOrderLine.Product, inOrderLine.OrderLineProdQuantity);
+                anOrderLineReadDTO = new OrderLineDTORead(inOrderLine.Product, inOrderLine.OrderLineProdQuantity);
             }
             return anOrderLineReadDTO;
         }
 
         // Convert from OrderLineDTO object to OrderLine object
-        public static OrderLine? ToOrderLine(OrderLineDTO inDTO)
+        public static OrderLine? ToOrderLine(OrderLineDTORead inDTO)
         {
             OrderLine? anOrderLine = null;
             if (inDTO != null)

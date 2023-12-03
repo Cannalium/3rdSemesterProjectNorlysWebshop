@@ -1,10 +1,10 @@
 ﻿namespace WebshopRestService.DTOs
 {
-    public class PersonDTO
+    public class PersonDTORead
     {
-        public PersonDTO() { }
+        public PersonDTORead() { }
 
-        public PersonDTO(string? firstName, string? lastName, string? phoneNo, string? email)
+        public PersonDTORead(string? firstName, string? lastName, string? phoneNo, string? email)
         {
             FirstName = firstName;
             LastName = lastName;

@@ -4,11 +4,11 @@ namespace WebshopRestService.BusinessLogicLayer
 {
     public interface IProductData
     {
-        ProductDTO? Get(int prodId);
-        List<ProductDTO> GetProductByType(string prodType);
-        List<ProductDTO>? Get();
-        int Add(ProductDTO productToAdd);
-        bool Put(ProductDTO productToUpdate);
+        ProductDTORead? Get(int prodId);
+        List<ProductDTORead> GetProductByType(string prodType);
+        List<ProductDTORead>? Get();
+        int Add(ProductDTORead productToAdd);
+        bool Put(ProductDTORead productToUpdate);
         bool Delete(int prodId);
     }
 }

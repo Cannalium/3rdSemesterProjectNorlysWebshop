@@ -21,11 +21,11 @@ namespace WebshopRestService.Controllers
         //, Route("api/person")
 
         [HttpGet]
-        public ActionResult<List<PersonDTO>>? Get()
+        public ActionResult<List<PersonDTORead>>? Get()
         {
-            ActionResult<List<PersonDTO>> foundReturn;
+            ActionResult<List<PersonDTORead>> foundReturn;
             //Retrieve data converted to DTO
-            List<PersonDTO>? foundPersons = _personDataControl.Get();
+            List<PersonDTORead>? foundPersons = _personDataControl.Get();
             //evaluate
             if (foundPersons != null)
             {
@@ -73,7 +73,7 @@ namespace WebshopRestService.Controllers
       */
         // URL: api/person, Route("api/person")
         [HttpPost]
-        public ActionResult<int> PostNewPerson(PersonDTO personDTO)
+        public ActionResult<int> PostNewPerson(PersonDTORead personDTO)
         {
             ActionResult<int> foundReturn;
             int insertedId = -1;
@@ -116,7 +116,7 @@ namespace WebshopRestService.Controllers
         }
         //, Route("api/person")
         [HttpPut]
-        public ActionResult<bool> Put(PersonDTO personDTO)
+        public ActionResult<bool> Put(PersonDTORead personDTO)
         {
             ActionResult foundReturn;
 
@@ -144,12 +144,12 @@ namespace WebshopRestService.Controllers
         }
     
         [HttpGet, Route("{email}")]
-        public ActionResult<PersonDTO?> GetPersonByEmail(string email)
+        public ActionResult<PersonDTORead?> GetPersonByEmail(string email)
         {
-            ActionResult<PersonDTO?> foundReturn;
+            ActionResult<PersonDTORead?> foundReturn;
 
             // Retrieve and convert data
-            PersonDTO? foundPerson = _personDataControl.GetPersonByEmail(email);
+            PersonDTORead? foundPerson = _personDataControl.GetPersonByEmail(email);
 
             // Evaluate
             if (foundPerson != null)
