@@ -59,7 +59,9 @@ namespace WebshopClientWeb.BusinessLogicLayer
              return cartWasUpdated;
          } */
 
-        public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem)
+
+
+        /* public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem)
         {
             bool cartWasUpdated = false;
 
@@ -82,9 +84,51 @@ namespace WebshopClientWeb.BusinessLogicLayer
             cartWasUpdated = true;
 
             return cartWasUpdated;
-        }
+         }*/
 
-        public static bool RemoveFromCart(HttpContext httpContext, int prodId)
+        public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem)
+        {
+            bool cartWasUpdated = false;
+
+            // Read existing cart items
+            List<OrderLine>? cartItems = ReadCart(httpContext);
+
+            if (cartItems == null)
+            {
+                // If cart is empty, create a new list with the new item
+                cartItems = new List<OrderLine> { newCartProdItem };
+            }
+            else
+            {
+                // Check if the product is already in the cart
+                bool productExistsInCart = false;
+
+                foreach (var cartItem in cartItems)
+                {
+                    if (cartItem.CartProduct.ProdId == newCartProdItem.CartProduct.ProdId)
+                    {
+                        // Update the quantity if the product exists
+                       OrderLineServiceAccess.UpdateCartProd(cartItems, newCartProdItem);
+                        productExistsInCart = true;
+                        break; // No need to continue checking
+                    }
+                }
+
+                if (!productExistsInCart)
+                {
+                    // Add the new item to the existing cart items
+                    cartItems.Add(newCartProdItem);
+                }
+            }
+
+            // Update the cart cookie
+            httpContext.Response.Cookies.Append("cart", JsonConvert.SerializeObject(cartItems));
+            cartWasUpdated = true;
+
+            return cartWasUpdated;
+            }
+
+            public static bool RemoveFromCart(HttpContext httpContext, int prodId)
         {
             List<OrderLine>? cartItems = ReadCart(httpContext);
 
