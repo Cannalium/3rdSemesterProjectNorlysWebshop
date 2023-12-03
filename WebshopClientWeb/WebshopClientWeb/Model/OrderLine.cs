@@ -8,13 +8,13 @@ namespace WebshopClientWeb.Model
     {
         public OrderLine() { }
 
-        public OrderLine(Product product) // husk at tilføje den tilbage som parameter int orderLineProdQuantity
+        public OrderLine(Product product, int orderLineProdQuantity) // husk at tilføje den tilbage som parameter int orderLineProdQuantity
         {
-            //OrderLineProdQuantity = orderLineProdQuantity;
+            OrderLineProdQuantity = orderLineProdQuantity;
             CartProduct = product;
         }
 
-        public OrderLine(int orderLineId, int orderLineProdQuantity, Product product) : this(product) //orderLineProdQuantity
+        public OrderLine(int orderLineId, int orderLineProdQuantity, Product product) : this(product, orderLineProdQuantity) //orderLineProdQuantity
         {
             OrderLineId = orderLineId;
         }

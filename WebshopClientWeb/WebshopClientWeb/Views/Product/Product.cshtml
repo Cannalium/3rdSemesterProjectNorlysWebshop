@@ -55,9 +55,23 @@
                                 <span class="text-danger">Udsolgt</span>
                             }
                         }
+                        <td>
+                        @if (item.ProdQuantity > 0)
+                        {
+                            using (Html.BeginForm("AddToCart", "OrderLine", new { prodId = item.ProdId }, FormMethod.Post))
+                            {
+                                <input id="orderLineProdQuantity" name="orderLineProdQuantity" type="number" value="1" min="1" max="50" />
+                                <button type="submit" class="pull-right"><i class="fa fa-shopping-cart">Tilføj til kurv</i></button>
+                            }
+                        }
+                        else
+                        {
+                            <p>Ikke tilgængelig.</p>
+                        }
+                    </td>
                     </td>
                     <td>
-                        <a asp-controller="OrderLine" asp-action="AddToCart" asp-route-prodId="@item.ProdId">Tilføj til kurv</a>
+                        <!--<a asp-controller="OrderLine" asp-action="AddToCart" asp-route-prodId="@item.ProdId">Tilføj til kurv</a> -->
 
                         
                     </td>

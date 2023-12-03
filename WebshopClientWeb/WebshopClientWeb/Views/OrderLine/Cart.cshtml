@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Cart";
+    decimal total = 0;
 }
 
 <h1>Indkøbskurv</h1>
@@ -44,10 +45,23 @@
                         @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdQuantity)
                     </td>
                     <td>
-
-
+                        @(orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice)
+                    </td>
+                    <td>
+                        @if (orderLine.CartProduct.ProdQuantity > 0)
+                        {
+                            using (Html.BeginForm("AddToCart", "OrderLine", new { prodId = orderLine.CartProduct.ProdId }, FormMethod.Post))
+                            {
+                                <input id="orderLineProdQuantity" name="orderLineProdQuantity" type="number" value="1" min="1" max="50" />
+                                <button type="submit" class="pull-right"><i class="fa fa-shopping-cart">Tilføj til kurv</i></button>
+                            }
+                        }
+                        else
+                        {
+                            <p>Ikke tilgængelig.</p>
+                        }
+                    <td>
                         <a asp-controller="OrderLine" asp-action="EmptyCart" asp-route-prodId="@orderLine.CartProduct.ProdId">Empty Cart</a> |
-                        <a asp-action="Details" asp-route-id="@orderLine.CartProduct.ProdId">Details</a> |
                         <a asp-action="RemoveFromCart" asp-route-prodId="@orderLine.CartProduct.ProdId">Fjern produkt</a>
 
                     </td>
@@ -55,12 +69,20 @@
             }
         </tbody>
     </table>
+    @foreach (var orderLine in Model)
+    {
+        total += (orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice);
+    }
+    <div style="text-align: right; margin-top: 20px;">
+        <b>Total = @total</b>
+    </div>
 
      <div style="text-align: right; margin-top: 20px;">
         <p>
             <a asp-action="Create">Fuldfør køb</a>
         </p>
     </div>
+
 }
 else
 {

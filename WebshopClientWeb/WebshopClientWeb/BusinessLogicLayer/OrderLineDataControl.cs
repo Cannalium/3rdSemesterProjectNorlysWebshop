@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Newtonsoft.Json;
 using System.Net;
 using WebshopClientWeb.Model;
 using WebshopClientWeb.ServiceLayer;
@@ -29,6 +30,34 @@ namespace WebshopClientWeb.BusinessLogicLayer
             }
             return foundCartItems;
         }
+
+        /*public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem)
+         {
+             bool cartWasUpdated = false;
+             // If cart is empty - appent cart to cookie content
+             if (!httpContext.Request.Cookies.ContainsKey("Cart"))
+             {
+                 List<OrderLine>? cartItems = new List<OrderLine> { newCartProdItem };
+                 if (cartItems != null)
+                 {
+                     httpContext.Response.Cookies.Append("cart", JsonConvert.SerializeObject(cartItems));
+                     cartWasUpdated = true;
+                 }
+             }
+             // If cart has content
+             else
+             {
+                 List<OrderLine> cartItems = ReadCart(httpContext);
+
+                 if (cartItems != null)
+                 {
+                     OrderLineServiceAccess.UpdateCartProd(cartItems, newCartProdItem);
+                     httpContext.Response.Cookies.Append("cart", JsonConvert.SerializeObject(cartItems));
+                     cartWasUpdated = true;
+                 }
+             }
+             return cartWasUpdated;
+         } */
 
         public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem)
         {
@@ -75,7 +104,6 @@ namespace WebshopClientWeb.BusinessLogicLayer
 
             return false;
         }
-
 
         public static bool EmptyCart(HttpContext httpContext)
         {
