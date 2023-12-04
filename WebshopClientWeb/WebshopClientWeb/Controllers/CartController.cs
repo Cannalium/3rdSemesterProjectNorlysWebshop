@@ -32,9 +32,10 @@ namespace WebshopClientWeb.Controllers
                 if (newCartProdItem != null)
                 {
                     itemAddedOK = CartDataControl.UpdateCart(HttpContext, newCartProdItem);
+                    TempData["AddedToCartMessage"] = $"{orderLineProdQuantity} x {product.ProdName} tilføjet til indkøbskurv";
                 }
                 TempData["ProcessText"] = itemAddedOK ? $"Added {orderLineProdQuantity} to cart" : "Error - item was not added!";
-                return RedirectToAction("Cart");
+                return RedirectToAction("Product", "Product");
             }
             TempData["ProcessText"] = "Error - Invalid product ID";
             return RedirectToAction("Error");

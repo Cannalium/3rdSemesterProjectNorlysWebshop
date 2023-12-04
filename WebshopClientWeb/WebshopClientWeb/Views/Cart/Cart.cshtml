@@ -7,7 +7,6 @@
 
 <h1>Indkøbskurv</h1>
 
-
 @if (Model != null)
 {
     <table class="table">
@@ -42,13 +41,13 @@
                         @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdPrice)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdQuantity)
+                        @Html.DisplayFor(modelItem => orderLine.OrderLineProdQuantity)
                     </td>
                     <td>
                         @(orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice)
                     </td>
                     <td>
-                        @if (orderLine.CartProduct.ProdQuantity > 0)
+                        @if (orderLine.OrderLineProdQuantity > 0)
                         {
                             using (Html.BeginForm("AddToCart", "Cart", new { prodId = orderLine.CartProduct.ProdId }, FormMethod.Post))
                             {
@@ -60,29 +59,38 @@
                         {
                             <p>Ikke tilgængelig.</p>
                         }
-                    <td>
-                        <a asp-controller="Cart" asp-action="EmptyCart" asp-route-prodId="@orderLine.CartProduct.ProdId">Empty Cart</a> |
-                        <a asp-action="RemoveFromCart" asp-route-prodId="@orderLine.CartProduct.ProdId">Fjern produkt</a>
+                    </td>
 
+                    <td>
+                        <a asp-action="RemoveFromCart" asp-route-prodId="@orderLine.CartProduct.ProdId" class="btn btn-sm btn-danger">
+                            <i class="fa fa-trash"></i> Fjern produkt
+                        </a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+
     @foreach (var orderLine in Model)
     {
         total += (orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice);
     }
+
     <div style="text-align: right; margin-top: 20px;">
-        <b>Total = @total</b>
+        <b>Total = @total kr.</b>
     </div>
 
-     <div style="text-align: right; margin-top: 20px;">
+    <div style="text-align: left; margin-top: 20px;">
+        <form asp-controller="Cart" asp-action="EmptyCart" method="post">
+            <button type="submit" class="btn btn-danger">Empty Cart</button>
+        </form>
+    </div>
+
+    <div style="text-align: right; margin-top: 20px;">
         <p>
-            <a asp-action="Create">Fuldfør køb</a>
+            <a asp-action="Create" class="btn btn-primary">Fuldfør køb</a>
         </p>
     </div>
-
 }
 else
 {

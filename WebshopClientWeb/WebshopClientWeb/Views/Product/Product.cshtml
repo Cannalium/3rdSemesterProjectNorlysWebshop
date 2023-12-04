@@ -1,4 +1,18 @@
 ﻿@model IEnumerable<WebshopClientWeb.Model.Product>
+<style>
+    .cart-notification 
+    {
+        position: fixed;
+        top: 65px;
+        right: 10px;
+        padding: 10px;
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+        border-radius: 5px;
+        z-index: 1000;
+    }
+</style>
 
 @{
     ViewData["Title"] = "Product";
@@ -69,7 +83,7 @@
                             <p>Ikke tilgængelig.</p>
                         }
                     </td>
-                    </td>
+                    
                     <td>
                         <!--<a asp-controller="OrderLine" asp-action="AddToCart" asp-route-prodId="@item.ProdId">Tilføj til kurv</a> -->
 
@@ -79,6 +93,21 @@
             }
         </tbody>
     </table>
+    @if (TempData["AddedToCartMessage"] != null)
+    {
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var addedToCartMessage = "@TempData["AddedToCartMessage"]";
+                var notification = document.createElement('div');
+                notification.className = 'cart-notification';
+                notification.innerHTML = addedToCartMessage;
+                document.body.appendChild(notification);
+                setTimeout(function () {
+                    notification.style.display = 'none';
+                }, 2300); // Hide the notification after 2,3 seconds 
+            });
+        </script>
+    }
 }
 else
 {
