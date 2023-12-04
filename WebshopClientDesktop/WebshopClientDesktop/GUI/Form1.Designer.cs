@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             panelHeader = new Panel();
+            btnAdministration = new Button();
             picBoxNorlysLogo = new PictureBox();
             panelMain = new Panel();
-            productsLbl = new Label();
             groupBoxCreateProduct = new GroupBox();
             radioBtnMerch = new RadioButton();
             radioBtnEvent = new RadioButton();
@@ -65,12 +65,25 @@
             // panelHeader
             // 
             panelHeader.BackColor = SystemColors.Window;
+            panelHeader.Controls.Add(btnAdministration);
             panelHeader.Controls.Add(picBoxNorlysLogo);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
             panelHeader.Size = new Size(1240, 87);
             panelHeader.TabIndex = 1;
+            // 
+            // btnAdministration
+            // 
+            btnAdministration.FlatAppearance.BorderSize = 0;
+            btnAdministration.FlatStyle = FlatStyle.Flat;
+            btnAdministration.Font = new Font("Sans Serif Collection", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            btnAdministration.Location = new Point(143, 24);
+            btnAdministration.Name = "btnAdministration";
+            btnAdministration.Size = new Size(181, 38);
+            btnAdministration.TabIndex = 23;
+            btnAdministration.Text = "Administration";
+            btnAdministration.UseVisualStyleBackColor = true;
             // 
             // picBoxNorlysLogo
             // 
@@ -84,24 +97,13 @@
             // panelMain
             // 
             panelMain.BackColor = SystemColors.Window;
-            panelMain.Controls.Add(productsLbl);
             panelMain.Controls.Add(groupBoxCreateProduct);
             panelMain.Controls.Add(groupListBox);
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(0, 87);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(1240, 650);
+            panelMain.Size = new Size(1240, 566);
             panelMain.TabIndex = 2;
-            // 
-            // productsLbl
-            // 
-            productsLbl.AutoSize = true;
-            productsLbl.Font = new Font("Microsoft Sans Serif", 16.2F, FontStyle.Bold, GraphicsUnit.Point);
-            productsLbl.Location = new Point(535, 16);
-            productsLbl.Name = "productsLbl";
-            productsLbl.Size = new Size(146, 32);
-            productsLbl.TabIndex = 25;
-            productsLbl.Text = "Produkter";
             // 
             // groupBoxCreateProduct
             // 
@@ -120,19 +122,20 @@
             groupBoxCreateProduct.Controls.Add(lblProductDescription);
             groupBoxCreateProduct.Controls.Add(lblProductName);
             groupBoxCreateProduct.Controls.Add(btnCreateProduct);
-            groupBoxCreateProduct.Location = new Point(595, 70);
+            groupBoxCreateProduct.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            groupBoxCreateProduct.Location = new Point(658, 27);
             groupBoxCreateProduct.Name = "groupBoxCreateProduct";
             groupBoxCreateProduct.Size = new Size(534, 514);
             groupBoxCreateProduct.TabIndex = 24;
             groupBoxCreateProduct.TabStop = false;
-            groupBoxCreateProduct.Text = "Detaljer";
+            groupBoxCreateProduct.Text = "Produktdetaljer";
             // 
             // radioBtnMerch
             // 
             radioBtnMerch.AutoSize = true;
             radioBtnMerch.Location = new Point(106, 405);
             radioBtnMerch.Name = "radioBtnMerch";
-            radioBtnMerch.Size = new Size(71, 24);
+            radioBtnMerch.Size = new Size(79, 27);
             radioBtnMerch.TabIndex = 22;
             radioBtnMerch.TabStop = true;
             radioBtnMerch.Text = "Merch";
@@ -144,7 +147,7 @@
             radioBtnEvent.AutoSize = true;
             radioBtnEvent.Location = new Point(20, 405);
             radioBtnEvent.Name = "radioBtnEvent";
-            radioBtnEvent.Size = new Size(66, 24);
+            radioBtnEvent.Size = new Size(73, 27);
             radioBtnEvent.TabIndex = 21;
             radioBtnEvent.TabStop = true;
             radioBtnEvent.Text = "Event";
@@ -166,7 +169,7 @@
             lblProcessCreate.AutoSize = true;
             lblProcessCreate.Location = new Point(19, 489);
             lblProcessCreate.Name = "lblProcessCreate";
-            lblProcessCreate.Size = new Size(15, 20);
+            lblProcessCreate.Size = new Size(18, 23);
             lblProcessCreate.TabIndex = 19;
             lblProcessCreate.Text = "..";
             // 
@@ -175,13 +178,13 @@
             lblProductType.AutoSize = true;
             lblProductType.Location = new Point(19, 372);
             lblProductType.Name = "lblProductType";
-            lblProductType.Size = new Size(96, 20);
+            lblProductType.Size = new Size(112, 23);
             lblProductType.TabIndex = 17;
             lblProductType.Text = "Produkt type:";
             // 
             // btnEditProduct
             // 
-            btnEditProduct.Location = new Point(143, 457);
+            btnEditProduct.Location = new Point(162, 457);
             btnEditProduct.Name = "btnEditProduct";
             btnEditProduct.Size = new Size(132, 29);
             btnEditProduct.TabIndex = 2;
@@ -193,7 +196,7 @@
             // 
             txtBoxProductQuantity.Location = new Point(19, 320);
             txtBoxProductQuantity.Name = "txtBoxProductQuantity";
-            txtBoxProductQuantity.Size = new Size(94, 27);
+            txtBoxProductQuantity.Size = new Size(94, 30);
             txtBoxProductQuantity.TabIndex = 16;
             // 
             // lblProductQuantity
@@ -201,7 +204,7 @@
             lblProductQuantity.AutoSize = true;
             lblProductQuantity.Location = new Point(19, 297);
             lblProductQuantity.Name = "lblProductQuantity";
-            lblProductQuantity.Size = new Size(47, 20);
+            lblProductQuantity.Size = new Size(54, 23);
             lblProductQuantity.TabIndex = 15;
             lblProductQuantity.Text = "Antal:";
             // 
@@ -209,7 +212,7 @@
             // 
             txtBoxPrice.Location = new Point(19, 258);
             txtBoxPrice.Name = "txtBoxPrice";
-            txtBoxPrice.Size = new Size(94, 27);
+            txtBoxPrice.Size = new Size(94, 30);
             txtBoxPrice.TabIndex = 14;
             // 
             // lblPrice
@@ -217,7 +220,7 @@
             lblPrice.AutoSize = true;
             lblPrice.Location = new Point(19, 235);
             lblPrice.Name = "lblPrice";
-            lblPrice.Size = new Size(35, 20);
+            lblPrice.Size = new Size(41, 23);
             lblPrice.TabIndex = 13;
             lblPrice.Text = "Pris:";
             // 
@@ -233,7 +236,7 @@
             // 
             txtBoxProductName.Location = new Point(19, 77);
             txtBoxProductName.Name = "txtBoxProductName";
-            txtBoxProductName.Size = new Size(388, 27);
+            txtBoxProductName.Size = new Size(388, 30);
             txtBoxProductName.TabIndex = 11;
             // 
             // lblProductDescription
@@ -241,7 +244,7 @@
             lblProductDescription.AutoSize = true;
             lblProductDescription.Location = new Point(19, 113);
             lblProductDescription.Name = "lblProductDescription";
-            lblProductDescription.Size = new Size(84, 20);
+            lblProductDescription.Size = new Size(95, 23);
             lblProductDescription.TabIndex = 10;
             lblProductDescription.Text = "Beskrivelse:";
             // 
@@ -250,7 +253,7 @@
             lblProductName.AutoSize = true;
             lblProductName.Location = new Point(19, 51);
             lblProductName.Name = "lblProductName";
-            lblProductName.Size = new Size(46, 20);
+            lblProductName.Size = new Size(54, 23);
             lblProductName.TabIndex = 9;
             lblProductName.Text = "Navn:";
             // 
@@ -258,7 +261,7 @@
             // 
             btnCreateProduct.Location = new Point(19, 457);
             btnCreateProduct.Name = "btnCreateProduct";
-            btnCreateProduct.Size = new Size(118, 29);
+            btnCreateProduct.Size = new Size(137, 29);
             btnCreateProduct.TabIndex = 6;
             btnCreateProduct.Text = "Opret produkt";
             btnCreateProduct.UseVisualStyleBackColor = true;
@@ -272,19 +275,20 @@
             groupListBox.Controls.Add(btnGetProducts);
             groupListBox.Controls.Add(listBoxProducts);
             groupListBox.Controls.Add(btnDeleteProduct);
-            groupListBox.Location = new Point(39, 70);
+            groupListBox.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
+            groupListBox.Location = new Point(49, 27);
             groupListBox.Name = "groupListBox";
             groupListBox.Size = new Size(550, 514);
             groupListBox.TabIndex = 13;
             groupListBox.TabStop = false;
-            groupListBox.Text = "Produkter";
+            groupListBox.Text = "Produktliste";
             // 
             // radioBtnMerchType
             // 
             radioBtnMerchType.AutoSize = true;
-            radioBtnMerchType.Location = new Point(433, 131);
+            radioBtnMerchType.Location = new Point(412, 135);
             radioBtnMerchType.Name = "radioBtnMerchType";
-            radioBtnMerchType.Size = new Size(71, 24);
+            radioBtnMerchType.Size = new Size(79, 27);
             radioBtnMerchType.TabIndex = 23;
             radioBtnMerchType.TabStop = true;
             radioBtnMerchType.Text = "Merch";
@@ -294,9 +298,9 @@
             // radioBtnEventType
             // 
             radioBtnEventType.AutoSize = true;
-            radioBtnEventType.Location = new Point(433, 102);
+            radioBtnEventType.Location = new Point(412, 102);
             radioBtnEventType.Name = "radioBtnEventType";
-            radioBtnEventType.Size = new Size(66, 24);
+            radioBtnEventType.Size = new Size(73, 27);
             radioBtnEventType.TabIndex = 23;
             radioBtnEventType.TabStop = true;
             radioBtnEventType.Text = "Event";
@@ -308,15 +312,15 @@
             lblProcessText.AutoSize = true;
             lblProcessText.Location = new Point(23, 489);
             lblProcessText.Name = "lblProcessText";
-            lblProcessText.Size = new Size(15, 20);
+            lblProcessText.Size = new Size(18, 23);
             lblProcessText.TabIndex = 6;
             lblProcessText.Text = "..";
             // 
             // btnGetProducts
             // 
-            btnGetProducts.Location = new Point(433, 64);
+            btnGetProducts.Location = new Point(412, 67);
             btnGetProducts.Name = "btnGetProducts";
-            btnGetProducts.Size = new Size(114, 29);
+            btnGetProducts.Size = new Size(124, 29);
             btnGetProducts.TabIndex = 5;
             btnGetProducts.Text = "Se produkter";
             btnGetProducts.UseVisualStyleBackColor = true;
@@ -325,20 +329,20 @@
             // listBoxProducts
             // 
             listBoxProducts.FormattingEnabled = true;
-            listBoxProducts.ItemHeight = 20;
+            listBoxProducts.ItemHeight = 23;
             listBoxProducts.Location = new Point(23, 42);
             listBoxProducts.Name = "listBoxProducts";
-            listBoxProducts.Size = new Size(383, 444);
+            listBoxProducts.Size = new Size(383, 441);
             listBoxProducts.TabIndex = 4;
             listBoxProducts.SelectedIndexChanged += ListBoxProducts_SelectedIndexChanged;
             // 
             // btnDeleteProduct
             // 
-            btnDeleteProduct.Location = new Point(433, 457);
+            btnDeleteProduct.Location = new Point(412, 454);
             btnDeleteProduct.Name = "btnDeleteProduct";
-            btnDeleteProduct.Size = new Size(101, 29);
+            btnDeleteProduct.Size = new Size(124, 29);
             btnDeleteProduct.TabIndex = 3;
-            btnDeleteProduct.Text = "Slet";
+            btnDeleteProduct.Text = "Slet produkt";
             btnDeleteProduct.UseVisualStyleBackColor = true;
             btnDeleteProduct.Click += BtnDeleteProduct_Click;
             // 
@@ -347,7 +351,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1240, 737);
+            ClientSize = new Size(1240, 653);
             Controls.Add(panelMain);
             Controls.Add(panelHeader);
             Name = "Form1";
@@ -357,7 +361,6 @@
             panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).EndInit();
             panelMain.ResumeLayout(false);
-            panelMain.PerformLayout();
             groupBoxCreateProduct.ResumeLayout(false);
             groupBoxCreateProduct.PerformLayout();
             groupListBox.ResumeLayout(false);
@@ -392,6 +395,6 @@
         private Label lblProductDescription;
         private Label lblProductName;
         private Button btnCreateProduct;
-        private Label productsLbl;
+        private Button btnAdministration;
     }
 }
