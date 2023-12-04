@@ -14,24 +14,5 @@ namespace WebshopClientWeb.ServiceLayer
         {
             _orderLineService = new ServiceConnection(_serviceBaseUrl);
         }
-
-        public static void UpdateCartProd(List<OrderLine> cProducts, OrderLine newCartProduct)
-        {
-            bool wasInCart = false;
-            if (cProducts != null && newCartProduct != null)
-            {
-                foreach (OrderLine cProduct in cProducts)
-                {
-                    if (cProduct.CartProduct != null && newCartProduct.CartProduct != null)
-                    {
-                        if (cProduct.CartProduct.ProdId == newCartProduct.CartProduct.ProdId)
-                        {
-                            cProduct.OrderLineProdQuantity += newCartProduct.OrderLineProdQuantity;
-                            wasInCart = true;
-                        }
-                    }
-                }
-            }
-        }
     }
 }
