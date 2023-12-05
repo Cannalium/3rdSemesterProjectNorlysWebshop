@@ -19,6 +19,10 @@ namespace WebshopClientDesktop
 
         }
 
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            await RefreshListBoxDataSource();
+        }
 
         private void ListBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -63,34 +67,35 @@ namespace WebshopClientDesktop
 
         private async void BtnGetProducts_Click(object sender, EventArgs e)
         {
-            Logger.LogInfo("Button getProducts clicked");
-            string processText = "OK";
-            List<Product> fetchedProducts = await _productControl.GetAllProducts();
-
-            if (fetchedProducts != null)
+            try
             {
-                if (fetchedProducts.Count >= 1)
-                {
-                    processText = "Produkter hentet.";
-                }
-                else
-                {
-                    processText = "Ingen events fundet.";
-                }
+                Logger.LogInfo("Button getProducts clicked");
+
+                //Fetching the list of products
+                List<Product> fetchedProducts = await _productControl.GetAllProducts();
+
+                //Logging the results
+                string processText = (fetchedProducts != null && fetchedProducts.Count >= 1) ? "Produkter hentet." : "Ingen events fundet.";
+                Logger.LogInfo(processText);
+
+                //UI
+                //The listbox gets filled
+                //The UI gets reset
+                //The selected products gets cleared from the populated textboxes
+                //The label shows if everything went ok or not
+                listBoxProducts.DataSource = fetchedProducts;
+                ResetUiTexts();
+                listBoxProducts.ClearSelected();
+                lblProcessText.Text = processText;
             }
-            else
+            catch (Exception ex)
             {
-                processText = "Der er sket en fejl.";
+                //Error is logged and displayed
+                Logger.LogError(ex);
+                MessageBox.Show("Der opstod en fejl ved hentning af produkter.", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            listBoxProducts.DataSource = fetchedProducts;
-
-            ResetUiTexts();
-
-            listBoxProducts.ClearSelected();
-
-            lblProcessText.Text = processText;
         }
+
 
         private void RadioBtn_CheckedChanged(object sender, EventArgs e)
         {
@@ -124,85 +129,145 @@ namespace WebshopClientDesktop
 
         private async void BtnDeleteProduct_Click(object sender, EventArgs e)
         {
-            if (listBoxProducts.SelectedItem is not null)
+            try
             {
+                if (listBoxProducts.SelectedItem == null)
+                {
+                    //Log and display a message
+                    lblProcessText.Text = "Vælg venligst et event for at slette";
+                    Logger.LogWarning("Delete operation canceled: No item selected.");
+                    return;
+                }
+
+                //The user is asked for confirmation
+                DialogResult result = MessageBox.Show("Er du sikker på, at du vil slette dette produkt?", "Bekræft sletning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                if (result != DialogResult.Yes)
+                {
+                    //Log and display a message
+                    lblProcessText.Text = "Sletning afbrudt.";
+                    Logger.LogInfo("Delete operation canceled by user.");
+                    return;
+                }
+
+                //Product deletion process
                 Product selectedProduct = (Product)listBoxProducts.SelectedItem;
 
+                // Attempt to delete the product
                 bool isDeleted = await _productControl.DeleteProduct(selectedProduct.ProdId);
 
+                // Refresh UI
                 await RefreshListBoxDataSource();
                 ResetUiTexts();
 
+                // Log and display the result
                 lblProcessText.Text = isDeleted ? "Event slettet!" : "Der er sket en uventet fejl.";
+                Logger.LogInfo(isDeleted ? "Event slettet!" : "Der er sket en uventet fejl.");
             }
-            else
+            catch (Exception ex)
             {
-                lblProcessText.Text = "Vælg venligst et event for at slette";
+                // Log and display the error
+                Logger.LogError(ex);
+                MessageBox.Show("Der opstod en fejl ved sletning af produkt.", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+
         private async void BtnCreateProduct_Click(object sender, EventArgs e)
         {
-            int insertedId = -1;
-            string messageText;
-
-            //Values from textboxes fetched
-            string inputProdName = txtBoxProductName.Text;
-            string inputProdDescription = txtBoxProductDescription.Text;
-            decimal inputProdPrice = decimal.Parse(txtBoxPrice.Text);
-            int inputProdQuantity = int.Parse(txtBoxProductQuantity.Text);
-            string selectedProductType = GetSelectedProductType();
-
-            //Check if inputs are ok
-            if (InputIsOk(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity))
+            try
             {
-                //Controllayer is called to save data
-                insertedId = await _productControl.CreateProduct(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity, selectedProductType);
-                messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
+                // Values from textboxes fetched
+                string inputProdName = txtBoxProductName.Text;
+                string inputProdDescription = txtBoxProductDescription.Text;
+                decimal inputProdPrice;
+                int inputProdQuantity;
+
+                // Validate and parse input
+                if (!InputIsOk(inputProdName, inputProdDescription, txtBoxPrice.Text, txtBoxProductQuantity.Text, out inputProdPrice, out inputProdQuantity))
+                {
+                    // Log and display a message
+                    lblProcessCreate.Text = "Venligst indtast valid information.";
+                    Logger.LogWarning("Create operation canceled: Invalid input.");
+                    return;
+                }
+
+                // Continue with product creation
+                int insertedId = await _productControl.CreateProduct(inputProdName, inputProdDescription, inputProdPrice, inputProdQuantity, GetSelectedProductType());
+
+                // Log and display the result
+                string messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
+                lblProcessCreate.Text = messageText;
+                Logger.LogInfo(messageText);
+
+                // Reset UI and refresh list
                 ResetUiTexts();
                 await RefreshListBoxDataSource();
 
+                // Display a MessageBox with the created product message
+                MessageBox.Show($"Produkt oprettet!", "Produkt oprettet", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            else
+            catch (Exception ex)
             {
-                messageText = "Venligst indtast valid information.";
+                // Log and display the error
+                Logger.LogError(ex);
+                MessageBox.Show("Der opstod en fejl ved oprettelse af produkt.", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            lblProcessCreate.Text = messageText;
         }
 
         private async void BtnEditProduct_Click(object sender, EventArgs e)
         {
-            if (listBoxProducts.SelectedItem is not null)
+            try
             {
-                // Get updated values from your textboxes or other input controls
-                string updatedProdName = txtBoxProductName.Text;
-                string updatedProdDescription = txtBoxProductDescription.Text;
-                decimal updatedProdPrice = decimal.Parse(txtBoxPrice.Text);
-                int updatedProdQuantity = int.Parse(txtBoxProductQuantity.Text);
-
-                // Get the selected product from the list
-                Product selectedProduct = (Product)listBoxProducts.SelectedItem;
-
-                if (selectedProduct != null)
+                if (listBoxProducts.SelectedItem is not null)
                 {
+                    // Get updated values from your textboxes or other input controls
+                    string updatedProdName = txtBoxProductName.Text;
+                    string updatedProdDescription = txtBoxProductDescription.Text;
+                    decimal updatedProdPrice;
+                    int updatedProdQuantity;
+
+                    // Validate and parse input
+                    if (!InputIsOk(updatedProdName, updatedProdDescription, txtBoxPrice.Text, txtBoxProductQuantity.Text, out updatedProdPrice, out updatedProdQuantity))
+                    {
+                        // Log and display a message
+                        lblProcessCreate.Text = "Venligst indtast valid information.";
+                        Logger.LogWarning("Edit operation canceled: Invalid input.");
+                        return;
+                    }
+
+                    // Continue with product update
+                    Product selectedProduct = (Product)listBoxProducts.SelectedItem;
                     selectedProduct.ProdName = updatedProdName;
                     selectedProduct.ProdDescription = updatedProdDescription;
                     selectedProduct.ProdPrice = updatedProdPrice;
                     selectedProduct.ProdQuantity = updatedProdQuantity;
+
+                    // Call the update method from the service
+                    bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
+
+                    ResetUiTexts();
+                    await RefreshListBoxDataSource();
+
+                    // Log and display the result
+                    lblProcessCreate.Text = isUpdated ? $"Produkt opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
+                    Logger.LogInfo(isUpdated ? $"Produkt opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.");
+
+                    // Display a MessageBox with the created product message
+                    MessageBox.Show($"Produkt opdateret!", "Produkt opdateret!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                // Call the update method from the service
-                bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
-
-                ResetUiTexts();
-                await RefreshListBoxDataSource();
-
-                lblProcessCreate.Text = isUpdated ? "Event opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
+                else
+                {
+                    // Log and display a message
+                    lblProcessCreate.Text = "Vælg venligst et event at opdatere.";
+                    Logger.LogWarning("Edit operation canceled: No item selected.");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                lblProcessCreate.Text = "Vælg venligst et event at opdatere.";
+                // Log and display the error
+                Logger.LogError(ex);
+                MessageBox.Show("Der opstod en fejl ved opdatering af produkt.", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -247,18 +312,27 @@ namespace WebshopClientDesktop
             listBoxProducts.ClearSelected();
         }
 
-        private bool InputIsOk(string prodName, string prodDescription, decimal prodPrice, int prodQuantity)
+        private bool InputIsOk(string prodName, string prodDescription, string prodPriceText, string prodQuantityText, out decimal prodPrice, out int prodQuantity)
         {
-            bool isValidInput = false;
+            prodPrice = 0;
+            prodQuantity = 0;
 
-            if (!string.IsNullOrWhiteSpace(prodName) && !string.IsNullOrWhiteSpace(prodDescription))
+            if (string.IsNullOrWhiteSpace(prodName) || string.IsNullOrWhiteSpace(prodDescription))
             {
-                if (prodName.Length > 1 && prodDescription.Length > 1 && prodQuantity > 0 && prodPrice > 0)
-                {
-                    isValidInput = true;
-                }
+                return false;
             }
-            return isValidInput;
+
+            if (!decimal.TryParse(prodPriceText, out prodPrice) || !int.TryParse(prodQuantityText, out prodQuantity))
+            {
+                return false;
+            }
+
+            if (prodName.Length <= 1 || prodDescription.Length <= 1 || prodQuantity <= 0 || prodPrice <= 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private string GetSelectedProductType()
@@ -275,9 +349,34 @@ namespace WebshopClientDesktop
             return "";
         }
 
-        //private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        //{
-        //    productPageuc1.StopUpdateTimer();
-        //}
+        private async void ComboBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string? selectedOption = comboBoxProducts.SelectedItem?.ToString();
+
+            try
+            {
+                switch (selectedOption)
+                {
+                    case "Alle produkter":
+                        await _productControl.GetAllProducts();
+                        break;
+                    case "Events":
+                        await _productControl.GetAllProductsByEventType();
+                        break;
+                    case "Merch":
+                        await _productControl.GetAllProductsByMerchType();
+                        break;
+                    default:
+                        // Handle unexpected case or do nothing
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex);
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+        }
     }
 }

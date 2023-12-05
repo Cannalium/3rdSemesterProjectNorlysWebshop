@@ -55,6 +55,7 @@
             btnGetProducts = new Button();
             listBoxProducts = new ListBox();
             btnDeleteProduct = new Button();
+            comboBoxProducts = new ComboBox();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).BeginInit();
             panelMain.SuspendLayout();
@@ -269,6 +270,7 @@
             // 
             // groupListBox
             // 
+            groupListBox.Controls.Add(comboBoxProducts);
             groupListBox.Controls.Add(radioBtnMerchType);
             groupListBox.Controls.Add(radioBtnEventType);
             groupListBox.Controls.Add(lblProcessText);
@@ -346,6 +348,18 @@
             btnDeleteProduct.UseVisualStyleBackColor = true;
             btnDeleteProduct.Click += BtnDeleteProduct_Click;
             // 
+            // comboBoxProducts
+            // 
+            comboBoxProducts.FormattingEnabled = true;
+            comboBoxProducts.Location = new Point(412, 168);
+            comboBoxProducts.Name = "comboBoxProducts";
+            comboBoxProducts.Size = new Size(124, 31);
+            comboBoxProducts.TabIndex = 24;
+            comboBoxProducts.Items.Add("Alle produkter");
+            comboBoxProducts.Items.Add("Events");
+            comboBoxProducts.Items.Add("Merch");
+            comboBoxProducts.SelectedIndexChanged += ComboBoxProducts_SelectedIndexChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -358,6 +372,7 @@
             SizeGripStyle = SizeGripStyle.Show;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Norlys";
+            Load += Form1_Load;
             panelHeader.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).EndInit();
             panelMain.ResumeLayout(false);
@@ -396,5 +411,6 @@
         private Label lblProductName;
         private Button btnCreateProduct;
         private Button btnAdministration;
+        private ComboBox comboBoxProducts;
     }
 }
