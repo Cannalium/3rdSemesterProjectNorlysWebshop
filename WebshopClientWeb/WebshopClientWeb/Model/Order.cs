@@ -2,17 +2,15 @@
 {
     public class Order
     {
-        public Order() { }
+        public Person Person { get; set; }
+        public decimal OrderPrice { get; set; }
+        public List<OrderLine> OrderLines { get; set; }  
 
-        public Order(int orderId, DateTime orderDate)
+        public Order(Person person, decimal orderPrice, List<OrderLine> orderLines)
         {
-            OrderId = orderId;
-            OrderDate = orderDate;
+            Person = person;
+            OrderPrice = orderPrice;
             OrderLines = new List<OrderLine>();
-        }
-
-        public int OrderId { get; set; }
-        public DateTime OrderDate { get; set; }
-        public List<OrderLine> OrderLines { get; set; } = new List<OrderLine>();    
+        }  
     }
 }

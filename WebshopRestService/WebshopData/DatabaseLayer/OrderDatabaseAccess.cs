@@ -40,7 +40,7 @@ namespace WebshopData.DatabaseLayer
                     using (SqlCommand cmdOrder = conn.CreateCommand())
                     {
                         cmdOrder.CommandText = "INSERT INTO [Order] (personId_FK, orderDate, orderPrice) OUTPUT INSERTED.OrderId Values(@personId, @orderDate, @orderPrice)";
-                        cmdOrder.Parameters.AddWithValue("personId", entity.Person.PersonId); //tjek om "" skal være fk eller ikke
+                        cmdOrder.Parameters.AddWithValue("personId", entity.Person.PersonId);
                         cmdOrder.Parameters.AddWithValue("orderDate", DateTime.Now);
                         cmdOrder.Parameters.AddWithValue("orderPrice", entity.OrderPrice); //SPØRG LARS MEGET VIGTIGT
                         insertedId = (int)cmdOrder.ExecuteScalar(); // Fetch orderId (from OUTPUT INSERTED.OrderId)

@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using WebshopClientWeb.Model;
 using WebshopClientWeb.ServiceLayer;
 
 namespace WebshopClientWeb.BusinessLogicLayer
@@ -12,6 +13,13 @@ namespace WebshopClientWeb.BusinessLogicLayer
         public OrderDataControl()
         {
             _OrderAccess = new OrderServiceAccess();
+        }
+
+        public async Task<int> CreateOrder(Order orderToCreate)
+        {
+            int insertedOrderId = await _OrderAccess.CreateOrder(orderToCreate);
+
+            return insertedOrderId;
         }
     }
 }
