@@ -49,13 +49,10 @@
             lblProductName = new Label();
             btnCreateProduct = new Button();
             groupListBox = new GroupBox();
-            radioBtnMerchType = new RadioButton();
-            radioBtnEventType = new RadioButton();
+            comboBoxProducts = new ComboBox();
             lblProcessText = new Label();
-            btnGetProducts = new Button();
             listBoxProducts = new ListBox();
             btnDeleteProduct = new Button();
-            comboBoxProducts = new ComboBox();
             panelHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)picBoxNorlysLogo).BeginInit();
             panelMain.SuspendLayout();
@@ -271,10 +268,7 @@
             // groupListBox
             // 
             groupListBox.Controls.Add(comboBoxProducts);
-            groupListBox.Controls.Add(radioBtnMerchType);
-            groupListBox.Controls.Add(radioBtnEventType);
             groupListBox.Controls.Add(lblProcessText);
-            groupListBox.Controls.Add(btnGetProducts);
             groupListBox.Controls.Add(listBoxProducts);
             groupListBox.Controls.Add(btnDeleteProduct);
             groupListBox.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point);
@@ -285,29 +279,17 @@
             groupListBox.TabStop = false;
             groupListBox.Text = "Produktliste";
             // 
-            // radioBtnMerchType
+            // comboBoxProducts
             // 
-            radioBtnMerchType.AutoSize = true;
-            radioBtnMerchType.Location = new Point(412, 135);
-            radioBtnMerchType.Name = "radioBtnMerchType";
-            radioBtnMerchType.Size = new Size(79, 27);
-            radioBtnMerchType.TabIndex = 23;
-            radioBtnMerchType.TabStop = true;
-            radioBtnMerchType.Text = "Merch";
-            radioBtnMerchType.UseVisualStyleBackColor = true;
-            radioBtnMerchType.CheckedChanged += RadioBtnMerchType_CheckedChanged;
-            // 
-            // radioBtnEventType
-            // 
-            radioBtnEventType.AutoSize = true;
-            radioBtnEventType.Location = new Point(412, 102);
-            radioBtnEventType.Name = "radioBtnEventType";
-            radioBtnEventType.Size = new Size(73, 27);
-            radioBtnEventType.TabIndex = 23;
-            radioBtnEventType.TabStop = true;
-            radioBtnEventType.Text = "Event";
-            radioBtnEventType.UseVisualStyleBackColor = true;
-            radioBtnEventType.CheckedChanged += RadioBtnEventType_CheckedChanged;
+            comboBoxProducts.AccessibleDescription = "";
+            comboBoxProducts.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxProducts.FormattingEnabled = true;
+            comboBoxProducts.Items.AddRange(new object[] { "Alle produkter", "Events", "Merch" });
+            comboBoxProducts.Location = new Point(412, 42);
+            comboBoxProducts.Name = "comboBoxProducts";
+            comboBoxProducts.Size = new Size(132, 31);
+            comboBoxProducts.TabIndex = 24;
+            comboBoxProducts.SelectedIndexChanged += ComboBoxProducts_SelectedIndexChanged;
             // 
             // lblProcessText
             // 
@@ -317,16 +299,6 @@
             lblProcessText.Size = new Size(18, 23);
             lblProcessText.TabIndex = 6;
             lblProcessText.Text = "..";
-            // 
-            // btnGetProducts
-            // 
-            btnGetProducts.Location = new Point(412, 67);
-            btnGetProducts.Name = "btnGetProducts";
-            btnGetProducts.Size = new Size(124, 29);
-            btnGetProducts.TabIndex = 5;
-            btnGetProducts.Text = "Se produkter";
-            btnGetProducts.UseVisualStyleBackColor = true;
-            btnGetProducts.Click += BtnGetProducts_Click;
             // 
             // listBoxProducts
             // 
@@ -347,18 +319,6 @@
             btnDeleteProduct.Text = "Slet produkt";
             btnDeleteProduct.UseVisualStyleBackColor = true;
             btnDeleteProduct.Click += BtnDeleteProduct_Click;
-            // 
-            // comboBoxProducts
-            // 
-            comboBoxProducts.FormattingEnabled = true;
-            comboBoxProducts.Location = new Point(412, 168);
-            comboBoxProducts.Name = "comboBoxProducts";
-            comboBoxProducts.Size = new Size(124, 31);
-            comboBoxProducts.TabIndex = 24;
-            comboBoxProducts.Items.Add("Alle produkter");
-            comboBoxProducts.Items.Add("Events");
-            comboBoxProducts.Items.Add("Merch");
-            comboBoxProducts.SelectedIndexChanged += ComboBoxProducts_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -388,10 +348,7 @@
         private Panel panelMain;
         private PictureBox picBoxNorlysLogo;
         private GroupBox groupListBox;
-        private RadioButton radioBtnMerchType;
-        private RadioButton radioBtnEventType;
         private Label lblProcessText;
-        private Button btnGetProducts;
         private ListBox listBoxProducts;
         private Button btnDeleteProduct;
         private GroupBox groupBoxCreateProduct;

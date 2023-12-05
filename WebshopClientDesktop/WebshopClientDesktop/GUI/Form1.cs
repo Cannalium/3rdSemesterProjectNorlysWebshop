@@ -107,26 +107,6 @@ namespace WebshopClientDesktop
             }
         }
 
-        private async void RadioBtnMerchType_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioBtnMerchType.Checked)
-            {
-                List<Product> productsByType = await _productControl.GetAllProductsByMerchType();
-                listBoxProducts.DataSource = productsByType;
-                ResetUiTexts();
-            }
-        }
-
-        private async void RadioBtnEventType_CheckedChanged(object sender, EventArgs e)
-        {
-            if (radioBtnEventType.Checked)
-            {
-                List<Product> productsByType = await _productControl.GetAllProductsByEventType();
-                listBoxProducts.DataSource = productsByType;
-                ResetUiTexts();
-            }
-        }
-
         private async void BtnDeleteProduct_Click(object sender, EventArgs e)
         {
             try
@@ -279,16 +259,12 @@ namespace WebshopClientDesktop
             //Clear the selected radio button
             radioBtnEvent.Checked = false;
             radioBtnMerch.Checked = false;
-        }
 
-        private void RadioBtnMerch_CheckedChanged(object sender, EventArgs e)
-        {
+            //Clear combobox
+            comboBoxProducts.SelectedIndex = -1;
 
-        }
-
-        private void RadioBtnEvent_CheckedChanged(object sender, EventArgs e)
-        {
-
+            // Clear the data source of the ListBox
+            listBoxProducts.DataSource = null;
         }
 
         public void ResetUiTexts()
@@ -309,6 +285,7 @@ namespace WebshopClientDesktop
         {
             List<Product> allProducts = await _productControl.GetAllProducts();
             listBoxProducts.DataSource = allProducts;
+            radioBtnEvent.Checked = false;
             listBoxProducts.ClearSelected();
         }
 
@@ -355,28 +332,36 @@ namespace WebshopClientDesktop
 
             try
             {
-                switch (selectedOption)
+                List<Product> productList = new List<Product>();
+
+                if (selectedOption == "Alle produkter")
                 {
-                    case "Alle produkter":
-                        await _productControl.GetAllProducts();
-                        break;
-                    case "Events":
-                        await _productControl.GetAllProductsByEventType();
-                        break;
-                    case "Merch":
-                        await _productControl.GetAllProductsByMerchType();
-                        break;
-                    default:
-                        // Handle unexpected case or do nothing
-                        break;
+                    productList = await _productControl.GetAllProducts();
                 }
+                else if (selectedOption == "Merch")
+                {
+                    productList = await _productControl.GetAllProductsByMerchType();
+                }
+                else if (selectedOption == "Events")
+                {
+                    productList = await _productControl.GetAllProductsByEventType();
+                }
+
+                UpdateListBoxDataSource(productList);
             }
             catch (Exception ex)
             {
                 Logger.LogError(ex);
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
+
+        private void UpdateListBoxDataSource(List<Product> productList)
+        {
+            listBoxProducts.DataSource = null; // Clear the current data source
+            listBoxProducts.DataSource = productList;
+            listBoxProducts.ClearSelected();
         }
     }
 }
