@@ -20,11 +20,19 @@ namespace WebshopRestService.Controllers
 
         // URL: api/products
         [HttpGet]
-        public ActionResult<List<ProductDTORead>>? Get()
+        public ActionResult<List<ProductDTORead>>? Get(string? prodType = "%")
         {
             ActionResult<List<ProductDTORead>> foundReturn;
+            List<ProductDTORead>? foundProducts = null;
             //Retrieve data converted to DTO
-            List<ProductDTORead>? foundProducts = _productDataController.Get();
+            if (prodType != "%")
+            {
+                foundProducts = _productDataController.GetProductByType(prodType);
+            }
+            else
+            {
+                foundProducts = _productDataController.Get();
+            }
             //evaluate
             if (foundProducts != null)
             {
@@ -72,32 +80,32 @@ namespace WebshopRestService.Controllers
             return foundReturn; // Send return to client
         }
 
-        // URL: api/products/type/{prodType}
-        [HttpGet, Route("type/{prodType}")]
-        public ActionResult<List<ProductDTORead>> GetProductByType(string prodType)
-        {
-            ActionResult<List<ProductDTORead>> foundReturn;
-            try
-            {
-                //Retieve data converted to DTO
-                List<ProductDTORead> foundProductsByType = _productDataController.GetProductByType(prodType);
+        //// URL: api/products/type/{prodType}
+        //[HttpGet(template: "GetProductByType")]
+        //public ActionResult<List<ProductDTORead>> GetProductByType(string prodType)
+        //{
+        //    ActionResult<List<ProductDTORead>> foundReturn;
+        //    try
+        //    {
+        //        //Retieve data converted to DTO
+        //        List<ProductDTORead> foundProductsByType = _productDataController.GetProductByType(prodType);
 
-                //Evaluate
-                if (foundProductsByType != null)
-                {
-                    foundReturn = Ok(foundProductsByType); //OK found product by ID statuscode 200
-                }
-                else
-                {
-                    foundReturn = new StatusCodeResult(204); // OK not found, no content statuscode 204
-                }
-            }
-            catch
-            {
-                foundReturn = new StatusCodeResult(500); // Internal server error   
-            }
-            return foundReturn; // Send return to client
-        }
+        //        //Evaluate
+        //        if (foundProductsByType != null)
+        //        {
+        //            foundReturn = Ok(foundProductsByType); //OK found product by ID statuscode 200
+        //        }
+        //        else
+        //        {
+        //            foundReturn = new StatusCodeResult(204); // OK not found, no content statuscode 204
+        //        }
+        //    }
+        //    catch
+        //    {
+        //        foundReturn = new StatusCodeResult(500); // Internal server error   
+        //    }
+        //    return foundReturn; // Send return to client
+        //}
 
         // URL: api/products
         [HttpPost]
