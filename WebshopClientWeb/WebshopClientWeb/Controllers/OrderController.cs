@@ -17,8 +17,6 @@ namespace WebshopClientWeb.Controllers
             _orderDataControl = new OrderDataControl();
             _personDataControl = new PersonDataControl();
         }
-
-        [HttpPost]
         public async Task<ActionResult> CreateOrder()
         {
             //person fra login metode?

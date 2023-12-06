@@ -14,9 +14,9 @@ namespace WebshopClientWeb.Model
             
         }
 
-        public Person(string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) : this(email)
+        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) : this(email)
         {
-          
+            PersonId = personId;
             FirstName = firstName;
             LastName = lastName;
             PhoneNo = phoneNo;

@@ -8,7 +8,7 @@ namespace WebshopClientWeb.ServiceLayer
     public class OrderServiceAccess : IOrderServiceAccess
     {
         readonly IServiceConnection _orderService;
-        readonly String _serviceBaseUrl = "https://localhost:7173/";
+        readonly String _serviceBaseUrl = "https://localhost:7173/api/";
 
         public HttpStatusCode CurrentHttpStatusCode { get; set; }
 
@@ -20,7 +20,7 @@ namespace WebshopClientWeb.ServiceLayer
         public async Task<int> CreateOrder(Order orderToCreate)
         {
             int insertedOrderId = -1;
-            _orderService.UseUrl = _orderService.BaseUrl;
+            _orderService.UseUrl = _orderService.BaseUrl+"Order";
 
             if (_orderService != null)
             {
