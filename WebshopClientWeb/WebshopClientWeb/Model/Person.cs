@@ -26,16 +26,16 @@ namespace WebshopClientWeb.Model
 
         public int PersonId { get; set; }
 
-        [DisplayName("Fornavn :")]
+        [DisplayName("Fornavn:")]
         public string? FirstName { get; set; }
 
-        [DisplayName("Efternavn :")]
+        [DisplayName("Efternavn:")]
         public string? LastName { get; set; }
 
-        [DisplayName("Mobilnummer :")]
+        [DisplayName("Mobilnummer:")]
         public string? PhoneNo { get; set; }
 
-        [DisplayName("Email :")]
+        [DisplayName("Email:")]
         public string? Email { get; set; }
         public bool IsAdmin { get; }
         public string? UserId { get; set; }
