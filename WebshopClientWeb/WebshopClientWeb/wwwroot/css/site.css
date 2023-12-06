@@ -10,9 +10,60 @@ html {
 
 html {
   position: relative;
-  min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.nav-item:hover {
+    font-weight: bold;
+    transition: 0.1s ease;
+    color: #1F3725;
+}
+
+.bottom-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#order-button,
+#empty-button {
+    display: inline-block;
+}
+
+#pricetotal-text {
+    margin-top: 20px;
+    display: flex;
+    text-align: right;
+    flex-direction: column;
+}
+
+
+#remove-product-button{
+    margin-right: -35px;
+}
+
+.cart-notification {
+    position: fixed;
+    top: 65px;
+    right: 10px;
+    padding: 10px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    z-index: 1000;
 }

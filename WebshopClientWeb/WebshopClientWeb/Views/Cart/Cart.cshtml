@@ -62,7 +62,7 @@
                     </td>
 
                     <td>
-                        <a asp-action="RemoveFromCart" asp-route-prodId="@orderLine.CartProduct.ProdId" class="btn btn-sm btn-danger">
+                        <a asp-action="RemoveFromCart" asp-route-prodId="@orderLine.CartProduct.ProdId" class="btn btn-sm btn-danger" id="remove-product-button">
                             <i class="fa fa-trash"></i> Fjern produkt
                         </a>
                     </td>
@@ -76,20 +76,22 @@
         total += (orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice);
     }
 
-    <div style="text-align: right; margin-top: 20px;">
+    <div id="pricetotal-text"style="text-align: right; margin-top: 20px;">
         <b>Total = @total kr.</b>
     </div>
 
-    <div style="text-align: left; margin-top: 20px;">
-        <form asp-controller="Cart" asp-action="EmptyCart" method="post">
-            <button type="submit" class="btn btn-danger">Empty Cart</button>
-        </form>
-    </div>
+    <div class="bottom-buttons">
+        <div id="empty-button">
+            <form asp-controller="Cart" asp-action="EmptyCart" method="post">
+                <button type="submit" class="btn btn-danger">Tøm kurv</button>
+            </form>
+        </div>
 
-    <div style="text-align: right; margin-top: 20px;">
-        <p>
-            <a asp-controller="Order" asp-action="CreateOrder" class="btn btn-primary">Fuldfør køb</a>
-        </p>
+        <div id="order-button">
+            <p>
+                <a asp-controller="Order" asp-action="CreateOrder" class="btn btn-primary">Fuldfør køb</a>
+            </p>
+        </div>
     </div>
 }
 else
