@@ -14,7 +14,7 @@ namespace WebshopRestService.BusinessLogicLayer
             _productAccess = ProductAccess;
         }
 
-        public int Add(ProductDTORead productToAdd)
+        public int Add(ProductDTOWrite productToAdd)
         {
             int insertedId = 0;
             try
@@ -94,7 +94,7 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundDTOs;
         }
 
-        public bool Put(ProductDTORead productToUpdate)
+        public bool Put(ProductDTOWrite productToUpdate)
         {
             try
             {

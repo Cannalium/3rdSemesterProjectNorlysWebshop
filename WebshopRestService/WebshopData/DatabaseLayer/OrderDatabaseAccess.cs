@@ -53,7 +53,7 @@ namespace WebshopData.DatabaseLayer
                         using (SqlCommand cmdOl = conn.CreateCommand())
                         {
                             cmdOl.CommandText = "INSERT INTO [OrderLine] (prodId_FK, orderId_FK, orderLineProdQuantity) Values(@prodId, @orderId, @orderLineProdQuantity)";
-                            cmdOl.Parameters.AddWithValue("prodId", orderLine.Product.ProdId);
+                            cmdOl.Parameters.AddWithValue("prodId", orderLine.ProdId);
                             cmdOl.Parameters.AddWithValue("orderId", insertedId);
                             cmdOl.Parameters.AddWithValue("orderLineProdQuantity", orderLine.OrderLineProdQuantity);
                             cmdOl.ExecuteNonQuery();
@@ -63,7 +63,7 @@ namespace WebshopData.DatabaseLayer
                         using (SqlCommand decrementCmd = conn.CreateCommand())
                         {
                             decrementCmd.CommandText = "UPDATE [Product] SET prodQuantity=prodQuantity-@orderLineProdQuantity WHERE prodId=@prodId";
-                            decrementCmd.Parameters.AddWithValue("prodId", orderLine.Product.ProdId);
+                            decrementCmd.Parameters.AddWithValue("prodId", orderLine.ProdId);
                             decrementCmd.Parameters.AddWithValue("orderLineProdQuantity", orderLine.OrderLineProdQuantity);
                             decrementCmd.ExecuteNonQuery();
                         }

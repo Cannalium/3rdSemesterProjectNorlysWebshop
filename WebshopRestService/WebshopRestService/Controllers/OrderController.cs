@@ -71,8 +71,27 @@ namespace WebshopRestService.Controllers
             return foundReturn; // Send return to client
         }
 
+        /*[HttpPost]
+        public ActionResult<OrderDTOWrite> PostNewOrder(OrderDTOWrite inOrder)
+        {
+            ActionResult<OrderDTOWrite > foundReturn;
+            int insertedId = 1;
+            inOrder.OrderId = insertedId;
+            if (insertedId > 0) 
+            {
+                foundReturn = Ok(inOrder);
+            } 
+            else
+            {
+                foundReturn = new StatusCodeResult(500);
+            }
+            return foundReturn; 
+        }*/
+
+
+
         [HttpPost]
-        public ActionResult<int> PostNewOrder([FromBody] OrderDTOWrite orderDTOWrite)
+        public ActionResult<int> PostNewOrder(OrderDTOWrite orderDTOWrite)
         {
             if (orderDTOWrite == null)
             {

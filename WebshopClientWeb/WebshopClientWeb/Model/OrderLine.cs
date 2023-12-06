@@ -7,7 +7,11 @@ namespace WebshopClientWeb.Model
     public class OrderLine
     {
         public OrderLine() { }
-
+        /*public OrderLine(int prodId, int orderLineProdQuantity)
+        {
+            ProdId = prodId;
+            OrderLineProdQuantity = orderLineProdQuantity;
+        }*/
         public OrderLine(Product product, int orderLineProdQuantity) // husk at tilføje den tilbage som parameter int orderLineProdQuantity
         {
             OrderLineProdQuantity = orderLineProdQuantity;
@@ -19,6 +23,7 @@ namespace WebshopClientWeb.Model
             OrderLineId = orderLineId;
         }
 
+        public int ProdId { get; set; }
         public int OrderLineId { get; set; }
         public int OrderLineProdQuantity { get; set; }
         public Product CartProduct { get; set; }

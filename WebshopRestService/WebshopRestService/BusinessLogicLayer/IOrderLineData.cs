@@ -6,8 +6,8 @@ namespace WebshopRestService.BusinessLogicLayer
     {
         OrderLineDTORead? Get(int orderLineId);
         List<OrderLineDTORead>? Get();
-        int Add(OrderLineDTORead orderLineToAdd);
-        bool Put(OrderLineDTORead orderLineToUpdate);
+        int Add(OrderLineDTOWrite orderLineToAdd);
+        bool Put(OrderLineDTOWrite orderLineToUpdate);
         bool Delete(int orderLineId);
     }
 }

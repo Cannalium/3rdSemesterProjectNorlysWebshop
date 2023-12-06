@@ -1,11 +1,11 @@
 ﻿namespace WebshopRestService.DTOs {
-    public class ProductCreateDataDTO 
+    public class ProductDTOWrite 
     {
-        public ProductCreateDataDTO() { }
+        public ProductDTOWrite() { }
 
-        public ProductCreateDataDTO(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
+        public ProductDTOWrite(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
         {
-            
+            ProdId = prodId;
             ProdName = prodName;
             ProdDescription = prodDescription;
             ProdPrice = prodPrice;

@@ -72,7 +72,7 @@ namespace WebshopRestService.Controllers
 
         // URL: api/orderlines
         [HttpPost]
-        public ActionResult<int> PostNewOrderLine(OrderLineDTORead orderLineDTO)
+        public ActionResult<int> PostNewOrderLine(OrderLineDTOWrite orderLineDTO)
         {
             ActionResult<int> foundReturn;
             int insertedId = -1;
@@ -113,7 +113,7 @@ namespace WebshopRestService.Controllers
         }
 
         [HttpPut]
-        public ActionResult<bool> Put(OrderLineDTORead orderLineDTO)
+        public ActionResult<bool> Put(OrderLineDTOWrite orderLineDTO)
         {
             ActionResult foundReturn;
 

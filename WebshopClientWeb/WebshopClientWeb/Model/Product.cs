@@ -4,8 +4,6 @@ using System.ComponentModel;
 namespace WebshopClientWeb.Model
 {
     public class Product
-
-
     {
             public Product(int prodId) 
             {
@@ -26,7 +24,7 @@ namespace WebshopClientWeb.Model
             public Product(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) : this (prodName, prodDescription, prodPrice, prodQuantity, prodType)
             {
                 ProdId = prodId;
-        }
+            }
 
 
             [Key] 

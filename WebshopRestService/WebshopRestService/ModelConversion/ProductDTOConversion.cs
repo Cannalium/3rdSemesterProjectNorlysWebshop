@@ -27,7 +27,7 @@ namespace WebshopRestService.ModelConversion
         }
 
         // Convert from PersonDTO object to Person object
-        public static Product ToProduct(ProductDTORead inDTO)
+        public static Product ToProduct(ProductDTOWrite inDTO)
         {
             return new Product(inDTO.ProdId, inDTO.ProdName, inDTO.ProdDescription, inDTO.ProdPrice, inDTO.ProdQuantity, inDTO.ProdType);
         }

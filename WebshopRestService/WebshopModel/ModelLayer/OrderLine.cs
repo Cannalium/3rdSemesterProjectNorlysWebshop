@@ -9,15 +9,15 @@ namespace WebshopModel.ModelLayer {
 
         public OrderLine() { }
 
-        public OrderLine(Product product, int orderLineProdQuantity) 
+        public OrderLine(int prodId, int orderLineProdQuantity) 
         {
-            Product = product;
+            ProdId = prodId;
             OrderLineProdQuantity = orderLineProdQuantity;
         }
 
 
         public int OrderLineId { get; set; }
-        public Product Product { get; set; }
+        public int ProdId { get; set; }
         public int OrderLineProdQuantity { get; set; }
     }
 }

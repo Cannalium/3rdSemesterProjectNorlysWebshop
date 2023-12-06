@@ -31,18 +31,18 @@ namespace WebshopRestService.ModelConversion
             OrderLineDTORead? anOrderLineReadDTO = null;
             if (inOrderLine != null)
             {
-                anOrderLineReadDTO = new OrderLineDTORead(inOrderLine.Product, inOrderLine.OrderLineProdQuantity);
+                anOrderLineReadDTO = new OrderLineDTORead(inOrderLine.ProdId, inOrderLine.OrderLineProdQuantity);
             }
             return anOrderLineReadDTO;
         }
 
         // Convert from OrderLineDTO object to OrderLine object
-        public static OrderLine? ToOrderLine(OrderLineDTORead inDTO)
+        public static OrderLine? ToOrderLine(OrderLineDTOWrite inDTO)
         {
             OrderLine? anOrderLine = null;
             if (inDTO != null)
             {
-                anOrderLine = new OrderLine(inDTO.Product, inDTO.OrderLineProdQuantity);
+                anOrderLine = new OrderLine(inDTO.ProdId, inDTO.OrderLineProdQuantity);
             }
             return anOrderLine;
         }

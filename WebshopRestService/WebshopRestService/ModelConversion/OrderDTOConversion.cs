@@ -46,10 +46,16 @@ namespace WebshopRestService.ModelConversion
                 Order anOrder = null;
                 if (inDTO != null)
                 {
-                    anOrder = new Order(
+
+                // Convert OrderLines from List<OrderLineDTOWrite> to List<OrderLine>
+                List<OrderLine?> orderLines = inDTO.OrderLines.Select(olDTO =>
+                    OrderLineDTOConversion.ToOrderLine(olDTO)  // Convert OrderLineDTOWrite to OrderLine
+                ).ToList();
+
+                anOrder = new Order(
                         orderPrice: inDTO.OrderPrice,
                         person: inDTO.Person,
-                        orderLines: inDTO.OrderLines
+                        orderLines: orderLines
                     );
 
                     // Additional mapping or assignments for other properties

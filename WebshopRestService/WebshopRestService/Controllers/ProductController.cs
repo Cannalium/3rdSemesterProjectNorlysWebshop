@@ -109,7 +109,7 @@ namespace WebshopRestService.Controllers
 
         // URL: api/products
         [HttpPost]
-        public ActionResult<int> PostNewProduct(ProductDTORead productDTO)
+        public ActionResult<int> PostNewProduct(ProductDTOWrite productDTO)
         {
             ActionResult<int> foundReturn;
             int insertedId = -1;
@@ -153,7 +153,7 @@ namespace WebshopRestService.Controllers
         }
 
         [HttpPut, Route("{prodId}")]
-        public ActionResult<bool> Put(ProductDTORead productDTO)
+        public ActionResult<bool> Put(ProductDTOWrite productDTO)
         {
             ActionResult foundReturn;
 

@@ -13,7 +13,7 @@ namespace WebshopRestService.BusinessLogicLayer
             _orderLineAccess = OrderLineAccess;
         }
 
-        public int Add(OrderLineDTORead orderLineToAdd)
+        public int Add(OrderLineDTOWrite orderLineToAdd)
         {
             int insertedId = 0;
             try
@@ -74,7 +74,7 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundDTOs;
         }
 
-        public bool Put(OrderLineDTORead orderLineToUpdate)
+        public bool Put(OrderLineDTOWrite orderLineToUpdate)
         {
             try
             {
