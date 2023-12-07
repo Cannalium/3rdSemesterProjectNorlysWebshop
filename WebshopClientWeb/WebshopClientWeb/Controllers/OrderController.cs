@@ -32,7 +32,7 @@ namespace WebshopClientWeb.Controllers
             List<OrderLine>? cartOrderLines = CartDataControl.ReadCart(HttpContext);
 
             // Create a new list to store the modified OrderLines
-            List<OrderLineTest> newOrderLines = new List<OrderLineTest>();
+            List<OrderLine> orderLines = new List<OrderLine>();
 
             foreach (OrderLine cartOrderLine in cartOrderLines)
             {
@@ -43,10 +43,10 @@ namespace WebshopClientWeb.Controllers
                 int prodId = cartProduct.ProdId;
 
                 // Creating a new OrderLine with ProdId and orderLineProdQuantity
-                OrderLineTest newOrderLine = new OrderLineTest(prodId, cartOrderLine.OrderLineProdQuantity);
+                OrderLine newOrderLine = new OrderLine(prodId, cartOrderLine.OrderLineProdQuantity);
 
                 // Adding the new OrderLine to the new list
-                newOrderLines.Add(newOrderLine);
+                orderLines.Add(newOrderLine);
             }
 
             // Calculate order price based on the modified cart items
@@ -54,7 +54,7 @@ namespace WebshopClientWeb.Controllers
 
             // Create an order using the retrieved person and modified cart items
             Person? personFromService = await _personDataControl.GetPersonByEmail(email);
-            Order orderToCreate = new Order(personFromService, orderPrice, newOrderLines);
+            Order orderToCreate = new Order(personFromService, orderPrice, orderLines);
 
             // Pass the order to the OrderDataControl to create the order
             int insertedId = await _orderDataControl.CreateOrder(orderToCreate);

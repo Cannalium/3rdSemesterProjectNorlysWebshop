@@ -6,11 +6,11 @@
         public decimal OrderPrice { get; set; }
         public List<OrderLine> OrderLines { get; set; }  
 
-        public Order(Person person, decimal orderPrice, List<OrderLineTest> orderLines)
+        public Order(Person person, decimal orderPrice, List<OrderLine> orderLines)
         {
             Person = person;
             OrderPrice = orderPrice;
-            OrderLines = new List<OrderLine>();
+            OrderLines = orderLines;
         }  
     }
 }
