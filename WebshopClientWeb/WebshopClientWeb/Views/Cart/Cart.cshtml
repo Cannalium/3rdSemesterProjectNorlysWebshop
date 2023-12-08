@@ -76,7 +76,7 @@
         total += (orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice);
     }
 
-    <div id="pricetotal-text"style="text-align: right; margin-top: 20px;">
+    <div id="pricetotal-text" style="text-align: right; margin-top: 20px;">
         <b>Total = @total kr.</b>
     </div>
 
@@ -88,9 +88,11 @@
         </div>
 
         <div id="order-button">
-            <p>
-                <a asp-controller="Order" asp-action="CreateOrder" class="btn btn-primary">Fuldfør køb</a>
-            </p>
+            <form asp-controller="Order" asp-action="CreateOrder" method="post" id="orderForm">
+                <p>
+                    <button type="submit" class="btn btn-primary">Fuldfør køb</button>
+                </p>
+            </form>
         </div>
     </div>
 }
@@ -98,3 +100,44 @@ else
 {
     <p>Indkøbskurven er tom.</p>
 }
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Køb fuldført</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Update the ID of the element to target it in your JavaScript -->
+                <p id="orderMessage">Your custom message or content goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Check if OrderId is present in ViewBag
+            var orderId = @Html.Raw(Json.Serialize(ViewBag.OrderId));
+
+            if (orderId) {
+                // Update the modal ID and content
+                $('#myModal .modal-body').html('<p>Dit ordre ID er: ' + orderId + '</p>');
+                $('#myModal').modal('show');
+
+                // Manually trigger the close button event
+                $('#myModal .close, #myModal [data-dismiss="modal"]').click(function () {
+                    $('#myModal').modal('hide');
+                });
+            }
+        });
+    </script>
+}
+
+

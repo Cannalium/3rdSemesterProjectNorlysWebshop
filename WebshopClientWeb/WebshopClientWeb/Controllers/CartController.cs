@@ -18,6 +18,12 @@ namespace WebshopClientWeb.Controllers
 
         public IActionResult Cart()
         {
+            // Retrieve the order ID from TempData
+            int? orderId = TempData["OrderId"] as int?;
+
+            // Pass the order ID to the view
+            ViewBag.OrderId = orderId;
+
             List<OrderLine>? foundCartItems = CartDataControl.ReadCart(HttpContext);
             return View(foundCartItems);
         }
