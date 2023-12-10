@@ -26,14 +26,27 @@ namespace WebshopDataTest
         public void TestGetProductById()
         {
             // Arrange
-            int productIdToRetrieve = 1;
+            Product testProduct = new Product()
+            {
+                ProdName = "TestProduct",
+                ProdDescription = "TestDescription",
+                ProdPrice = 30,
+                ProdQuantity = 1,
+                ProdType = "Merch",
+            };
+
+            int insertedId = _productAccess.CreateProduct(testProduct);
 
             // Act
-            Product retrievedProduct = _productAccess.GetProductById(productIdToRetrieve);
+            Product productById = _productAccess.GetProductById(insertedId);
 
             // Assert
-            Assert.NotNull(retrievedProduct); // Assures that a product object is retrieved
-            Assert.Equal(productIdToRetrieve, retrievedProduct.ProdId); // Ensure correct product is retrived
+            Assert.NotNull(productById); // Assures that a product object is retrieved
+            Assert.Equal(insertedId, productById.ProdId); // Ensure correct product is retrived
+
+            // Clean up - Delete the test product from the database?
+            bool deletionResult = _productAccess.DeleteProduct(insertedId);
+            Assert.True(deletionResult); // Check if deletion was successful
         }
 
         [Fact]
@@ -75,6 +88,10 @@ namespace WebshopDataTest
 
             // Assert:
             Assert.True(updateResult);
+
+            // Clean up - Delete the test product from the database?
+            bool deletionResult = _productAccess.DeleteProduct(insertedId);
+            Assert.True(deletionResult); // Check if deletion was successful
         }
 
         [Fact]

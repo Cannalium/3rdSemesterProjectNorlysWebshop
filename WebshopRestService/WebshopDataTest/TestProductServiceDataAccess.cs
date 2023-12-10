@@ -47,7 +47,7 @@ namespace WebshopDataTest
 
             //Assert
             Assert.NotNull(productById); // Ensure the returned product is not null
-            Assert.Equal("TestProduct", productById.ProdName); // Check specific attributes of the returned product
+            Assert.Equal(insertedId, productById.ProdId); // Check specific attributes of the returned product
 
             // Clean up - Delete the test product from the database?
             bool deletionResult = _productServiceAccess.Delete(insertedId);
