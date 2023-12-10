@@ -28,7 +28,7 @@ namespace WebshopData.DatabaseLayer
             int insertedId = -1;
 
             TransactionOptions tsOptions = new TransactionOptions();
-            tsOptions.IsolationLevel = IsolationLevel.RepeatableRead;
+            tsOptions.IsolationLevel = IsolationLevel.ReadCommitted;
 
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, tsOptions))
             {

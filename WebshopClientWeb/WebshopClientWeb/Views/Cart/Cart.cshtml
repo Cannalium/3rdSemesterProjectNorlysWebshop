@@ -6,8 +6,12 @@
 }
 
 <h1>Indkøbskurv</h1>
+@if (TempData["CartEmptyMessage"] != null)
+{
+    <p>@TempData["CartEmptyMessage"].ToString()</p>
+}
 
-@if (Model != null)
+else if (Model != null && Model.Any())
 {
     <table class="table">
         <thead>
@@ -49,10 +53,10 @@
                     <td>
                         @if (orderLine.OrderLineProdQuantity > 0)
                         {
-                            using (Html.BeginForm("AddToCart", "Cart", new { prodId = orderLine.CartProduct.ProdId }, FormMethod.Post))
+                            using (Html.BeginForm("UpdateCartItem", "Cart", new { prodId = orderLine.CartProduct.ProdId }, FormMethod.Post))
                             {
                                 <input id="orderLineProdQuantity" name="orderLineProdQuantity" type="number" value="@orderLine.OrderLineProdQuantity" min="1" max="50" />
-                                <button type="submit" class="pull-right"><i class="fa fa-shopping-cart">Tilføj til kurv</i></button>
+                                <button type="submit" class="pull-right"><i class="fa fa-shopping-cart">Opdater kurv</i></button>
                             }
                         }
                         else
@@ -111,7 +115,17 @@ else
             </div>
             <div class="modal-body">
                 <!-- Update the ID of the element to target it in your JavaScript -->
-                <p id="orderMessage">Your custom message or content goes here.</p>
+                <p>Dit ordre ID er: @ViewBag.OrderId</p>
+
+                <!-- Display order details -->
+
+                @if (ViewBag.OrderLineDetails != null)
+                {
+                 foreach (var orderLineDetail in ViewBag.OrderLineDetails as List<string>)
+                    {
+                    <p>@orderLineDetail</p>
+                }
+                }
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -129,6 +143,18 @@ else
             if (orderId) {
                 // Update the modal ID and content
                 $('#myModal .modal-body').html('<p>Dit ordre ID er: ' + orderId + '</p>');
+
+                // Check if OrderLineDetails is present in ViewBag
+                var orderLineDetails = @Html.Raw(Json.Serialize(ViewBag.OrderLineDetails));
+
+                if (orderLineDetails) {
+                    // Loop through OrderLineDetails and append to modal body
+                    for (var i = 0; i < orderLineDetails.length; i++) {
+                        $('#myModal .modal-body').append('<p>' + orderLineDetails[i] + '</p>');
+                    }
+                }
+
+                // Show the modal
                 $('#myModal').modal('show');
 
                 // Manually trigger the close button event
@@ -139,5 +165,6 @@ else
         });
     </script>
 }
+
 
 

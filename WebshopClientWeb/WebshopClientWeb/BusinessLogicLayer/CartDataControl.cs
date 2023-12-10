@@ -83,6 +83,44 @@ namespace WebshopClientWeb.BusinessLogicLayer
             return cartWasUpdated;
          }*/
 
+
+        public static bool UpdateCartItem(HttpContext httpContext, OrderLine newCartProdItem)
+        {
+            bool cartWasUpdated = false;
+
+            // Read existing cart items
+            List<OrderLine>? cartItems = ReadCart(httpContext);
+
+            if (cartItems == null)
+            {
+                // If cart is empty, create a new list with the new item
+                cartItems = new List<OrderLine> { newCartProdItem };
+            }
+            else
+            {
+                // Check if the product is already in the cart
+                OrderLine existingItem = cartItems.Find(item => item.CartProduct.ProdId == newCartProdItem.CartProduct.ProdId);
+
+                if (existingItem != null)
+                {
+                    // Update the quantity if the product exists
+                    existingItem.OrderLineProdQuantity = newCartProdItem.OrderLineProdQuantity;
+                }
+                else
+                {
+                    // Add the new item to the existing cart items
+                    cartItems.Add(newCartProdItem);
+                }
+            }
+
+            // Update the cart cookie
+            httpContext.Response.Cookies.Append("cart", JsonConvert.SerializeObject(cartItems));
+            cartWasUpdated = true;
+
+            return cartWasUpdated;
+        }
+
+
         public static bool UpdateCart(HttpContext httpContext, OrderLine newCartProdItem)
         {
             bool cartWasUpdated = false;

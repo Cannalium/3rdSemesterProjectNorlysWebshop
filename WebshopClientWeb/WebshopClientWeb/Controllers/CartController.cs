@@ -16,7 +16,9 @@ namespace WebshopClientWeb.Controllers
             _productController = new ProductController();
         }
 
-        public IActionResult Cart()
+
+
+        /*public IActionResult Cart()
         {
             // Retrieve the order ID from TempData
             int? orderId = TempData["OrderId"] as int?;
@@ -26,7 +28,27 @@ namespace WebshopClientWeb.Controllers
 
             List<OrderLine>? foundCartItems = CartDataControl.ReadCart(HttpContext);
             return View(foundCartItems);
+        }*/
+
+        public IActionResult Cart()
+        {
+            // Retrieve the order ID from TempData
+            int? orderId = TempData["OrderId"] as int?;
+
+            // Pass the order ID to the view
+            ViewBag.OrderId = orderId;
+
+            // Retrieve OrderLineDetails from TempData
+            List<string>? orderLineDetails = TempData["OrderLineDetails"] as List<string>;
+
+            // Pass OrderLineDetails to the view
+            ViewBag.OrderLineDetails = orderLineDetails;
+
+            List<OrderLine>? foundCartItems = CartDataControl.ReadCart(HttpContext);
+            return View(foundCartItems);
         }
+
+
 
         public async Task<ActionResult> AddToCart(int prodId, int orderLineProdQuantity)
         {
@@ -45,6 +67,26 @@ namespace WebshopClientWeb.Controllers
             }
             TempData["ProcessText"] = "Error - Invalid product ID";
             return RedirectToAction("Error");
+        }
+
+        // In CartController
+        public ActionResult UpdateCartItem(int prodId, int orderLineProdQuantity)
+        {
+            var product = _productController.GetProdById(prodId).Result; // Use async properly
+            var updatedCartItem = new OrderLine(product, orderLineProdQuantity);
+
+            bool cartWasUpdated = CartDataControl.UpdateCartItem(HttpContext, updatedCartItem);
+
+            if (cartWasUpdated)
+            {
+                TempData["ProcessText"] = $"Updated quantity for product {prodId} in the cart";
+            }
+            else
+            {
+                TempData["ProcessText"] = $"Error - product {prodId} not found in the cart";
+            }
+
+            return RedirectToAction("Cart");
         }
 
         public ActionResult RemoveFromCart(int prodId)
