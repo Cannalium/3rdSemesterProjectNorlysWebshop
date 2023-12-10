@@ -14,14 +14,14 @@ namespace WebshopDataTest
 {
     public class TestProductServiceDataAccess
     {
-        private readonly ITestOutputHelper _extraOutPut;
+        private readonly ITestOutputHelper _extraOutput;
         readonly private IProductAccess _productAccess;
         readonly private IProductData _productServiceAccess;
         private IPersonData _personServiceAccess;
 
         public TestProductServiceDataAccess(ITestOutputHelper output)
         {
-            _extraOutPut = output;
+            _extraOutput = output;
             IConfiguration inConfig = TestConfigHelper.GetIConfigurationRoot();
             _productAccess = new ProductDatabaseAccess(inConfig);
             _productServiceAccess = new ProductDataControl(_productAccess);
@@ -51,6 +51,19 @@ namespace WebshopDataTest
             Assert.Equal(productDTOWrite.ProdPrice, product.ProdPrice);
             Assert.Equal(productDTOWrite.ProdQuantity, product.ProdQuantity);
             Assert.Equal(productDTOWrite.ProdType, product.ProdType);
+        }
+
+        [Fact]
+        public void Given_ExistingProducts_When_RetrievingAllProducts_Then_ReturnsValidProductList()
+        {
+            //Arrange
+            //Act
+            List<ProductDTORead> productsDTORead = new List<ProductDTORead>();
+            bool productsWereRead = (productsDTORead.Count > 0);
+            _extraOutput.WriteLine("Number of products: " + productsDTORead.Count);
+
+            //Assert
+            Assert.NotEmpty(productsDTORead);
         }
 
 
