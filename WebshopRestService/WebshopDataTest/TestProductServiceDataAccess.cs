@@ -28,6 +28,33 @@ namespace WebshopDataTest
         }
 
         [Fact]
+        public void Given_ExistingProduct_When_GettingProductById_Then_ProductShouldBeReturned()
+        {
+            //Arrange
+            ProductDTOWrite testProduct = new ProductDTOWrite()
+            {
+                ProdName = "TestProduct",
+                ProdDescription = "TestDescription",
+                ProdPrice = 20,
+                ProdQuantity = 1,
+                ProdType = "Merch",
+            };
+
+            int insertedId = _productServiceAccess.Add(testProduct);
+
+            //Act
+            ProductDTORead? productById = _productServiceAccess.Get(insertedId); // Retrieve the test product
+
+            //Assert
+            Assert.NotNull(productById); // Ensure the returned product is not null
+            Assert.Equal("TestProduct", productById.ProdName); // Check specific attributes of the returned product
+
+            // Clean up - Delete the test product from the database?
+            bool deletionResult = _productServiceAccess.Delete(insertedId);
+            Assert.True(deletionResult); // Check if deletion was successful
+        }
+
+        [Fact]
         public void Given_ProductDTOWrite_When_InsertingIntoProductTable_Then_ProductShouldContainExpectedFields()
         {
             //Arrange
@@ -51,6 +78,10 @@ namespace WebshopDataTest
             Assert.Equal(productDTOWrite.ProdPrice, product.ProdPrice);
             Assert.Equal(productDTOWrite.ProdQuantity, product.ProdQuantity);
             Assert.Equal(productDTOWrite.ProdType, product.ProdType);
+
+            // Clean up - Delete the test product from the database?
+            bool deletionResult = _productServiceAccess.Delete(insertedId);
+            Assert.True(deletionResult); // Check if deletion was successful
         }
 
         [Fact]
@@ -90,12 +121,12 @@ namespace WebshopDataTest
 
             //Assert
             Assert.True(updateResult);
+            ProductDTORead? updatedProduct = _productServiceAccess.Get(insertedId); // Retrieve the updated product from the service
+            Assert.Equal("TestProductUpdated", updatedProduct.ProdName); // Verify the updated fields
 
-            // Retrieve the updated product from the service
-            ProductDTORead? updatedProduct = _productServiceAccess.Get(insertedId);
-
-            // Verify the updated fields
-            Assert.Equal("TestProductUpdated", updatedProduct.ProdName);
+            // Clean up - Delete the test product from the database?
+            bool deletionResult = _productServiceAccess.Delete(insertedId);
+            Assert.True(deletionResult); // Check if deletion was successful
         }
 
         [Fact]
@@ -121,17 +152,17 @@ namespace WebshopDataTest
         }
 
         // Concurrency test
-        [Fact]
-        public void Given_LimitedTickets_When_TwoOrdersAttemptPurchase_Then_OneSucceedsOneFails()
-        {
-            // Arrange
-            PersonDTORead personDTORead = new PersonDTORead()
-            {
-                FirstName = "TestFornavn",
-                LastName = "TestEfternavn",
-                PhoneNo = "55443322",
-                Email = "test@test.dk",
-            };
+        //[Fact]
+        //public void Given_LimitedTickets_When_TwoOrdersAttemptPurchase_Then_OneSucceedsOneFails()
+        //{
+        //    // Arrange
+        //    PersonDTORead personDTORead = new PersonDTORead()
+        //    {
+        //        FirstName = "TestFornavn",
+        //        LastName = "TestEfternavn",
+        //        PhoneNo = "55443322",
+        //        Email = "test@test.dk",
+        //    };
 
             //int insertedId = _personServiceAccess.Add(personDTORead);
             //PersonDTORead? person = _personServiceAccess.Get(insertedId);
@@ -140,12 +171,12 @@ namespace WebshopDataTest
             ////Arrange
             //OrderDTOWrite orderDTOWrite = new OrderDTOWrite()
             //{
-                
+
             //}
             //Act
             //Assert
 
-        }
+        //}
 
     }
 }

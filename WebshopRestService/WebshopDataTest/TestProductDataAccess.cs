@@ -23,6 +23,20 @@ namespace WebshopDataTest
         }
 
         [Fact]
+        public void TestGetProductById()
+        {
+            // Arrange
+            int productIdToRetrieve = 1;
+
+            // Act
+            Product retrievedProduct = _productAccess.GetProductById(productIdToRetrieve);
+
+            // Assert
+            Assert.NotNull(retrievedProduct); // Assures that a product object is retrieved
+            Assert.Equal(productIdToRetrieve, retrievedProduct.ProdId); // Ensure correct product is retrived
+        }
+
+        [Fact]
         public void TestGetAllProducts()
         {
             // Arrange
@@ -35,28 +49,6 @@ namespace WebshopDataTest
 
             // Assert
             Assert.True(productsWereRead);
-        }
-
-        [Fact]
-        public void TestDeleteProduct()
-        {
-            //Arrange
-            Product testProduct = new Product()
-            {
-                ProdName = "Kaffekrus",
-                ProdDescription = "Kaffekrus med Norlys logo",
-                ProdPrice = 30,
-                ProdQuantity = 100,
-                ProdType = "Merch",
-            };
-
-            int insertedId = _productAccess.CreateProduct(testProduct);
-
-            // Act
-            bool deleteResult = _productAccess.DeleteProduct(insertedId);
-
-            // Assert
-            Assert.True(deleteResult);
         }
 
         [Fact]
@@ -86,17 +78,26 @@ namespace WebshopDataTest
         }
 
         [Fact]
-        public void TestGetProductById()
+        public void TestDeleteProduct()
         {
-            // Arrange
-            int productIdToRetrieve = 1;
+            //Arrange
+            Product testProduct = new Product()
+            {
+                ProdName = "Kaffekrus",
+                ProdDescription = "Kaffekrus med Norlys logo",
+                ProdPrice = 30,
+                ProdQuantity = 100,
+                ProdType = "Merch",
+            };
+
+            int insertedId = _productAccess.CreateProduct(testProduct);
 
             // Act
-            Product retrievedProduct = _productAccess.GetProductById(productIdToRetrieve);
+            bool deleteResult = _productAccess.DeleteProduct(insertedId);
 
             // Assert
-            Assert.NotNull(retrievedProduct); // Assures that a product object is retrieved
-            Assert.Equal(productIdToRetrieve, retrievedProduct.ProdId); // Ensure correct product is retrived
+            Assert.True(deleteResult);
         }
+
     }
 }
