@@ -52,7 +52,7 @@ namespace WebshopDataTest
 
             int insertedId = _productAccess.CreateProduct(testProduct);
 
-            // Acts
+            // Act
             bool deleteResult = _productAccess.DeleteProduct(insertedId);
 
             // Assert
@@ -72,7 +72,7 @@ namespace WebshopDataTest
                 ProdType = "Merch",
             };
 
-            int insertedId = (_productAccess.CreateProduct(testProduct));
+            int insertedId = _productAccess.CreateProduct(testProduct);
 
             // Modify Details
             testProduct.ProdId = insertedId;
