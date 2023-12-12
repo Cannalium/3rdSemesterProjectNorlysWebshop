@@ -42,7 +42,7 @@ namespace WebshopRestService.ModelConversion
         }
 
             public static Order ToOrder(OrderDTOWrite inDTO)
-            {
+            { 
                 Order anOrder = null;
                 if (inDTO != null)
                 {
@@ -52,9 +52,15 @@ namespace WebshopRestService.ModelConversion
                     OrderLineDTOConversion.ToOrderLine(olDTO)  // Convert OrderLineDTOWrite to OrderLine
                 ).ToList();
 
+                // Accessing PersonDTO property from the input OrderDTOWrite object
+                PersonDTOWrite personDTO = inDTO.PersonDTO;
+
+                // Using the ToPerson method from PersonDTOConversion class to convert PersonDTOWrite to Person
+                Person? person = PersonDTOConversion.ToPerson(personDTO);
+
                 anOrder = new Order(
                         orderPrice: inDTO.OrderPrice,
-                        person: inDTO.Person,
+                        person: person,
                         orderLines: orderLines
                     );
 

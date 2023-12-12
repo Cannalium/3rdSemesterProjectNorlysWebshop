@@ -9,9 +9,9 @@ namespace WebshopRestService.BusinessLogicLayer
     {
         private readonly IProductAccess _productAccess;
 
-        public ProductDataControl(IProductAccess ProductAccess)
+        public ProductDataControl(IProductAccess productAccess)
         {
-            _productAccess = ProductAccess;
+            _productAccess = productAccess;
         }
 
         public int Add(ProductDTOWrite productToAdd)
