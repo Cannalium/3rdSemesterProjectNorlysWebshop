@@ -12,7 +12,7 @@ namespace WebshopData.DatabaseLayer
         List<Order> GetOrderAll();
         int CreateOrder(Order anOrder);
         bool UpdateOrder(Order orderUpdate);
-        Order GetOrderById(int orderId);
+        Order? GetOrderById(int orderId);
         bool DeleteOrder(int orderId);
 
     }
