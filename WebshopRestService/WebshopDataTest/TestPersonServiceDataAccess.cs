@@ -117,7 +117,7 @@ namespace WebshopDataTest
 
             personDTORead.FirstName = "TestFirstNameUpdated";
 
-            bool updateResult = _personServiceAccess.Put(personDTORead);
+            bool updateResult = _personServiceAccess.Put(personDTO);
 
             //Assert
             Assert.True(updateResult);
