@@ -38,7 +38,7 @@ namespace WebshopDataTest
             int insertedId = _productAccess.CreateProduct(testProduct);
 
             // Act
-            Product productById = _productAccess.GetProductById(insertedId);
+            Product? productById = _productAccess.GetProductById(insertedId);
 
             // Assert
             Assert.NotNull(productById); // Assures that a product object is retrieved
@@ -88,6 +88,8 @@ namespace WebshopDataTest
 
             // Assert:
             Assert.True(updateResult);
+            Product updatedProduct =_productAccess.GetProductById(insertedId);
+            Assert.Equal("Musemåtte med logo", updatedProduct.ProdName);
 
             // Clean up - Delete the test product from the database?
             bool deletionResult = _productAccess.DeleteProduct(insertedId);
@@ -114,6 +116,9 @@ namespace WebshopDataTest
 
             // Assert
             Assert.True(deleteResult);
+            // Check if product is null/ has been deleted
+            Product? deletedProduct = _productAccess.GetProductById(insertedId);
+            Assert.Null(deletedProduct);
         }
 
     }

@@ -119,9 +119,9 @@ namespace WebshopData.DatabaseLayer
             }
         }
 
-        public Product GetProductById(int findProdId)
+        public Product? GetProductById(int findProdId)
         {
-            Product foundProd;
+            Product? foundProd = null;
 
             string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodId = @ProdId";
             using (SqlConnection con = new SqlConnection(_connectionString))
@@ -134,7 +134,6 @@ namespace WebshopData.DatabaseLayer
                 con.Open();
                 // Execute read
                 SqlDataReader prodReader = readCommand.ExecuteReader();
-                foundProd = new Product(); //det virker til at være her den tomme constructor bruges
                 while (prodReader.Read())
                 {
                     foundProd = GetProductFromReader(prodReader);
