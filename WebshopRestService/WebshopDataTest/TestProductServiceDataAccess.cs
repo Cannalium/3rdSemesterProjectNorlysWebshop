@@ -17,7 +17,6 @@ namespace WebshopDataTest
         private readonly ITestOutputHelper _extraOutput;
         readonly private IProductAccess _productAccess;
         readonly private IProductData _productServiceAccess;
-        private IPersonData _personServiceAccess;
 
         public TestProductServiceDataAccess(ITestOutputHelper output)
         {
@@ -48,6 +47,11 @@ namespace WebshopDataTest
             //Assert
             Assert.NotNull(productById); // Ensure the returned product is not null
             Assert.Equal(insertedId, productById.ProdId); // Check specific attributes of the returned product
+            Assert.Equal(testProduct.ProdName, productById.ProdName); // Check specific attributes of the returned product
+            Assert.Equal(testProduct.ProdDescription, productById.ProdDescription);
+            Assert.Equal(testProduct.ProdPrice, productById.ProdPrice);
+            Assert.Equal(testProduct.ProdQuantity, productById.ProdQuantity);
+            Assert.Equal(testProduct.ProdType, productById.ProdType);
 
             // Clean up - Delete the test product from the database?
             bool deletionResult = _productServiceAccess.Delete(insertedId);
@@ -125,6 +129,7 @@ namespace WebshopDataTest
             //Assert
             Assert.True(updateResult);
             ProductDTORead? updatedProduct = _productServiceAccess.Get(insertedId); // Retrieve the updated product from the service
+            Assert.NotNull(updatedProduct);
             Assert.Equal("TestProductUpdated", updatedProduct.ProdName); // Verify the updated fields
 
             // Clean up - Delete the test product from the database?
@@ -152,6 +157,8 @@ namespace WebshopDataTest
 
             // Assert
             Assert.True(deletionResult); // Check if deletion was successful
+            ProductDTORead? productDeleted = _productServiceAccess.Get(insertedId);
+            Assert.Null(productDeleted);
         }
 
     }
