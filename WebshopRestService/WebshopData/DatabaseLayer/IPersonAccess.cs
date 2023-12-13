@@ -12,7 +12,7 @@ namespace WebshopData.DatabaseLayer
         List<Person> GetPersonAll();
         int CreatePerson(Person personAdd);
         bool UpdatePerson(Person personUpdate);
-        Person GetPersonById(int personId);
+        Person? GetPersonById(int personId);
         Person GetPersonByEmail(string email);
         bool DeletePerson(int personId);
 

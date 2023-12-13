@@ -101,7 +101,7 @@ namespace WebshopDataTest
         public void Given_PersonDTOWrite_When_UpdatingPerson_Then_PersonShouldContainExpectedFields()
         {
             //Arrange
-            PersonDTOWrite personDTOWrite = new PersonDTOWrite()
+            PersonDTOWrite personDTO = new PersonDTOWrite()
             {
                 FirstName = "TestFirstName",
                 LastName = "TestLastName",
@@ -109,19 +109,20 @@ namespace WebshopDataTest
                 PhoneNo = "43218765",
             };
 
-            int insertedId = _personServiceAccess.Add(personDTOWrite);
-            // Not sure about this - consult
-            PersonDTORead personDTORead = new PersonDTORead();
+            int insertedId = _personServiceAccess.Add(personDTO);
 
             // Act
-            personDTORead.PersonId = insertedId;
-            personDTOWrite.FirstName = "TestFirstNameUpdated";
+            PersonDTORead? personDTORead = _personServiceAccess.GetPersonById(insertedId);
+            Assert.NotNull(personDTORead);
 
-            bool updateResult = _personServiceAccess.Put(personDTOWrite);
+            personDTORead.FirstName = "TestFirstNameUpdated";
+
+            bool updateResult = _personServiceAccess.Put(personDTORead);
 
             //Assert
             Assert.True(updateResult);
             PersonDTORead? updatedPerson = _personServiceAccess.GetPersonById(insertedId); // Retrieve the updated product from the service
+            Assert.NotNull(updatedPerson);
             Assert.Equal("TestFirstNameUpdated", updatedPerson.FirstName); // Verify the updated fields
 
             // Clean up - Delete the test product from the database?

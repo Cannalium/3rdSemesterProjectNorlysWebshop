@@ -41,10 +41,10 @@ namespace WebshopDataTest
         {
             //Arange
             Person testPerson = new Person()
-            { FirstName = "fatimaaa",
-              LastName = "fatfataa",
-              PhoneNo = "44444433",
-              Email = "fatimaaa@ucn.dk",
+            { FirstName = "TestName",
+              LastName = "TestLastName",
+              PhoneNo = "01010101",
+              Email = "test@ucn.dk",
               IsAdmin = true,
             };
 
@@ -55,6 +55,9 @@ namespace WebshopDataTest
 
             // Assert
             Assert.True(deleteResult);
+            Person? deletedPerson = _personAccess.GetPersonById(insertedId);
+            Assert.Null(deletedPerson);
+
         }
 
         [Fact]
@@ -65,8 +68,8 @@ namespace WebshopDataTest
             {
                 FirstName = "fatimaaa",
                 LastName = "fatfataa",
-                PhoneNo = "44444433",
-                Email = "fatimaaa@ucn.dk",
+                PhoneNo = "09090909",
+                Email = "test@ucn.dk",
                 IsAdmin= true,
             };
 
@@ -82,6 +85,15 @@ namespace WebshopDataTest
 
             // Assert
             Assert.True(updateResult);
+            Person? updatedPerson = _personAccess.GetPersonById(insertedId);
+            Assert.Equal("Oda", updatedPerson.FirstName);
+            Assert.Equal("09090909", updatedPerson.PhoneNo);
+            Assert.Equal("test@ucn.dk", updatedPerson.Email);
+            Assert.True(updatedPerson.IsAdmin);
+
+            // Clean up - Delete the test product from the database?
+            bool deletionResult = _personAccess.DeletePerson(insertedId);
+            Assert.True(deletionResult); // Check if deletion was successful
         }
 
         [Fact]
