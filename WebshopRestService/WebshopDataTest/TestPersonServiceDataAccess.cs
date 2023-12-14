@@ -58,10 +58,10 @@ namespace WebshopDataTest
             // Arrange
             PersonDTOWrite personDTO = new PersonDTOWrite()
             {
-                FirstName = "Testmndfnmfdesad",
-                LastName = "TestLasdfsdfmeasdas",
-                Email = "Tassdfsdfest@Test.dk",
-                PhoneNo = "87775431",
+                FirstName = "TestFirstNamesad",
+                LastName = "TestLastNameasdas",
+                Email = "Tasdasest@Test.dk",
+                PhoneNo = "87655431",
             };
 
             int insertedId = _personServiceAccess.Add(personDTO);
