@@ -25,11 +25,6 @@ namespace WebshopModel.ModelLayer
             IsAdmin = isAdmin;
         }
 
-        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email) : this(firstName, lastName, phoneNo, email)
-        {
-            PersonId = personId;
-        }
-
         public int PersonId { get; set; }
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

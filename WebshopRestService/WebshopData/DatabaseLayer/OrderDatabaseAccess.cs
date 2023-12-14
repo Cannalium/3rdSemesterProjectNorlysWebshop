@@ -42,7 +42,7 @@ namespace WebshopData.DatabaseLayer
                         cmdOrder.CommandText = "INSERT INTO [Order] (personId_FK, orderDate, orderPrice) OUTPUT INSERTED.OrderId Values(@personId, @orderDate, @orderPrice)";
                         cmdOrder.Parameters.AddWithValue("personId", entity.Person.PersonId);
                         cmdOrder.Parameters.AddWithValue("orderDate", DateTime.Now);
-                        cmdOrder.Parameters.AddWithValue("orderPrice", entity.OrderPrice);
+                        cmdOrder.Parameters.AddWithValue("orderPrice", entity.OrderPrice); //SPØRG LARS MEGET VIGTIGT
                         insertedId = (int)cmdOrder.ExecuteScalar(); // Fetch orderId (from OUTPUT INSERTED.OrderId)
                     }
 
@@ -98,7 +98,7 @@ namespace WebshopData.DatabaseLayer
         public bool DeleteOrder(int orderId)
         {
             bool orderDeleted = false;
-            string queryString = "DELETE FROM [Order] WHERE orderId = @OrderId";
+            string queryString = "DELETE FROM Order WHERE orderId = @OrderId";
 
             using (SqlConnection connection = new SqlConnection(_connectionString))
             using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
@@ -141,9 +141,9 @@ namespace WebshopData.DatabaseLayer
             return foundOrders;
         }
 
-        public Order? GetOrderById(int orderId)
+        public Order GetOrderById(int orderId)
         {
-            Order? foundOrder = null;
+            Order foundOrder;
 
             string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order] where orderId = @OrderId";
             using (SqlConnection con = new SqlConnection(_connectionString))
@@ -156,6 +156,7 @@ namespace WebshopData.DatabaseLayer
                 con.Open();
                 // Execute read
                 SqlDataReader orderReader = readCommand.ExecuteReader();
+                foundOrder = new Order(); // It seems the empty constructor is used here
                 while (orderReader.Read())
                 {
                     foundOrder = GetOrderFromReader(orderReader);

@@ -4,11 +4,11 @@ namespace WebshopRestService.DTOs
 {
     public class OrderDTOWrite
     {
-        public PersonDTORead PersonDTO { get; set; }
+        public PersonDTOWrite PersonDTO { get; set; }
         public decimal OrderPrice { get; set; }
         public List<OrderLineDTOWrite> OrderLines { get; set; }
 
-        public OrderDTOWrite(PersonDTORead personDTO, decimal orderPrice, List<OrderLineDTOWrite> orderLines)
+        public OrderDTOWrite(PersonDTOWrite personDTO, decimal orderPrice, List<OrderLineDTOWrite> orderLines)
         {
             PersonDTO = personDTO;
             OrderPrice = orderPrice;

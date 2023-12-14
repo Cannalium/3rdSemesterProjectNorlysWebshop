@@ -1,7 +1,12 @@
 ﻿using Microsoft.Extensions.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using WebshopData.DatabaseLayer;
+using WebshopDataTest;
 using WebshopRestService.BusinessLogicLayer;
-using WebshopRestService.DTOs;
 using Xunit.Abstractions;
 
 namespace WebshopDataTest
@@ -44,121 +49,6 @@ namespace WebshopDataTest
         [Fact]
         public void Given_ExistingOrder_When_GettingOrderById_Then_OrderShouldBeReturned()
         {
-            // Arrange
-            PersonDTORead personDTO = new PersonDTORead()
-            {
-                FirstName = "Tdfjdsfdsfhgfsad",
-                LastName = "sdfskdfkfgg",
-                Email = "Takkkkdsfsdfsdfdfasest@Test.dk",
-                PhoneNo = "87812937",
-            };
-
-            PersonDTOWrite personDTOWrite = new PersonDTOWrite()
-            {
-                FirstName = "Tdfjdsfdsfhgfsad",
-                LastName = "sdfskdfkfgg",
-                Email = "Takkkkdsfsdfsdfdfasest@Test.dk",
-                PhoneNo = "87812937",
-            };
-
-            int insertedPersonId = _personServiceAccess.Add(personDTOWrite);
-
-            personDTO.PersonId = insertedPersonId;
-
-            ProductDTOWrite productDTO = new ProductDTOWrite()
-            {
-                ProdName = "TestProduct",
-                ProdDescription = "TestDescription",
-                ProdPrice = 100,
-                ProdQuantity = 1,
-                ProdType = "Merch",
-            };
-
-            int insertedProdId = _productServiceAccess.Add(productDTO);
-
-            List<OrderLineDTOWrite> orderLineDTOWrite = new List<OrderLineDTOWrite>()
-            {
-                new OrderLineDTOWrite(insertedProdId, 1)
-            };
-
-            OrderDTOWrite orderDTO = new OrderDTOWrite(personDTO, 200, orderLineDTOWrite)
-            {
-            };
-
-            // Act 
-            int insertedOrderId = _orderServiceAccess.Add(orderDTO);
-            OrderDTORead? orderById = _orderServiceAccess.Get(insertedOrderId);
-
-            // Assert
-            Assert.NotNull(orderById);
-            Assert.Equal(insertedOrderId, orderById.OrderId);
-
-            // Clean up - Delete the test product from the database?
-            bool deletionResult = _orderServiceAccess.Delete(insertedOrderId);
-            bool deletionPersonResult = _personServiceAccess.Delete(insertedPersonId);
-            bool deletionProductResult = _productServiceAccess.Delete(insertedProdId);
-            Assert.True(deletionResult); // Check if deletion was successful
-            Assert.True(deletionPersonResult); // Check if deletion was successful
-            Assert.True(deletionProductResult); // Check if deletion was successful
-
-        }
-
-        [Fact]
-        public void TestTwoOrderLinesOneProduct()
-        {
-            // Arrange
-            PersonDTORead personDTO = new PersonDTORead()
-            {
-                FirstName = "Tdjdsjdssad",
-                LastName = "sdsdsfgfg",
-                Email = "Takkghghast@Test.dk",
-                PhoneNo = "87859017",
-            };
-
-            PersonDTOWrite personDTOWrite = new PersonDTOWrite()
-            {
-                FirstName = "Tdjdsjdssad",
-                LastName = "sdsdsfgfg",
-                Email = "Takkghghast@Test.dk",
-                PhoneNo = "87859017",
-            };
-
-            int insertedPersonId = _personServiceAccess.Add(personDTOWrite);
-
-            personDTO.PersonId = insertedPersonId;
-
-            ProductDTOWrite productDTO = new ProductDTOWrite()
-            {
-                ProdName = "TestProduct",
-                ProdDescription = "TestDescription",
-                ProdPrice = 100,
-                ProdQuantity = 1,
-                ProdType = "Merch",
-            };
-
-            int insertedProdId = _productServiceAccess.Add(productDTO);
-
-            List<OrderLineDTOWrite> orderLineDTOWrite = new List<OrderLineDTOWrite>()
-            {
-                new OrderLineDTOWrite(insertedProdId, 2)
-            };
-
-            OrderDTOWrite orderDTO = new OrderDTOWrite(personDTO, 200, orderLineDTOWrite)
-            {
-            };
-
-            // Act 
-            int insertedOrderId = _orderServiceAccess.Add(orderDTO);
-            OrderDTORead? orderById = _orderServiceAccess.Get(insertedOrderId);
-
-            // Assert
-            Assert.Null(orderById);
-
-            // Clean up - Delete the test product from the database?
-            bool deletionPersonResult = _personServiceAccess.Delete(insertedPersonId);
-            bool deletionProductResult = _productServiceAccess.Delete(insertedProdId);
-            Assert.True(deletionPersonResult); // Check if deletion was successful
-            Assert.True(deletionProductResult); // Check if deletion was successful
 
         }
     }

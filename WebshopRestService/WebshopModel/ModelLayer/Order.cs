@@ -33,7 +33,6 @@ namespace WebshopModel.ModelLayer {
             OrderDate = DateTime.Now; // Provide a default value for orderDate or modify as needed
             OrderLines = orderLines ?? new List<OrderLine>();
             Person = person ?? throw new ArgumentNullException(nameof(person));
-            PersonId_FK = person.PersonId;
             OrderPrice = orderPrice;
         }
 

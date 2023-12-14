@@ -46,16 +46,6 @@ namespace WebshopRestService.ModelConversion
             }
             return aPerson;
         }
-
-        public static Person? ToPerson(PersonDTORead DTO)
-        {
-            Person? aPerson = null;
-            if (DTO != null)
-            {
-                aPerson = new Person(DTO.PersonId, DTO.FirstName, DTO.LastName, DTO.PhoneNo, DTO.Email);
-            }
-            return aPerson;
-        }
     }
 }
 
