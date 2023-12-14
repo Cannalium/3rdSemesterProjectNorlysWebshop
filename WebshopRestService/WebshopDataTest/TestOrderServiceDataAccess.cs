@@ -45,11 +45,5 @@ namespace WebshopDataTest
             _productServiceAccess = new ProductDataControl(_productAccess);
 
         }
-
-        [Fact]
-        public void Given_ExistingOrder_When_GettingOrderById_Then_OrderShouldBeReturned()
-        {
-
-        }
     }
 }

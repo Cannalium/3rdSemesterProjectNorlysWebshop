@@ -32,10 +32,10 @@ namespace WebshopDataTest
             // Arrange
             PersonDTOWrite personDTO = new PersonDTOWrite()
             {
-                FirstName = "TestFirstNameasdas",
-                LastName = "TestLastNameasda",
-                Email = "Testsdf@Test.dk",
-                PhoneNo = "32145678",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+                Email = "Test@Test.dk",
+                PhoneNo = "12345678",
             };
 
             int insertedId = _personServiceAccess.Add(personDTO);
@@ -58,10 +58,10 @@ namespace WebshopDataTest
             // Arrange
             PersonDTOWrite personDTO = new PersonDTOWrite()
             {
-                FirstName = "TestFirstNamesad",
-                LastName = "TestLastNameasdas",
-                Email = "Tasdasest@Test.dk",
-                PhoneNo = "87655431",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+                Email = "Test@Test.dk",
+                PhoneNo = "87654321",
             };
 
             int insertedId = _personServiceAccess.Add(personDTO);
@@ -82,7 +82,7 @@ namespace WebshopDataTest
         }
 
         [Fact]
-        public void Given_ExistingPersons_When_RetrievingAllPersons_Then_ReturnsValidProductList()
+        public void Given_ExistingProducts_When_RetrievingAllProducts_Then_ReturnsValidProductList()
         {
             // Arrange
 
@@ -136,10 +136,10 @@ namespace WebshopDataTest
             // Arrange
             PersonDTOWrite personDTOWrite = new PersonDTOWrite()
             {
-                FirstName = "TestFirstasdasName",
-                LastName = "TestLastasdName",
-                Email = "Test@Tsadest.dk",
-                PhoneNo = "44754321",
+                FirstName = "TestFirstName",
+                LastName = "TestLastName",
+                Email = "Test@Test.dk",
+                PhoneNo = "86754321",
             };
 
             int insertedId = _personServiceAccess.Add(personDTOWrite);
