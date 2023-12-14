@@ -89,9 +89,9 @@ namespace WebshopData.DatabaseLayer
             return foundPersons;
         }
 
-        public Person? GetPersonById(int personId)
+        public Person GetPersonById(int personId)
         {
-            Person? foundPerson = null;
+            Person foundPerson;
             
             string queryString = "select personId, firstName, lastName, phoneNo, email, isAdmin from Person where personId = @PersonId";
             using (SqlConnection con = new SqlConnection(_connectionString))
@@ -104,6 +104,7 @@ namespace WebshopData.DatabaseLayer
                 con.Open();
                 // Execute read
                 SqlDataReader personReader = readCommand.ExecuteReader();
+                foundPerson = new Person();
                 while (personReader.Read())
                 {
                     foundPerson = GetPersonFromReader(personReader);

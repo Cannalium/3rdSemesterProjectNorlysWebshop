@@ -88,8 +88,7 @@ namespace WebshopDataTest
 
             // Assert:
             Assert.True(updateResult);
-            Product? updatedProduct = _productAccess.GetProductById(insertedId);
-            Assert.NotNull(updatedProduct);
+            Product updatedProduct =_productAccess.GetProductById(insertedId);
             Assert.Equal("Musemåtte med logo", updatedProduct.ProdName);
 
             // Clean up - Delete the test product from the database?
