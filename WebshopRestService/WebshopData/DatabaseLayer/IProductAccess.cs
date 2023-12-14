@@ -13,7 +13,7 @@ namespace WebshopData.DatabaseLayer
         int CreateProduct(Product aProduct);
         bool UpdateProduct(Product productUpdate);
         List<Product> GetProductByType(string prodType);
-        Product? GetProductById(int prodId);
+        Product GetProductById(int prodId);
         bool DeleteProduct(int prodId);
      
     }
