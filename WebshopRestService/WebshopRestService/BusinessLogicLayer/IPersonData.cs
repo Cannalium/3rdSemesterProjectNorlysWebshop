@@ -6,8 +6,8 @@ namespace WebshopRestService.BusinessLogicLayer
         PersonDTORead? GetPersonById(int personId);
         PersonDTORead? GetPersonByEmail(string userId);
         List<PersonDTORead>? Get();
-        int Add(PersonDTOWrite personToAdd);
-        bool Put(PersonDTOWrite personToUpdate);
+        int Add(PersonDTORead personToAdd);
+        bool Put(PersonDTORead personToUpdate);
         bool Delete(int personId);
     }
 }

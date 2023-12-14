@@ -10,13 +10,13 @@ namespace WebshopRestService.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonData _personDataControl;
-        //Udkommenteret her og fjernet fra constructoren for at matche med ProductController
-        //private readonly IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
 
         //Constructor with Dependency Injection
-        public PersonController(IPersonData personDataController)
+        public PersonController(IConfiguration configuration)
         {
-            _personDataControl = personDataController;
+            _configuration = configuration;
+            _personDataControl = new PersonDataControl(_configuration);
         }
         //, Route("api/person")
 
@@ -73,7 +73,7 @@ namespace WebshopRestService.Controllers
       */
         // URL: api/person, Route("api/person")
         [HttpPost]
-        public ActionResult<int> PostNewPerson(PersonDTOWrite personDTO)
+        public ActionResult<int> PostNewPerson(PersonDTORead personDTO)
         {
             ActionResult<int> foundReturn;
             int insertedId = -1;
@@ -116,7 +116,7 @@ namespace WebshopRestService.Controllers
         }
         //, Route("api/person")
         [HttpPut]
-        public ActionResult<bool> Put(PersonDTOWrite personDTO)
+        public ActionResult<bool> Put(PersonDTORead personDTO)
         {
             ActionResult foundReturn;
 

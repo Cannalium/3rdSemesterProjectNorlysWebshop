@@ -19,7 +19,7 @@ namespace WebshopRestService.BusinessLogicLayer
             int insertedId = 0;
             try
             {
-                if (orderToAdd != null && orderToAdd.PersonDTO != null)
+                if (orderToAdd != null && orderToAdd.Person != null)
                 {
                     Order? foundOrder = ModelConversion.OrderDTOConversion.ToOrder(orderToAdd);
                     if (foundOrder != null && foundOrder.Person != null)

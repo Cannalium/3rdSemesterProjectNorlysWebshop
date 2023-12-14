@@ -37,7 +37,7 @@ namespace WebshopRestService.ModelConversion
         }
 
         // Convert from PersonDTO object to Person object
-        public static Person? ToPerson(PersonDTOWrite DTO)
+        public static Person? ToPerson(PersonDTORead DTO)
         {
             Person? aPerson = null;
             if (DTO != null)

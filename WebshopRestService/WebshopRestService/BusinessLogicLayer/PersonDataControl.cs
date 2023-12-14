@@ -8,16 +8,12 @@ namespace WebshopRestService.BusinessLogicLayer
     {
         private readonly IPersonAccess _personAccess;
 
-        //public PersonDataControl(IConfiguration configuration)
-        //{
-        //    _personAccess = new PersonDatabaseAccess(configuration);
-        //}
-        public PersonDataControl(IPersonAccess personAccess)
+        public PersonDataControl(IConfiguration configuration)
         {
-            _personAccess = personAccess;
+            _personAccess = new PersonDatabaseAccess(configuration);
         }
 
-        public int Add(PersonDTOWrite personToAdd)
+            public int Add(PersonDTORead personToAdd)
         {
             int insertedId = 0;
             try
@@ -78,7 +74,7 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundDTOs;
         }
 
-        public bool Put(PersonDTOWrite personToUpdate)
+        public bool Put(PersonDTORead personToUpdate)
         {
             try
             {

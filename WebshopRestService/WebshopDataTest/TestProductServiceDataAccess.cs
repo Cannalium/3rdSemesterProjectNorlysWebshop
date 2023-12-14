@@ -67,9 +67,8 @@ namespace WebshopDataTest
                 ProdType = "Merch",
             };
 
-            int insertedId = _productServiceAccess.Add(productDTOWrite);
-
             //Act
+            int insertedId = _productServiceAccess.Add(productDTOWrite);
             ProductDTORead? product = _productServiceAccess.Get(insertedId);
 
             //Assert
@@ -86,17 +85,15 @@ namespace WebshopDataTest
         }
 
         [Fact]
-        public void Given_ExistingProducts_When_RetrievingAllProducts_Then_ReturnValidProductList()
+        public void Given_ExistingProducts_When_RetrievingAllProducts_Then_ReturnsValidProductList()
         {
             //Arrange
-
             //Act
-            List<Product> productsDTORead = _productAccess.GetProductAll();
+            List<ProductDTORead> productsDTORead = new List<ProductDTORead>();
             bool productsWereRead = (productsDTORead.Count > 0);
             _extraOutput.WriteLine("Number of products: " + productsDTORead.Count);
 
             //Assert
-            Assert.True(productsWereRead);
             Assert.NotEmpty(productsDTORead);
         }
 
@@ -105,7 +102,7 @@ namespace WebshopDataTest
         public void Given_ProductDTOWrite_When_UpdatingProduct_Then_ProductShouldContainExpectedFields()
         {
             //Arrange
-            ProductDTOWrite productDTO = new ProductDTOWrite()
+            ProductDTOWrite productDTOWrite = new ProductDTOWrite()
             {
                 ProdName = "TestProduct",
                 ProdDescription = "TestDescription",
@@ -114,13 +111,13 @@ namespace WebshopDataTest
                 ProdType = "Merch",
             };
 
-            int insertedId = _productServiceAccess.Add(productDTO);
+            int insertedId = _productServiceAccess.Add(productDTOWrite);
 
             //Act
-            productDTO.ProdId = insertedId;
-            productDTO.ProdName = "TestProductUpdated";
+            productDTOWrite.ProdId = insertedId;
+            productDTOWrite.ProdName = "TestProductUpdated";
 
-            bool updateResult = _productServiceAccess.Put(productDTO);
+            bool updateResult = _productServiceAccess.Put(productDTOWrite);
 
             //Assert
             Assert.True(updateResult);
@@ -153,6 +150,33 @@ namespace WebshopDataTest
             // Assert
             Assert.True(deletionResult); // Check if deletion was successful
         }
+
+        // Concurrency test
+        //[Fact]
+        //public void Given_LimitedTickets_When_TwoOrdersAttemptPurchase_Then_OneSucceedsOneFails()
+        //{
+        //    // Arrange
+        //    PersonDTORead personDTORead = new PersonDTORead()
+        //    {
+        //        FirstName = "TestFornavn",
+        //        LastName = "TestEfternavn",
+        //        PhoneNo = "55443322",
+        //        Email = "test@test.dk",
+        //    };
+
+            //int insertedId = _personServiceAccess.Add(personDTORead);
+            //PersonDTORead? person = _personServiceAccess.Get(insertedId);
+
+
+            ////Arrange
+            //OrderDTOWrite orderDTOWrite = new OrderDTOWrite()
+            //{
+
+            //}
+            //Act
+            //Assert
+
+        //}
 
     }
 }
