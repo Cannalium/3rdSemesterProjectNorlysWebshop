@@ -52,9 +52,11 @@ namespace WebshopRestService.ModelConversion
                     OrderLineDTOConversion.ToOrderLine(olDTO)  // Convert OrderLineDTOWrite to OrderLine
                 ).ToList();
 
+                Person? person = PersonDTOConversion.ToPerson(inDTO.PersonDTORead);
+
                 anOrder = new Order(
                         orderPrice: inDTO.OrderPrice,
-                        person: inDTO.Person,
+                        person: person,
                         orderLines: orderLines
                     );
 
