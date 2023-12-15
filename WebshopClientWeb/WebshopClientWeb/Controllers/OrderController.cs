@@ -124,27 +124,28 @@ namespace WebshopClientWeb.Controllers
                 // Pass the order to the OrderDataControl to create the order
                 int insertedId = await _orderDataControl.CreateOrder(orderToCreate);
 
-                // Set a TempData value to hold the order ID for the next request
-                TempData["OrderId"] = insertedId;
+                
+                    // Set a TempData value to hold the order ID for the next request
+                    TempData["OrderId"] = insertedId;
 
-                // Convert the list of OrderLine objects to a list of strings
-                List<string> orderLineDetails = cartOrderLines
-                    .Select(ol => $"{ol.CartProduct.ProdName} ({ol.OrderLineProdQuantity})")
-                    .ToList();
+                    // Convert the list of OrderLine objects to a list of strings
+                    List<string> orderLineDetails = cartOrderLines
+                        .Select(ol => $"{ol.CartProduct.ProdName} ({ol.OrderLineProdQuantity})")
+                        .ToList();
 
-                // Store the list of strings in TempData
-                TempData["OrderLineDetails"] = orderLineDetails;
+                    // Store the list of strings in TempData
+                    TempData["OrderLineDetails"] = orderLineDetails;
 
-                // Set ViewBag.OrderLineDetails before returning the view
-                ViewBag.OrderLineDetails = orderLineDetails;
+                    // Set ViewBag.OrderLineDetails before returning the view
+                    ViewBag.OrderLineDetails = orderLineDetails;
 
-                Debug.WriteLine($"OrderLineDetails: {string.Join(", ", orderLineDetails)}");
+                    Debug.WriteLine($"OrderLineDetails: {string.Join(", ", orderLineDetails)}");
 
-                // Empty the cart
-                CartDataControl.EmptyCart(HttpContext);
+                    // Empty the cart
+                    CartDataControl.EmptyCart(HttpContext);
 
-                // Redirect to the Cart action
-                return RedirectToAction("Cart", "cart");
+                    // Redirect to the Cart action
+                    return RedirectToAction("Cart", "Cart");
             }
             catch (Exception ex)
             {

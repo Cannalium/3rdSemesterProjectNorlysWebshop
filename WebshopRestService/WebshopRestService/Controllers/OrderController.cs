@@ -108,6 +108,14 @@ namespace WebshopRestService.Controllers
             {
                 return BadRequest(); // missing input
             }
+            else if (insertedId == -2)
+            {
+                return NotFound(); // 404
+            }
+            else if (insertedId == -3)
+            {
+                return Conflict(); // 409
+            }
             else
             {
                 return StatusCode(500); // Internal server error

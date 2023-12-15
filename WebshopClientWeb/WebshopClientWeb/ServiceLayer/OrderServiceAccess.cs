@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 using WebshopClientWeb.Model;
@@ -20,7 +21,7 @@ namespace WebshopClientWeb.ServiceLayer
         public async Task<int> CreateOrder(Order orderToCreate)
         {
             int insertedOrderId = -1;
-            _orderService.UseUrl = _orderService.BaseUrl+"Order";
+            _orderService.UseUrl = _orderService.BaseUrl + "Order";
 
             if (_orderService != null)
             {
@@ -36,13 +37,21 @@ namespace WebshopClientWeb.ServiceLayer
                         bool numOk = Int32.TryParse(idString, out insertedOrderId);
                         if (!numOk)
                         {
-                            insertedOrderId = -2;
+                            insertedOrderId = -4; // If parsing of idString fails 
                         }
+                    }
+                    if (serviceResponse != null && serviceResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    {
+                        insertedOrderId = -2;
+                    }
+                    if (serviceResponse != null && serviceResponse.StatusCode == System.Net.HttpStatusCode.Conflict)
+                    {
+                        insertedOrderId = -3;
                     }
                 }
                 catch
                 {
-                    insertedOrderId = -2;
+                    insertedOrderId = -1;
                 }
             }
             return insertedOrderId;
