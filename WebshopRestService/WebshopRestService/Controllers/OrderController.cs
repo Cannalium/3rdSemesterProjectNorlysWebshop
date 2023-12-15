@@ -95,14 +95,14 @@ namespace WebshopRestService.Controllers
         {
             if (orderDTOWrite == null)
             {
-                return BadRequest();
+                return BadRequest(); // 400
             }
 
             int insertedId = _orderDataController.Add(orderDTOWrite);
 
             if (insertedId > 0)
             {
-                return Ok(insertedId);
+                return Ok(insertedId); // 200
             }
             else if (insertedId == 0)
             {

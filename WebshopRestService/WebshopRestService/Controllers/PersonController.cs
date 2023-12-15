@@ -12,7 +12,7 @@ namespace WebshopRestService.Controllers
         private readonly IPersonData _personDataControl;
         private readonly IConfiguration _configuration;
 
-        //Constructor with Dependency Injection
+        // Constructor with Dependency Injection
         public PersonController(IConfiguration configuration)
         {
             _configuration = configuration;

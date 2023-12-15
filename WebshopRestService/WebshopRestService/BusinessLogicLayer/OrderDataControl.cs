@@ -16,7 +16,7 @@ namespace WebshopRestService.BusinessLogicLayer
 
         public int Add(OrderDTOWrite orderToAdd)
         {
-            int insertedId = 0;
+            int insertedId = -1;
             try
             {
                 if (orderToAdd != null && orderToAdd.PersonDTORead != null)
