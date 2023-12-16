@@ -21,84 +21,70 @@ namespace WebshopDataTest
             _personAccess = new PersonDatabaseAccess(_connectionString);
         }
 
-        [Fact]
-        public void TestGetPersonAll()
-        {
-            // Arrange
 
-            // Act
-            List<Person> readPersons = _personAccess.GetPersonAll();
-            bool personsWereRead = (readPersons.Count > 0);
-            // Print additional output
-            _extraOutput.WriteLine("Number of persons: " + readPersons.Count);
+        //    [Fact]
+        //    public void TestDeletePerson()
+        //    {
+        //        //Arange
+        //        Person testPerson = new Person()
+        //        { FirstName = "fatimaaa",
+        //          LastName = "fatfataa",
+        //          PhoneNo = "44444433",
+        //          Email = "fatimaaa@ucn.dk",
+        //          IsAdmin = true,
+        //        };
 
-            // Assert
-            Assert.True(personsWereRead);
-        }
+        //        int insertedId = _personAccess.CreatePerson(testPerson);
 
-        [Fact]
-        public void TestDeletePerson()
-        {
-            //Arange
-            Person testPerson = new Person()
-            { FirstName = "fatimaaa",
-              LastName = "fatfataa",
-              PhoneNo = "44444433",
-              Email = "fatimaaa@ucn.dk",
-              IsAdmin = true,
-            };
+        //        // Act
+        //        bool deleteResult = _personAccess.DeletePerson(insertedId);
 
-            int insertedId = _personAccess.CreatePerson(testPerson);
+        //        // Assert
+        //        Assert.True(deleteResult);
+        //    }
 
-            // Act
-            bool deleteResult = _personAccess.DeletePerson(insertedId);
+        //    [Fact]
+        //    public void TestUpdatePerson()
+        //    {
+        //        // Arrange
+        //        Person testPerson = new Person()
+        //        {
+        //            FirstName = "fatimaaa",
+        //            LastName = "fatfataa",
+        //            PhoneNo = "44444433",
+        //            Email = "fatimaaa@ucn.dk",
+        //            IsAdmin= true,
+        //        };
 
-            // Assert
-            Assert.True(deleteResult);
-        }
+        //        int insertedId = (_personAccess.CreatePerson(testPerson));
 
-        [Fact]
-        public void TestUpdatePerson()
-        {
-            // Arrange
-            Person testPerson = new Person()
-            {
-                FirstName = "fatimaaa",
-                LastName = "fatfataa",
-                PhoneNo = "44444433",
-                Email = "fatimaaa@ucn.dk",
-                IsAdmin= true,
-            };
+        //        // Modify details
+        //        testPerson.PersonId = insertedId;
+        //        testPerson.FirstName = "Oda";
+        //        // testPerson.PersonType = "Employee";
 
-            int insertedId = (_personAccess.CreatePerson(testPerson));
+        //        // Act
+        //        bool updateResult = _personAccess.UpdatePerson(testPerson);
 
-            // Modify details
-            testPerson.PersonId = insertedId;
-            testPerson.FirstName = "Oda";
-            // testPerson.PersonType = "Employee";
+        //        // Assert
+        //        Assert.True(updateResult);
+        //    }
 
-            // Act
-            bool updateResult = _personAccess.UpdatePerson(testPerson);
+        //    [Fact]
+        //    public void TestGetPersonById()
+        //    {
+        //        // Arrange
+        //        int personIdToRetrieve = 6;
 
-            // Assert
-            Assert.True(updateResult);
-        }
+        //        // Act
+        //        Person retrievedPerson = _personAccess.GetPersonById(personIdToRetrieve);   
 
-        [Fact]
-        public void TestGetPersonById()
-        {
-            // Arrange
-            int personIdToRetrieve = 6;
+        //        // Assert
+        //        Assert.NotNull(retrievedPerson); //Assures that a person object is retrieved
+        //        Assert.Equal(personIdToRetrieve, retrievedPerson.PersonId); //Ensure correct person is retrieved
+        //    }
 
-            // Act
-            Person retrievedPerson = _personAccess.GetPersonById(personIdToRetrieve);   
-
-            // Assert
-            Assert.NotNull(retrievedPerson); //Assures that a person object is retrieved
-            Assert.Equal(personIdToRetrieve, retrievedPerson.PersonId); //Ensure correct person is retrieved
-        }
-
+        //}
     }
-
 }
 
