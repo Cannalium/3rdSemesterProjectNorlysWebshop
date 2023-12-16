@@ -30,14 +30,14 @@ namespace WebshopData.DatabaseLayer
             // Using a TransactionScope to define the boundaries of a transaction block
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, tsOptions))
             {
-                using (SqlConnection conn = new SqlConnection(_connectionString))
+                using (SqlConnection con = new SqlConnection(_connectionString))
                 {
-                    conn.Open();
+                    con.Open();
 
                     // Validate product quantities
                     foreach (OrderLine orderLine in orderToCreate.OrderLines)
                     {
-                        if (!IsSufficientQuantity(conn, orderLine.ProdId, orderLine.OrderLineProdQuantity))
+                        if (!IsSufficientQuantity(con, orderLine.ProdId, orderLine.OrderLineProdQuantity))
                         {
                             sufficientStock = false;
                             insertedId = -2;
@@ -46,7 +46,7 @@ namespace WebshopData.DatabaseLayer
                     if (sufficientStock)
                     {
                         // Insert order and fetch its orderId
-                        using (SqlCommand cmdOrder = conn.CreateCommand())
+                        using (SqlCommand cmdOrder = con.CreateCommand())
                         {
                             cmdOrder.CommandText = "INSERT INTO [Order] (personId_FK, orderDate, orderPrice) OUTPUT INSERTED.OrderId Values(@personId, @orderDate, @orderPrice)";
                             cmdOrder.Parameters.AddWithValue("personId", orderToCreate.Person.PersonId);
@@ -56,11 +56,12 @@ namespace WebshopData.DatabaseLayer
                             // Fetch orderId (from OUTPUT INSERTED.OrderId)
                             insertedId = (int)cmdOrder.ExecuteScalar();
                         }
+
                         // Insert OrderLines
                         foreach (OrderLine orderLine in orderToCreate.OrderLines)
                         {
                             // Insert orderline
-                            using (SqlCommand cmdOl = conn.CreateCommand())
+                            using (SqlCommand cmdOl = con.CreateCommand())
                             {
                                 cmdOl.CommandText = "INSERT INTO [OrderLine] (prodId_FK, orderId_FK, orderLineProdQuantity) Values(@prodId, @orderId, @orderLineProdQuantity)";
                                 cmdOl.Parameters.AddWithValue("prodId", orderLine.ProdId);
@@ -68,10 +69,11 @@ namespace WebshopData.DatabaseLayer
                                 cmdOl.Parameters.AddWithValue("orderLineProdQuantity", orderLine.OrderLineProdQuantity);
                                 cmdOl.ExecuteNonQuery();
                             }
+
                             // decrement stock
                             try
                             {
-                                SqlCommand decrementCmd = conn.CreateCommand();
+                                SqlCommand decrementCmd = con.CreateCommand();
 
                                 decrementCmd.CommandText = "UPDATE [Product] SET prodQuantity=prodQuantity-@orderLineProdQuantity WHERE prodId=@prodId";
                                 decrementCmd.Parameters.AddWithValue("prodId", orderLine.ProdId);
@@ -163,8 +165,8 @@ namespace WebshopData.DatabaseLayer
             bool orderUpdated = false;
             string queryString = "UPDATE Order SET orderDate = @OrderDate" +
                                  "WHERE orderId = @OrderId";
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand updateCommand = new SqlCommand(queryString, con))
             {
                 // Prepare SQL
                 SqlParameter orderIdParam = new SqlParameter("@OrderId", orderToUpdate.OrderId);
@@ -172,7 +174,7 @@ namespace WebshopData.DatabaseLayer
                 SqlParameter orderDateParam = new SqlParameter("@OrderDate", orderToUpdate.OrderDate);
                 updateCommand.Parameters.Add(orderDateParam);
 
-                connection.Open();
+                con.Open();
 
                 // Execute update
                 int rowsAffected = updateCommand.ExecuteNonQuery();
@@ -189,14 +191,14 @@ namespace WebshopData.DatabaseLayer
             bool orderDeleted = false;
             string queryString = "DELETE FROM Order WHERE orderId = @OrderId";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand deleteCommand = new SqlCommand(queryString, con))
             {
                 // Prepare SQL
                 SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
                 deleteCommand.Parameters.Add(orderIdParam);
 
-                connection.Open();
+                con.Open();
 
                 // Execute delete
                 int rowsAffected = deleteCommand.ExecuteNonQuery();

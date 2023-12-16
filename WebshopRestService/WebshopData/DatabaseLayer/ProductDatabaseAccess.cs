@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
@@ -21,7 +16,7 @@ namespace WebshopData.DatabaseLayer
         public ProductDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
 
         // Creates a new Product in the database with the specified attributes and returns the generated prodId
-        public int CreateProduct(Product aProduct)
+        public int CreateProduct(Product productToCreate)
         {
             int insertedId = -1;
             string insertString = "insert into Product(prodName, prodDescription, prodPrice, prodQuantity, prodType) OUTPUT INSERTED.prodId values(@ProdName, @ProdDescription, @ProdPrice, @ProdQuantity, @ProdType)";
@@ -30,15 +25,15 @@ namespace WebshopData.DatabaseLayer
             using (SqlCommand CreateCommand = new SqlCommand(insertString, con))
             {
                 // Prepare SQL
-                SqlParameter prodNameParam = new("@ProdName", aProduct.ProdName);
+                SqlParameter prodNameParam = new("@ProdName", productToCreate.ProdName);
                 CreateCommand.Parameters.Add(prodNameParam);
-                SqlParameter prodDescriptionParam = new("@ProdDescription", aProduct.ProdDescription);
+                SqlParameter prodDescriptionParam = new("@ProdDescription", productToCreate.ProdDescription);
                 CreateCommand.Parameters.Add(prodDescriptionParam);
-                SqlParameter prodPriceParam = new("@ProdPrice", aProduct.ProdPrice);
+                SqlParameter prodPriceParam = new("@ProdPrice", productToCreate.ProdPrice);
                 CreateCommand.Parameters.Add(prodPriceParam);
-                SqlParameter prodQuantityParam = new("@ProdQuantity", aProduct.ProdQuantity);
+                SqlParameter prodQuantityParam = new("@ProdQuantity", productToCreate.ProdQuantity);
                 CreateCommand.Parameters.Add(prodQuantityParam);
-                SqlParameter prodTypeParam = new("@ProdType", aProduct.ProdType);
+                SqlParameter prodTypeParam = new("@ProdType", productToCreate.ProdType);
                 CreateCommand.Parameters.Add(prodTypeParam);
 
                 con.Open();
@@ -128,30 +123,30 @@ namespace WebshopData.DatabaseLayer
         }
 
         // Updates a product in the database based on the provided Product object and returns true if successful
-        public bool UpdateProduct(Product prodUpdate)
+        public bool UpdateProduct(Product prodToUpdate)
         {
             bool prodUpdated = false;
             string queryString = "UPDATE Product SET prodName = @ProdName, prodDescription = @ProdDescription, " +
                                  "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity, prodType = @ProdType " +
                                  "WHERE prodId = @ProdId";
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand updateCommand = new SqlCommand(queryString, con))
             {
                 //Prepare SQL
-                SqlParameter prodIdParam = new SqlParameter("@ProdId", prodUpdate.ProdId);
+                SqlParameter prodIdParam = new SqlParameter("@ProdId", prodToUpdate.ProdId);
                 updateCommand.Parameters.Add(prodIdParam);
-                SqlParameter prodNameParam = new SqlParameter("@ProdName", prodUpdate.ProdName);
+                SqlParameter prodNameParam = new SqlParameter("@ProdName", prodToUpdate.ProdName);
                 updateCommand.Parameters.Add(prodNameParam);
-                SqlParameter prodDescriptionParam = new SqlParameter("@ProdDescription", prodUpdate.ProdDescription);
+                SqlParameter prodDescriptionParam = new SqlParameter("@ProdDescription", prodToUpdate.ProdDescription);
                 updateCommand.Parameters.Add(prodDescriptionParam);
-                SqlParameter prodPriceParam = new SqlParameter("@ProdPrice", prodUpdate.ProdPrice);
+                SqlParameter prodPriceParam = new SqlParameter("@ProdPrice", prodToUpdate.ProdPrice);
                 updateCommand.Parameters.Add(prodPriceParam);
-                SqlParameter prodQuantityParam = new SqlParameter("@ProdQuantity", prodUpdate.ProdQuantity);
+                SqlParameter prodQuantityParam = new SqlParameter("@ProdQuantity", prodToUpdate.ProdQuantity);
                 updateCommand.Parameters.Add(prodQuantityParam);
-                SqlParameter prodTypeParam = new SqlParameter("@ProdType", prodUpdate.ProdType);
+                SqlParameter prodTypeParam = new SqlParameter("@ProdType", prodToUpdate.ProdType);
                 updateCommand.Parameters.Add(prodTypeParam);
 
-                connection.Open();
+                con.Open();
 
                 //Execute update
                 int rowsAffected = updateCommand.ExecuteNonQuery();
@@ -168,14 +163,14 @@ namespace WebshopData.DatabaseLayer
             bool productDeleted = false;
             string queryString = "DELETE FROM Product WHERE prodId = @ProdId";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand deleteCommand = new SqlCommand(queryString, con))
             {
                 //Prepare SQL
                 SqlParameter prodIdParam = new SqlParameter("@ProdId", prodId);
                 deleteCommand.Parameters.Add(prodIdParam);
 
-                connection.Open();
+                con.Open();
 
                 //Execute delete
                 int rowsAffected = deleteCommand.ExecuteNonQuery();

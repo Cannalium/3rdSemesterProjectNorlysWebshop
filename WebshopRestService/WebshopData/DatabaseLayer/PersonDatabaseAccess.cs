@@ -58,6 +58,7 @@ namespace WebshopData.DatabaseLayer
                 readCommand.Parameters.Add(personIdParam);
                 
                 con.Open();
+
                 // Execute read
                 SqlDataReader personReader = readCommand.ExecuteReader();
                 foundPerson = new Person();
@@ -83,6 +84,7 @@ namespace WebshopData.DatabaseLayer
                 readCommand.Parameters.Add(personIdParam);
 
                 con.Open();
+
                 // Execute read
                 SqlDataReader personReader = readCommand.ExecuteReader();
                 foundPerson = new Person();
@@ -95,30 +97,30 @@ namespace WebshopData.DatabaseLayer
         }
 
         // Updates a person in the database based on the provided Person object and returns true if successful
-        public bool UpdatePerson(Person personUpdate)
+        public bool UpdatePerson(Person personToUpdate)
         {
             bool personUpdated = false;
             string queryString = "UPDATE Person SET firstName = @FirstName, lastName = @LastName, " +
                                  "phoneNo = @PhoneNo, email = @Email, isAdmin = @IsAdmin " +
                                  "WHERE personId = @PersonId";
-            using (SqlConnection connection = new SqlConnection(_connectionString)) 
-            using (SqlCommand updateCommand  = new SqlCommand(queryString, connection)) 
+            using (SqlConnection con = new SqlConnection(_connectionString)) 
+            using (SqlCommand updateCommand  = new SqlCommand(queryString, con)) 
             {
                 //Prepare SQL
-                SqlParameter personIdParam = new SqlParameter("@PersonId", personUpdate.PersonId);
+                SqlParameter personIdParam = new SqlParameter("@PersonId", personToUpdate.PersonId);
                 updateCommand.Parameters.Add(personIdParam);
-                SqlParameter firstNameParam = new SqlParameter("@FirstName", personUpdate.FirstName);
+                SqlParameter firstNameParam = new SqlParameter("@FirstName", personToUpdate.FirstName);
                 updateCommand.Parameters.Add(firstNameParam);
-                SqlParameter lastNameParam = new SqlParameter("@LastName", personUpdate.LastName);
+                SqlParameter lastNameParam = new SqlParameter("@LastName", personToUpdate.LastName);
                 updateCommand.Parameters.Add(lastNameParam);
-                SqlParameter phoneNoParam = new SqlParameter("@PhoneNo", personUpdate.PhoneNo);
+                SqlParameter phoneNoParam = new SqlParameter("@PhoneNo", personToUpdate.PhoneNo);
                 updateCommand.Parameters.Add(phoneNoParam);
-                SqlParameter emailParam = new SqlParameter("@Email", personUpdate.Email);
+                SqlParameter emailParam = new SqlParameter("@Email", personToUpdate.Email);
                 updateCommand.Parameters.Add(emailParam);
-                SqlParameter isAdminParam = new SqlParameter("@IsAdmin", personUpdate.IsAdmin);
+                SqlParameter isAdminParam = new SqlParameter("@IsAdmin", personToUpdate.IsAdmin);
                 updateCommand.Parameters.Add(isAdminParam);
 
-                connection.Open();
+                con.Open();
 
                 //Execute update
                 int rowsAffected = updateCommand.ExecuteNonQuery();
@@ -135,14 +137,14 @@ namespace WebshopData.DatabaseLayer
             bool personDeleted = false;
             string queryString = "DELETE FROM Person WHERE personId = @PersonId";
 
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand deleteCommand = new SqlCommand(queryString, con))
             {
                 //Prepare SQL
                 SqlParameter personIdParam = new SqlParameter("@PersonId", personId);
                 deleteCommand.Parameters.Add(personIdParam);
 
-                connection.Open();
+                con.Open();
 
                 //Execute delete
                 int rowsAffected = deleteCommand.ExecuteNonQuery();
