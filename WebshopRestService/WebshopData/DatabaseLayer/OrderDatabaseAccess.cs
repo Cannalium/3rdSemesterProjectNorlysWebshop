@@ -150,7 +150,7 @@ namespace WebshopData.DatabaseLayer
 
                 // Execute read
                 SqlDataReader orderReader = readCommand.ExecuteReader();
-                foundOrder = new Order(); // It seems the empty constructor is used here
+                foundOrder = new Order();
                 while (orderReader.Read())
                 {
                     foundOrder = GetOrderFromReader(orderReader);

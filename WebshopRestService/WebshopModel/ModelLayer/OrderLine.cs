@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebshopModel.ModelLayer {
-    public class OrderLine {
-
+﻿namespace WebshopModel.ModelLayer
+{
+    public class OrderLine 
+    {
         public OrderLine() { }
 
         public OrderLine(int prodId, int orderLineProdQuantity) 
@@ -14,7 +9,6 @@ namespace WebshopModel.ModelLayer {
             ProdId = prodId;
             OrderLineProdQuantity = orderLineProdQuantity;
         }
-
 
         public int OrderLineId { get; set; }
         public int ProdId { get; set; }

@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebshopModel.ModelLayer {
-    public class Order {
-
-        //public Order() { }
-
+﻿namespace WebshopModel.ModelLayer
+{
+    public class Order 
+    {
         public Order() 
         {
             OrderLines = new List<OrderLine>();
         }
-
 
         public Order(int orderId, DateTime orderDate, decimal orderPrice, int personId_FK) 
         {
@@ -23,10 +15,6 @@ namespace WebshopModel.ModelLayer {
             OrderLines = new List<OrderLine>();
             PersonId_FK = personId_FK;
         }
-        public Order(int orderId, DateTime orderDate, decimal orderPrice, int personId_FK, Person relatedPerson) : this(orderId, orderDate, orderPrice, personId_FK)
-        {
-            
-        }
 
         public Order(decimal orderPrice, Person person, List<OrderLine> orderLines)
         {
@@ -35,7 +23,6 @@ namespace WebshopModel.ModelLayer {
             Person = person ?? throw new ArgumentNullException(nameof(person));
             OrderPrice = orderPrice;
         }
-
 
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }

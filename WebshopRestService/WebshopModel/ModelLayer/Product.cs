@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebshopModel.ModelLayer {
-    public class Product {
-    
+﻿namespace WebshopModel.ModelLayer
+{
+    public class Product 
+    {
         public Product() { }
 
         public Product(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
@@ -29,7 +24,6 @@ namespace WebshopModel.ModelLayer {
         public decimal ProdPrice { get; set; }
         public int ProdQuantity { get; set; }
         public string? ProdType { get; set; }
-
     }
 }
 
