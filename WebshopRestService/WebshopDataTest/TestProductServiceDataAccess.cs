@@ -40,17 +40,17 @@ namespace WebshopDataTest
                 ProdType = "Merch",
             };
 
-            int insertedId = _productServiceAccess.Add(testProduct);
+            int insertedId = _productServiceAccess.CreateProduct(testProduct);
 
             //Act
-            ProductDTORead? productById = _productServiceAccess.Get(insertedId); // Retrieve the test product
+            ProductDTORead? productById = _productServiceAccess.GetProductById(insertedId); // Retrieve the test product
 
             //Assert
             Assert.NotNull(productById); // Ensure the returned product is not null
             Assert.Equal(insertedId, productById.ProdId); // Check specific attributes of the returned product
 
             // Clean up - Delete the test product from the database?
-            bool deletionResult = _productServiceAccess.Delete(insertedId);
+            bool deletionResult = _productServiceAccess.DeleteProductById(insertedId);
             Assert.True(deletionResult); // Check if deletion was successful
         }
 
@@ -68,8 +68,8 @@ namespace WebshopDataTest
             };
 
             //Act
-            int insertedId = _productServiceAccess.Add(productDTOWrite);
-            ProductDTORead? product = _productServiceAccess.Get(insertedId);
+            int insertedId = _productServiceAccess.CreateProduct(productDTOWrite);
+            ProductDTORead? product = _productServiceAccess.GetProductById(insertedId);
 
             //Assert
             Assert.NotNull(product);
@@ -80,7 +80,7 @@ namespace WebshopDataTest
             Assert.Equal(productDTOWrite.ProdType, product.ProdType);
 
             // Clean up - Delete the test product from the database?
-            bool deletionResult = _productServiceAccess.Delete(insertedId);
+            bool deletionResult = _productServiceAccess.DeleteProductById(insertedId);
             Assert.True(deletionResult); // Check if deletion was successful
         }
 
@@ -111,21 +111,21 @@ namespace WebshopDataTest
                 ProdType = "Merch",
             };
 
-            int insertedId = _productServiceAccess.Add(productDTOWrite);
+            int insertedId = _productServiceAccess.CreateProduct(productDTOWrite);
 
             //Act
             productDTOWrite.ProdId = insertedId;
             productDTOWrite.ProdName = "TestProductUpdated";
 
-            bool updateResult = _productServiceAccess.Put(productDTOWrite);
+            bool updateResult = _productServiceAccess.UpdateProduct(productDTOWrite);
 
             //Assert
             Assert.True(updateResult);
-            ProductDTORead? updatedProduct = _productServiceAccess.Get(insertedId); // Retrieve the updated product from the service
+            ProductDTORead? updatedProduct = _productServiceAccess.GetProductById(insertedId); // Retrieve the updated product from the service
             Assert.Equal("TestProductUpdated", updatedProduct.ProdName); // Verify the updated fields
 
             // Clean up - Delete the test product from the database?
-            bool deletionResult = _productServiceAccess.Delete(insertedId);
+            bool deletionResult = _productServiceAccess.DeleteProductById(insertedId);
             Assert.True(deletionResult); // Check if deletion was successful
         }
 
@@ -142,10 +142,10 @@ namespace WebshopDataTest
                 ProdType = "Merch",
             };
 
-            int insertedId = _productServiceAccess.Add(testProduct); // Add the test product
+            int insertedId = _productServiceAccess.CreateProduct(testProduct); // Add the test product
 
             // Act
-            bool deletionResult = _productServiceAccess.Delete(insertedId); // Delete the test product
+            bool deletionResult = _productServiceAccess.DeleteProductById(insertedId); // Delete the test product
 
             // Assert
             Assert.True(deletionResult); // Check if deletion was successful
