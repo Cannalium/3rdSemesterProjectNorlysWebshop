@@ -22,13 +22,9 @@
                     <ul class="navbar-nav flex-grow-1">
                         @if (User.Identity.IsAuthenticated)
                         {
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Profile">Kundeprofil</a>
-                        </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Product">Produkter</a>
                             </li>
-                            
                         }
                         </ul>
                         @if (User.Identity.IsAuthenticated)
@@ -37,6 +33,10 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Cart">Indkøbskurv</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Profile">Kundeprofil</a>
+                            </li>
+
                         </ul>
                     }
                     <partial name="_LoginPartial" />
