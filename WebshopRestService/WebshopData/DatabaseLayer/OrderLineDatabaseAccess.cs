@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
@@ -18,10 +13,11 @@ namespace WebshopData.DatabaseLayer
             _connectionString = configuration.GetConnectionString("WebshopConnection");
         }
 
-        // For test
+        // Constructor for testing purposes
         public OrderLineDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
 
-        public int CreateOrderLine(OrderLine anOrderLine)
+        // Creates a new OrderLine in the database with the specified product quantity and returns the generated ID
+        public int CreateOrderLine(OrderLine orderLineToCreate)
         {
             int insertedId = -1;
             string insertString = "INSERT INTO OrderLine(orderLineProdQuantity) OUTPUT INSERTED.ID VALUES (@OrderLineProdQuantity)";
@@ -30,7 +26,7 @@ namespace WebshopData.DatabaseLayer
             using (SqlCommand createCommand = new SqlCommand(insertString, con))
             {
                 // Prepare SQL
-                SqlParameter orderLineProdQuantityParam = new SqlParameter("@OrderLineProdQuantity", anOrderLine.OrderLineProdQuantity);
+                SqlParameter orderLineProdQuantityParam = new SqlParameter("@OrderLineProdQuantity", orderLineToCreate.OrderLineProdQuantity);
                 createCommand.Parameters.Add(orderLineProdQuantityParam);
 
                 con.Open();
@@ -39,52 +35,6 @@ namespace WebshopData.DatabaseLayer
                 insertedId = (int)createCommand.ExecuteScalar();
             }
             return insertedId;
-        }
-
-        public bool DeleteOrderLine(int orderLineId)
-        {
-            bool orderLineDeleted = false;
-            string queryString = "DELETE FROM OrderLine WHERE orderLineId = @OrderLineId";
-
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
-            {
-                // Prepare SQL
-                SqlParameter orderLineIdParam = new SqlParameter("@OrderLineId", orderLineId);
-                deleteCommand.Parameters.Add(orderLineIdParam);
-
-                connection.Open();
-
-                // Execute delete
-                int rowsAffected = deleteCommand.ExecuteNonQuery();
-
-                // Check if the delete operation was successful
-                orderLineDeleted = rowsAffected > 0;
-            }
-            return orderLineDeleted;
-        }
-
-        public List<OrderLine> GetOrderLineAll()
-        {
-            List<OrderLine> foundOrderLines;
-            OrderLine readOrderLine;
-
-            string queryString = "SELECT orderLineId, orderLineProdQuantity FROM OrderLine";
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand readCommand = new SqlCommand(queryString, con))
-            {
-                con.Open();
-                // Execute read
-                SqlDataReader orderLineReader = readCommand.ExecuteReader();
-                // Collect data
-                foundOrderLines = new List<OrderLine>();
-                while (orderLineReader.Read())
-                {
-                    readOrderLine = GetOrderLineFromReader(orderLineReader);
-                    foundOrderLines.Add(readOrderLine);
-                }
-            }
-            return foundOrderLines;
         }
 
         public OrderLine GetOrderLineById(int findOrderLineId)
@@ -135,6 +85,30 @@ namespace WebshopData.DatabaseLayer
                 orderLineUpdated = rowsAffected > 0;
             }
             return orderLineUpdated;
+        }
+
+        // Deletes an OrderLine from the database based on the provided orderLineId and returns true if successful
+        public bool DeleteOrderLine(int orderLineId)
+        {
+            bool orderLineDeleted = false;
+            string queryString = "DELETE FROM OrderLine WHERE orderLineId = @OrderLineId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
+            {
+                // Prepare SQL
+                SqlParameter orderLineIdParam = new SqlParameter("@OrderLineId", orderLineId);
+                deleteCommand.Parameters.Add(orderLineIdParam);
+
+                connection.Open();
+
+                // Execute delete
+                int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                // Check if the delete operation was successful
+                orderLineDeleted = rowsAffected > 0;
+            }
+            return orderLineDeleted;
         }
 
         private OrderLine GetOrderLineFromReader(SqlDataReader orderLineReader)

@@ -1,10 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Transactions;
 using WebshopModel.ModelLayer;
 
@@ -20,10 +15,11 @@ namespace WebshopData.DatabaseLayer
             _personDatabaseAccess = new PersonDatabaseAccess(_connectionString);
         }
 
-        // For test
+        // Constructor for testing purposes
         public OrderDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
 
-        public int CreateOrder(Order entity)
+        // Transaction for creating an order
+        public int CreateOrder(Order orderToCreate)
         {
             int insertedId = -1;
             bool sufficientStock = true;
@@ -31,6 +27,7 @@ namespace WebshopData.DatabaseLayer
             TransactionOptions tsOptions = new TransactionOptions();
             tsOptions.IsolationLevel = IsolationLevel.ReadUncommitted;
 
+            // Using a TransactionScope to define the boundaries of a transaction block
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, tsOptions))
             {
                 using (SqlConnection conn = new SqlConnection(_connectionString))
@@ -38,7 +35,7 @@ namespace WebshopData.DatabaseLayer
                     conn.Open();
 
                     // Validate product quantities
-                    foreach (OrderLine orderLine in entity.OrderLines)
+                    foreach (OrderLine orderLine in orderToCreate.OrderLines)
                     {
                         if (!IsSufficientQuantity(conn, orderLine.ProdId, orderLine.OrderLineProdQuantity))
                         {
@@ -46,22 +43,21 @@ namespace WebshopData.DatabaseLayer
                             insertedId = -2;
                         }
                     }
-
                     if (sufficientStock)
                     {
-
                         // Insert order and fetch its orderId
                         using (SqlCommand cmdOrder = conn.CreateCommand())
                         {
                             cmdOrder.CommandText = "INSERT INTO [Order] (personId_FK, orderDate, orderPrice) OUTPUT INSERTED.OrderId Values(@personId, @orderDate, @orderPrice)";
-                            cmdOrder.Parameters.AddWithValue("personId", entity.Person.PersonId);
+                            cmdOrder.Parameters.AddWithValue("personId", orderToCreate.Person.PersonId);
                             cmdOrder.Parameters.AddWithValue("orderDate", DateTime.Now);
-                            cmdOrder.Parameters.AddWithValue("orderPrice", entity.OrderPrice);
-                            insertedId = (int)cmdOrder.ExecuteScalar(); // Fetch orderId (from OUTPUT INSERTED.OrderId)
-                        }
+                            cmdOrder.Parameters.AddWithValue("orderPrice", orderToCreate.OrderPrice);
 
+                            // Fetch orderId (from OUTPUT INSERTED.OrderId)
+                            insertedId = (int)cmdOrder.ExecuteScalar();
+                        }
                         // Insert OrderLines
-                        foreach (OrderLine orderLine in entity.OrderLines)
+                        foreach (OrderLine orderLine in orderToCreate.OrderLines)
                         {
                             // Insert orderline
                             using (SqlCommand cmdOl = conn.CreateCommand())
@@ -72,7 +68,6 @@ namespace WebshopData.DatabaseLayer
                                 cmdOl.Parameters.AddWithValue("orderLineProdQuantity", orderLine.OrderLineProdQuantity);
                                 cmdOl.ExecuteNonQuery();
                             }
-
                             // decrement stock
                             try
                             {
@@ -95,154 +90,143 @@ namespace WebshopData.DatabaseLayer
             }
         }
 
-            private bool IsSufficientQuantity(SqlConnection conn, int prodId, int requestedQuantity)
+        // Checks if the available quantity of a product in the database is sufficient for the requested quantity
+        private bool IsSufficientQuantity(SqlConnection conn, int prodId, int requestedQuantity)
+        {
+            using (SqlCommand checkCmd = conn.CreateCommand())
             {
-                using (SqlCommand checkCmd = conn.CreateCommand())
-                {
-                    checkCmd.CommandText = "SELECT prodQuantity FROM [Product] WHERE prodId=@prodId";
-                    checkCmd.Parameters.AddWithValue("prodId", prodId);
+                checkCmd.CommandText = "SELECT prodQuantity FROM [Product] WHERE prodId=@prodId";
+                checkCmd.Parameters.AddWithValue("prodId", prodId);
 
-                    int availableQuantity = (int)checkCmd.ExecuteScalar();
+                int availableQuantity = (int)checkCmd.ExecuteScalar();
 
-                    return availableQuantity >= requestedQuantity;
-                }
-            }
-
-            /*public int CreateOrder(Order anOrder)
-            {
-                int insertedId = -1;
-                string insertString = "insert into Order(orderDate) OUTPUT INSERTED.ID values(@OrderDate)";
-
-                using (SqlConnection con = new SqlConnection(_connectionString))
-                using (SqlCommand CreateCommand = new SqlCommand(insertString, con))
-                {
-                    // Prepare SQL
-                    SqlParameter orderDateParam = new SqlParameter("@OrderDate", anOrder.OrderDate);
-                    CreateCommand.Parameters.Add(orderDateParam);
-
-                    con.Open();
-
-                    // Execute save and read generated key (ID)
-                    insertedId = (int)CreateCommand.ExecuteScalar();
-                }
-                return insertedId;
-            }*/
-
-            public bool DeleteOrder(int orderId)
-            {
-                bool orderDeleted = false;
-                string queryString = "DELETE FROM Order WHERE orderId = @OrderId";
-
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
-                {
-                    // Prepare SQL
-                    SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
-                    deleteCommand.Parameters.Add(orderIdParam);
-
-                    connection.Open();
-
-                    // Execute delete
-                    int rowsAffected = deleteCommand.ExecuteNonQuery();
-
-                    // Check if the delete operation was successful
-                    orderDeleted = rowsAffected > 0;
-                }
-                return orderDeleted;
-            }
-
-            public List<Order> GetOrderAll()
-            {
-                List<Order> foundOrders;
-                Order readOrder;
-
-                string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order]";
-                using (SqlConnection con = new SqlConnection(_connectionString))
-                using (SqlCommand readCommand = new SqlCommand(queryString, con))
-                {
-                    con.Open();
-                    // Execute read
-                    SqlDataReader orderReader = readCommand.ExecuteReader();
-                    // Collect data
-                    foundOrders = new List<Order>();
-                    while (orderReader.Read())
-                    {
-                        readOrder = GetOrderFromReader(orderReader);
-                        foundOrders.Add(readOrder);
-                    }
-                }
-                return foundOrders;
-            }
-
-            public Order GetOrderById(int orderId)
-            {
-                Order foundOrder;
-
-                string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order] where orderId = @OrderId";
-                using (SqlConnection con = new SqlConnection(_connectionString))
-                using (SqlCommand readCommand = new SqlCommand(queryString, con))
-                {
-                    // Prepare SQL
-                    SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
-                    readCommand.Parameters.Add(orderIdParam);
-
-                    con.Open();
-                    // Execute read
-                    SqlDataReader orderReader = readCommand.ExecuteReader();
-                    foundOrder = new Order(); // It seems the empty constructor is used here
-                    while (orderReader.Read())
-                    {
-                        foundOrder = GetOrderFromReader(orderReader);
-                    }
-                }
-                return foundOrder;
-            }
-
-            public bool UpdateOrder(Order orderUpdate)
-            {
-                bool orderUpdated = false;
-                string queryString = "UPDATE Order SET orderDate = @OrderDate" +
-                                     "WHERE orderId = @OrderId";
-                using (SqlConnection connection = new SqlConnection(_connectionString))
-                using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
-                {
-                    // Prepare SQL
-                    SqlParameter orderIdParam = new SqlParameter("@OrderId", orderUpdate.OrderId);
-                    updateCommand.Parameters.Add(orderIdParam);
-
-                    SqlParameter orderDateParam = new SqlParameter("@OrderDate", orderUpdate.OrderDate);
-                    updateCommand.Parameters.Add(orderDateParam);
-
-                    connection.Open();
-
-                    // Execute update
-                    int rowsAffected = updateCommand.ExecuteNonQuery();
-
-                    // Check if the update operation was successful
-                    orderUpdated = rowsAffected > 0;
-                }
-                return orderUpdated;
-            }
-
-            private Order GetOrderFromReader(SqlDataReader orderReader)
-            {
-                Order foundOrder;
-                int tempOrderId;
-                DateTime tempOrderDate;
-                Decimal tempOrderPrice;
-                int tempPersonId_FK;
-
-                // Fetch values
-                tempOrderId = orderReader.GetInt32(orderReader.GetOrdinal("orderId"));
-                tempOrderDate = orderReader.GetDateTime(orderReader.GetOrdinal("orderDate"));
-                tempOrderPrice = orderReader.GetDecimal(orderReader.GetOrdinal("orderPrice"));
-                tempPersonId_FK = orderReader.GetInt32(orderReader.GetOrdinal("personId_FK"));
-
-                Person relatedPerson = _personDatabaseAccess.GetPersonById(tempPersonId_FK);
-
-                // Create object
-                foundOrder = new Order(tempOrderId, tempOrderDate, tempOrderPrice, tempPersonId_FK, relatedPerson);
-                return foundOrder;
+                return availableQuantity >= requestedQuantity;
             }
         }
+
+        // Retrieves all orders from the database and returns a list of Order objects
+        public List<Order> GetAllOrders()
+        {
+            List<Order> foundOrders;
+            Order readOrder;
+
+            // Prepare SQL
+            string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order]";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                con.Open();
+
+                // Execute read
+                SqlDataReader orderReader = readCommand.ExecuteReader();
+
+                // Collect data
+                foundOrders = new List<Order>();
+                while (orderReader.Read())
+                {
+                    readOrder = GetOrderFromReader(orderReader);
+                    foundOrders.Add(readOrder);
+                }
+            }
+            return foundOrders;
+        }
+
+        // Retrieves an order from the database based on the provided orderId and returns the corresponding Order object
+        public Order GetOrderById(int orderId)
+        {
+            Order foundOrder;
+
+            string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order] where orderId = @OrderId";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                // Prepare SQL
+                SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
+                readCommand.Parameters.Add(orderIdParam);
+
+                con.Open();
+
+                // Execute read
+                SqlDataReader orderReader = readCommand.ExecuteReader();
+                foundOrder = new Order(); // It seems the empty constructor is used here
+                while (orderReader.Read())
+                {
+                    foundOrder = GetOrderFromReader(orderReader);
+                }
+            }
+            return foundOrder;
+        }
+
+        // Updates an order in the database based on the provided Order object and returns true if successful
+        public bool UpdateOrder(Order orderToUpdate)
+        {
+            bool orderUpdated = false;
+            string queryString = "UPDATE Order SET orderDate = @OrderDate" +
+                                 "WHERE orderId = @OrderId";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
+            {
+                // Prepare SQL
+                SqlParameter orderIdParam = new SqlParameter("@OrderId", orderToUpdate.OrderId);
+                updateCommand.Parameters.Add(orderIdParam);
+                SqlParameter orderDateParam = new SqlParameter("@OrderDate", orderToUpdate.OrderDate);
+                updateCommand.Parameters.Add(orderDateParam);
+
+                connection.Open();
+
+                // Execute update
+                int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                // Check if the update operation was successful
+                orderUpdated = rowsAffected > 0;
+            }
+            return orderUpdated;
+        }
+
+        // Deletes an order from the database based on the provided orderId and returns true if successful
+        public bool DeleteOrder(int orderId)
+        {
+            bool orderDeleted = false;
+            string queryString = "DELETE FROM Order WHERE orderId = @OrderId";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlCommand deleteCommand = new SqlCommand(queryString, connection))
+            {
+                // Prepare SQL
+                SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
+                deleteCommand.Parameters.Add(orderIdParam);
+
+                connection.Open();
+
+                // Execute delete
+                int rowsAffected = deleteCommand.ExecuteNonQuery();
+
+                // Check if the delete operation was successful
+                orderDeleted = rowsAffected > 0;
+            }
+            return orderDeleted;
+        }
+
+        // Constructs an Order object from the data retrieved by the SqlDataReader
+        private Order GetOrderFromReader(SqlDataReader orderReader)
+        {
+            Order foundOrder;
+            int tempOrderId;
+            DateTime tempOrderDate;
+            Decimal tempOrderPrice;
+            int tempPersonId_FK;
+
+            // Fetch values
+            tempOrderId = orderReader.GetInt32(orderReader.GetOrdinal("orderId"));
+            tempOrderDate = orderReader.GetDateTime(orderReader.GetOrdinal("orderDate"));
+            tempOrderPrice = orderReader.GetDecimal(orderReader.GetOrdinal("orderPrice"));
+            tempPersonId_FK = orderReader.GetInt32(orderReader.GetOrdinal("personId_FK"));
+
+            Person relatedPerson = _personDatabaseAccess.GetPersonById(tempPersonId_FK);
+
+            // Create object
+            foundOrder = new Order(tempOrderId, tempOrderDate, tempOrderPrice, tempPersonId_FK, relatedPerson);
+            return foundOrder;
+        }
     }
+}

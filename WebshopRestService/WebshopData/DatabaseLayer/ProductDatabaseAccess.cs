@@ -17,9 +17,10 @@ namespace WebshopData.DatabaseLayer
             _connectionString = configuration.GetConnectionString("WebshopConnection");
         }
 
-        // For test
+        // Constructor for testing purposes
         public ProductDatabaseAccess(string inConnectionString) { _connectionString = inConnectionString; }
-        
+
+        // Creates a new Product in the database with the specified attributes and returns the generated prodId
         public int CreateProduct(Product aProduct)
         {
             int insertedId = -1;
@@ -48,6 +49,120 @@ namespace WebshopData.DatabaseLayer
             return insertedId;
         }
 
+        // Retrieves all products from the database and returns a list of Product objects
+        public List<Product> GetProductAll()
+        {
+            List<Product> foundProducts;
+            Product readProd;
+
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                con.Open();
+
+                // Execute read
+                SqlDataReader prodReader = readCommand.ExecuteReader();
+
+                // Collect data
+                foundProducts = new List<Product>();
+                while (prodReader.Read())
+                {
+                    readProd = GetProductFromReader(prodReader);
+                    foundProducts.Add(readProd);
+                }
+            }
+            return foundProducts;
+        }
+
+        // Retrieves products from the database based on the provided product type and returns a list of Product objects
+        public List<Product> GetProductByType(string findProdType)
+        {
+            List<Product> foundProducts;
+
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodType = @ProdType";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                //Prepare SQL
+                SqlParameter prodTypeParam = new SqlParameter("@ProdType", findProdType);
+                readCommand.Parameters.Add(prodTypeParam);
+
+                con.Open();
+
+                //Execute read
+                SqlDataReader prodReader = readCommand.ExecuteReader();
+                foundProducts = new List<Product>();
+                while (prodReader.Read())
+                {
+                    foundProducts.Add(GetProductFromReader(prodReader));
+                }
+                return foundProducts;
+            }
+        }
+
+        // Retrieves a product from the database based on the provided prodId and returns the corresponding Product object
+        public Product GetProductById(int findProdId)
+        {
+            Product foundProd;
+
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodId = @ProdId";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                // Prepare SQL
+                SqlParameter prodIdParam = new SqlParameter("@ProdId", findProdId);
+                readCommand.Parameters.Add(prodIdParam);
+
+                con.Open();
+
+                // Execute read
+                SqlDataReader prodReader = readCommand.ExecuteReader();
+                foundProd = new Product();
+                while (prodReader.Read())
+                {
+                    foundProd = GetProductFromReader(prodReader);
+                }
+            }
+            return foundProd;
+        }
+
+        // Updates a product in the database based on the provided Product object and returns true if successful
+        public bool UpdateProduct(Product prodUpdate)
+        {
+            bool prodUpdated = false;
+            string queryString = "UPDATE Product SET prodName = @ProdName, prodDescription = @ProdDescription, " +
+                                 "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity, prodType = @ProdType " +
+                                 "WHERE prodId = @ProdId";
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
+            {
+                //Prepare SQL
+                SqlParameter prodIdParam = new SqlParameter("@ProdId", prodUpdate.ProdId);
+                updateCommand.Parameters.Add(prodIdParam);
+                SqlParameter prodNameParam = new SqlParameter("@ProdName", prodUpdate.ProdName);
+                updateCommand.Parameters.Add(prodNameParam);
+                SqlParameter prodDescriptionParam = new SqlParameter("@ProdDescription", prodUpdate.ProdDescription);
+                updateCommand.Parameters.Add(prodDescriptionParam);
+                SqlParameter prodPriceParam = new SqlParameter("@ProdPrice", prodUpdate.ProdPrice);
+                updateCommand.Parameters.Add(prodPriceParam);
+                SqlParameter prodQuantityParam = new SqlParameter("@ProdQuantity", prodUpdate.ProdQuantity);
+                updateCommand.Parameters.Add(prodQuantityParam);
+                SqlParameter prodTypeParam = new SqlParameter("@ProdType", prodUpdate.ProdType);
+                updateCommand.Parameters.Add(prodTypeParam);
+
+                connection.Open();
+
+                //Execute update
+                int rowsAffected = updateCommand.ExecuteNonQuery();
+
+                //Check if the update operation was succesful
+                prodUpdated = rowsAffected > 0;
+            }
+            return prodUpdated;
+        }
+
+        // Deletes a Product from the database based on the provided prodId and returns true if successful
         public bool DeleteProduct(int prodId)
         {
             bool productDeleted = false;
@@ -71,117 +186,7 @@ namespace WebshopData.DatabaseLayer
             return productDeleted;
         }
 
-        public List<Product> GetProductAll()
-        {
-            List<Product> foundProducts;
-            Product readProd;
-
-            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product";
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand readCommand = new SqlCommand(queryString, con))
-            {
-                con.Open();
-                // Execute read
-                SqlDataReader prodReader = readCommand.ExecuteReader();
-                // Collect data
-                foundProducts = new List<Product>();
-                while (prodReader.Read())
-                {
-                    readProd = GetProductFromReader(prodReader);
-                    foundProducts.Add(readProd);
-                }
-            }
-            return foundProducts;
-        }
-
-        public List<Product> GetProductByType(string findProdType)
-        {
-            List<Product> foundProducts;
-
-            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodType = @ProdType";
-            using(SqlConnection con = new SqlConnection(_connectionString))
-            using(SqlCommand readCommand = new SqlCommand( queryString, con))
-            {
-                //Prepare SQL
-                SqlParameter prodTypeParam = new SqlParameter("@ProdType", findProdType);
-                readCommand.Parameters.Add(prodTypeParam);
-
-                con.Open();
-
-                //Execute read
-                SqlDataReader prodReader = readCommand.ExecuteReader();
-                foundProducts = new List<Product>(); 
-                while (prodReader.Read())
-                {
-                    foundProducts.Add(GetProductFromReader(prodReader));
-                }
-                return foundProducts;
-            }
-        }
-
-        public Product GetProductById(int findProdId)
-        {
-            Product foundProd;
-
-            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodId = @ProdId";
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand readCommand = new SqlCommand(queryString, con))
-            {
-                // Prepare SQL
-                SqlParameter prodIdParam = new SqlParameter("@ProdId", findProdId);
-                readCommand.Parameters.Add(prodIdParam);
-
-                con.Open();
-                // Execute read
-                SqlDataReader prodReader = readCommand.ExecuteReader();
-                foundProd = new Product(); //det virker til at være her den tomme constructor bruges
-                while (prodReader.Read())
-                {
-                    foundProd = GetProductFromReader(prodReader);
-                }
-            }
-            return foundProd;
-        }
-
-        public bool UpdateProduct(Product prodUpdate)
-        {
-            bool prodUpdated = false;
-            string queryString = "UPDATE Product SET prodName = @ProdName, prodDescription = @ProdDescription, " +
-                                 "prodPrice = @ProdPrice, prodQuantity = @ProdQuantity, prodType = @ProdType " +
-                                 "WHERE prodId = @ProdId";
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            using (SqlCommand updateCommand = new SqlCommand(queryString, connection))
-            {
-                //Prepare SQL
-                SqlParameter prodIdParam = new SqlParameter("@ProdId", prodUpdate.ProdId);
-                updateCommand.Parameters.Add(prodIdParam);
-
-                SqlParameter prodNameParam = new SqlParameter("@ProdName", prodUpdate.ProdName);
-                updateCommand.Parameters.Add(prodNameParam);
-
-                SqlParameter prodDescriptionParam = new SqlParameter("@ProdDescription", prodUpdate.ProdDescription);
-                updateCommand.Parameters.Add(prodDescriptionParam);
-
-                SqlParameter prodPriceParam = new SqlParameter("@ProdPrice", prodUpdate.ProdPrice);
-                updateCommand.Parameters.Add(prodPriceParam);
-
-                SqlParameter prodQuantityParam = new SqlParameter("@ProdQuantity", prodUpdate.ProdQuantity);
-                updateCommand.Parameters.Add(prodQuantityParam);
-
-                SqlParameter prodTypeParam = new SqlParameter("@ProdType", prodUpdate.ProdType);
-                updateCommand.Parameters.Add(prodTypeParam);
-
-                connection.Open();
-
-                //Execute update
-                int rowsAffected = updateCommand.ExecuteNonQuery();
-
-                //Check if the update operation was succesful
-                prodUpdated = rowsAffected > 0;
-            }
-            return prodUpdated;
-        }
-
+        // Constructs a Product object from the data retrieved by the SqlDataReader
         private Product GetProductFromReader(SqlDataReader prodReader)
         {
             Product foundProd;
