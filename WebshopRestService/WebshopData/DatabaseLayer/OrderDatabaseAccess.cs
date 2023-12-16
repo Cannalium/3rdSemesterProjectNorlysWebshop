@@ -106,109 +106,6 @@ namespace WebshopData.DatabaseLayer
             }
         }
 
-        // Retrieves all orders from the database and returns a list of Order objects
-        public List<Order> GetAllOrders()
-        {
-            List<Order> foundOrders;
-            Order readOrder;
-
-            // Prepare SQL
-            string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order]";
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand readCommand = new SqlCommand(queryString, con))
-            {
-                con.Open();
-
-                // Execute read
-                SqlDataReader orderReader = readCommand.ExecuteReader();
-
-                // Collect data
-                foundOrders = new List<Order>();
-                while (orderReader.Read())
-                {
-                    readOrder = GetOrderFromReader(orderReader);
-                    foundOrders.Add(readOrder);
-                }
-            }
-            return foundOrders;
-        }
-
-        // Retrieves an order from the database based on the provided orderId and returns the corresponding Order object
-        public Order GetOrderById(int orderId)
-        {
-            Order foundOrder;
-
-            string queryString = "select orderId, orderDate, orderPrice, personId_FK from [Order] where orderId = @OrderId";
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand readCommand = new SqlCommand(queryString, con))
-            {
-                // Prepare SQL
-                SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
-                readCommand.Parameters.Add(orderIdParam);
-
-                con.Open();
-
-                // Execute read
-                SqlDataReader orderReader = readCommand.ExecuteReader();
-                foundOrder = new Order();
-                while (orderReader.Read())
-                {
-                    foundOrder = GetOrderFromReader(orderReader);
-                }
-            }
-            return foundOrder;
-        }
-
-        // Updates an order in the database based on the provided Order object and returns true if successful
-        public bool UpdateOrder(Order orderToUpdate)
-        {
-            bool orderUpdated = false;
-            string queryString = "UPDATE Order SET orderDate = @OrderDate" +
-                                 "WHERE orderId = @OrderId";
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand updateCommand = new SqlCommand(queryString, con))
-            {
-                // Prepare SQL
-                SqlParameter orderIdParam = new SqlParameter("@OrderId", orderToUpdate.OrderId);
-                updateCommand.Parameters.Add(orderIdParam);
-                SqlParameter orderDateParam = new SqlParameter("@OrderDate", orderToUpdate.OrderDate);
-                updateCommand.Parameters.Add(orderDateParam);
-
-                con.Open();
-
-                // Execute update
-                int rowsAffected = updateCommand.ExecuteNonQuery();
-
-                // Check if the update operation was successful
-                orderUpdated = rowsAffected > 0;
-            }
-            return orderUpdated;
-        }
-
-        // Deletes an order from the database based on the provided orderId and returns true if successful
-        public bool DeleteOrder(int orderId)
-        {
-            bool orderDeleted = false;
-            string queryString = "DELETE FROM Order WHERE orderId = @OrderId";
-
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand deleteCommand = new SqlCommand(queryString, con))
-            {
-                // Prepare SQL
-                SqlParameter orderIdParam = new SqlParameter("@OrderId", orderId);
-                deleteCommand.Parameters.Add(orderIdParam);
-
-                con.Open();
-
-                // Execute delete
-                int rowsAffected = deleteCommand.ExecuteNonQuery();
-
-                // Check if the delete operation was successful
-                orderDeleted = rowsAffected > 0;
-            }
-            return orderDeleted;
-        }
-
         // Constructs an Order object from the data retrieved by the SqlDataReader
         private Order GetOrderFromReader(SqlDataReader orderReader)
         {
@@ -224,10 +121,8 @@ namespace WebshopData.DatabaseLayer
             tempOrderPrice = orderReader.GetDecimal(orderReader.GetOrdinal("orderPrice"));
             tempPersonId_FK = orderReader.GetInt32(orderReader.GetOrdinal("personId_FK"));
 
-            Person relatedPerson = _personDatabaseAccess.GetPersonById(tempPersonId_FK);
-
             // Create object
-            foundOrder = new Order(tempOrderId, tempOrderDate, tempOrderPrice, tempPersonId_FK, relatedPerson);
+            foundOrder = new Order(tempOrderId, tempOrderDate, tempOrderPrice, tempPersonId_FK);
             return foundOrder;
         }
     }

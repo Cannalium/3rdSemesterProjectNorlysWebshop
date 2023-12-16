@@ -4,10 +4,6 @@ namespace WebshopRestService.BusinessLogicLayer
 {
     public interface IOrderData
     {
-        OrderDTORead? Get(int ordedrId);
-        List<OrderDTORead>? Get();
-        int Add(OrderDTOWrite orderToAdd);
-        bool Put(OrderDTOWrite orderToUpdate);
-        bool Delete(int orderId);
+        int CreateOrder(OrderDTOWrite orderToCreate);
     }
 }

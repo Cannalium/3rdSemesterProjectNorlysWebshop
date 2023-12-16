@@ -17,79 +17,6 @@ namespace WebshopRestService.Controllers
             _orderDataController = orderDataController;
         }
 
-        // URL: api/Order/Order
-        [HttpGet]
-        public ActionResult<List<OrderDTORead>>? Get()
-        {
-            ActionResult<List<OrderDTORead>> foundReturn;
-            //Retrieve data converted to DTO
-            List<OrderDTORead>? foundOrders = _orderDataController.Get();
-            //evaluate
-            if (foundOrders != null)
-            {
-                if (foundOrders.Count > 0)
-                {
-                    foundReturn = Ok(foundOrders); //OK found list statuscode 200
-                }
-                else
-                {
-                    foundReturn = new StatusCodeResult(204); //OK found list but no content 204
-                }
-            }
-            else
-            {
-                foundReturn = new StatusCodeResult(500); //Internal server error   
-            }
-            return foundReturn; //send return to client
-        }
-
-
-        // URL: api/orders/{id}
-        [HttpGet, Route("{orderId}")]
-        public ActionResult<OrderDTORead> Get(int orderId)
-        {
-            ActionResult<OrderDTORead> foundReturn;
-            try
-            {
-                //Retieve data converted to DTO
-                OrderDTORead? foundOrdersById = _orderDataController.Get(orderId);
-
-                //Evaluate
-                if (foundOrdersById != null)
-                {
-                    foundReturn = Ok(foundOrdersById); //OK found order by ID statuscode 200
-                }
-                else
-                {
-                    foundReturn = new StatusCodeResult(204); // OK not found, no content statuscode 204
-                }
-            }
-            catch
-            {
-                foundReturn = new StatusCodeResult(500); // Internal server error   
-            }
-            return foundReturn; // Send return to client
-        }
-
-        /*[HttpPost]
-        public ActionResult<OrderDTOWrite> PostNewOrder(OrderDTOWrite inOrder)
-        {
-            ActionResult<OrderDTOWrite > foundReturn;
-            int insertedId = 1;
-            inOrder.OrderId = insertedId;
-            if (insertedId > 0) 
-            {
-                foundReturn = Ok(inOrder);
-            } 
-            else
-            {
-                foundReturn = new StatusCodeResult(500);
-            }
-            return foundReturn; 
-        }*/
-
-
-
         [HttpPost]
         public ActionResult<int> PostNewOrder(OrderDTOWrite orderDTOWrite)
         {
@@ -98,7 +25,7 @@ namespace WebshopRestService.Controllers
                 return BadRequest(); // 400
             }
 
-            int insertedId = _orderDataController.Add(orderDTOWrite);
+            int insertedId = _orderDataController.CreateOrder(orderDTOWrite);
 
             if (insertedId > 0)
             {
@@ -120,80 +47,6 @@ namespace WebshopRestService.Controllers
             {
                 return StatusCode(500); // Internal server error
             }
-        }
-
-
-        // URL: api/orders
-        /* [HttpPost]
-         public ActionResult<int> PostNewOrder(OrderDTOWrite orderDataCreateDTO)
-         {
-             ActionResult<int> foundReturn;
-             int insertedId = -1;
-             if (orderDataCreateDTO != null)
-             {
-                 insertedId = _orderDataController.Add(orderDataCreateDTO);
-             }
-             // Evaluate
-             if (insertedId > 0)
-             {
-                 foundReturn = Ok(insertedId);
-             }
-             else if (insertedId == 0)
-             {
-                 foundReturn = BadRequest();     // missing input
-             }
-             else
-             {
-                 foundReturn = new StatusCodeResult(500);    // Internal server error
-             }
-             return foundReturn;
-         }*/
-
-
-        //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
-
-        [HttpDelete]
-        public ActionResult Delete(int orderId)
-        {
-            ActionResult foundReturn;
-            bool wasOk = _orderDataController.Delete(orderId);
-            if (wasOk)
-            {
-                foundReturn = Ok();
-            }
-            else
-            {
-                foundReturn = new StatusCodeResult(500);    // Internal server error
-            }
-            return foundReturn;
-        }
-
-        [HttpPut]
-        public ActionResult<bool> Put(OrderDTOWrite orderDTO)
-        {
-            ActionResult foundReturn;
-
-            WebshopModel.ModelLayer.Order? order = ModelConversion.OrderDTOConversion.ToOrder(orderDTO);
-
-            if (orderDTO != null)
-            {
-                bool wasOk = _orderDataController.Put(orderDTO);
-
-                if (wasOk)
-                {
-                    foundReturn = Ok();
-                }
-                else
-                {
-                    foundReturn = new StatusCodeResult(500);
-                }
-            }
-            else
-            {
-                foundReturn = BadRequest();
-            }
-
-            return foundReturn;
         }
     }
 }
