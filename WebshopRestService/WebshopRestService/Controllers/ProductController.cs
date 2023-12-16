@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using WebshopModel.ModelLayer;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebshopRestService.BusinessLogicLayer;
 using WebshopRestService.DTOs;
 
@@ -10,173 +8,154 @@ namespace WebshopRestService.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly IProductData _productDataController;
+        private readonly IProductData _productDataControl;
 
         // Constructor with Dependency Injection
         public ProductController(IProductData productDataController)
         {
-            _productDataController = productDataController;
+            _productDataControl = productDataController;
         }
 
+        /*This method retrieves a list of products based on a specified type or all products if no type is specified, 
+         * and the HTTP status codes convey the success or failure to the client.
+         */
         // URL: api/products
         [HttpGet]
         public ActionResult<List<ProductDTORead>>? Get(string? prodType = "%")
         {
             ActionResult<List<ProductDTORead>> foundReturn;
             List<ProductDTORead>? foundProducts = null;
-            //Retrieve data converted to DTO
+
+            // Retrieve data converted to DTO
             if (prodType != "%")
             {
-                foundProducts = _productDataController.GetProductByType(prodType);
+                foundProducts = _productDataControl.GetProductByType(prodType);
             }
             else
             {
-                foundProducts = _productDataController.Get();
+                foundProducts = _productDataControl.GetAllProducts();
             }
-            //evaluate
+
+            // Evaluate
             if (foundProducts != null)
             {
                 if (foundProducts.Count > 0)
                 {
-                    foundReturn = Ok(foundProducts); //OK found list statuscode 200
+                    foundReturn = Ok(foundProducts); //Ok found statuscode 200
                 }
                 else
                 {
-                    foundReturn = new StatusCodeResult(204); //OK found list but no content 204
+                    foundReturn = new StatusCodeResult(204); // Ok found, no content statuscode 204
                 }
             }
             else
             {
-                foundReturn = new StatusCodeResult(500); //Internal server error   
+                foundReturn = new StatusCodeResult(500); // Internal server error   
             }
-            return foundReturn; //send return to client
+            return foundReturn;
         }
 
-
+        // Retrieves a product by ID and responds with appropriate status; handles exceptions
         // URL: api/products/{id}
         [HttpGet, Route("{prodId}")]
-        public ActionResult<ProductDTORead> Get(int prodId)
+        public ActionResult<ProductDTORead> GetProductById(int prodId)
         {
             ActionResult<ProductDTORead> foundReturn;
             try
             {
-                //Retieve data converted to DTO
-                ProductDTORead? foundProductsById = _productDataController.Get(prodId);
+                // Retieve data converted to DTO
+                ProductDTORead? foundProductsById = _productDataControl.GetProductById(prodId);
 
-                //Evaluate
+                // Evaluate
                 if (foundProductsById != null)
                 {
-                    foundReturn = Ok(foundProductsById); //OK found product by ID statuscode 200
+                    foundReturn = Ok(foundProductsById); // Ok found product by ID statuscode 200
                 }
                 else
                 {
-                    foundReturn = new StatusCodeResult(204); // OK not found, no content statuscode 204
+                    foundReturn = new StatusCodeResult(204); // Ok not found, no content statuscode 204
                 }
             }
             catch
             {
                 foundReturn = new StatusCodeResult(500); // Internal server error   
             }
-            return foundReturn; // Send return to client
+            return foundReturn;
         }
 
-        //// URL: api/products/type/{prodType}
-        //[HttpGet(template: "GetProductByType")]
-        //public ActionResult<List<ProductDTORead>> GetProductByType(string prodType)
-        //{
-        //    ActionResult<List<ProductDTORead>> foundReturn;
-        //    try
-        //    {
-        //        //Retieve data converted to DTO
-        //        List<ProductDTORead> foundProductsByType = _productDataController.GetProductByType(prodType);
-
-        //        //Evaluate
-        //        if (foundProductsByType != null)
-        //        {
-        //            foundReturn = Ok(foundProductsByType); //OK found product by ID statuscode 200
-        //        }
-        //        else
-        //        {
-        //            foundReturn = new StatusCodeResult(204); // OK not found, no content statuscode 204
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        foundReturn = new StatusCodeResult(500); // Internal server error   
-        //    }
-        //    return foundReturn; // Send return to client
-        //}
-
+        // Creates a new product and responds with appropriate status; handles missing input with BadRequest and exceptions with 500 status
         // URL: api/products
         [HttpPost]
-        public ActionResult<int> PostNewProduct(ProductDTOWrite productDTO)
+        public ActionResult<int> CreateProduct(ProductDTOWrite productDTO)
         {
             ActionResult<int> foundReturn;
             int insertedId = -1;
+
             if (productDTO != null)
             {
-                insertedId = _productDataController.Add(productDTO);
+                insertedId = _productDataControl.CreateProduct(productDTO);
             }
+
             // Evaluate
             if (insertedId > 0)
             {
-                foundReturn = Ok(insertedId);
+                foundReturn = Ok(insertedId); // 200 found
             }
             else if (insertedId == 0)
             {
-                foundReturn = BadRequest();     // missing input
+                foundReturn = BadRequest(); // Missing input
             }
             else
             {
-                foundReturn = new StatusCodeResult(500);    // Internal server error
+                foundReturn = new StatusCodeResult(500); // Internal server error
             }
             return foundReturn;
         }
 
-
-        //JEG ER IKKE SIKKER PÅ DE FØLGENDE METODER GRRRRRRRRR
-
+        // Deletes a product by ID and responds with Ok if successful, or 500 if an internal server error occurs
         [HttpDelete, Route("{prodId}")]
-        public ActionResult Delete(int prodId)
+        public ActionResult DeleteProdutById(int prodId)
         {
             ActionResult foundReturn;
-            bool wasOk = _productDataController.Delete(prodId);
+
+            bool wasOk = _productDataControl.DeleteProductById(prodId);
             if (wasOk)
             {
-                foundReturn = Ok();
+                foundReturn = Ok(); // 200 found
             }
             else
             {
-                foundReturn = new StatusCodeResult(500);    // Internal server error
+                foundReturn = new StatusCodeResult(500); // Internal server error
             }
             return foundReturn;
         }
 
+        // Updates a product and responds with Ok if successful, BadRequest for missing input, or 500 for an internal server error
         [HttpPut, Route("{prodId}")]
-        public ActionResult<bool> Put(ProductDTOWrite productDTO)
+        public ActionResult<bool> UpdateProduct(ProductDTOWrite productDTO)
         {
             ActionResult foundReturn;
 
+            // Retrieve and convert data
             WebshopModel.ModelLayer.Product? product = ModelConversion.ProductDTOConversion.ToProduct(productDTO);
 
             if (productDTO != null)
             {
-                bool wasOk = _productDataController.Put(productDTO);
+                bool wasOk = _productDataControl.UpdateProduct(productDTO);
 
                 if (wasOk)
                 {
-                    foundReturn = Ok();
+                    foundReturn = Ok(); // 200 found
                 }
                 else
                 {
-                    foundReturn = new StatusCodeResult(500);
+                    foundReturn = new StatusCodeResult(500); // Internal server error
                 }
             }
             else
             {
                 foundReturn = BadRequest();
             }
-
             return foundReturn;
         }
     }

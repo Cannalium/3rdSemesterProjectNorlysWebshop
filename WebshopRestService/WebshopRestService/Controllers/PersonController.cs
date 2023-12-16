@@ -18,21 +18,20 @@ namespace WebshopRestService.Controllers
             _configuration = configuration;
             _personDataControl = new PersonDataControl(_configuration);
         }
-    
+
+        // Retrieves a person based on the provided email using PersonDataControl, returning appropriate HTTP status codes
         [HttpGet, Route("{email}")]
         public ActionResult<PersonDTORead?> GetPersonByEmail(string email)
         {
             ActionResult<PersonDTORead?> foundReturn;
-
-            // Retrieve and convert data
             PersonDTORead? foundPerson = _personDataControl.GetPersonByEmail(email);
 
-            // Evaluate
+            // Evaluate retrieved data to determine the appropriate HTTP status code for the response
             if (foundPerson != null)
             {
                 if (!String.IsNullOrEmpty(foundPerson.Email))
                 {
-                    foundReturn = Ok(foundPerson);                 // Found - Statuscode 200
+                    foundReturn = Ok(foundPerson);      // Found - Statuscode 200
                 }
                 else
                 {
@@ -41,10 +40,10 @@ namespace WebshopRestService.Controllers
             }
             else
             {
-                foundReturn = new StatusCodeResult(500);        // Internal server error - Statuscode 500
+                foundReturn = new StatusCodeResult(500);    // Internal server error - Statuscode 500
             }
 
-            // send response back to client
+            // Send response back to client
             return foundReturn;
         }
     }

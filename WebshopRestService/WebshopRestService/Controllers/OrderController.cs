@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using WebshopRestService.BusinessLogicLayer;
 using WebshopRestService.DTOs;
 
@@ -17,8 +16,9 @@ namespace WebshopRestService.Controllers
             _orderDataController = orderDataController;
         }
 
+        // Handles the creation of an order based on the provided OrderDTOWrite, returning appropriate HTTP status codes
         [HttpPost]
-        public ActionResult<int> PostNewOrder(OrderDTOWrite orderDTOWrite)
+        public ActionResult<int> CreateOrder(OrderDTOWrite orderDTOWrite)
         {
             if (orderDTOWrite == null)
             {
