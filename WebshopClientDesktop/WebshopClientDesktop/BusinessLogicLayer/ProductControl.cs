@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebshopClientDesktop.Logging;
+﻿using WebshopClientDesktop.Logging;
 using WebshopClientDesktop.ModelLayer;
 using WebshopClientDesktop.ServiceLayer;
 
@@ -27,7 +22,6 @@ namespace WebshopClientDesktop.BusinessLogicLayer
 
         }
 
-        //De to metoder her skal muligvis slettes
         public async Task<List<Product>> GetAllProductsByEventType()
         {
             return await GetAllProductsByType("Event");
