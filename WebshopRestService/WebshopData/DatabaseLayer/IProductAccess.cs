@@ -1,20 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebshopModel.ModelLayer;
+﻿using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
 {
     public interface IProductAccess
     {
         List<Product> GetProductAll();
-        int CreateProduct(Product aProduct);
-        bool UpdateProduct(Product productUpdate);
-        List<Product> GetProductByType(string prodType);
+        int CreateProduct(Product productToCreate);
         Product GetProductById(int prodId);
+        List<Product> GetProductByType(string prodType);
+        bool UpdateProduct(Product productToUpdate);
         bool DeleteProduct(int prodId);
-     
     }
 }

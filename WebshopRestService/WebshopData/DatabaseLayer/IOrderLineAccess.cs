@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebshopModel.ModelLayer;
+﻿using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
 {
     public interface IOrderLineAccess
     {
-        List<OrderLine> GetOrderLineAll();
-        int CreateOrderLine(OrderLine anOrderLine);
-        bool UpdateOrderLine(OrderLine orderLineUpdate);
+        int CreateOrderLine(OrderLine orderLineToCreate);
         OrderLine GetOrderLineById(int orderLineId);
+        bool UpdateOrderLine(OrderLine orderLineToUpdate);
         bool DeleteOrderLine(int orderLineId);
-
     }
 }

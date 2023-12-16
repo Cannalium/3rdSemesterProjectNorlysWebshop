@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebshopModel.ModelLayer;
+﻿using WebshopModel.ModelLayer;
 
 namespace WebshopData.DatabaseLayer
 {
     public interface IOrderAccess
     {
-        List<Order> GetOrderAll();
-        int CreateOrder(Order anOrder);
-        bool UpdateOrder(Order orderUpdate);
+        int CreateOrder(Order orderToCreate);
+        List<Order> GetAllOrders();
         Order GetOrderById(int orderId);
+        bool UpdateOrder(Order orderToUpdate);
         bool DeleteOrder(int orderId);
-
     }
 }
