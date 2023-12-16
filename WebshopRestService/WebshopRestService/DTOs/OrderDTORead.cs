@@ -2,8 +2,6 @@
 {
     public class OrderDTORead
     {
-        public OrderDTORead() { }
-
         public OrderDTORead(int orderId, DateTime orderDate, decimal orderPrice, int personId_FK)
         {
             OrderId = orderId;
@@ -15,8 +13,6 @@
         public int OrderId { get; set; }
         public DateTime OrderDate { get; set; }
         public int PersonId_FK { get; set; }
-        //public PersonDTORead Person { get; set; }
-        //public List<OrderLineDTORead> OrderLines { get; set; }
         public decimal OrderPrice { get; set; }
     }
 }

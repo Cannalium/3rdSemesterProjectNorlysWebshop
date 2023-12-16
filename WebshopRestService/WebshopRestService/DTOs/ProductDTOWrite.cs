@@ -1,4 +1,5 @@
-﻿namespace WebshopRestService.DTOs {
+﻿namespace WebshopRestService.DTOs 
+{
     public class ProductDTOWrite 
     {
         public ProductDTOWrite() { }

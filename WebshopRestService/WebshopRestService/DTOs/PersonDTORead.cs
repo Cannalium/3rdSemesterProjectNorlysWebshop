@@ -2,8 +2,6 @@
 {
     public class PersonDTORead
     {
-        public PersonDTORead() { }
-
         public PersonDTORead(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin)
         {
             PersonId = personId;
@@ -12,7 +10,6 @@
             PhoneNo = phoneNo;
             Email = email;
             IsAdmin = isAdmin;
-            
         }
 
         public int PersonId { get; set; }
@@ -21,6 +18,6 @@
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
         public bool IsAdmin { get; set; }   
-        }
     }
+}
 

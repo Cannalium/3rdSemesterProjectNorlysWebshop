@@ -1,11 +1,7 @@
-﻿using WebshopModel.ModelLayer;
-
-namespace WebshopRestService.DTOs 
+﻿namespace WebshopRestService.DTOs
 {
     public class OrderLineDTORead 
     {
-        public OrderLineDTORead() { }
-
         public OrderLineDTORead(int prodId, int orderLineProdQuantity) 
         {
             ProdId = prodId;

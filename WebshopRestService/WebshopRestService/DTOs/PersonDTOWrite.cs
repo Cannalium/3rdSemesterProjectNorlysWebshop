@@ -1,9 +1,7 @@
-﻿namespace WebshopRestService.DTOs {
-
+﻿namespace WebshopRestService.DTOs 
+{
     public class PersonDTOWrite 
     {
-        public PersonDTOWrite() { }
-
         public PersonDTOWrite(string? firstName, string? lastName, string? phoneNo, string? email)
         {
             FirstName = firstName;

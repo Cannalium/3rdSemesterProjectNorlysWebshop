@@ -1,11 +1,7 @@
-﻿using WebshopModel.ModelLayer;
-
-namespace WebshopRestService.DTOs
+﻿namespace WebshopRestService.DTOs
 {
     public class OrderLineDTOWrite 
     {
-        public OrderLineDTOWrite() { }
-
         public OrderLineDTOWrite(int prodId, int orderLineProdQuantity)
         { 
             OrderLineProdQuantity = orderLineProdQuantity;

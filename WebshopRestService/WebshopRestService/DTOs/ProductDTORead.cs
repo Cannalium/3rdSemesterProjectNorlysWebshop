@@ -1,12 +1,10 @@
-﻿namespace WebshopRestService.DTOs {
+﻿namespace WebshopRestService.DTOs 
+{
     public class ProductDTORead
     {
-        public ProductDTORead() { }
-
         public ProductDTORead(int prodId, string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType) : this(prodName, prodDescription, prodPrice, prodQuantity, prodType )
         {
             ProdId = prodId;
-
         }
 
         public ProductDTORead(string? prodName, string? prodDescription, decimal prodPrice, int prodQuantity, string? prodType)
@@ -23,8 +21,7 @@
         public string? ProdDescription { get; set; }
         public decimal ProdPrice { get; set; }
         public int ProdQuantity { get; set; }
-        public string? ProdType { get; set; }
-          
+        public string? ProdType { get; set; }  
     }
 }
 
