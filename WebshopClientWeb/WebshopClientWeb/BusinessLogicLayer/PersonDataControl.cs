@@ -1,6 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
-using Microsoft.VisualBasic;
-using System.Net;
+﻿using System.Net;
 using WebshopClientWeb.Model;
 using WebshopClientWeb.ServiceLayer;
 
@@ -17,26 +15,13 @@ namespace WebshopClientWeb.BusinessLogicLayer
             _PersonAccess = new PersonServiceAccess();
         }
 
+        // Retrieves a person by email using the PersonAccess service asynchronously
         public async Task<Person> GetPersonByEmail(string email)
         {
             Person foundPerson = await _PersonAccess.GetPersonByEmail(email);
 
             return foundPerson;
         }
-
-       //MyGroupCollectionAttribute web Client is async Solution called WebshopClientWeb it has the following folder: 
-
-        /*public async Task<Person?> CreatePersonFromUserAccount(string userId, string? email)
-        {
-            Person? createdPerson = null;
-
-            if (!string.IsNullOrEmpty(userId))
-            {
-                Person PersonToSave = new Person(email, userId);
-                createdPerson = await _PersonAccess.SavePerson(PersonToSave);
-            }
-
-            return createdPerson; */
-        }
     }
+}
 

@@ -15,6 +15,7 @@ namespace WebshopClientWeb.BusinessLogicLayer
             _OrderAccess = new OrderServiceAccess();
         }
 
+        // Creates an order using the OrderAccess service and returns the inserted order ID
         public async Task<int> CreateOrder(Order orderToCreate)
         {
             int insertedOrderId = await _OrderAccess.CreateOrder(orderToCreate);
