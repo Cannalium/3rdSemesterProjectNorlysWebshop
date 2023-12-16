@@ -6,84 +6,54 @@ namespace WebshopRestService.ModelConversion
     public class OrderDTOConversion
     {
         // Convert from Order objects to OrderDTO objects
-        public static List<OrderDTORead>? FromOrderCollection(List<Order> inOrders)
+        public static List<OrderDTORead>? FromOrderCollection(List<Order> orders)
         {
-            List<OrderDTORead>? anOrderReadDTOList = null;
-            if (inOrders != null)
+            List<OrderDTORead>? orderDTOReadList = null;
+            if (orders != null)
             {
-                anOrderReadDTOList = new List<OrderDTORead>();
+                orderDTOReadList = new List<OrderDTORead>();
                 OrderDTORead? tempDTO;
-                foreach (Order anOrder in inOrders)
+                foreach (Order anOrder in orders)
                 {
                     if (anOrder != null)
                     {
                         tempDTO = FromOrder(anOrder);
-                        anOrderReadDTOList.Add(tempDTO);
+                        orderDTOReadList.Add(tempDTO);
                     }
                 }
             }
-            return anOrderReadDTOList;
+            return orderDTOReadList;
         }
 
         // Convert from Order object to OrderDTO object
-        public static OrderDTORead? FromOrder(Order inOrder)
+        public static OrderDTORead? FromOrder(Order order)
         {
-            OrderDTORead? anOrderReadDTO = null;
-            if (inOrder != null)
+            OrderDTORead? anOrderDTORead = null;
+            if (order != null)
             {
-                anOrderReadDTO = new OrderDTORead(inOrder.OrderId, inOrder.OrderDate, inOrder.OrderPrice, inOrder.PersonId_FK);
-
-                // Assuming there's a Person to PersonDTO mapping method
-                //anOrderReadDTO.Person = PersonDTOConversion.FromPerson(inOrder.Person);
-
-                // Additional mapping or assignments for other properties
+                anOrderDTORead = new OrderDTORead(order.OrderId, order.OrderDate, order.OrderPrice, order.PersonId_FK);
             }
-            return anOrderReadDTO;
+            return anOrderDTORead;
         }
 
-            public static Order ToOrder(OrderDTOWrite inDTO)
-            {
-                Order anOrder = null;
-                if (inDTO != null)
-                {
-
-                // Convert OrderLines from List<OrderLineDTOWrite> to List<OrderLine>
-                List<OrderLine?> orderLines = inDTO.OrderLines.Select(olDTO =>
-                    OrderLineDTOConversion.ToOrderLine(olDTO)  // Convert OrderLineDTOWrite to OrderLine
-                ).ToList();
-
-                Person? person = PersonDTOConversion.ToPerson(inDTO.PersonDTORead);
-
-                anOrder = new Order(
-                        orderPrice: inDTO.OrderPrice,
-                        person: person,
-                        orderLines: orderLines
-                    );
-
-                    // Additional mapping or assignments for other properties
-                }
-                return anOrder;
-            }
-
-
         // Convert from OrderDTO object to Order object
-        /*public static Order? ToOrder(OrderDTOWrite inDTO)
+        public static Order ToOrder(OrderDTOWrite inDTO)
         {
-            Order? anOrder = null;
+            Order anOrder = null;
             if (inDTO != null)
             {
-                anOrder = new Order(); // ALT FORSVINDER HER
+                // Convert OrderLines from List<OrderLineDTOWrite> to List<OrderLine>
+                List<OrderLine?> orderLines = inDTO.OrderLines.Select(orderLineDTO =>
+                    OrderLineDTOConversion.ToOrderLine(orderLineDTO)  // Convert OrderLineDTOWrite to OrderLine
+                ).ToList();
 
-                // Assuming there's a PersonDTO to Person mapping method
-                anOrder.Person = new Person {PersonId = inDTO.Person.PersonId};
-                //anOrder.OrderDate = inDTO.OrderDate; // Map the orderDate property
-                //anOrder.OrderPrice = inDTO.OrderPrice; // Map the orderPrice property
+                // Convert person from personDTORead to person
+                Person? person = PersonDTOConversion.ToPerson(inDTO.PersonDTORead);
 
-                // Additional mapping or assignments for other properties
+                anOrder = new Order(orderPrice: inDTO.OrderPrice, person: person, orderLines: orderLines);
             }
-            return a*/
-
-
+            return anOrder;
+        }
     }
 }
 

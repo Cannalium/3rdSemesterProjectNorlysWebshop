@@ -6,34 +6,34 @@ namespace WebshopRestService.ModelConversion
     public class OrderLineDTOConversion
     {
         // Convert from OrderLine objects to OrderLineDTO objects
-        public static List<OrderLineDTORead>? FromOrderLineCollection(List<OrderLine> inOrderLines)
+        public static List<OrderLineDTORead>? FromOrderLineCollection(List<OrderLine> orderLines)
         {
-            List<OrderLineDTORead>? anOrderLineReadDTOList = null;
-            if (inOrderLines != null)
+            List<OrderLineDTORead>? orderLineDTOReadList = null;
+            if (orderLines != null)
             {
-                anOrderLineReadDTOList = new List<OrderLineDTORead>();
+                orderLineDTOReadList = new List<OrderLineDTORead>();
                 OrderLineDTORead? tempDTO;
-                foreach (OrderLine anOrderLine in inOrderLines)
+                foreach (OrderLine anOrderLine in orderLines)
                 {
                     if (anOrderLine != null)
                     {
                         tempDTO = FromOrderLine(anOrderLine);
-                        anOrderLineReadDTOList.Add(tempDTO);
+                        orderLineDTOReadList.Add(tempDTO);
                     }
                 }
             }
-            return anOrderLineReadDTOList;
+            return orderLineDTOReadList;
         }
 
         // Convert from OrderLine object to OrderLineDTO object
         public static OrderLineDTORead? FromOrderLine(OrderLine inOrderLine)
         {
-            OrderLineDTORead? anOrderLineReadDTO = null;
+            OrderLineDTORead? anOrderLineDTORead = null;
             if (inOrderLine != null)
             {
-                anOrderLineReadDTO = new OrderLineDTORead(inOrderLine.ProdId, inOrderLine.OrderLineProdQuantity);
+                anOrderLineDTORead = new OrderLineDTORead(inOrderLine.ProdId, inOrderLine.OrderLineProdQuantity);
             }
-            return anOrderLineReadDTO;
+            return anOrderLineDTORead;
         }
 
         // Convert from OrderLineDTO object to OrderLine object

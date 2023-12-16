@@ -6,34 +6,34 @@ namespace WebshopRestService.ModelConversion
     public class PersonDTOConversion
     {
         // Convert from Person objects to PersonDTO objects
-        public static List<PersonDTORead>? FromPersonCollection(List<Person> inPersons)
+        public static List<PersonDTORead>? FromPersonCollection(List<Person> persons)
         {
-            List<PersonDTORead>? aPersonReadDTOList = null;
-            if (inPersons != null)
+            List<PersonDTORead>? personDTOReadList = null;
+            if (persons != null)
             {
-                aPersonReadDTOList = new List<PersonDTORead>();
+                personDTOReadList = new List<PersonDTORead>();
                 PersonDTORead? tempDTO;
-                foreach (Person aPerson in inPersons)
+                foreach (Person aPerson in persons)
                 {
                     if (aPerson != null)
                     {
                         tempDTO = FromPerson(aPerson);
-                        aPersonReadDTOList.Add(tempDTO);
+                        personDTOReadList.Add(tempDTO);
                     }
                 }
             }
-            return aPersonReadDTOList;
+            return personDTOReadList;
         }
 
         // Convert from Person object to PersonDTO object
         public static PersonDTORead? FromPerson(Person Person)
         {
-            PersonDTORead? aPersonReadDTO = null;
+            PersonDTORead? aPersonDTORead = null;
             if (Person != null)
             {
-                aPersonReadDTO = new PersonDTORead(Person.PersonId,Person.FirstName, Person.LastName, Person.PhoneNo, Person.Email, Person.IsAdmin); //usikker på om userId skal være her, fordi det er, når man laver DTO'en, og userId er ikke en del af personDataCreatDTO
+                aPersonDTORead = new PersonDTORead(Person.PersonId,Person.FirstName, Person.LastName, Person.PhoneNo, Person.Email, Person.IsAdmin); //usikker på om userId skal være her, fordi det er, når man laver DTO'en, og userId er ikke en del af personDataCreatDTO
             }
-            return aPersonReadDTO;
+            return aPersonDTORead;
         }
 
         // Convert from PersonDTO object to Person object

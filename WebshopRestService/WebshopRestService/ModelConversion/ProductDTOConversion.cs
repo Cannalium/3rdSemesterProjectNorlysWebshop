@@ -6,23 +6,22 @@ namespace WebshopRestService.ModelConversion
     public class ProductDTOConversion
     {
         // Convert from Product objects to ProductDTO objects
-        public static List<ProductDTORead> FromProductCollection(List<Product> inProducts)
+        public static List<ProductDTORead> FromProductCollection(List<Product> products)
         {
-            List<ProductDTORead> aProductReadDTOList = new List<ProductDTORead>();
+            List<ProductDTORead> productDTOReadList = new List<ProductDTORead>();
             
             ProductDTORead tempDTO;
-            foreach (Product aProduct in inProducts)
+            foreach (Product aProduct in products)
             {
                 tempDTO = FromProduct(aProduct);
-                aProductReadDTOList.Add(tempDTO);
+                productDTOReadList.Add(tempDTO);
             }
-            return aProductReadDTOList;
+            return productDTOReadList;
         }
 
         // Convert from Person object to PersonDTO object
         public static ProductDTORead FromProduct(Product inProduct)
         {
-
             return new ProductDTORead(inProduct.ProdId, inProduct.ProdName, inProduct.ProdDescription, inProduct.ProdPrice, inProduct.ProdQuantity, inProduct.ProdType);
         }
 
