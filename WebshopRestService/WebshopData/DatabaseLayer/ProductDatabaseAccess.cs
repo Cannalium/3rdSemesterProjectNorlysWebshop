@@ -45,7 +45,7 @@ namespace WebshopData.DatabaseLayer
         }
 
         // Retrieves all products from the database and returns a list of Product objects
-        public List<Product> GetProductAll()
+        public List<Product> GetAllProducts()
         {
             List<Product> foundProducts;
             Product readProd;
@@ -68,32 +68,6 @@ namespace WebshopData.DatabaseLayer
                 }
             }
             return foundProducts;
-        }
-
-        // Retrieves products from the database based on the provided product type and returns a list of Product objects
-        public List<Product> GetProductByType(string findProdType)
-        {
-            List<Product> foundProducts;
-
-            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodType = @ProdType";
-            using (SqlConnection con = new SqlConnection(_connectionString))
-            using (SqlCommand readCommand = new SqlCommand(queryString, con))
-            {
-                //Prepare SQL
-                SqlParameter prodTypeParam = new SqlParameter("@ProdType", findProdType);
-                readCommand.Parameters.Add(prodTypeParam);
-
-                con.Open();
-
-                //Execute read
-                SqlDataReader prodReader = readCommand.ExecuteReader();
-                foundProducts = new List<Product>();
-                while (prodReader.Read())
-                {
-                    foundProducts.Add(GetProductFromReader(prodReader));
-                }
-                return foundProducts;
-            }
         }
 
         // Retrieves a product from the database based on the provided prodId and returns the corresponding Product object
@@ -120,6 +94,32 @@ namespace WebshopData.DatabaseLayer
                 }
             }
             return foundProd;
+        }
+
+        // Retrieves products from the database based on the provided product type and returns a list of Product objects
+        public List<Product> GetProductByType(string findProdType)
+        {
+            List<Product> foundProducts;
+
+            string queryString = "select prodId, prodName, prodDescription, prodPrice, prodQuantity, prodType from Product where prodType = @ProdType";
+            using (SqlConnection con = new SqlConnection(_connectionString))
+            using (SqlCommand readCommand = new SqlCommand(queryString, con))
+            {
+                //Prepare SQL
+                SqlParameter prodTypeParam = new SqlParameter("@ProdType", findProdType);
+                readCommand.Parameters.Add(prodTypeParam);
+
+                con.Open();
+
+                //Execute read
+                SqlDataReader prodReader = readCommand.ExecuteReader();
+                foundProducts = new List<Product>();
+                while (prodReader.Read())
+                {
+                    foundProducts.Add(GetProductFromReader(prodReader));
+                }
+                return foundProducts;
+            }
         }
 
         // Updates a product in the database based on the provided Product object and returns true if successful
@@ -158,7 +158,7 @@ namespace WebshopData.DatabaseLayer
         }
 
         // Deletes a Product from the database based on the provided prodId and returns true if successful
-        public bool DeleteProduct(int prodId)
+        public bool DeleteProductById(int prodId)
         {
             bool productDeleted = false;
             string queryString = "DELETE FROM Product WHERE prodId = @ProdId";

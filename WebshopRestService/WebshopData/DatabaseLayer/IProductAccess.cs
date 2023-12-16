@@ -4,11 +4,11 @@ namespace WebshopData.DatabaseLayer
 {
     public interface IProductAccess
     {
-        List<Product> GetProductAll();
         int CreateProduct(Product productToCreate);
+        List<Product> GetAllProducts();
         Product GetProductById(int prodId);
         List<Product> GetProductByType(string prodType);
         bool UpdateProduct(Product productToUpdate);
-        bool DeleteProduct(int prodId);
+        bool DeleteProductById(int prodId);
     }
 }

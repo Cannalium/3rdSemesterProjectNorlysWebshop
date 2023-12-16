@@ -14,12 +14,13 @@ namespace WebshopRestService.BusinessLogicLayer
             _productAccess = ProductAccess;
         }
 
-        public int Add(ProductDTOWrite productToAdd)
+        // Creates a new Product in the database from a ProductDTOWrite using ModelConversion and returns the generated prodId
+        public int CreateProduct(ProductDTOWrite productToCreate)
         {
             int insertedId = 0;
             try
             {
-                Product? foundProduct = ModelConversion.ProductDTOConversion.ToProduct(productToAdd);
+                Product? foundProduct = ModelConversion.ProductDTOConversion.ToProduct(productToCreate);
                 if (foundProduct != null)
                 {
                     insertedId = _productAccess.CreateProduct(foundProduct);
@@ -32,11 +33,12 @@ namespace WebshopRestService.BusinessLogicLayer
             return insertedId;
         }
 
-        public bool Delete(int prodId)
+        // Deletes a Product from the database based on the provided prodId using ProductAccess and returns true if successful
+        public bool DeleteProductById(int prodId)
         {
             try
             {
-                bool deletionSuccessful = _productAccess.DeleteProduct(prodId);
+                bool deletionSuccessful = _productAccess.DeleteProductById(prodId);
                 return deletionSuccessful;
             }
             catch
@@ -45,7 +47,8 @@ namespace WebshopRestService.BusinessLogicLayer
             }
         }
 
-        public ProductDTORead? Get(int prodId)
+        // Retrieves a ProductDTORead from the database based on the provided prodId using ProductAccess and ModelConversion, handling exceptions
+        public ProductDTORead? GetProductById(int prodId)
         {
             ProductDTORead? foundProductDTO;
             try
@@ -61,6 +64,7 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundProductDTO;
         }
 
+        // Retrieves a list of ProductDTORead objects based on the provided prodType using ProductAccess and ModelConversion, handling exceptions
         public List<ProductDTORead> GetProductByType(string prodType)
         {
             List<ProductDTORead> foundProductsDTO;
@@ -78,12 +82,13 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundProductsDTO;
         }
 
-        public List<ProductDTORead> Get()
+        // Retrieves a list of all ProductDTORead objects from the database using ProductAccess and ModelConversion
+        public List<ProductDTORead> GetAllProducts()
         {
             List<ProductDTORead> foundDTOs;
             try
             {
-                List<Product> foundProducts = _productAccess.GetProductAll();
+                List<Product> foundProducts = _productAccess.GetAllProducts();
                 foundDTOs = ModelConversion.ProductDTOConversion.FromProductCollection(foundProducts);
             }
             catch (Exception ex)
@@ -94,7 +99,8 @@ namespace WebshopRestService.BusinessLogicLayer
             return foundDTOs;
         }
 
-        public bool Put(ProductDTOWrite productToUpdate)
+        // Updates a Product in the database based on the provided ProductDTOWrite using ModelConversion and ProductAccess, handling exceptions
+        public bool UpdateProduct(ProductDTOWrite productToUpdate)
         {
             try
             {
@@ -107,8 +113,9 @@ namespace WebshopRestService.BusinessLogicLayer
                 }
                 return false;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Logger.LogError(ex);
                 return false;
             }
         }
