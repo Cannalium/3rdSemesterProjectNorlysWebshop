@@ -21,7 +21,7 @@ namespace WebshopRestService.Controllers
          */
         // URL: api/products
         [HttpGet]
-        public ActionResult<List<ProductDTORead>>? Get(string? prodType = "%")
+        public ActionResult<List<ProductDTORead>>? GetProducts(string? prodType = "%")
         {
             ActionResult<List<ProductDTORead>> foundReturn;
             List<ProductDTORead>? foundProducts = null;
