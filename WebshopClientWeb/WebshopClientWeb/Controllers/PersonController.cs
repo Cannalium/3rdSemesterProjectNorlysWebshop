@@ -15,6 +15,7 @@ namespace WebshopClientWeb.Controllers
             _personDataControl = new PersonDataControl();
         }
 
+        // Displays the user profile page, retrieving the logged-in user's information from the provided email
         [Authorize]
         public async Task<IActionResult> Profile()
         {
@@ -22,8 +23,8 @@ namespace WebshopClientWeb.Controllers
             string? email = HttpContext.User.FindFirstValue(ClaimTypes.Email);
             if (string.IsNullOrEmpty(email))
             {
-                // if email is not available
-                return RedirectToAction("Error", "Home"); // Redirect to an error page
+                // If email is not available
+                return RedirectToAction("Error", "Home");
             }
             // Get person through service
             Person? personFromService = await _personDataControl.GetPersonByEmail(email);
@@ -31,16 +32,9 @@ namespace WebshopClientWeb.Controllers
             if (personFromService == null)
             {
                 // Person not found
-                return RedirectToAction("NotFound","Home"); // Redirect to a not found page
+                return RedirectToAction("NotFound","Home");
             }
             return View(personFromService);
-        }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult> EditProfile(string id)
-        {
-            return null;
         }
     }
 }
