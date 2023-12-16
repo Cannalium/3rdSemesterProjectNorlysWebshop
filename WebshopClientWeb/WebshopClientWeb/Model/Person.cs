@@ -4,24 +4,16 @@ namespace WebshopClientWeb.Model
 {
     public class Person
     {
-
         public Person() { }
 
-        public Person(string? email)
-        {
-            
-            Email = email;
-            
-        }
-
-        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) : this(email)
+        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin)
         {
             PersonId = personId;
             FirstName = firstName;
             LastName = lastName;
             PhoneNo = phoneNo;
+            Email = email;
             IsAdmin = isAdmin;
-
         }
 
         public int PersonId { get; set; }
