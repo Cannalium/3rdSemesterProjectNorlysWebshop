@@ -45,7 +45,7 @@ namespace WebshopDataTest
             Assert.Equal(insertedId, productById.ProdId); // Ensure correct product is retrived
 
             // Clean up - Delete the test product from the database?
-            bool deletionResult = _productAccess.DeleteProduct(insertedId);
+            bool deletionResult = _productAccess.DeleteProductById(insertedId);
             Assert.True(deletionResult); // Check if deletion was successful
         }
 
@@ -55,7 +55,7 @@ namespace WebshopDataTest
             // Arrange
 
             // Act
-            List<Product> readProducts = _productAccess.GetProductAll();
+            List<Product> readProducts = _productAccess.GetAllProducts();
             bool productsWereRead = (readProducts.Count > 0);
             // Print additional output
             _extraOutput.WriteLine("Number of products: " + readProducts.Count);
@@ -90,7 +90,7 @@ namespace WebshopDataTest
             Assert.True(updateResult);
 
             // Clean up - Delete the test product from the database?
-            bool deletionResult = _productAccess.DeleteProduct(insertedId);
+            bool deletionResult = _productAccess.DeleteProductById(insertedId);
             Assert.True(deletionResult); // Check if deletion was successful
         }
 
@@ -110,11 +110,10 @@ namespace WebshopDataTest
             int insertedId = _productAccess.CreateProduct(testProduct);
 
             // Act
-            bool deleteResult = _productAccess.DeleteProduct(insertedId);
+            bool deleteResult = _productAccess.DeleteProductById(insertedId);
 
             // Assert
             Assert.True(deleteResult);
         }
-
     }
 }
