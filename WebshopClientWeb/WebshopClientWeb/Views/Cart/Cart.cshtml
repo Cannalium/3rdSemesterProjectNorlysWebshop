@@ -84,12 +84,6 @@ else if (Model != null && Model.Any())
         <b>Total = @total kr.</b>
     </div>
 
-    <div> hfjkshkwbehfwfeh</div>
-
-    <input id="orderIdHidden" name="orderIdHidden" value="@ViewBag.OrderId" hidden="hidden" />
-    <input id="orderIdHidden5" name="orderIdHidden5" value="5" hidden="hidden" />
-    <div> @ViewBag.OrderId </div>
-
     <div class="bottom-buttons">
         <div id="empty-button">
             <form asp-controller="Cart" asp-action="EmptyCart" method="post">
@@ -120,7 +114,7 @@ else
             oid = (int)@ViewBag.OrderId;
         }
         string headerText = "Køb ikke fuldført";
-        string detailText = "Something went wrong";
+        string detailText = "Noget gik galt. Prøv igen.";
         if (oid > 0)
         {
             headerText = "Køb fuldført";
@@ -171,15 +165,9 @@ else
             // Check if OrderId is present in ViewBag
             var orderId = @Html.Raw(Json.Serialize(ViewBag.OrderId))
             var orderIdInt = parseInt(orderId);
-                // alert(orderId + " " + orderIdInt);
-            //     int oid2 = 0;
-            // if (@ViewBag.OrderId != null) {
-            //     oid2 = (int)@ViewBag.OrderId;
-            //     alert(oid2);
-            // }
-            // // Update the modal ID and content
+                
                 // $('#myModal .modal-body').html('<p>Dit ordre ID er 222: ' + orderId + '</p>');
-            if (orderIdInt > 0 || orderIdInt == -2 || orderIdInt == -3) {
+            if (orderIdInt > 0 || orderIdInt == -1 || orderIdInt== -2 || orderIdInt == -3 || orderIdInt == -4) {
                 // alert(182);
                 // Show the modal
                 $('#myModal').modal('show');
