@@ -1,24 +1,20 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.CodeAnalysis;
 using WebshopClientWeb.BusinessLogicLayer;
-using WebshopClientWeb.Logging;
 using WebshopClientWeb.Model;
-using WebshopClientWeb.ServiceLayer;
 
 namespace WebshopClientWeb.Controllers
 {
-
     public class ProductController : Controller
     {
-            private ProductDataControl _productDataControl;
+        private ProductDataControl _productDataControl;
 
-            public ProductController()
-            {
-                _productDataControl = new ProductDataControl();
+        public ProductController()
+        {
+            _productDataControl = new ProductDataControl();
 
-            }
+        }
 
+        // Retrieves and displays all products on the "Product" page
         [Route("Product")]
         public async Task<IActionResult> Product()
         {
@@ -29,16 +25,13 @@ namespace WebshopClientWeb.Controllers
             return View(products);
         }
 
+        // Retrieves all products from the data control layer
         public async Task<List<Product>> GetAllProducts()
         {
             return await _productDataControl.GetAllProducts();
         }
-        public async Task<List<Product>> GetAllProductsByType(string type)
-        {
-            Logger.LogInfo($"Getting all products by type. Type: {type}");
-            return await _productDataControl.GetAllProductsByType(type);
-        }
 
+        // Retrieves a product by its ID from the data control layer
         public async Task<Product> GetProdById(int prodId)
         {
             return await _productDataControl.GetProdById(prodId);

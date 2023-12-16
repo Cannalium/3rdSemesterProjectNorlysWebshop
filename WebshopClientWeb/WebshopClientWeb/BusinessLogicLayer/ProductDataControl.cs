@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Net;
+﻿using System.Net;
 using WebshopClientWeb.Logging;
 using WebshopClientWeb.Model;
 using WebshopClientWeb.ServiceLayer;
@@ -18,26 +16,19 @@ namespace WebshopClientWeb.BusinessLogicLayer
             _ProductAccess = new ProductServiceAccess();
         }
 
-        public async Task<List<Product>> GetAllProductsByType(string type)
-        {
-            Logger.LogInfo($"Getting all products by type. Type: {type}");
-            return await _ProductAccess.GetAllProductsByType(type);
-
-        }
-
+        // Asynchronously retrieves all products using the ProductAccess service and logs the action
         public async Task<List<Product>> GetAllProducts()
         {
             Logger.LogInfo($"Getting all products");
             return await _ProductAccess.GetAllProducts();
         }
 
+        // Asynchronously retrieves a product by ID using the ProductAccess service and logs the action
         public async Task<Product> GetProdById(int prodId)
         {
             Logger.LogInfo($"Getting product by ID");
             Product foundProduct = await _ProductAccess.GetProdById(prodId);
             return foundProduct;
-
         }
-
     }
 }
