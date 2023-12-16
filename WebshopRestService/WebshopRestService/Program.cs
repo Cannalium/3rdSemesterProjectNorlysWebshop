@@ -14,11 +14,6 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<IOrderAccess, OrderDatabaseAccess>();
 builder.Services.AddSingleton<IOrderData, OrderDataControl>();
 
-//OrderLine
-
-builder.Services.AddSingleton<IOrderLineAccess, OrderLineDatabaseAccess>(); 
-builder.Services.AddSingleton<IOrderLineData,  OrderLineDataControl>();
-
 //Person
 
 builder.Services.AddSingleton<IPersonAccess, PersonDatabaseAccess>();
