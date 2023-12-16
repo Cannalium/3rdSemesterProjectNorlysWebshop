@@ -7,11 +7,6 @@ namespace WebshopClientWeb.ServiceLayer
     {
         HttpStatusCode CurrentHttpStatusCode { get; set; }
         
-        //Task<List<Customer>?>? GetCustomers();
-
         Task<Person> GetPersonByEmail(string email);
-
-        Task<Person?> SavePerson(Person savePerson);
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System.Net;
 using System.Text;
 using WebshopClientWeb.Model;
@@ -18,6 +17,7 @@ namespace WebshopClientWeb.ServiceLayer
             _orderService = new ServiceConnection(_serviceBaseUrl);
         }
 
+        // Creates an order by sending a POST request to the OrderService, handling various HTTP status codes and exceptions
         public async Task<int> CreateOrder(Order orderToCreate)
         {
             int insertedOrderId = -1;
@@ -42,11 +42,11 @@ namespace WebshopClientWeb.ServiceLayer
                     }
                     if (serviceResponse != null && serviceResponse.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        insertedOrderId = -2;
+                        insertedOrderId = -2; // If not found (404) recieved
                     }
                     if (serviceResponse != null && serviceResponse.StatusCode == System.Net.HttpStatusCode.Conflict)
                     {
-                        insertedOrderId = -3;
+                        insertedOrderId = -3; // If conflict (409) recieved
                     }
                 }
                 catch

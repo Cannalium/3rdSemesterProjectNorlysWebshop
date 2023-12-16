@@ -1,6 +1,4 @@
-﻿
-
-using System.Net;
+﻿using System.Net;
 using WebshopClientWeb.Model;
 
 namespace WebshopClientWeb.ServiceLayer
@@ -9,12 +7,7 @@ namespace WebshopClientWeb.ServiceLayer
     {
         HttpStatusCode CurrentHttpStatusCode { get; set; }
 
-        //Task<List<Product>> GetProducts();
-
-        Task<List<Product>> GetAllProductsByType(string prodType);
-
         Task<List<Product>> GetAllProducts();
-
         Task<Product> GetProdById(int prodId);
 
     }   

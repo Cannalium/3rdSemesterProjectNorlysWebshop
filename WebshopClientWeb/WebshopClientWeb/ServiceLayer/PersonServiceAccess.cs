@@ -17,6 +17,7 @@ namespace WebshopClientWeb.ServiceLayer
             _personService = new ServiceConnection(_serviceBaseUrl);
         }
 
+        // Retrieves a person by email from the PersonService, handling various HTTP status codes and exceptions
         public async Task<Person> GetPersonByEmail(string email)
         {
             Person? personFromService = null;
@@ -55,71 +56,32 @@ namespace WebshopClientWeb.ServiceLayer
                             if (serviceResponse.StatusCode == HttpStatusCode.NotFound)
                             {
                                 // Handle 404 Not Found
-                                personFromService = null; // or set to a default Person object
+                                personFromService = null;
                             }
                             else if (serviceResponse.StatusCode == HttpStatusCode.BadRequest)
                             {
                                 // Handle 400 Bad Request
-                                personFromService = null; // or set to a default Person object
+                                personFromService = null;
                             }
-                            // Add more conditions for other status codes as needed
                             else
                             {
                                 // Handle other status codes
-                                personFromService = null; // or set to a default Person object
+                                personFromService = null;
                             }
                         }
                     }
                     else
                     {
                         // Handle the case where serviceResponse is null
-                        // Set personFromService to a default Person object or handle accordingly
                         personFromService = new Person();
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Log the exception details (Step 3)
-                    // You can use a logging library like Serilog, NLog, etc.
-                    // Example: logger.LogError(ex, "An error occurred while getting a person by email");
-
-                    // Optionally, rethrow the exception if needed
                     throw;
                 }
             }
-
             return personFromService!;
         }
-
-
-        public async Task<Person?> SavePerson(Person savePerson)
-        {
-
-            Person? personFromService = null;
-
-            _personService.UseUrl = _personService.BaseUrl;
-
-            if (_personService != null)
-            {
-                try
-                {
-                    var json = JsonConvert.SerializeObject(savePerson);
-                    var inContent = new StringContent(json, Encoding.UTF8, "application/json");
-
-                    var serviceResponse = await _personService.CallServicePost(inContent);
-                    if (serviceResponse != null && serviceResponse.IsSuccessStatusCode)
-                    {
-                        var resultContent = await serviceResponse.Content.ReadAsStringAsync();
-                        personFromService = JsonConvert.DeserializeObject<Person>(resultContent);
-                    }
-                }
-                catch
-                {
-                    personFromService = null;
-                }
-            }
-            return personFromService;
-        }
-
     }
 }

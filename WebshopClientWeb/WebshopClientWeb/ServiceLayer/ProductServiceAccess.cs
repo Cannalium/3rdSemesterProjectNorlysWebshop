@@ -16,38 +16,7 @@ namespace WebshopClientWeb.ServiceLayer
             _productService = new ServiceConnection(_serviceBaseUrl);
         }
 
-        /* public Task<List<Product>> GetProducts()
-         {
-             List<Product>? listFromService = null;
-
-             _productService.UseUrl = _productService.BaseUrl;
-             _productService.UseUrl += $"api/product/";
-
-         }*/
-
-        public async Task<List<Product>> GetAllProductsByType(string prodType)
-        {
-            _productService.UseUrl = $"{_productService.BaseUrl}api/product/type/{prodType}";
-
-            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
-
-            if (serviceResponse.IsSuccessStatusCode)
-            {
-                string responseData = await serviceResponse.Content.ReadAsStringAsync();
-                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
-
-                if (products == null)
-                {
-                    return new List<Product>();
-                }
-                return products;
-            }
-            else
-            {
-                return new List<Product>();
-            }
-        }
-
+        // Retrieves a list of all products from the ProductService, handling HTTP status codes and returning an empty list on failure
         public async Task<List<Product>> GetAllProducts()
         {
             _productService.UseUrl = $"{_productService.BaseUrl}api/product";
@@ -71,6 +40,7 @@ namespace WebshopClientWeb.ServiceLayer
             }
         }
 
+        // Retrieves a product by ID from the ProductService, handling HTTP status codes and returning a default Product object on failure
         public async Task<Product> GetProdById(int prodId)
         {
             Product? productFromService = null;
@@ -88,26 +58,17 @@ namespace WebshopClientWeb.ServiceLayer
                 }
                 else
                 {
-                    // Handle other status codes if needed
-                    // Set productFromService to a default Product object
+                    // Handles other status codes by setting productFromService to a default Product object
                     productFromService = new Product();
                 }
-
                 CurrentHttpStatusCode = serviceResponse.StatusCode;
             }
             catch (Exception ex)
             {
-                // Log the exception details (You can use a logging library like Serilog, NLog, etc.)
-                // Example: logger.LogError(ex, "An error occurred while getting a product by ID");
-
-                // Optionally, rethrow the exception if needed
                 throw;
             }
-
             return productFromService;
         }
-
-        // Other methods (GetAllProductsByType, GetAllProducts) remain unchanged
     }
 }
  

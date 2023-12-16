@@ -13,16 +13,7 @@
         public string? BaseUrl { get; init; }
         public string? UseUrl { get; set; }
 
-        public async Task<HttpResponseMessage?> CallServiceGet()
-        {
-            HttpResponseMessage? hrm = null;
-            if (UseUrl != null)
-            {
-                hrm = await HttpEnabler.GetAsync(UseUrl);
-            }
-            return hrm;
-        }
-
+        // Calls a service with a POST request using the provided JSON content and returns the HttpResponseMessage
         public async Task<HttpResponseMessage?> CallServicePost(StringContent postJson)
         {
             HttpResponseMessage? hrm = null;
@@ -33,6 +24,18 @@
             return hrm;
         }
 
+        // Calls a service with a GET request and returns the HttpResponseMessage
+        public async Task<HttpResponseMessage?> CallServiceGet()
+        {
+            HttpResponseMessage? hrm = null;
+            if (UseUrl != null)
+            {
+                hrm = await HttpEnabler.GetAsync(UseUrl);
+            }
+            return hrm;
+        }
+
+        // Calls a service with a PUT request using the provided JSON content and returns the HttpResponseMessage
         public async Task<HttpResponseMessage?> CallServicePut(StringContent postJson)
         {
             HttpResponseMessage? hrm = null;
@@ -43,6 +46,7 @@
             return hrm;
         }
 
+        // Calls a service with a DELETE request and returns the HttpResponseMessage; returns null if UseUrl is not set
         public async Task<HttpResponseMessage?> CallServiceDelete()
         {
             HttpResponseMessage? hrm = null;
