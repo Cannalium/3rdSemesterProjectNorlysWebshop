@@ -15,6 +15,7 @@ namespace WebshopClientWeb.Controllers
             _productController = new ProductController();
         }
 
+        // Retrieves the order ID and OrderLineDetails from TempData, and passes them to the view along with the cart items
         public IActionResult Cart()
         {
             // Retrieve the order ID from TempData
