@@ -1,12 +1,9 @@
-using System.Collections.Generic;
 using WebshopData.DatabaseLayer;
 using WebshopModel.ModelLayer;
-using Xunit;
 using Xunit.Abstractions;
 
 namespace WebshopDataTest
 {
-
     public class TestPersonDataAccess
     {
 
