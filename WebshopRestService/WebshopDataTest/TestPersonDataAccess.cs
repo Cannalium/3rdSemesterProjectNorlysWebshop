@@ -21,70 +21,19 @@ namespace WebshopDataTest
             _personAccess = new PersonDatabaseAccess(_connectionString);
         }
 
+        [Fact]
+        public void TestGetPersonById()
+        {
+            // Arrange
+            string personEmailToRetrieve = "Test@Test.dk";
 
-        //    [Fact]
-        //    public void TestDeletePerson()
-        //    {
-        //        //Arange
-        //        Person testPerson = new Person()
-        //        { FirstName = "fatimaaa",
-        //          LastName = "fatfataa",
-        //          PhoneNo = "44444433",
-        //          Email = "fatimaaa@ucn.dk",
-        //          IsAdmin = true,
-        //        };
+            // Act
+            Person retrievedPerson = _personAccess.GetPersonByEmail(personEmailToRetrieve);
 
-        //        int insertedId = _personAccess.CreatePerson(testPerson);
-
-        //        // Act
-        //        bool deleteResult = _personAccess.DeletePerson(insertedId);
-
-        //        // Assert
-        //        Assert.True(deleteResult);
-        //    }
-
-        //    [Fact]
-        //    public void TestUpdatePerson()
-        //    {
-        //        // Arrange
-        //        Person testPerson = new Person()
-        //        {
-        //            FirstName = "fatimaaa",
-        //            LastName = "fatfataa",
-        //            PhoneNo = "44444433",
-        //            Email = "fatimaaa@ucn.dk",
-        //            IsAdmin= true,
-        //        };
-
-        //        int insertedId = (_personAccess.CreatePerson(testPerson));
-
-        //        // Modify details
-        //        testPerson.PersonId = insertedId;
-        //        testPerson.FirstName = "Oda";
-        //        // testPerson.PersonType = "Employee";
-
-        //        // Act
-        //        bool updateResult = _personAccess.UpdatePerson(testPerson);
-
-        //        // Assert
-        //        Assert.True(updateResult);
-        //    }
-
-        //    [Fact]
-        //    public void TestGetPersonById()
-        //    {
-        //        // Arrange
-        //        int personIdToRetrieve = 6;
-
-        //        // Act
-        //        Person retrievedPerson = _personAccess.GetPersonById(personIdToRetrieve);   
-
-        //        // Assert
-        //        Assert.NotNull(retrievedPerson); //Assures that a person object is retrieved
-        //        Assert.Equal(personIdToRetrieve, retrievedPerson.PersonId); //Ensure correct person is retrieved
-        //    }
-
-        //}
+            // Assert
+            Assert.NotNull(retrievedPerson); //Assures that a person object is retrieved
+            Assert.Equal(personEmailToRetrieve, retrievedPerson.Email); //Ensure correct person is retrieved
+        }
     }
 }
 
