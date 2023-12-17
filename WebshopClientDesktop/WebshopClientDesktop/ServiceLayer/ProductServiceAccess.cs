@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using WebshopClientDesktop.ModelLayer;
-using static System.Net.WebRequestMethods;
 
 namespace WebshopClientDesktop.ServiceLayer
 {
@@ -13,7 +8,6 @@ namespace WebshopClientDesktop.ServiceLayer
     {
         readonly ServiceConnection _productService;
 
-        //Mangler url samt port number - sat til null for nu.
         readonly String _serviceBaseUrl = "https://localhost:7173/api/product";
 
         public ProductServiceAccess()
@@ -21,52 +15,7 @@ namespace WebshopClientDesktop.ServiceLayer
             _productService = new ServiceConnection(_serviceBaseUrl);
         }
 
-        public async Task<List<Product>> GetAllProducts()
-        {
-            _productService.UseUrl = $"{_productService.BaseUrl}";
-
-            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
-
-            if (serviceResponse.IsSuccessStatusCode)
-            {
-                string responseData = await serviceResponse.Content.ReadAsStringAsync();
-                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
-
-                if (products == null)
-                {
-                    return new List<Product>();
-                }
-                return products;
-            }
-            else
-            {
-                return new List<Product>();
-            }
-        }
-
-        public async Task<List<Product>> GetAllProductsByType(string prodType)
-        {
-            _productService.UseUrl = $"{_productService.BaseUrl}?prodType={prodType}";
-
-            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
-
-            if (serviceResponse.IsSuccessStatusCode)
-            {
-                string responseData = await serviceResponse.Content.ReadAsStringAsync();
-                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
-
-                if (products == null)
-                {
-                    return new List<Product>();
-                }
-                return products;
-            }
-            else
-            {
-                return new List<Product>();
-            }
-        }
-
+        // Creates a new product by sending a POST request to the ProductService API
         public async Task<int> CreateProduct(Product productToSave)
         {
             int insertedProdId = -1;
@@ -74,55 +23,87 @@ namespace WebshopClientDesktop.ServiceLayer
 
             try
             {
+                // Serialize the product to JSON
                 string jsonProduct = JsonConvert.SerializeObject(productToSave);
                 var httpContent = new StringContent(jsonProduct, Encoding.UTF8, "application/json");
 
-                //Call service
+                // Call the ProductService API to create a new product
                 var serviceRespone = await _productService.CallServicePost(httpContent);
 
-                //If succesful 200-299
+                // If successful HTTP status code 200-299
                 if (serviceRespone is not null && serviceRespone.IsSuccessStatusCode)
                 {
+                    // Parse the inserted product ID from the response
                     string idString = await serviceRespone.Content.ReadAsStringAsync();
                     bool numOk = Int32.TryParse(idString, out insertedProdId);
                     if (!numOk)
                     {
-                        insertedProdId = -2;
+                        insertedProdId = -2; // Parsing error
                     }
-                }
-            } catch
-            {
-                insertedProdId = -2;
-            }
-
-            return insertedProdId;
-        }
-
-        public async Task<bool> DeleteProduct(int prodId)
-        {
-            bool isDeleted = false;
-            _productService.UseUrl = $"{_productService.BaseUrl}/{prodId}";
-
-            try
-            {
-                // Call service to delete chosen product
-                var serviceResponse = await _productService.CallServiceDelete();
-
-                // If successful HTTP status code 200-299
-                if (serviceResponse is not null && serviceResponse.IsSuccessStatusCode)
-                {
-                    isDeleted = true;
                 }
             }
             catch
             {
-                
-                isDeleted = false;
+                insertedProdId = -2; // Exception occurred
             }
-
-            return isDeleted;
+            return insertedProdId;
         }
 
+        // Retrieves all products by sending a GET request to the ProductService API
+        public async Task<List<Product>> GetAllProducts()
+        {
+            _productService.UseUrl = $"{_productService.BaseUrl}";
+
+            // Call the ProductService API to get all products
+            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
+
+            if (serviceResponse.IsSuccessStatusCode)
+            {
+                // Parse the response data into a list of products
+                string responseData = await serviceResponse.Content.ReadAsStringAsync();
+                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
+
+                // Check if the deserialization was successful
+                if (products == null)
+                {
+                    return new List<Product>();
+                }
+                return products;
+            }
+            else
+            {
+                return new List<Product>(); // Error occurred
+            }
+        }
+
+        // Retrieves products by type by sending a GET request to the ProductService API
+        public async Task<List<Product>> GetAllProductsByType(string prodType)
+        {
+            _productService.UseUrl = $"{_productService.BaseUrl}?prodType={prodType}";
+
+            // Call the ProductService API to get products by type
+            HttpResponseMessage serviceResponse = await _productService.CallServiceGet();
+
+            if (serviceResponse.IsSuccessStatusCode)
+            {
+                // Parse the response data into a list of products
+                string responseData = await serviceResponse.Content.ReadAsStringAsync();
+                List<Product>? products = JsonConvert.DeserializeObject<List<Product>>(responseData);
+
+                // Check if the deserialization was successful
+                if (products == null)
+                {
+                    return new List<Product>();
+                }
+                return products;
+            }
+            else
+            {
+                return new List<Product>(); // Error occurred
+            }
+        }
+
+        // Updates a product by sending a PUT request to the ProductService API
         public async Task<bool> UpdateProduct(Product updatedProduct)
         {
             bool isUpdated = false;
@@ -136,7 +117,7 @@ namespace WebshopClientDesktop.ServiceLayer
                 var json = JsonConvert.SerializeObject(updatedProduct);
                 var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-                // Call service to update the chosen product
+                // Call the ProductService API to update the chosen product
                 var serviceResponse = await _productService.CallServicePut(content);
 
                 // If successful HTTP status code 200-299
@@ -147,11 +128,33 @@ namespace WebshopClientDesktop.ServiceLayer
             }
             catch
             {
-                // Handle exceptions or log errors if needed
                 isUpdated = false;
             }
-
             return isUpdated;
+        }
+
+        // Deletes a product by sending a DELETE request to the ProductService API
+        public async Task<bool> DeleteProduct(int prodId)
+        {
+            bool isDeleted = false;
+            _productService.UseUrl = $"{_productService.BaseUrl}/{prodId}";
+
+            try
+            {
+                // Call the ProductService API to delete the chosen product
+                var serviceResponse = await _productService.CallServiceDelete();
+
+                // If successful HTTP status code 200-299
+                if (serviceResponse is not null && serviceResponse.IsSuccessStatusCode)
+                {
+                    isDeleted = true;
+                }
+            }
+            catch
+            {
+                isDeleted = false; // Exception occurred
+            }
+            return isDeleted;
         }
     }
 }
