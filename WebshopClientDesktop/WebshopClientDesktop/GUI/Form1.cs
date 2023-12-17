@@ -188,6 +188,9 @@ namespace WebshopClientDesktop
                     selectedProduct.ProdPrice = updatedProdPrice;
                     selectedProduct.ProdQuantity = updatedProdQuantity;
 
+                    // Update product type based on the selected radio button
+                    selectedProduct.ProdType = GetSelectedProductType();
+
                     // Call the update method from the service
                     bool isUpdated = await _productControl.UpdateProduct(selectedProduct);
 
@@ -315,6 +318,10 @@ namespace WebshopClientDesktop
                 }
 
                 UpdateListBoxDataSource(productList);
+
+                // Clear radio button selection
+                radioBtnEvent.Checked = false;
+                radioBtnMerch.Checked = false;
             }
             catch (Exception ex)
             {
