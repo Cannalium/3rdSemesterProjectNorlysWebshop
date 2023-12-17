@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebshopClientDesktop.ModelLayer
+﻿namespace WebshopClientDesktop.ModelLayer
 {
     public class Product
     {
@@ -12,7 +6,6 @@ namespace WebshopClientDesktop.ModelLayer
 
         public Product(string prodName, string prodDescription, decimal prodPrice, int prodQuantity, string prodType)
         {
-            
             ProdName = prodName;
             ProdDescription = prodDescription;
             ProdPrice = prodPrice;
@@ -36,6 +29,5 @@ namespace WebshopClientDesktop.ModelLayer
         {
             return ProdName;
         }
-
     }
 }
