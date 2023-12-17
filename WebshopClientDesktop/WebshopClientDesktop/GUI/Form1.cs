@@ -1,4 +1,3 @@
-using System.Windows.Forms;
 using WebshopClientDesktop.BusinessLogicLayer;
 using WebshopClientDesktop.Logging;
 using WebshopClientDesktop.ModelLayer;
@@ -9,21 +8,19 @@ namespace WebshopClientDesktop
     {
         private readonly ProductControl _productControl;
         private string selectedProductType;
-
-
         public Form1()
         {
             InitializeComponent();
 
             _productControl = new ProductControl();
-
         }
-
         private async void Form1_Load(object sender, EventArgs e)
         {
             await RefreshListBoxDataSource();
         }
 
+        /* Handles the event when the selected item in the product list changes
+         * Retrieves and displays details of the selected product, enabling/disabling UI elements accordingly */
         private void ListBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Store existing messages
@@ -65,38 +62,7 @@ namespace WebshopClientDesktop
             lblProcessCreate.Text = createText;
         }
 
-        private async void BtnGetProducts_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Logger.LogInfo("Button getProducts clicked");
-
-                //Fetching the list of products
-                List<Product> fetchedProducts = await _productControl.GetAllProducts();
-
-                //Logging the results
-                string processText = (fetchedProducts != null && fetchedProducts.Count >= 1) ? "Produkter hentet." : "Ingen events fundet.";
-                Logger.LogInfo(processText);
-
-                //UI
-                //The listbox gets filled
-                //The UI gets reset
-                //The selected products gets cleared from the populated textboxes
-                //The label shows if everything went ok or not
-                listBoxProducts.DataSource = fetchedProducts;
-                ResetUiTexts();
-                listBoxProducts.ClearSelected();
-                lblProcessText.Text = processText;
-            }
-            catch (Exception ex)
-            {
-                //Error is logged and displayed
-                Logger.LogError(ex);
-                MessageBox.Show("Der opstod en fejl ved hentning af produkter.", "Fejl", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
+        // Updates the selectedProductType based on the checked radio button (Event or Merch)
         private void RadioBtn_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton selectedRadioButton = (RadioButton)sender;
@@ -107,30 +73,30 @@ namespace WebshopClientDesktop
             }
         }
 
+        // Handles the Click event for the "Delete Product" button. Initiates the process of deleting the selected product
         private async void BtnDeleteProduct_Click(object sender, EventArgs e)
         {
             try
             {
                 if (listBoxProducts.SelectedItem == null)
                 {
-                    //Log and display a message
+                    // Log and display a message
                     lblProcessText.Text = "Vælg venligst et event for at slette";
                     Logger.LogWarning("Delete operation canceled: No item selected.");
                     return;
                 }
 
-                //The user is asked for confirmation
+                // The user is asked for confirmation
                 DialogResult result = MessageBox.Show("Er du sikker på, at du vil slette dette produkt?", "Bekræft sletning", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                 if (result != DialogResult.Yes)
                 {
-                    //Log and display a message
+                    // Display a message
                     lblProcessText.Text = "Sletning afbrudt.";
-                    Logger.LogInfo("Delete operation canceled by user.");
                     return;
                 }
 
-                //Product deletion process
+                // Product deletion process
                 Product selectedProduct = (Product)listBoxProducts.SelectedItem;
 
                 // Attempt to delete the product
@@ -142,7 +108,6 @@ namespace WebshopClientDesktop
 
                 // Log and display the result
                 lblProcessText.Text = isDeleted ? "Event slettet!" : "Der er sket en uventet fejl.";
-                Logger.LogInfo(isDeleted ? "Event slettet!" : "Der er sket en uventet fejl.");
             }
             catch (Exception ex)
             {
@@ -152,7 +117,7 @@ namespace WebshopClientDesktop
             }
         }
 
-
+        // Handles the Click event for the "Create Product" button. Initiates the process of creating a new product
         private async void BtnCreateProduct_Click(object sender, EventArgs e)
         {
             try
@@ -178,7 +143,6 @@ namespace WebshopClientDesktop
                 // Log and display the result
                 string messageText = (insertedId > 0) ? $"Event oprettet!" : "Fejl: Der opstod en uventet fejl.";
                 lblProcessCreate.Text = messageText;
-                Logger.LogInfo(messageText);
 
                 // Reset UI and refresh list
                 ResetUiTexts();
@@ -195,6 +159,7 @@ namespace WebshopClientDesktop
             }
         }
 
+        // Handles the Click event for the "Edit Product" button. Initiates the process of updating a selected product
         private async void BtnEditProduct_Click(object sender, EventArgs e)
         {
             try
@@ -229,9 +194,8 @@ namespace WebshopClientDesktop
                     ResetUiTexts();
                     await RefreshListBoxDataSource();
 
-                    // Log and display the result
+                    // Display the result
                     lblProcessCreate.Text = isUpdated ? $"Produkt opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.";
-                    Logger.LogInfo(isUpdated ? $"Produkt opdateret!" : "Fejl: Der er sket en uventet fejl i opdateringen.");
 
                     // Display a MessageBox with the created product message
                     MessageBox.Show($"Produkt opdateret!", "Produkt opdateret!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -251,6 +215,7 @@ namespace WebshopClientDesktop
             }
         }
 
+        // Handles the Click event for the "Clear Details" button
         private void BtnClearDetails_Click(object sender, EventArgs e)
         {
             ResetUiTexts();
@@ -262,11 +227,9 @@ namespace WebshopClientDesktop
 
             //Clear combobox
             comboBoxProducts.SelectedIndex = -1;
-
-            // Clear the data source of the ListBox
-            listBoxProducts.DataSource = null;
         }
 
+        // Resets various UI elements, including labels, text fields, and colors
         public void ResetUiTexts()
         {
             lblProcessText.Text = null;
@@ -281,6 +244,7 @@ namespace WebshopClientDesktop
             txtBoxProductQuantity.Text = "";
         }
 
+        // Refreshes the data source of a ListBox with all products, clears selection, and unchecks a radio button
         public async Task RefreshListBoxDataSource()
         {
             List<Product> allProducts = await _productControl.GetAllProducts();
@@ -289,6 +253,7 @@ namespace WebshopClientDesktop
             listBoxProducts.ClearSelected();
         }
 
+        // Validates input for creating or editing a product, ensuring non-empty and valid values
         private bool InputIsOk(string prodName, string prodDescription, string prodPriceText, string prodQuantityText, out decimal prodPrice, out int prodQuantity)
         {
             prodPrice = 0;
@@ -312,6 +277,7 @@ namespace WebshopClientDesktop
             return true;
         }
 
+        // Returns the selected product type based on the checked radio button
         private string GetSelectedProductType()
         {
             if (radioBtnEvent.Checked)
@@ -326,6 +292,7 @@ namespace WebshopClientDesktop
             return "";
         }
 
+        // Handles the selection change event of the ComboBox, updating the ListBox data source based on the selected option
         private async void ComboBoxProducts_SelectedIndexChanged(object sender, EventArgs e)
         {
             string? selectedOption = comboBoxProducts.SelectedItem?.ToString();
@@ -356,7 +323,7 @@ namespace WebshopClientDesktop
             }
         }
 
-
+        // Updates the data source of the ListBox with the provided list of products
         private void UpdateListBoxDataSource(List<Product> productList)
         {
             listBoxProducts.DataSource = null; // Clear the current data source
