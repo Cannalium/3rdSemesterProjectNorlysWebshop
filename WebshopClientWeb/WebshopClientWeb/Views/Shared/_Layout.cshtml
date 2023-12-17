@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<!-- HTML5 document type declaration and head section with meta tags, title, and style links -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -9,25 +10,34 @@
     <link rel="stylesheet" href="~/WebShop.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
+
+<!-- Body section -->
 <body>
+    <!-- Header section with navigation bar -->
     <header>
+        <!-- Navigation bar with logo, toggle button, and menu items -->
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src ="~/images/Norlyslogo.png" alt="Norlys logo"></a>
+                <!-- WebShop logo in the navigation bar -->
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/images/Norlyslogo.png" alt="Norlys logo"></a>
+                <!-- Toggle button for collapsed navigation menu on smaller screens -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                <!-- Collapsible navigation menu -->
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <!-- Menu item for Products if user is authenticated -->
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Product" asp-action="Product">Produkter</a>
                             </li>
                         }
-                        </ul>
-                        @if (User.Identity.IsAuthenticated)
+                    </ul>
+                    <!-- User-specific menu items if authenticated -->
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
@@ -36,32 +46,32 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Person" asp-action="Profile">Kundeprofil</a>
                             </li>
-
                         </ul>
                     }
+                    <!-- Partial view for login status -->
                     <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
+    <!-- Main content container -->
     <div class="container">
+        <!-- Main content section -->
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
+    <!-- Footer section with copyright information -->
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2023 - WebShop
         </div>
     </footer>
+    <!-- JavaScript libraries and custom scripts -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- Render additional scripts section if defined -->
     @await RenderSectionAsync("Scripts", required: false)
-    @section OrderLineDetails {
-        <!-- This section is intentionally left blank -->
-        <!-- It will be overridden by child views when needed -->
-    }
 </body>
 </html>

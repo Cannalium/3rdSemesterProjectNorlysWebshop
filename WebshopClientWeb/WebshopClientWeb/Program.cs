@@ -4,47 +4,50 @@ using WebshopClientWeb.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-//Add services to the container.
+// Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Configure DbContext with SQL Server
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-//Identity configuration
+// Identity configuration
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
-    options.SignIn.RequireConfirmedAccount = false;
-    options.User.RequireUniqueEmail = true;
+    // Configuration for Identity user
+    options.SignIn.RequireConfirmedAccount = false; // Account confirmation not required
+    options.User.RequireUniqueEmail = true; // Require unique email addresses
 })
-    .AddEntityFrameworkStores<ApplicationDbContext>(); ;
+    .AddEntityFrameworkStores<ApplicationDbContext>(); // Use Entity Framework with ApplicationDbContext
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
+    app.UseMigrationsEndPoint(); // Enable the Migrations End Point in development
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/Home/Error"); // Handle exceptions and redirect to error page
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    app.UseHsts(); // Use HTTP Strict Transport Security (HSTS) in non-development environments
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseHttpsRedirection(); // Redirect HTTP requests to HTTPS
+app.UseStaticFiles(); // Serve static files (e.g., images, CSS, JavaScript)
 
 app.UseRouting();
 
-app.UseAuthentication();
-app.UseAuthorization();
+app.UseAuthentication(); // Enable authentication
+app.UseAuthorization(); // Enable authorization
 
+// Map default controller route and Razor pages
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Person}/{action=Profile}/{id?}");
 app.MapRazorPages();
 
-app.Run();
+app.Run(); // Start the application

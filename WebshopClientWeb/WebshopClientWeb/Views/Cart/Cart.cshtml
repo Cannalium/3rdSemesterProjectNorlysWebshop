@@ -1,55 +1,43 @@
-﻿@model IEnumerable<WebshopClientWeb.Model.OrderLine>
+﻿<!-- Model declaration -->
+@model IEnumerable<WebshopClientWeb.Model.OrderLine>
 
 @{
     ViewData["Title"] = "Cart";
-    decimal total = 0;
+    decimal total = 0; <!-- ViewData setup -->
 }
 
 <h1>Indkøbskurv</h1>
+
 @if (TempData["CartEmptyMessage"] != null)
 {
-    <p>@TempData["CartEmptyMessage"].ToString()</p>
+    <p>@TempData["CartEmptyMessage"].ToString()</p> <!-- Display message if cart is empty -->
 }
-
 else if (Model != null && Model.Any())
 {
+    <!-- Display table with cart items -->
     <table class="table">
+        <!-- Table headers -->
         <thead>
             <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.CartProduct.ProdName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CartProduct.ProdDescription)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CartProduct.ProdPrice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CartProduct.ProdQuantity)
-                </th>
+                <th>@Html.DisplayNameFor(model => model.CartProduct.ProdName)</th>
+                <th>@Html.DisplayNameFor(model => model.CartProduct.ProdDescription)</th>
+                <th>@Html.DisplayNameFor(model => model.CartProduct.ProdPrice)</th>
+                <th>@Html.DisplayNameFor(model => model.CartProduct.ProdQuantity)</th>
                 <th></th>
             </tr>
         </thead>
+        <!-- Table body -->
         <tbody>
             @foreach (var orderLine in Model)
             {
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdDescription)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => orderLine.CartProduct.ProdPrice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => orderLine.OrderLineProdQuantity)
-                    </td>
-                    <td>
-                        @(orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice)
-                    </td>
+                    <!-- Display cart item details -->
+                    <td>@Html.DisplayFor(modelItem => orderLine.CartProduct.ProdName)</td>
+                    <td>@Html.DisplayFor(modelItem => orderLine.CartProduct.ProdDescription)</td>
+                    <td>@Html.DisplayFor(modelItem => orderLine.CartProduct.ProdPrice)</td>
+                    <td>@Html.DisplayFor(modelItem => orderLine.OrderLineProdQuantity)</td>
+                    <td>@(orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice)</td>
+                    <!-- Form for updating cart item quantity -->
                     <td>
                         @if (orderLine.OrderLineProdQuantity > 0)
                         {
@@ -64,7 +52,7 @@ else if (Model != null && Model.Any())
                             <p>Ikke tilgængelig.</p>
                         }
                     </td>
-
+                    <!-- Button to remove item from cart -->
                     <td>
                         <a asp-action="RemoveFromCart" asp-route-prodId="@orderLine.CartProduct.ProdId" class="btn btn-sm btn-danger" id="remove-product-button">
                             <i class="fa fa-trash"></i> Fjern produkt
@@ -75,22 +63,22 @@ else if (Model != null && Model.Any())
         </tbody>
     </table>
 
+    <!-- Calculate and display total price -->
     @foreach (var orderLine in Model)
     {
         total += (orderLine.OrderLineProdQuantity * orderLine.CartProduct.ProdPrice);
     }
-
     <div id="pricetotal-text" style="text-align: right; margin-top: 20px;">
         <b>Total = @total kr.</b>
     </div>
 
+    <!-- Buttons for cart actions -->
     <div class="bottom-buttons">
         <div id="empty-button">
             <form asp-controller="Cart" asp-action="EmptyCart" method="post">
                 <button type="submit" class="btn btn-danger">Tøm kurv</button>
             </form>
         </div>
-
         <div id="order-button">
             <form asp-controller="Order" asp-action="CreateOrder" method="post" id="orderForm">
                 <p>
@@ -102,13 +90,13 @@ else if (Model != null && Model.Any())
 }
 else
 {
-    <p>Indkøbskurven er tom.</p>
+    <p>Indkøbskurven er tom.</p> <!-- Display message when cart is empty -->
 }
 
-<!-- The Modal displaying order confirmation-->
+<!-- Modal for order confirmation -->
 <div class="modal" id="myModal">
     @{
-        int oid = -1; 
+        int oid = -1;
         if (@ViewBag.OrderId != null)
         {
             oid = (int)@ViewBag.OrderId;
@@ -120,101 +108,40 @@ else
             headerText = "Køb fuldført";
             detailText = "Dit ordre ID er: " + oid;
         }
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">@headerText</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body">
-                            <!-- Update the ID of the element to target it in your JavaScript -->
-                            <p>@detailText</p>
-
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-
     }
-    @*else
-    {
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Køb fuldført</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <!-- Update the ID of the element to target it in your JavaScript -->
-                    <p>Dit ordre ID er: @ViewBag.OrderId</p>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    }*@
-</div>
-
-@section scripts {
-    <script>
-        $(document).ready(function () {
-            // Check if OrderId is present in ViewBag
-            var orderId = @Html.Raw(Json.Serialize(ViewBag.OrderId))
-            var orderIdInt = parseInt(orderId);
-                
-                // $('#myModal .modal-body').html('<p>Dit ordre ID er 222: ' + orderId + '</p>');
-            if (orderIdInt > 0 || orderIdInt == -1 || orderIdInt== -2 || orderIdInt == -3 || orderIdInt == -4) {
-                // alert(182);
-                // Show the modal
-                $('#myModal').modal('show');
-
-                // Manually trigger the close button event
-                $('#myModal .close, #myModal [data-dismiss="modal"]').click(function () {
-                    $('#myModal').modal('hide');
-                });
-           }
-        });
-    </script>
-}
-
-@* <!-- The Modal displaying purchase not completed -->
-<div class="modal" id="purchaseNotCompletedModal">
+    <!-- Modal content -->
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Køb ikke gennemført</h4>
+                <h4 class="modal-title">@headerText</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Køb ikke gennemført. Venligst prøv igen senere.</p>
+                <!-- Display order confirmation message -->
+                <p>@detailText</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Luk</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Script for modal behavior -->
 @section scripts {
     <script>
         $(document).ready(function () {
-            // Check if PurchaseNotCompletedModal should be shown
-            var showPurchaseNotCompletedModal = @Html.Raw(Json.Serialize(ViewBag.ShowPurchaseNotCompletedModal));
+            var orderId = @Html.Raw(Json.Serialize(ViewBag.OrderId));
+            var orderIdInt = parseInt(orderId);
 
-            if (showPurchaseNotCompletedModal) {
-                // Show the "Køb ikke gennemført" modal
-                $('#purchaseNotCompletedModal').modal('show');
+            if (orderIdInt > 0 || orderIdInt == -1 || orderIdInt == -2 || orderIdInt == -3 || orderIdInt == -4) {
+                // Show the modal
+                $('#myModal').modal('show');
+                // Manually trigger the close button event
+                $('#myModal .close, #myModal [data-dismiss="modal"]').click(function () {
+                    $('#myModal').modal('hide');
+                });
             }
         });
     </script>
-} *@
-
-
-
-
-
-
+}

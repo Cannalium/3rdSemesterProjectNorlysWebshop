@@ -1,38 +1,28 @@
-﻿@model WebshopClientWeb.Model.Person
+﻿<!-- Model declaration for Person -->
+@model WebshopClientWeb.Model.Person
 
 @{
-    ViewData["Title"] = "Profile";
+    ViewData["Title"] = "Profile"; <!-- Set the title of the view -->
 }
 
-<h1>Kundeprofil</h1>
+<h1>Kundeprofil</h1> <!-- Display a heading for the customer profile -->
 
 <div class="profile-table">
     <hr />
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PhoneNo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PhoneNo)
-        </dd>
+        <!-- Display personal information using definition and description lists -->
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.FirstName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.FirstName)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.LastName)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.LastName)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PhoneNo)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PhoneNo)</dd>
     </dl>
 </div>
+
 
