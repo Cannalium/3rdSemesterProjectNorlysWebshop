@@ -12,10 +12,9 @@
             Email = email;
         }
 
-        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin) : this (firstName, lastName, phoneNo, email)
+        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email) : this (firstName, lastName, phoneNo, email)
         {
             PersonId = personId;
-            IsAdmin = isAdmin;
         }
 
         public int PersonId { get; set; }
@@ -23,6 +22,5 @@
         public string? LastName { get; set; }
         public string? PhoneNo { get; set; }
         public string? Email { get; set; }
-        public bool IsAdmin { get; set; }
     }
 }

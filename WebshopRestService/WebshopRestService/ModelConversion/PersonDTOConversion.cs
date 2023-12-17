@@ -31,7 +31,7 @@ namespace WebshopRestService.ModelConversion
             PersonDTORead? aPersonDTORead = null;
             if (Person != null)
             {
-                aPersonDTORead = new PersonDTORead(Person.PersonId,Person.FirstName, Person.LastName, Person.PhoneNo, Person.Email, Person.IsAdmin); //usikker på om userId skal være her, fordi det er, når man laver DTO'en, og userId er ikke en del af personDataCreatDTO
+                aPersonDTORead = new PersonDTORead(Person.PersonId,Person.FirstName, Person.LastName, Person.PhoneNo, Person.Email);
             }
             return aPersonDTORead;
         }
@@ -42,7 +42,7 @@ namespace WebshopRestService.ModelConversion
             Person? aPerson = null;
             if (DTO != null)
             {
-                aPerson = new Person(DTO.PersonId, DTO.FirstName, DTO.LastName, DTO.PhoneNo, DTO.Email, DTO.IsAdmin);
+                aPerson = new Person(DTO.PersonId, DTO.FirstName, DTO.LastName, DTO.PhoneNo, DTO.Email);
             }
             return aPerson;
         }

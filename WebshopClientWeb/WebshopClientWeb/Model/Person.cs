@@ -6,14 +6,13 @@ namespace WebshopClientWeb.Model
     {
         public Person() { }
 
-        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email, bool isAdmin)
+        public Person(int personId, string? firstName, string? lastName, string? phoneNo, string? email)
         {
             PersonId = personId;
             FirstName = firstName;
             LastName = lastName;
             PhoneNo = phoneNo;
             Email = email;
-            IsAdmin = isAdmin;
         }
 
         public int PersonId { get; set; }
@@ -29,7 +28,6 @@ namespace WebshopClientWeb.Model
 
         [DisplayName("Email:")]
         public string? Email { get; set; }
-        public bool IsAdmin { get; }
         public string? UserId { get; set; }
     }
 }

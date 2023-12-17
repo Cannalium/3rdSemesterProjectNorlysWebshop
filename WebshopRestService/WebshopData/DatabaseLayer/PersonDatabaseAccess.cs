@@ -58,10 +58,9 @@ namespace WebshopData.DatabaseLayer
             tempLastName = personReader.GetString(personReader.GetOrdinal("lastName"));
             tempPhoneNo = personReader.GetString(personReader.GetOrdinal("phoneNo"));
             tempEmail = personReader.GetString(personReader.GetOrdinal("email"));
-            tempIsAdmin = personReader.GetBoolean(personReader.GetOrdinal("isAdmin"));
 
             // Create object
-            foundPerson = new Person(tempPersonId, tempFirstName, tempLastName, tempPhoneNo, tempEmail, tempIsAdmin);
+            foundPerson = new Person(tempPersonId, tempFirstName, tempLastName, tempPhoneNo, tempEmail);
             return foundPerson;
         }
     }
