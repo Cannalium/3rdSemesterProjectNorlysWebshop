@@ -21,7 +21,7 @@ namespace WebshopData.DatabaseLayer
         {
             Person foundPerson;
 
-            string queryString = "select personId, firstName, lastName, phoneNo, email, isAdmin from Person where email = @Email";
+            string queryString = "select personId, firstName, lastName, phoneNo, email from Person where email = @Email";
             using (SqlConnection con = new SqlConnection(_connectionString))
             using (SqlCommand readCommand = new SqlCommand(queryString, con))
             {
@@ -50,7 +50,6 @@ namespace WebshopData.DatabaseLayer
             string tempFirstName, tempLastName;
             string tempPhoneNo;
             string tempEmail;
-            bool tempIsAdmin;
 
             // Fetch values
             tempPersonId = personReader.GetInt32(personReader.GetOrdinal("personId"));

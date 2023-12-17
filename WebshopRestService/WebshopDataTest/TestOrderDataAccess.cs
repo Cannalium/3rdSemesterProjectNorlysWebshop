@@ -40,7 +40,7 @@ namespace WebshopDataTest
             int insertedId = orderAccess.CreateOrder(orderToCreate);
 
             // Assert
-            Assert.NotEqual(-1, insertedId); // Assert that order creation was successful
+            Assert.True(insertedId > 0); // Assert that order creation was successful
         }
 
         [Fact]
