@@ -92,21 +92,7 @@ namespace WebshopData.DatabaseLayer
             }
         }
 
-        //// Checks if the available quantity of a product in the database is sufficient for the requested quantity
-        //private bool IsSufficientQuantity(SqlConnection conn, int prodId, int requestedQuantity)
-        //{
-        //    using (SqlCommand checkCmd = conn.CreateCommand())
-        //    {
-        //        checkCmd.CommandText = "SELECT prodQuantity FROM [Product] WHERE prodId=@prodId";
-        //        checkCmd.Parameters.AddWithValue("prodId", prodId);
-
-        //        int availableQuantity = (int)checkCmd.ExecuteScalar();
-
-        //        return availableQuantity >= requestedQuantity;
-        //    }
-
-        //}
-
+        // Checks if the available quantity of a product in the database is sufficient for the requested quantity
         private bool IsSufficientQuantity(SqlConnection conn, int prodId, int requestedQuantity)
         {
             using (SqlCommand checkCmd = conn.CreateCommand())
@@ -129,7 +115,6 @@ namespace WebshopData.DatabaseLayer
                 }
             }
         }
-
 
         // Constructs an Order object from the data retrieved by the SqlDataReader
         private Order GetOrderFromReader(SqlDataReader orderReader)
