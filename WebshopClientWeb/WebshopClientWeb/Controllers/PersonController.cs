@@ -15,7 +15,6 @@ namespace WebshopClientWeb.Controllers
             _personDataControl = new PersonDataControl();
         }
 
-
         // Displays the user profile page, retrieving the logged-in user's information from the provided email
         [Authorize]
         public async Task<IActionResult> Profile()
