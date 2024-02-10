@@ -11,7 +11,7 @@ namespace WebshopClientWeb.Model
             OrderLines = orderLines;
         }  
         
-        [JsonProperty("PersonDTORead")]
+       [JsonProperty("PersonDTORead")]
         public Person Person { get; set; }
         public decimal OrderPrice { get; set; }
         public List<OrderLine> OrderLines { get; set; }  

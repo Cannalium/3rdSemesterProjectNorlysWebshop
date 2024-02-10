@@ -18,16 +18,16 @@ namespace WebshopClientWeb.Controllers
         // Retrieves the order ID and OrderLineDetails from TempData, and passes them to the view along with the cart items
         public IActionResult Cart()
         {
-            // Retrieve the order ID from TempData
+            // Retrieve the order ID from TempData 
             int? orderId = TempData["OrderId"] as int?;
 
-            // Pass the order ID to the view
+            // Pass the order ID to the view 
             ViewBag.OrderId = orderId;
 
-            // Retrieve OrderLineDetails from TempData
+            // Retrieve OrderLineDetails from TempData *
             List<string>? orderLineDetails = TempData["OrderLineDetails"] as List<string>;
 
-            // Pass OrderLineDetails to the view
+            // Pass OrderLineDetails to the view *
             ViewBag.OrderLineDetails = orderLineDetails;
 
             List<OrderLine>? foundCartItems = CartDataControl.ReadCart(HttpContext);

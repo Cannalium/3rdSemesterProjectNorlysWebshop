@@ -25,7 +25,7 @@ namespace WebshopData.DatabaseLayer
             bool sufficientStock = true;
 
             TransactionOptions tsOptions = new TransactionOptions();
-            tsOptions.IsolationLevel = IsolationLevel.ReadUncommitted;
+            tsOptions.IsolationLevel = IsolationLevel.RepeatableRead;
 
             // Using a TransactionScope to define the boundaries of a transaction block
             using (TransactionScope ts = new TransactionScope(TransactionScopeOption.Required, tsOptions))
